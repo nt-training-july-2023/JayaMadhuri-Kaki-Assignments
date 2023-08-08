@@ -1,0 +1,6 @@
+*.class
+/.project
+/bin
+/doc
+/.classpath
+*.txt
