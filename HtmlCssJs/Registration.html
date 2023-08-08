@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Registration
+        </title>
+        <link rel="stylesheet" href="Registration.css">
+        <script src="Registration.js"></script>
+    </head>
+    <body>
+        <div>
+            <form class="form" name="form">
+                <h2 class="title">Registration</h2>
+                <label class="first-label"><b>Full Name</b></label><br>
+                <input class="first-input" name="fullName" type="text" placeholder="Enter your name" required>
+                <label class="second-label"><b>Username</b></label><br>
+                <input class="second-input" name="userName" type="text" placeholder="Enter your username" required>
+                <br>
+                <label class="first-label"><b>Email</b></label><br>
+                <input class="first-input" name="email" type="text" placeholder="Enter your email" required>
+                <label class="second-label"><b>Phone Number</b></label><br>
+                <input class="second-input" name="phone" type="text" placeholder="Enter your number" required>
+                <br>
+                <label class="first-label"><b>Password</b></label><br>
+                <input class="first-input" name="password" type="text" placeholder="Enter your password" required>
+                <label class="second-label"><b>Confirm Password</b></label><br>
+                <input class="second-input" name="confirm" type="text" placeholder="Confirm your password" required>
+                <br>
+                <label class="first-label"><b>Gender</b></label>
+                <br>
+                <input class="gender-input" type="radio" name="gender" value="male" required><label class="gender">Male</label>
+                <input class="second-gender-input" type="radio" name="gender" value="female"><label class="gender">Female</label>
+                <input class="second-gender-input" type="radio" name="gender" value="prefer not to say"><label class="gender">Prefer not to say</label>
+                <br>
+                <div>
+                    <Button id="btn" onclick="validate()">Register</Button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

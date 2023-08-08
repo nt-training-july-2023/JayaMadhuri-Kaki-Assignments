@@ -1,0 +1,73 @@
+body{
+    background-image: linear-gradient(to left,rgb(121, 72, 167),rgb(126, 168, 231));
+    height:554px;
+    
+    .title{
+        margin-left: 30px;
+        position: relative;
+    }
+    .title:before{
+        position: absolute;
+        height: 3px;
+        width: 5%;
+        left: 0;
+        bottom: -5px;
+        background-image: linear-gradient(to left,rgb(121, 72, 167),rgb(126, 168, 231));
+        display: block;
+        content: "";
+    }
+    .form{
+        height:28rem;
+        width:97vh;
+        margin-top:6%;
+        border-radius: 3px;
+        margin-left: 55vh;
+        border: 1px solid white;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        .first-label{
+            margin-left: 30px;
+        }
+        .first-input{
+            margin-left: 5vh;
+            margin-top:1vh;
+            width:250px;
+            height: 30px;
+        }
+        .second-input{
+            margin-left: 52vh;
+            position:absolute;
+            margin-top:-36px;
+            width:250px;
+            height: 30px;
+        }
+        .gender-input{
+            margin-left: 30px;
+            margin-top: 10px;
+            accent-color: black;
+            
+        }
+        .gender{
+            padding-left: 8px;
+        }
+        .second-gender-input{
+            margin-left: 100px;
+            margin-top: 10px;
+            accent-color: black;
+        }
+        #btn{
+           margin-left:30px;
+           margin-top:25px;
+           width:560px;
+           padding-top: 8px;
+           padding-bottom: 8px;
+           background-image: linear-gradient(to left,rgb(121, 72, 167),rgb(126, 168, 231));
+           color:white;
+        }
+        .second-label{
+            margin-left: 42px;
+            position:absolute;
+            margin-top:-17px;
+        }
+    }
+}
