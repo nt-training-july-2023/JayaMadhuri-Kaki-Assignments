@@ -1,22 +1,22 @@
 package collectionClass;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-public class ArrayListDemo {
+public class LinkedHashSetDemo {
 	public static void main(String args[]) {
-		List<String> l = new ArrayList<>();
+		Set<String> l = new LinkedHashSet<>();
+		l.add("20");
 		l.add("10");
 		l.add("20");
-		l.add("30");
 		System.out.println("Elements in list");
 		Iterator<String> it = l.iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next());
 		}
-		l.remove("30");
-		System.out.println("list after removing 30: "+l);
+		l.remove("10");
+		System.out.println("list after removing 10: "+l);
 		System.out.println("size of list: "+l.size());
 	}
 }

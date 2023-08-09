@@ -1,12 +1,11 @@
 package collectionClass;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Vector;
 
-public class ArrayListDemo {
+public class VectorDemo {
 	public static void main(String args[]) {
-		List<String> l = new ArrayList<>();
+		Vector<String> l = new Vector<>();
 		l.add("10");
 		l.add("20");
 		l.add("30");

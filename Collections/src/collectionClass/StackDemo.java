@@ -1,22 +1,21 @@
 package collectionClass;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Stack;
 
-public class ArrayListDemo {
+public class StackDemo {
 	public static void main(String args[]) {
-		List<String> l = new ArrayList<>();
-		l.add("10");
-		l.add("20");
-		l.add("30");
+		Stack<String> l = new Stack<>();
+		l.push("10");
+		l.push("20");
+		l.push("30");
 		System.out.println("Elements in list");
 		Iterator<String> it = l.iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next());
 		}
-		l.remove("30");
-		System.out.println("list after removing 30: "+l);
+		l.pop();
+		System.out.println("list after removing one element: "+l);
 		System.out.println("size of list: "+l.size());
 	}
 }
