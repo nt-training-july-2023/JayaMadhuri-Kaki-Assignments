@@ -12,8 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,30 +31,30 @@ public class Users {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long userId;
   @Column
-  @NotEmpty(message = "First Name is required")
+  @NotBlank(message = "First Name is required")
   private String firstName;
   @Column
-  @NotEmpty(message = "Last Name is required")
+  @NotBlank(message = "Last Name is required")
   private String lastName;
   @Column
-  @NotEmpty(message = "Date of birth is required")
+  @NotBlank(message = "Date of birth is required")
   private String dateOfBirth;
   @Column
-  @NotEmpty(message = "Gender is required")
+  @NotBlank(message = "Gender is required")
   private String gender;
   @Column(unique = true)
-  @Email(message = "Not a valid Email")
-  @NotEmpty(message = "Email is required")
+  @NotBlank(message = "Email is required")
+  @Pattern(regexp = "^[A-Z0-9a-z+_-]+@gmail[.]com$",  message = "Email is not Valid")
   private String emailId;
   @Column
+  @NotBlank(message = "Password is required")
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
   message = "Password must be at least 8 characters long and "
              + "contain at least one digit, one lowercase letter, one uppercase letter, "
              + "one special character, and no whitespace")
-  @NotEmpty(message = "Password is required")
   private String password;
-  @Column(columnDefinition = "varchar(20) default 'Student'")
-  private String userType;
+  @Column
+  private String userType = "Student";
   @OneToMany(mappedBy = "students", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Results> results = new ArrayList<>();
