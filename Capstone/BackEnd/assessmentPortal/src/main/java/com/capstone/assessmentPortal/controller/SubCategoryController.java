@@ -72,9 +72,11 @@ public class SubCategoryController {
   }
   
   @PutMapping("/updateSubCategory/{subCategoryId}")
-  public ResponseEntity<Object> updateSubCategory(@PathVariable Long subCategoryId, @RequestBody SubCategory subCategory){
+  public ResponseEntity<Object> updateSubCategory(@PathVariable Long subCategoryId,
+		  @RequestBody SubCategory subCategory){
     try {
-    	SubCategory updatedSubCategory = subCategoryService.updateSubCategory(subCategory,subCategoryId);
+    	SubCategory updatedSubCategory = subCategoryService
+    			.updateSubCategory(subCategory, subCategoryId);
       return ResponseHandler.generateResponse("Successfully Updated",
 			HttpStatus.OK, "SubCategory", updatedSubCategory);
     }catch(Exception e) {

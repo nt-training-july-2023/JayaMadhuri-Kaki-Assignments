@@ -59,7 +59,8 @@ public class UsersController {
   }
   
   @PutMapping("/updateStudent/{studentId}")
-  public ResponseEntity<Object> updateStudentDetails(@PathVariable Long studentId,@RequestBody Users users){
+  public ResponseEntity<Object> updateStudentDetails(@PathVariable Long studentId,
+		   @RequestBody Users users){
     try {
 	  Users studentDetails = usersService.updateStudentDetails(studentId, users);
 	  return ResponseHandler.generateResponse("Successfully Updated",

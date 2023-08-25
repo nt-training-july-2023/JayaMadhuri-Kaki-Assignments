@@ -37,7 +37,6 @@ public class UsersServiceImplementation implements UsersService{
 	}else {
 		return null;
 	}
-	
   }
 
   @Override
@@ -62,5 +61,4 @@ public class UsersServiceImplementation implements UsersService{
   public Optional<Users> getStudentById(Long studentId) {
     return usersRepo.findById(studentId);
   }
-
 }

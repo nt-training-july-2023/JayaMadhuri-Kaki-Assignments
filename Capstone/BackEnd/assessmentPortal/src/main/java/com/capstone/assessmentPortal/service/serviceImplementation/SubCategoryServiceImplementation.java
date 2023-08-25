@@ -52,5 +52,4 @@ public class SubCategoryServiceImplementation implements SubCategoryService{
   public List<SubCategory> getSubCategoryByCategoryId(Long categoryId) {
     return subCategoryRepo.getSubCategoryByCategoryId(categoryId);
   }
-  
 }

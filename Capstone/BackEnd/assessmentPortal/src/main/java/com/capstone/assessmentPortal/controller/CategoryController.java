@@ -60,7 +60,8 @@ public class CategoryController {
   }
   
   @PutMapping("/updateCategory/{categoryId}")
-  public ResponseEntity<Object> updateCategory(@PathVariable Long categoryId, @RequestBody Category category){
+  public ResponseEntity<Object> updateCategory(@PathVariable Long categoryId,
+		  @RequestBody Category category){
     try {
 	  Category updatedCategory = categoryService.updateCategory(categoryId, category);
       return ResponseHandler.generateResponse("Successfully Updated",
