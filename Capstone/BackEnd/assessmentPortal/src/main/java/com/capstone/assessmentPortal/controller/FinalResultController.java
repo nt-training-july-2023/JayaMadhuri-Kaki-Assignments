@@ -20,7 +20,7 @@ public class FinalResultController {
   FinalResultService finalResultService;
   
   @GetMapping("/getAllFinalResults")
-  public ResponseEntity<Object> getAllFinalResults(){
+  public ResponseEntity<Object> getAllFinalResults() {
     try {
 	  List<FinalResultsOfQuiz> finalResult = finalResultService.getAllFinalResults();
       return ResponseHandler.generateResponse("Successfully Retrieved",
@@ -33,7 +33,7 @@ public class FinalResultController {
   
   @GetMapping("/getFinalResult/{studentId}/{quizName}")
   public ResponseEntity<Object> getAllFinalResultByStudentIdAndQuiz(@PathVariable String quizName,
-		  @PathVariable Long studentId){
+		  @PathVariable Long studentId) {
     try {
 	  Optional<FinalResultsOfQuiz> finalResult = finalResultService
 			  .getFinalResultsByStudentIdQuizName(studentId, quizName);
@@ -46,7 +46,7 @@ public class FinalResultController {
   }
   
   @GetMapping("/getAllFinalResults/{studentId}")
-  public ResponseEntity<Object> getAllFinalResultByStudentId(@PathVariable Long studentId){
+  public ResponseEntity<Object> getAllFinalResultByStudentId(@PathVariable Long studentId) {
     try {
 	  List<FinalResultsOfQuiz> finalResult = finalResultService.getFinalResultByStudentId(studentId);
       return ResponseHandler.generateResponse("Successfully Retrieved",

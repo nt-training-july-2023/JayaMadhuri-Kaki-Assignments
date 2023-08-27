@@ -17,7 +17,7 @@ public class ResultsController {
   ResultService resultService;
   
   @PostMapping("/addResults")
-  public ResponseEntity<Object> addResult(@RequestBody Results Results){
+  public ResponseEntity<Object> addResult(@RequestBody Results Results) {
     try {
 	  Results newResult = resultService.addTemporaryResult(Results);
       return ResponseHandler.generateResponse("Successfully Added",

@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,8 @@ public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long categoryId;
-  @Column(nullable = false)
+  @Column(unique = true)
+  @NotEmpty(message = "Category Name is required")
   private String categoryName;
   @Column(nullable = true)
   private String categoryDescription;

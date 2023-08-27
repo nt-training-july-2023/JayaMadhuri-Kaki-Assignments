@@ -3,6 +3,7 @@ package com.capstone.assessmentPortal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -37,6 +38,7 @@ public class Users {
   @NotBlank(message = "Last Name is required")
   private String lastName;
   @Column
+  @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Date of birth pattern should be yyyy-mm-dd")
   @NotBlank(message = "Date of birth is required")
   private String dateOfBirth;
   @Column
@@ -44,7 +46,7 @@ public class Users {
   private String gender;
   @Column(unique = true)
   @NotBlank(message = "Email is required")
-  @Pattern(regexp = "^[A-Z0-9a-z+_-]+@gmail[.]com$",  message = "Email is not Valid")
+  @Pattern(regexp = "^[A-Z0-9a-z+_-]+@nucleusteq[.]com$",  message = "Email is not Valid")
   private String emailId;
   @Column
   @NotBlank(message = "Password is required")

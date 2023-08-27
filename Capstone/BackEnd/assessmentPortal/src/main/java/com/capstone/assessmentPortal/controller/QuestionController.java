@@ -23,7 +23,7 @@ public class QuestionController {
   QuestionService questionService;
   
   @GetMapping("/getAllQuestions/{subCategoryId}")
-  public ResponseEntity<Object> getAllQuestionsBySubCategoryId(@PathVariable Long subCategoryId){
+  public ResponseEntity<Object> getAllQuestionsBySubCategoryId(@PathVariable Long subCategoryId) {
     try {
 	  List<Question> question = questionService.getQuestionsBySubCategoryId(subCategoryId);
       return ResponseHandler.generateResponse("Successfully Retrieved Questions By SubCategory Id",
@@ -35,7 +35,7 @@ public class QuestionController {
   }
   
   @PostMapping("/addQuestion")
-  public ResponseEntity<Object> addQuestion(@RequestBody Question question){
+  public ResponseEntity<Object> addQuestion(@RequestBody Question question) {
     try {
 	  Question newQuestion = questionService.addQuestion(question);
       return ResponseHandler.generateResponse("Successfully Added",
@@ -48,7 +48,7 @@ public class QuestionController {
   
   @PutMapping("/updateQuestion/{questionId}")
   public ResponseEntity<Object> updateQuestion(@PathVariable Long questionId,
-		  @RequestBody Question question){
+		  @RequestBody Question question) {
     try {
 	  Question updatedQuestion = questionService.updateQuestion(questionId, question);
       return ResponseHandler.generateResponse("Successfully Updated",
@@ -60,7 +60,7 @@ public class QuestionController {
   }
   
   @DeleteMapping("/deleteQuestion/{questionId}")
-  public ResponseEntity<Object> deleteQuestion(@PathVariable Long questionId){
+  public ResponseEntity<Object> deleteQuestion(@PathVariable Long questionId) {
     try {
 	  questionService.deleteQuestion(questionId);
       return ResponseHandler.generateResponse("Successfully Deleted",
