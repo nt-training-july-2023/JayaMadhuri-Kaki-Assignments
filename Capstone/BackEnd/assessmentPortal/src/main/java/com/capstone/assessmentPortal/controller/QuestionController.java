@@ -24,50 +24,30 @@ public class QuestionController {
   
   @GetMapping("/getAllQuestions/{subCategoryId}")
   public ResponseEntity<Object> getAllQuestionsBySubCategoryId(@PathVariable Long subCategoryId) {
-    try {
-	  List<Question> question = questionService.getQuestionsBySubCategoryId(subCategoryId);
-      return ResponseHandler.generateResponse("Successfully Retrieved Questions By SubCategory Id",
-			HttpStatus.OK, "Question by SubCategory id", question);
-    }catch(Exception e) {
-	  return ResponseHandler.generateResponse(e.getMessage(),
-				HttpStatus.MULTI_STATUS, "Question by SubCategory id", null);
-    }  
+    List<Question> question = questionService.getQuestionsBySubCategoryId(subCategoryId);
+    return ResponseHandler.generateResponse("Successfully Retrieved Questions By SubCategory Id",
+		HttpStatus.OK, "Question by SubCategory id", question);
   }
   
   @PostMapping("/addQuestion")
   public ResponseEntity<Object> addQuestion(@RequestBody Question question) {
-    try {
-	  Question newQuestion = questionService.addQuestion(question);
-      return ResponseHandler.generateResponse("Successfully Added",
-			HttpStatus.OK, "Question", newQuestion);
-    }catch(Exception e) {
-	  return ResponseHandler.generateResponse(e.getMessage(),
-				HttpStatus.MULTI_STATUS, "Question", null);
-    }  
+    Question newQuestion = questionService.addQuestion(question);
+    return ResponseHandler.generateResponse("Successfully Added",
+		HttpStatus.OK, "Question", newQuestion);
   }
   
   @PutMapping("/updateQuestion/{questionId}")
   public ResponseEntity<Object> updateQuestion(@PathVariable Long questionId,
 		  @RequestBody Question question) {
-    try {
-	  Question updatedQuestion = questionService.updateQuestion(questionId, question);
-      return ResponseHandler.generateResponse("Successfully Updated",
-			HttpStatus.OK, "Question", updatedQuestion);
-    }catch(Exception e) {
-	  return ResponseHandler.generateResponse(e.getMessage(),
-				HttpStatus.MULTI_STATUS, "Question", null);
-    }    
+    Question updatedQuestion = questionService.updateQuestion(questionId, question);
+    return ResponseHandler.generateResponse("Successfully Updated",
+		HttpStatus.OK, "Question", updatedQuestion);
   }
   
   @DeleteMapping("/deleteQuestion/{questionId}")
   public ResponseEntity<Object> deleteQuestion(@PathVariable Long questionId) {
-    try {
-	  questionService.deleteQuestion(questionId);
-      return ResponseHandler.generateResponse("Successfully Deleted",
-			HttpStatus.OK, "Question", null);
-    }catch(Exception e) {
-	  return ResponseHandler.generateResponse(e.getMessage(),
-				HttpStatus.MULTI_STATUS, "Question", null);
-    }     
+    questionService.deleteQuestion(questionId);
+    return ResponseHandler.generateResponse("Successfully Deleted",
+		HttpStatus.OK, "Question", null);
   }
 }

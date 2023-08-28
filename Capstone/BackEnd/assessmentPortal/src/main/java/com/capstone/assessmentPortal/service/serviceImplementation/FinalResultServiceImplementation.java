@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstone.assessmentPortal.exception.EmptyListException;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
 import com.capstone.assessmentPortal.repository.FinalResultOfQuizRepo;
 import com.capstone.assessmentPortal.service.FinalResultService;
@@ -17,18 +18,33 @@ public class FinalResultServiceImplementation implements FinalResultService{
 
   @Override
   public List<FinalResultsOfQuiz> getAllFinalResults() {
-	return finalResultRepo.findAll();
+	List<FinalResultsOfQuiz> listOfFinalResults = finalResultRepo.findAll();
+	if(listOfFinalResults.size() == 0) {
+		throw new EmptyListException();
+	}else {
+      return listOfFinalResults;
+	}
   }
 
   @Override
   public List<FinalResultsOfQuiz> getFinalResultByStudentId(Long studentId) {
-    return finalResultRepo.getFinalResultsByStudentId(studentId);
+	List<FinalResultsOfQuiz> listOfFinalResults = finalResultRepo.getFinalResultsByStudentId(studentId);
+	if(listOfFinalResults.size() == 0) {
+		throw new EmptyListException();
+	}else {
+      return listOfFinalResults;
+	}
   }
 
   @Override
   public Optional<FinalResultsOfQuiz> getFinalResultsByStudentIdQuizName(Long studentId,
 		  String subCategoryName) {
-    return finalResultRepo.getFinalResultsByStudentIdQuizName(studentId, subCategoryName);
+	Optional<FinalResultsOfQuiz> finalResults = finalResultRepo.getFinalResultsByStudentIdQuizName(studentId, subCategoryName);
+	if(finalResults.get() == null) {
+		throw new EmptyListException();
+	}else {
+      return finalResults;
+	}
   }
   
 }

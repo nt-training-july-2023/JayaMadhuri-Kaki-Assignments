@@ -1,7 +1,6 @@
 package com.capstone.assessmentPortal.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.capstone.assessmentPortal.model.SubCategory;
 

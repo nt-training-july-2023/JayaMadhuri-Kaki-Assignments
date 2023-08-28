@@ -18,13 +18,8 @@ public class ResultsController {
   
   @PostMapping("/addResults")
   public ResponseEntity<Object> addResult(@RequestBody Results Results) {
-    try {
-	  Results newResult = resultService.addTemporaryResult(Results);
-      return ResponseHandler.generateResponse("Successfully Added",
-			HttpStatus.OK, "Result", newResult);
-    }catch(Exception e) {
-	  return ResponseHandler.generateResponse(e.getMessage(),
-				HttpStatus.MULTI_STATUS, "Result", null);
-    }  
+    Results newResult = resultService.addTemporaryResult(Results);
+    return ResponseHandler.generateResponse("Successfully Added",
+		HttpStatus.OK, "Result", newResult);
   }
 }

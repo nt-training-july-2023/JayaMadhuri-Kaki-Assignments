@@ -1,21 +1,15 @@
 package com.capstone.assessmentPortal.controllerAdvice;
 
-import java.net.http.HttpHeaders;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
@@ -70,7 +64,7 @@ public class GlobalExceptionHandler {
   
   @ExceptionHandler(NotFoundException.class)
   public ResponseEntity<String> handleNotFoundException(NotFoundException exception) {
-	return new ResponseEntity<String>("Category Not exists", HttpStatus.NOT_FOUND);
+	return new ResponseEntity<String>("Super class Id Not exists", HttpStatus.NOT_FOUND);
   }
  
 }
