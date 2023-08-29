@@ -1,0 +1,39 @@
+.login-body{
+    position: absolute;
+    right:0;
+    margin-top: 150px;
+    margin-right: 200px;
+    .login-form{
+        background-color: white;
+        width:25em;
+        height: 22em;
+        position: relative;
+        border-radius: 1em;
+        box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        opacity: 0.8;
+        .input{
+         width:250px;
+         height: 30px;
+        }
+        .btn{
+         .login-btn{
+             width:250px;
+             height: 30px;
+             background-color: black;
+             color: white;
+         }
+         .register-btn{
+             font-size: small;
+             margin-left: 30px;
+         }
+         .click-btn{
+            border:none;
+            background-color: white;
+         }
+        }
+     }
+}
