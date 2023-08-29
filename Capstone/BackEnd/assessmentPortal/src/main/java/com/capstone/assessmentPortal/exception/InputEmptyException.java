@@ -1,9 +1,21 @@
 package com.capstone.assessmentPortal.exception;
 
-public class InputEmptyException extends RuntimeException{
+/**
+ * Empty Input exception controller class.
+*/
+
+public class InputEmptyException extends RuntimeException {
   private static final long serialVersionUID = 1L;
-  public InputEmptyException(String message) {
-	  super(message);
+  /**
+   *parameter constructor.
+   *@param message message
+  */
+  public InputEmptyException(final String message) {
+    super(message);
   }
-  public InputEmptyException() {}
+  /**
+   *default constructor.
+  */
+  public InputEmptyException() {
+  }
 }

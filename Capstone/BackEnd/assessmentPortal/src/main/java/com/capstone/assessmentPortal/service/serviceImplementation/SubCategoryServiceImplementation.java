@@ -17,100 +17,117 @@ import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
+/**
+ * subcategory service implementation class.
+*/
+
 @Service
-public class SubCategoryServiceImplementation implements SubCategoryService{
+public class SubCategoryServiceImplementation implements SubCategoryService {
+  /**
+    * autowiring subcategory repository.
+  */
   @Autowired
-  SubCategoryRepo subCategoryRepo;
+  private SubCategoryRepo subCategoryRepo;
+  /**
+    * autowiring category repository.
+  */
   @Autowired
-  CategoryRepo categoryRepo;
-
+  private CategoryRepo categoryRepo;
   @Override
-  public SubCategory addSubCategory(SubCategory subCategory) {
-  Optional<SubCategory> existingSubCategory = subCategoryRepo.getSubCategoryByName(subCategory.getSubCategoryName());
-	if(existingSubCategory.isPresent()) {
-		throw new AlreadyExistsException();
-	}else {
-	  if(subCategory.getSubCategoryName() == "") {
-		throw new InputEmptyException();
-	  }else {
-		if(subCategory.getCategory() == null) {
-		  throw new NotFoundException();
-		}else {
-		  if(subCategory.getCategory().getCategoryId() == null) {
-		    throw new NotFoundException();
-		  }else {
-			Category existingCategory = categoryRepo.findById(subCategory.getCategory().getCategoryId()).orElse(null);
-			if(existingCategory!=null) {
-	        return subCategoryRepo.save(subCategory);
-			}else {
-			  throw new NotFoundException();
-			}
-		  }
-		}
-	  }
-	}
+  public final SubCategory addSubCategory(final SubCategory subCategory) {
+    Optional<SubCategory> existingSubCategory = subCategoryRepo
+             .getSubCategoryByName(
+             subCategory.getSubCategoryName());
+    if (existingSubCategory.isPresent()) {
+      throw new AlreadyExistsException();
+    } else {
+      if (subCategory.getSubCategoryName().isEmpty()) {
+        throw new InputEmptyException();
+      } else {
+        if (subCategory.getCategory() == null) {
+          throw new NotFoundException();
+        } else {
+          if (subCategory.getCategory().getCategoryId() == null) {
+            throw new NotFoundException();
+          } else {
+            Category existingCategory = categoryRepo.findById(
+                       subCategory.getCategory().getCategoryId()).orElse(null);
+            if (existingCategory != null) {
+              return subCategoryRepo.save(subCategory);
+            } else {
+              throw new NotFoundException();
+            }
+         }
+       }
+      }
+    }
   }
-
   @Override
-  public List<SubCategory> getAllSubCategories() {
-  List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
-	if(listOfSubCategories.size() == 0) {
-	  throw new EmptyListException();
-	}else {
+  public final List<SubCategory> getAllSubCategories() {
+    List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
+    if (listOfSubCategories.size() == 0) {
+      throw new EmptyListException();
+    } else {
       return subCategoryRepo.findAll();
-	}
+    }
   }
-
   @Override
-  public SubCategory getSubCategoryById(Long subCategoryId) {
-    return subCategoryRepo.findById(subCategoryId).orElseThrow(()->new NoSuchElementException("Cannot find Subcategory with id: "+subCategoryId));
+  public final SubCategory getSubCategoryById(final Long subCategoryId) {
+    return subCategoryRepo.findById(subCategoryId)
+         .orElseThrow(() -> new NoSuchElementException("Cannot "
+         + "find Subcategory with id: " + subCategoryId));
   }
-
   @Override
-  public SubCategory updateSubCategory(SubCategory subCategory, Long subCategoryId) {
-	SubCategory existingquiz = subCategoryRepo.findById(subCategoryId).orElse(null);
-	if(existingquiz!=null) {
-	  existingquiz.setSubCategoryName(subCategory.getSubCategoryName());
-	  existingquiz.setSubCategoryDescription(subCategory.getSubCategoryDescription());
-	  existingquiz.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
-	  existingquiz.setAttempted(subCategory.isAttempted());
-	  if(existingquiz.getSubCategoryName() == ""|| existingquiz.getTimeLimitInMinutes() == "") {
-		    throw new InputEmptyException();
-	  }else {
-	    Optional<SubCategory> existingSubCategory = subCategoryRepo.getSubCategoryByName(existingquiz.getSubCategoryName());
-		if(existingSubCategory.isPresent()) {
-			throw new AlreadyExistsException();
-		}else {
-	    return subCategoryRepo.save(existingquiz);
-	    }
-	  }
-	 }else {
-	  throw new NoSuchElementException();
-	}
+  public final SubCategory updateSubCategory(final SubCategory subCategory,
+                    final Long subCategoryId) {
+    SubCategory existingquiz = subCategoryRepo
+                 .findById(subCategoryId).orElse(null);
+    if (existingquiz != null) {
+      existingquiz.setSubCategoryName(subCategory.getSubCategoryName());
+      existingquiz.setSubCategoryDescription(subCategory
+               .getSubCategoryDescription());
+      existingquiz.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
+      existingquiz.setAttempted(subCategory.isAttempted());
+      if (existingquiz.getSubCategoryName().isEmpty()
+       || existingquiz.getTimeLimitInMinutes().isEmpty()) {
+        throw new InputEmptyException();
+      } else {
+        Optional<SubCategory> existingSubCategory = subCategoryRepo
+                .getSubCategoryByName(existingquiz.getSubCategoryName());
+        if (existingSubCategory.isPresent()) {
+          throw new AlreadyExistsException();
+        } else {
+          return subCategoryRepo.save(existingquiz);
+        }
+      }
+    } else {
+       throw new NoSuchElementException();
+    }
   }
-
   @Override
-  public void deleteSubCategory(Long subCategoryId) {
-    SubCategory existingquiz = subCategoryRepo.findById(subCategoryId).orElse(null);
-    if(existingquiz == null) {
-	  throw new NoSuchElementException();
-	}else {
-	  subCategoryRepo.deleteById(subCategoryId);
-	}
+  public final void deleteSubCategory(final Long subCategoryId) {
+    SubCategory existingquiz = subCategoryRepo
+            .findById(subCategoryId).orElse(null);
+    if (existingquiz == null) {
+      throw new NoSuchElementException();
+    } else {
+      subCategoryRepo.deleteById(subCategoryId);
+    }
   }
-
   @Override
-  public List<SubCategory> getSubCategoryByCategoryId(Long categoryId) {
-	Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
-	if(existingCategory == null) {
-	  throw new NoSuchElementException();
-	}else {
-	  List<SubCategory> listOfSubCategories = subCategoryRepo.getSubCategoryByCategoryId(categoryId);
-	  if(listOfSubCategories.size() == 0) {
-		  throw new EmptyListException();
-	  }else {
-	    return listOfSubCategories;
-	  }
-	}
+  public final List<SubCategory> getSubCategoryByCategoryId(final
+                   Long categoryId) {
+    Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
+    if (existingCategory == null) {
+      throw new NoSuchElementException();
+    } else {
+      List<SubCategory> listOfSubCategories = subCategoryRepo
+                 .getSubCategoryByCategoryId(categoryId);
+      if (listOfSubCategories.size() == 0) {
+        throw new EmptyListException();
+      } else {
+        return listOfSubCategories;
+      }
+    }
   }
 }

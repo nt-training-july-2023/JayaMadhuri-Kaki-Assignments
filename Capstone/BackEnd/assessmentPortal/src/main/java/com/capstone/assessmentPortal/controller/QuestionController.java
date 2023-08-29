@@ -17,37 +17,68 @@ import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.QuestionService;
 
+/**
+ *Question controller class.
+*/
+
 @RestController
 public class QuestionController {
+  /**
+   *autowiring question service.
+  */
   @Autowired
-  QuestionService questionService;
-  
+  private QuestionService questionService;
+  /**
+   * get all questions by sub category id.
+   * @return question
+   * @param subCategoryId subCategoryId
+  */
   @GetMapping("/getAllQuestions/{subCategoryId}")
-  public ResponseEntity<Object> getAllQuestionsBySubCategoryId(@PathVariable Long subCategoryId) {
-    List<Question> question = questionService.getQuestionsBySubCategoryId(subCategoryId);
-    return ResponseHandler.generateResponse("Successfully Retrieved Questions By SubCategory Id",
-		HttpStatus.OK, "Question by SubCategory id", question);
+  public final ResponseEntity<Object> getAllQuestionsBySubCategoryId(
+          @PathVariable final Long subCategoryId) {
+    List<Question> question = questionService
+          .getQuestionsBySubCategoryId(subCategoryId);
+    return ResponseHandler.generateResponse(
+           "Successfully Retrieved Questions By SubCategory Id",
+           HttpStatus.OK, "Question by SubCategory id", question);
   }
-  
+  /**
+   *add questions to questions table.
+   *@return newQuestion
+   *@param question question
+  */
   @PostMapping("/addQuestion")
-  public ResponseEntity<Object> addQuestion(@RequestBody Question question) {
+  public final ResponseEntity<Object> addQuestion(
+            @RequestBody final Question question) {
     Question newQuestion = questionService.addQuestion(question);
     return ResponseHandler.generateResponse("Successfully Added",
-		HttpStatus.OK, "Question", newQuestion);
+            HttpStatus.OK, "Question", newQuestion);
   }
-  
+  /**
+   *update questions by question id and given details.
+   *@return updatedQuestion
+   *@param questionId questionId
+   *@param question question
+  */
   @PutMapping("/updateQuestion/{questionId}")
-  public ResponseEntity<Object> updateQuestion(@PathVariable Long questionId,
-		  @RequestBody Question question) {
-    Question updatedQuestion = questionService.updateQuestion(questionId, question);
+  public final ResponseEntity<Object> updateQuestion(
+          @PathVariable final Long questionId,
+          @RequestBody final Question question) {
+    Question updatedQuestion = questionService.updateQuestion(questionId,
+                       question);
     return ResponseHandler.generateResponse("Successfully Updated",
-		HttpStatus.OK, "Question", updatedQuestion);
+          HttpStatus.OK, "Question", updatedQuestion);
   }
-  
+  /**
+   *delete questions by question id.
+   *@return deletedQuestion
+   *@param questionId questionId
+  */
   @DeleteMapping("/deleteQuestion/{questionId}")
-  public ResponseEntity<Object> deleteQuestion(@PathVariable Long questionId) {
+  public final ResponseEntity<Object> deleteQuestion(
+         @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);
     return ResponseHandler.generateResponse("Successfully Deleted",
-		HttpStatus.OK, "Question", null);
+         HttpStatus.OK, "Question", null);
   }
 }

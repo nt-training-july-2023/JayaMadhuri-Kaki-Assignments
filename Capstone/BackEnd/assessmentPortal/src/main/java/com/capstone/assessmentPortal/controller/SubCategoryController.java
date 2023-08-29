@@ -17,52 +17,94 @@ import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
+/**
+ *SubCategory controller class.
+*/
+
 @RestController
 public class SubCategoryController {
+  /**
+   *autowiring subcategory service.
+  */
   @Autowired
-  SubCategoryService subCategoryService;
-  
+  private SubCategoryService subCategoryService;
+  /**
+   *get all subcategories.
+   *@return subCategories
+  */
   @GetMapping("/allSubCategories")
-  public ResponseEntity<Object> getAllSubCategories() {
+  public final ResponseEntity<Object> getAllSubCategories() {
     List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
-    return ResponseHandler.generateResponse("Successfully Retrieved All SubCategories",
-		HttpStatus.OK, "List of SubCategories", subCategories);
+    return ResponseHandler.generateResponse(
+          "Successfully Retrieved All SubCategories",
+          HttpStatus.OK, "List of SubCategories", subCategories);
   }
-  
+  /**
+   *get subcategory by subcategory id.
+   *@return subCategory
+   *@param subCategoryId subCategoryId
+  */
   @GetMapping("/subCategory/{subCategoryId}")
-  public ResponseEntity<Object> getSubCategoryById(@PathVariable Long subCategoryId) {
-    SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);
-    return ResponseHandler.generateResponse("Successfully Retrieved SubCategory By Id",
-		HttpStatus.OK, "SubCategory", subCategory);
+  public final ResponseEntity<Object> getSubCategoryById(@PathVariable final
+                   Long subCategoryId) {
+    SubCategory subCategory = subCategoryService
+                   .getSubCategoryById(subCategoryId);
+    return ResponseHandler.generateResponse(
+         "Successfully Retrieved SubCategory By Id",
+         HttpStatus.OK, "SubCategory", subCategory);
   }
-  
+  /**
+   *get subcategory by category id.
+   *@return subCategory
+   *@param categoryId categoryId
+  */
   @GetMapping("/subCategoryByCategory/{categoryId}")
-  public ResponseEntity<Object> getSubCategoryByCategoryId(@PathVariable Long categoryId) {
-    List<SubCategory> subCategory = subCategoryService.getSubCategoryByCategoryId(categoryId);
-    return ResponseHandler.generateResponse("Successfully Retrieved SubCategory By Category Id",
-		HttpStatus.OK, "SubCategory by category id", subCategory);
+  public final ResponseEntity<Object> getSubCategoryByCategoryId(
+         @PathVariable final Long categoryId) {
+    List<SubCategory> subCategory = subCategoryService
+         .getSubCategoryByCategoryId(categoryId);
+    return ResponseHandler.generateResponse(
+         "Successfully Retrieved SubCategory By Category Id",
+          HttpStatus.OK, "SubCategory by category id", subCategory);
   }
-  
+  /**
+   *add subcategory to subcategory table.
+   *@return newSubCategoy
+   *@param subCategory subCategory
+  */
   @PostMapping("/addSubCategory")
-  public ResponseEntity<Object> addSubCategory(@RequestBody SubCategory subCategory) {
-    SubCategory newSubCategory = subCategoryService.addSubCategory(subCategory);
+  public final ResponseEntity<Object> addSubCategory(
+            @RequestBody final SubCategory subCategory) {
+    SubCategory newSubCategory = subCategoryService
+            .addSubCategory(subCategory);
     return ResponseHandler.generateResponse("Successfully Added",
-		HttpStatus.OK, "SubCategory", newSubCategory);
+            HttpStatus.OK, "SubCategory", newSubCategory);
   }
-  
+  /**
+   *update subcategory by id and given new details.
+   *@return updatedSubCategory
+   *@param subCategoryId subCategoryId
+   *@param subCategory subCategory
+  */
   @PutMapping("/updateSubCategory/{subCategoryId}")
-  public ResponseEntity<Object> updateSubCategory(@PathVariable Long subCategoryId,
-		  @RequestBody SubCategory subCategory) {
+  public final ResponseEntity<Object> updateSubCategory(
+          @PathVariable final Long subCategoryId,
+          @RequestBody final SubCategory subCategory) {
     SubCategory updatedSubCategory = subCategoryService
-			.updateSubCategory(subCategory, subCategoryId);
+          .updateSubCategory(subCategory, subCategoryId);
     return ResponseHandler.generateResponse("Successfully Updated",
-		HttpStatus.OK, "SubCategory", updatedSubCategory);
+          HttpStatus.OK, "SubCategory", updatedSubCategory);
   }
-  
+  /**
+   *delete subcategory by id.
+   *@return deletedSubCategory
+   *@param subCategoryId subCategoryId
+  */
   @DeleteMapping("/deleteSubCategory/{subCategoryId}")
-  public ResponseEntity<Object> deleteSubCategory(@PathVariable Long subCategoryId) {
+  public final ResponseEntity<Object> deleteSubCategory(
+          @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);
     return ResponseHandler.generateResponse("Successfully Deleted",
-		HttpStatus.OK, "SubCategory", null);
+          HttpStatus.OK, "SubCategory", null);
   }
 }

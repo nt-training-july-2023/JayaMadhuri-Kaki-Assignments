@@ -18,44 +18,77 @@ import com.capstone.assessmentPortal.service.UsersService;
 
 import jakarta.validation.Valid;
 
+/**
+ *Users controller class.
+*/
+
 @RestController
 public class UsersController {
+  /**
+   *autowiring user service.
+  */
   @Autowired
-  UsersService usersService;
-  
+  private UsersService usersService;
+  /**
+   *registeration of students.
+   *@return response
+   *@param users users
+  */
   @PostMapping("/studentRegister")
-  public ResponseEntity<Object> studentRegistration(@RequestBody @Valid Users users) {
-	String response = usersService.studentRegistration(users);
+  public final ResponseEntity<Object> studentRegistration(
+            @RequestBody @Valid final Users users) {
+    String response = usersService.studentRegistration(users);
     return ResponseHandler.generateResponse("Successfully Registered",
-		HttpStatus.OK, "User Details", response);
+            HttpStatus.OK, "User Details", response);
   }
-  
+  /**
+   *user login.
+   *@return userDetails
+   *@param users users
+  */
   @PostMapping("/userLogin")
-  public ResponseEntity<Object> userLogin(@RequestBody Users users) {
+  public final ResponseEntity<Object> userLogin(
+                  @RequestBody final Users users) {
     Map<String, String> userDetails = usersService.authenticateUser(users);
     return ResponseHandler.generateResponse("Login Successfull",
-		HttpStatus.OK, "User Details", userDetails);
+                  HttpStatus.OK, "User Details", userDetails);
   }
-  
+  /**
+   *get student details by id.
+   *@return studentDetails
+   *@param studentId studentId
+  */
   @GetMapping("/getUser/{studentId}")
-  public ResponseEntity<Object> getStudentById(@PathVariable Long studentId) {
+  public final ResponseEntity<Object> getStudentById(
+                 @PathVariable final Long studentId) {
     Users studentDetails = usersService.getStudentById(studentId);
     return ResponseHandler.generateResponse("Successfully Retrieved",
-		HttpStatus.OK, "Student Details", studentDetails);
+                 HttpStatus.OK, "Student Details", studentDetails);
   }
-  
+  /**
+   * update student details by id.
+   * @return studentDetails
+   * @param studentId studentId
+   * @param users users
+  */
   @PutMapping("/updateStudent/{studentId}")
-  public ResponseEntity<Object> updateStudentDetails(@PathVariable Long studentId,
-		   @RequestBody Users users) {
+  public final ResponseEntity<Object> updateStudentDetails(
+           @PathVariable final Long studentId,
+           @RequestBody final Users users) {
     Users studentDetails = usersService.updateStudentDetails(studentId, users);
     return ResponseHandler.generateResponse("Successfully Updated",
-		HttpStatus.OK, "Student Details", studentDetails);  
+           HttpStatus.OK, "Student Details", studentDetails);
   }
-  
+  /**
+   * delete student details by id.
+   * @return deletedStudent
+   * @param studentId studentId
+  */
   @DeleteMapping("/deleteStudent/{studentId}")
-  public ResponseEntity<Object> deleteStudent(@PathVariable Long studentId) {
+  public final ResponseEntity<Object> deleteStudent(
+           @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
     return ResponseHandler.generateResponse("Successfully Deleted",
-		HttpStatus.OK, "Student Details", null);
+           HttpStatus.OK, "Student Details", null);
   }
 }

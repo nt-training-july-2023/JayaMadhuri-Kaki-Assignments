@@ -1,9 +1,21 @@
 package com.capstone.assessmentPortal.exception;
 
-public class EmptyListException extends RuntimeException{
+/**
+ * Empty list exception controller class.
+*/
+
+public class EmptyListException extends RuntimeException {
   private static final long serialVersionUID = 1L;
-  public EmptyListException(String message) {
-	  super(message);
+  /**
+   * Parameter constructor.
+   * @param message emptyListExceptionMessage
+  */
+  public EmptyListException(final String message) {
+    super(message);
   }
-  public EmptyListException() {}
+  /**
+   * default constructor.
+  */
+  public EmptyListException() {
+  }
 }

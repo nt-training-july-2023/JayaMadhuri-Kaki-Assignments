@@ -18,53 +18,102 @@ import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 
+/**
+ *Global exception handler controller class.
+*/
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+  /**
+   *Exception handles when arguments does not contain valid input.
+   *@return errorMap
+   *@param exception methodArgumentNotValidException
+  */
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public Map<String,String> handleEmptyInput(MethodArgumentNotValidException exception) {
-	  Map<String,String> errorMap = new HashMap<>();
-	  exception.getBindingResult().getFieldErrors().forEach(error->{
-		  errorMap.put(error.getField(),error.getDefaultMessage());
-	  });
-	  errorMap.put("StatusCode", "400");
-	  return errorMap;
+  public final Map<String, String> handleEmptyInput(
+      final MethodArgumentNotValidException exception) {
+      Map<String, String> errorMap = new HashMap<>();
+      exception.getBindingResult().getFieldErrors().forEach(error -> {
+        errorMap.put(error.getField(), error.getDefaultMessage());
+      });
+      errorMap.put("StatusCode", "400");
+      return errorMap;
   }
-  
+  /**
+   *Exception handles when no element is present with id.
+   *@return responseEntity
+   *@param exception noSuchElementException
+  */
   @ExceptionHandler(NoSuchElementException.class)
-  public ResponseEntity<String> handleNoSuchElement(NoSuchElementException exception) {
-	return new ResponseEntity<String>("No value is present in Db with this ID, please change your request", HttpStatus.NOT_FOUND);
+  public final ResponseEntity<String> handleNoSuchElement(
+              final NoSuchElementException exception) {
+    return new ResponseEntity<String>("No value is present in Db with this ID,"
+            + " please change your request", HttpStatus.NOT_FOUND);
   }
-  
+  /**
+   *Exception handles when user credentials are not valid.
+   *@return responseEntity
+   *@param exception userNotFoundException
+  */
   @ExceptionHandler(UserNotFoundException.class)
-  public ResponseEntity<String> handleUserNotFound(UserNotFoundException exception) {
-	return new ResponseEntity<String>("Invalid user credentials", HttpStatus.NOT_FOUND);
+  public final ResponseEntity<String> handleUserNotFound(final
+                 UserNotFoundException exception) {
+    return new ResponseEntity<String>("Invalid user credentials",
+                 HttpStatus.NOT_FOUND);
   }
-  
+  /**
+   * Exception handles when Existed email again to register.
+   * @return responseEntity
+   * @param exception emailAlreadyExistsException
+  */
   @ExceptionHandler(EmailAlreadyExistsException.class)
-  public ResponseEntity<String> handleAlreadyExistsException(EmailAlreadyExistsException exception) {
-	return new ResponseEntity<String>("An account is already registered with this Email", HttpStatus.CONFLICT);
+  public final ResponseEntity<String> handleAlreadyExistsException(
+            final EmailAlreadyExistsException exception) {
+    return new ResponseEntity<String>("An account is already registered "
+            + "with this Email", HttpStatus.CONFLICT);
   }
-  
+  /**
+   *Exception handles when input fields are empty.
+   *@return responseEntity
+   *@param exception inputEmptyException
+  */
   @ExceptionHandler(InputEmptyException.class)
-  public ResponseEntity<String> handleInputEmptyException(InputEmptyException exception) {
-	return new ResponseEntity<String>("Input fields are empty! Fill the mandatory fields", HttpStatus.CONFLICT);
+  public final ResponseEntity<String> handleInputEmptyException(final
+            InputEmptyException exception) {
+    return new ResponseEntity<String>("Input fields are empty!"
+            + " Fill the mandatory fields", HttpStatus.CONFLICT);
   }
-  
+  /**
+   *Exception handles when when data is already exists in db.
+   *@return responseEntity
+   *@param exception alreadyExitsException
+  */
   @ExceptionHandler(AlreadyExistsException.class)
-  public ResponseEntity<String> handleAlreadyExistsException(AlreadyExistsException exception) {
-	return new ResponseEntity<String>("Data already exists with same name", HttpStatus.CONFLICT);
+  public final ResponseEntity<String> handleAlreadyExistsException(final
+           AlreadyExistsException exception) {
+    return new ResponseEntity<String>("Data already exists with same name",
+           HttpStatus.CONFLICT);
   }
-  
+  /**
+   *Exception handles when list is empty.
+   *@return responseEntity
+   *@param exception emptyListxception
+  */
   @ExceptionHandler(EmptyListException.class)
-  public ResponseEntity<String> handleEmptyListException(EmptyListException exception) {
-	return new ResponseEntity<String>("List is Empty", HttpStatus.OK);
+  public final ResponseEntity<String> handleEmptyListException(final
+          EmptyListException exception) {
+    return new ResponseEntity<String>("List is Empty", HttpStatus.OK);
   }
-  
+  /**
+   *Exception handles when data with given id is not found.
+   *@return responseEntity
+   *@param exception notFoundException
+  */
   @ExceptionHandler(NotFoundException.class)
-  public ResponseEntity<String> handleNotFoundException(NotFoundException exception) {
-	return new ResponseEntity<String>("Super class Id Not exists", HttpStatus.NOT_FOUND);
+  public final ResponseEntity<String> handleNotFoundException(final
+           NotFoundException exception) {
+    return new ResponseEntity<String>("Super class Id Not exists",
+           HttpStatus.NOT_FOUND);
   }
- 
 }

@@ -1,9 +1,21 @@
 package com.capstone.assessmentPortal.exception;
 
-public class NotFoundException extends RuntimeException{
+/**
+ * Element with id Not Found exception controller class.
+*/
+
+public class NotFoundException extends RuntimeException {
   private static final long serialVersionUID = 1L;
-  public NotFoundException(String message) {
-	  super(message);
+  /**
+   *parameter constructor.
+   *@param message notFoundExceptionMessage
+  */
+  public NotFoundException(final String message) {
+    super(message);
   }
-  public NotFoundException() {}
+  /**
+   *default constructor.
+  */
+  public NotFoundException() {
+  }
 }

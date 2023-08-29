@@ -11,15 +11,27 @@ import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.ResultService;
 import com.capstone.assessmentPortal.model.Results;
 
+/**
+ *Temporary Results controller class.
+*/
+
 @RestController
 public class ResultsController {
+  /**
+   *autowiring result service.
+  */
   @Autowired
-  ResultService resultService;
-  
+  private ResultService resultService;
+  /**
+   *add result to result table.
+   *@return newResult
+   *@param results results
+  */
   @PostMapping("/addResults")
-  public ResponseEntity<Object> addResult(@RequestBody Results Results) {
-    Results newResult = resultService.addTemporaryResult(Results);
+  public final ResponseEntity<Object> addResult(@RequestBody final
+                Results results) {
+    Results newResult = resultService.addTemporaryResult(results);
     return ResponseHandler.generateResponse("Successfully Added",
-		HttpStatus.OK, "Result", newResult);
+               HttpStatus.OK, "Result", newResult);
   }
 }

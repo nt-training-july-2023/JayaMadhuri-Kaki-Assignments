@@ -7,7 +7,16 @@ import org.springframework.stereotype.Repository;
 
 import com.capstone.assessmentPortal.model.Users;
 
+/**
+ *users repository.
+*/
+
 @Repository
 public interface UsersRepo extends JpaRepository<Users, Long> {
+  /**
+   *query to find user by given email id.
+   *@return users
+   *@param emailId emailId
+  */
   Optional<Users> findUserByEmailId(String emailId);
 }

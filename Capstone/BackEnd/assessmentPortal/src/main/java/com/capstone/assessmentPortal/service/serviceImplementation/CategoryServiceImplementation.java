@@ -1,6 +1,7 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import java.util.List;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -14,61 +15,70 @@ import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.service.CategoryService;
 
+/**
+ * category service implementation class.
+*/
+
 @Service
-public class CategoryServiceImplementation implements CategoryService{
+public class CategoryServiceImplementation implements CategoryService {
+  /**
+   * autowiring category repository.
+  */
   @Autowired
-  CategoryRepo categoryRepo;
-
+  private CategoryRepo categoryRepo;
   @Override
-  public Category addCategory(Category category) {
-	Optional<Category> existingCategory = categoryRepo.getCategoryByName(category.getCategoryName());
-	if(existingCategory.isPresent()) {
-		throw new AlreadyExistsException();
-	}else {
-	  if(category.getCategoryName() == "") {
-		throw new InputEmptyException();
-	  }
+  public final Category addCategory(final Category category) {
+    Optional<Category> existingCategory = categoryRepo
+              .getCategoryByName(category.getCategoryName());
+    if (existingCategory.isPresent()) {
+      throw new AlreadyExistsException();
+    } else {
+      if (category.getCategoryName().isEmpty()) {
+        throw new InputEmptyException();
+      }
       return categoryRepo.save(category);
-	}
+    }
   }
-
   @Override
-  public List<Category> getAllCategories() {
-	List<Category> listOfCategories = categoryRepo.findAll();
-	if(listOfCategories.size() == 0) {
-	  throw new EmptyListException();
-	}else {
-	  return listOfCategories;
-	}
+  public final List<Category> getAllCategories() {
+    List<Category> listOfCategories = categoryRepo.findAll();
+    if (listOfCategories.size() == 0) {
+      throw new EmptyListException();
+    } else {
+      return listOfCategories;
+    }
   }
-
   @Override
-  public Category getCategoryById(Long categoryId) {
-    return categoryRepo.findById(categoryId).orElseThrow(()->new NoSuchElementException("Cannot find category with id: "+categoryId));
+  public final Category getCategoryById(final Long categoryId) {
+    return categoryRepo.findById(categoryId).orElseThrow(
+             () -> new NoSuchElementException(
+              "Cannot find category with id: " + categoryId));
   }
-
   @Override
-  public void deleteCategory(Long categoryId) {
-	Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
-	if(existingCategory == null) {
-	  throw new NoSuchElementException();
-	}else {
+  public final void deleteCategory(final Long categoryId) {
+    Category existingCategory = categoryRepo
+              .findById(categoryId).orElse(null);
+    if (existingCategory == null) {
+      throw new NoSuchElementException();
+    } else {
       categoryRepo.deleteById(categoryId);
-	}
+    }
   }
-
   @Override
-  public Category updateCategory(Long categoryId, Category category) {
-    Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
-	if(existingCategory!=null) {
-	  existingCategory.setCategoryName(category.getCategoryName());
-	  existingCategory.setCategoryDescription(category.getCategoryDescription());
-	  if(existingCategory.getCategoryName() == "") {
-	    throw new InputEmptyException();
-	  }
-	  return categoryRepo.save(existingCategory);
-	}else {
-	  throw new NoSuchElementException();
-	}
+  public final Category updateCategory(final Long categoryId,
+                     final Category category) {
+    Category existingCategory = categoryRepo
+               .findById(categoryId).orElse(null);
+    if (existingCategory != null) {
+      existingCategory.setCategoryName(category.getCategoryName());
+      existingCategory.setCategoryDescription(category
+                .getCategoryDescription());
+      if (existingCategory.getCategoryName().isEmpty()) {
+        throw new InputEmptyException();
+      }
+      return categoryRepo.save(existingCategory);
+      } else {
+       throw new NoSuchElementException();
+     }
   }
 }

@@ -1,9 +1,21 @@
 package com.capstone.assessmentPortal.exception;
 
-public class AlreadyExistsException extends RuntimeException{
+/**
+ *Element already Exists exception controller class.
+*/
+
+public class AlreadyExistsException extends RuntimeException {
   private static final long serialVersionUID = 1L;
-  public AlreadyExistsException(String message) {
-	  super(message);
+  /**
+   *parameter constructor.
+   *@param message alreadyExistsExceptionMessage
+  */
+  public AlreadyExistsException(final String message) {
+    super(message);
   }
-  public AlreadyExistsException() {}
+  /**
+   *default constructor.
+  */
+  public AlreadyExistsException() {
+  }
 }

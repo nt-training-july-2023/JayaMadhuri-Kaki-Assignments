@@ -16,45 +16,77 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.CategoryService;
-
+/**
+ * Category Controller class.
+ */
 @RestController
 public class CategoryController {
+  /**
+  * autowiring category service.
+  */
   @Autowired
-  CategoryService categoryService;
-  
+  private CategoryService categoryService;
+  /**
+   *get all categories in category table.
+   *@return categories
+  */
   @GetMapping("/allCategories")
-  public ResponseEntity<Object> getAllCategories() {
+  public final ResponseEntity<Object> getAllCategories() {
     List<Category> categories = categoryService.getAllCategories();
-    return ResponseHandler.generateResponse("Successfully Retrieved All Categories",
-		  HttpStatus.OK, "List of Categories", categories);
+    return ResponseHandler.generateResponse("Successfully Retrieved"
+                  + " All Categories",
+                  HttpStatus.OK, "List of Categories", categories);
   }
-  
+  /**
+   * get category by id.
+   * @return category
+   * @param categoryId categoryId
+   */
   @GetMapping("/category/{categoryId}")
-  public ResponseEntity<Object> getCategoryById(@PathVariable Long categoryId) {
+  public final ResponseEntity<Object> getCategoryById(@PathVariable
+                   final Long categoryId) {
     Category category = categoryService.getCategoryById(categoryId);
-    return ResponseHandler.generateResponse("Successfully Retrieved Category By Id",
-		HttpStatus.OK, "Category Details", category);
+    return ResponseHandler.generateResponse("Successfully "
+             + "Retrieved Category By Id",
+                HttpStatus.OK, "Category Details", category);
   }
-  
+  /**
+   *add category to category table.
+   *@return newCategory
+   *@param category category
+  */
   @PostMapping("/addCategory")
-  public ResponseEntity<Object> addCategory(@RequestBody Category category) {
+  public final ResponseEntity<Object> addCategory(
+            @RequestBody final Category category) {
     Category newCategory = categoryService.addCategory(category);
     return ResponseHandler.generateResponse("Successfully Added",
-		HttpStatus.OK, "Category Details", newCategory);
+          HttpStatus.OK, "Category Details", newCategory);
   }
-  
+  /**
+   * update category details by id.
+   * @return updatedCategory
+   * @param categoryId categoryId
+   * @param category category
+   */
   @PutMapping("/updateCategory/{categoryId}")
-  public ResponseEntity<Object> updateCategory(@PathVariable Long categoryId,
-		  @RequestBody Category category) {
-    Category updatedCategory = categoryService.updateCategory(categoryId, category);
+  public final ResponseEntity<Object> updateCategory(@PathVariable
+           final Long categoryId,
+           @RequestBody final Category category) {
+    Category updatedCategory = categoryService.updateCategory(
+                   categoryId, category);
     return ResponseHandler.generateResponse("Successfully Updated",
-		HttpStatus.OK, "Category Details", updatedCategory);
+          HttpStatus.OK, "Category Details", updatedCategory);
   }
-  
+  /**
+   * delete category by id.
+   * @return deletedCategory
+   * @param categoryId categoryId
+  */
   @DeleteMapping("/deleteCategory/{categoryId}")
-  public ResponseEntity<Object> deleteCategory(@PathVariable Long categoryId) {
-	  categoryService.deleteCategory(categoryId);
+  public final ResponseEntity<Object> deleteCategory(
+           @PathVariable final Long categoryId) {
+    categoryService.deleteCategory(categoryId);
     return ResponseHandler.generateResponse("Successfully Deleted",
-		HttpStatus.OK, "Category Details", null);
+    HttpStatus.OK, "Category Details", null);
   }
 }

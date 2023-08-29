@@ -2,17 +2,24 @@ package com.capstone.assessmentPortal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * main class.
 */
-
 @SpringBootApplication
 public class AssessmentPortalApplication {
   /**
-   * main class.
+   * run method.
+   * @param args arguments
   */
-	
-  public static void main(String[] args) {
+  private void run(final String[] args) {
     SpringApplication.run(AssessmentPortalApplication.class, args);
+  }
+  /**
+   * main class.
+   * @param args arguments
+   */
+  public static void main(final String[] args) {
+    new AssessmentPortalApplication().run(args);
   }
 }
