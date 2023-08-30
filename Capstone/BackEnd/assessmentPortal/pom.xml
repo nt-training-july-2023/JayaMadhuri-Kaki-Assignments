@@ -98,9 +98,9 @@
 		        </executions>
 		    </plugin>
 		    <plugin>
-	            <groupId>com.github.spotbugs</groupId>
-	            <artifactId>spotbugs-maven-plugin</artifactId>
-	            <version>4.3.0</version>
+			    <groupId>com.github.spotbugs</groupId>
+			    <artifactId>spotbugs-maven-plugin</artifactId>
+			    <version>4.7.3.5</version>
 	            <executions>
 	                <execution>
 	                    <id>spotbugs-check</id>

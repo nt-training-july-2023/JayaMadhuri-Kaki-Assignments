@@ -5,21 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * Final results of quiz entity class.
 */
 
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
+@Data
 @Entity
 public class FinalResultsOfQuiz {
   /**

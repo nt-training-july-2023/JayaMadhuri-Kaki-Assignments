@@ -13,21 +13,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * users entity class.
 */
 
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Getter
+@Data
 @Entity
 public class Users {
   /**
