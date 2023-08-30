@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.assessmentPortal.model.Category;
+import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.CategoryService;
 /**
@@ -32,7 +32,7 @@ public class CategoryController {
   */
   @GetMapping("/allCategories")
   public final ResponseEntity<Object> getAllCategories() {
-    List<Category> categories = categoryService.getAllCategories();
+    List<CategoryDetailsDto> categories = categoryService.getAllCategories();
     return ResponseHandler.generateResponse("Successfully Retrieved"
                   + " All Categories",
                   HttpStatus.OK, "List of Categories", categories);
@@ -45,7 +45,7 @@ public class CategoryController {
   @GetMapping("/category/{categoryId}")
   public final ResponseEntity<Object> getCategoryById(@PathVariable
                    final Long categoryId) {
-    Category category = categoryService.getCategoryById(categoryId);
+    CategoryDetailsDto category = categoryService.getCategoryById(categoryId);
     return ResponseHandler.generateResponse("Successfully "
              + "Retrieved Category By Id",
                 HttpStatus.OK, "Category Details", category);
@@ -57,8 +57,8 @@ public class CategoryController {
   */
   @PostMapping("/addCategory")
   public final ResponseEntity<Object> addCategory(
-            @RequestBody final Category category) {
-    Category newCategory = categoryService.addCategory(category);
+            @RequestBody final CategoryDetailsDto category) {
+    CategoryDetailsDto newCategory = categoryService.addCategory(category);
     return ResponseHandler.generateResponse("Successfully Added",
           HttpStatus.OK, "Category Details", newCategory);
   }
@@ -71,8 +71,8 @@ public class CategoryController {
   @PutMapping("/updateCategory/{categoryId}")
   public final ResponseEntity<Object> updateCategory(@PathVariable
            final Long categoryId,
-           @RequestBody final Category category) {
-    Category updatedCategory = categoryService.updateCategory(
+           @RequestBody final CategoryDetailsDto category) {
+    CategoryDetailsDto updatedCategory = categoryService.updateCategory(
                    categoryId, category);
     return ResponseHandler.generateResponse("Successfully Updated",
           HttpStatus.OK, "Category Details", updatedCategory);

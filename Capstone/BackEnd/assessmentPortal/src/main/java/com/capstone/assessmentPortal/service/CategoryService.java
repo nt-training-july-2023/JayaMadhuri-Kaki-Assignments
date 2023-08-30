@@ -2,7 +2,7 @@ package com.capstone.assessmentPortal.service;
 
 import java.util.List;
 
-import com.capstone.assessmentPortal.model.Category;
+import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 
 /**
  *category service interface.
@@ -14,18 +14,18 @@ public interface CategoryService {
    *@return category
    *@param category category
   */
-  Category addCategory(Category category);
+  CategoryDetailsDto addCategory(CategoryDetailsDto category);
   /**
    *get all categories in category table.
    *@return list of categories
   */
-  List<Category> getAllCategories();
+  List<CategoryDetailsDto> getAllCategories();
   /**
    *get category by category id.
    *@return category
    *@param categoryId categoryId
   */
-  Category getCategoryById(Long categoryId);
+  CategoryDetailsDto getCategoryById(Long categoryId);
   /**
    *delete category by category id.
    *@param categoryId categoryId
@@ -37,5 +37,6 @@ public interface CategoryService {
    *@param categoryId categoryId
    *@param category category
   */
-  Category updateCategory(Long categoryId, Category category);
+  CategoryDetailsDto updateCategory(Long categoryId,
+                     CategoryDetailsDto category);
 }

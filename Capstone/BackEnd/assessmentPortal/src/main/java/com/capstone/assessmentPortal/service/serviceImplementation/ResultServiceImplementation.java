@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
 import com.capstone.assessmentPortal.model.Results;
@@ -84,5 +85,18 @@ public class ResultServiceImplementation implements ResultService {
         throw new NoSuchElementException();
       }
     }
+  }
+  @Override
+  public final boolean findResultsByUserAndSubCategory(final Long userId,
+           final Long subCategoryId) {
+    if (userId == null || subCategoryId == null) {
+      throw new InputEmptyException();
+    }
+    Results result = resultRepo
+        .findResultsByStudentsAndSubCategory(userId, subCategoryId);
+    if (result == null) {
+      return false;
+    }
+    return true;
   }
 }

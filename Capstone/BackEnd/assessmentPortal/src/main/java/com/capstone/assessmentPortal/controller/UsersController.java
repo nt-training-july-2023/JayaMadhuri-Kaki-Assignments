@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.assessmentPortal.model.Users;
+import com.capstone.assessmentPortal.dto.LoginRequest;
+import com.capstone.assessmentPortal.dto.SignUpRequest;
+import com.capstone.assessmentPortal.dto.UserDetails;
+import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.UsersService;
 
@@ -32,24 +35,25 @@ public class UsersController {
   /**
    *registeration of students.
    *@return response
-   *@param users users
+   *@param signUpRequest signUpRequest
   */
   @PostMapping("/studentRegister")
   public final ResponseEntity<Object> studentRegistration(
-            @RequestBody @Valid final Users users) {
-    String response = usersService.studentRegistration(users);
+            @RequestBody @Valid final SignUpRequest signUpRequest) {
+    String response = usersService.studentRegistration(signUpRequest);
     return ResponseHandler.generateResponse("Successfully Registered",
             HttpStatus.OK, "User Details", response);
   }
   /**
    *user login.
    *@return userDetails
-   *@param users users
+   *@param loginRequest loginRequest
   */
   @PostMapping("/userLogin")
   public final ResponseEntity<Object> userLogin(
-                  @RequestBody final Users users) {
-    Map<String, String> userDetails = usersService.authenticateUser(users);
+                  @RequestBody final LoginRequest loginRequest) {
+    Map<String, String> userDetails = usersService
+            .authenticateUser(loginRequest);
     return ResponseHandler.generateResponse("Login Successfull",
                   HttpStatus.OK, "User Details", userDetails);
   }
@@ -61,7 +65,7 @@ public class UsersController {
   @GetMapping("/getUser/{studentId}")
   public final ResponseEntity<Object> getStudentById(
                  @PathVariable final Long studentId) {
-    Users studentDetails = usersService.getStudentById(studentId);
+    UserDetails studentDetails = usersService.getStudentById(studentId);
     return ResponseHandler.generateResponse("Successfully Retrieved",
                  HttpStatus.OK, "Student Details", studentDetails);
   }
@@ -74,8 +78,9 @@ public class UsersController {
   @PutMapping("/updateStudent/{studentId}")
   public final ResponseEntity<Object> updateStudentDetails(
            @PathVariable final Long studentId,
-           @RequestBody final Users users) {
-    Users studentDetails = usersService.updateStudentDetails(studentId, users);
+           @RequestBody final UserDetailsForUpdate users) {
+    UserDetailsForUpdate studentDetails = usersService
+            .updateStudentDetails(studentId, users);
     return ResponseHandler.generateResponse("Successfully Updated",
            HttpStatus.OK, "Student Details", studentDetails);
   }

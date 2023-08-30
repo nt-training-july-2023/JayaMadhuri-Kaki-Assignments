@@ -3,10 +3,11 @@ package com.capstone.assessmentPortal.service.serviceImplementation;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmptyListException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
@@ -34,51 +35,76 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   @Autowired
   private CategoryRepo categoryRepo;
   @Override
-  public final SubCategory addSubCategory(final SubCategory subCategory) {
+  public final SubCategoryDetailsDto addSubCategory(final
+               SubCategoryDetailsDto subCategory) {
     Optional<SubCategory> existingSubCategory = subCategoryRepo
-             .getSubCategoryByName(
-             subCategory.getSubCategoryName());
+             .getSubCategoryByName(subCategory.getSubCategoryName());
     if (existingSubCategory.isPresent()) {
       throw new AlreadyExistsException();
     } else {
-      if (subCategory.getSubCategoryName().isEmpty()) {
+      if (subCategory.getSubCategoryName().isEmpty()
+           || subCategory.getCategoryId() == 0
+           || subCategory.getTimeLimitInMinutes().isEmpty()) {
         throw new InputEmptyException();
       } else {
-        if (subCategory.getCategory() == null) {
-          throw new NotFoundException();
-        } else {
-          if (subCategory.getCategory().getCategoryId() == null) {
-            throw new NotFoundException();
-          } else {
-            Category existingCategory = categoryRepo.findById(
-                       subCategory.getCategory().getCategoryId()).orElse(null);
-            if (existingCategory != null) {
-              return subCategoryRepo.save(subCategory);
-            } else {
-              throw new NotFoundException();
-            }
-         }
-       }
+          SubCategory newSubCategory = new SubCategory();
+          newSubCategory.setSubCategoryName(subCategory.getSubCategoryName());
+          newSubCategory.setSubCategoryDescription(subCategory
+                        .getSubCategoryDescription());
+          newSubCategory.setTimeLimitInMinutes(subCategory
+                        .getTimeLimitInMinutes());
+          Category existingCategory = categoryRepo.findById(
+                   subCategory.getCategoryId()).orElseThrow(() ->
+                   new NotFoundException("Category not found"));
+          newSubCategory.setCategory(existingCategory);
+          subCategoryRepo.save(newSubCategory);
+          return subCategory;
       }
     }
   }
   @Override
-  public final List<SubCategory> getAllSubCategories() {
+  public final List<SubCategoryDetailsDto> getAllSubCategories() {
     List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
     if (listOfSubCategories.size() == 0) {
       throw new EmptyListException();
     } else {
-      return subCategoryRepo.findAll();
+      return listOfSubCategories.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
     }
   }
-  @Override
-  public final SubCategory getSubCategoryById(final Long subCategoryId) {
-    return subCategoryRepo.findById(subCategoryId)
-         .orElseThrow(() -> new NoSuchElementException("Cannot "
-         + "find Subcategory with id: " + subCategoryId));
+  /**
+   * converting entity to dto for get all method.
+   * @return subCategoryDto
+   * @param subCategory subCategory
+  */
+  private SubCategoryDetailsDto convertEntityToDto(final
+                      SubCategory subCategory) {
+    SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+    subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
+    subCategoryDto.setSubCategoryDescription(subCategory
+              .getSubCategoryDescription());
+    subCategoryDto.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
+    subCategoryDto.setCategoryId(subCategory.getCategory().getCategoryId());
+    return subCategoryDto;
   }
   @Override
-  public final SubCategory updateSubCategory(final SubCategory subCategory,
+  public final SubCategoryDetailsDto getSubCategoryById(final
+                     Long subCategoryId) {
+    SubCategory subCategory = subCategoryRepo.findById(subCategoryId)
+         .orElseThrow(() -> new NoSuchElementException("Cannot "
+         + "find Subcategory with id: " + subCategoryId));
+    SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+    subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
+    subCategoryDto.setSubCategoryDescription(subCategory
+                        .getSubCategoryDescription());
+    subCategoryDto.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
+    subCategoryDto.setCategoryId(subCategory.getCategory().getCategoryId());
+    return subCategoryDto;
+  }
+  @Override
+  public final SubCategoryDetailsDto updateSubCategory(final
+                    SubCategoryDetailsDto subCategory,
                     final Long subCategoryId) {
     SubCategory existingquiz = subCategoryRepo
                  .findById(subCategoryId).orElse(null);
@@ -87,7 +113,6 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
       existingquiz.setSubCategoryDescription(subCategory
                .getSubCategoryDescription());
       existingquiz.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
-      existingquiz.setAttempted(subCategory.isAttempted());
       if (existingquiz.getSubCategoryName().isEmpty()
        || existingquiz.getTimeLimitInMinutes().isEmpty()) {
         throw new InputEmptyException();
@@ -97,7 +122,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
         if (existingSubCategory.isPresent()) {
           throw new AlreadyExistsException();
         } else {
-          return subCategoryRepo.save(existingquiz);
+          subCategoryRepo.save(existingquiz);
+          return subCategory;
         }
       }
     } else {
@@ -115,7 +141,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     }
   }
   @Override
-  public final List<SubCategory> getSubCategoryByCategoryId(final
+  public final List<SubCategoryDetailsDto> getSubCategoryByCategoryId(final
                    Long categoryId) {
     Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
     if (existingCategory == null) {
@@ -126,7 +152,9 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
       if (listOfSubCategories.size() == 0) {
         throw new EmptyListException();
       } else {
-        return listOfSubCategories;
+        return listOfSubCategories.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
       }
     }
   }

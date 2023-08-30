@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.assessmentPortal.model.SubCategory;
+import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
@@ -34,7 +34,8 @@ public class SubCategoryController {
   */
   @GetMapping("/allSubCategories")
   public final ResponseEntity<Object> getAllSubCategories() {
-    List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
+    List<SubCategoryDetailsDto> subCategories = subCategoryService
+              .getAllSubCategories();
     return ResponseHandler.generateResponse(
           "Successfully Retrieved All SubCategories",
           HttpStatus.OK, "List of SubCategories", subCategories);
@@ -47,7 +48,7 @@ public class SubCategoryController {
   @GetMapping("/subCategory/{subCategoryId}")
   public final ResponseEntity<Object> getSubCategoryById(@PathVariable final
                    Long subCategoryId) {
-    SubCategory subCategory = subCategoryService
+    SubCategoryDetailsDto subCategory = subCategoryService
                    .getSubCategoryById(subCategoryId);
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Id",
@@ -61,7 +62,7 @@ public class SubCategoryController {
   @GetMapping("/subCategoryByCategory/{categoryId}")
   public final ResponseEntity<Object> getSubCategoryByCategoryId(
          @PathVariable final Long categoryId) {
-    List<SubCategory> subCategory = subCategoryService
+    List<SubCategoryDetailsDto> subCategory = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Category Id",
@@ -74,8 +75,8 @@ public class SubCategoryController {
   */
   @PostMapping("/addSubCategory")
   public final ResponseEntity<Object> addSubCategory(
-            @RequestBody final SubCategory subCategory) {
-    SubCategory newSubCategory = subCategoryService
+            @RequestBody final SubCategoryDetailsDto subCategory) {
+    SubCategoryDetailsDto newSubCategory = subCategoryService
             .addSubCategory(subCategory);
     return ResponseHandler.generateResponse("Successfully Added",
             HttpStatus.OK, "SubCategory", newSubCategory);
@@ -89,8 +90,8 @@ public class SubCategoryController {
   @PutMapping("/updateSubCategory/{subCategoryId}")
   public final ResponseEntity<Object> updateSubCategory(
           @PathVariable final Long subCategoryId,
-          @RequestBody final SubCategory subCategory) {
-    SubCategory updatedSubCategory = subCategoryService
+          @RequestBody final SubCategoryDetailsDto subCategory) {
+    SubCategoryDetailsDto updatedSubCategory = subCategoryService
           .updateSubCategory(subCategory, subCategoryId);
     return ResponseHandler.generateResponse("Successfully Updated",
           HttpStatus.OK, "SubCategory", updatedSubCategory);

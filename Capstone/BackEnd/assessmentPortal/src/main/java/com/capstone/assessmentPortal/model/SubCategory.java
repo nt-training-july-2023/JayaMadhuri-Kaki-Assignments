@@ -55,11 +55,6 @@ public class SubCategory {
   @NotEmpty(message = "Time limit should not be empty")
   private String timeLimitInMinutes;
   /**
-   *status of quiz attempted by user or not attribute.
-  */
-  @Column
-  private boolean isAttempted = false;
-  /**
    *category entity class reference variable attribute.
   */
   @ManyToOne

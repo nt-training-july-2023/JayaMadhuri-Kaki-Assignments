@@ -3,6 +3,7 @@ package com.capstone.assessmentPortal.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +34,19 @@ public class ResultsController {
     Results newResult = resultService.addTemporaryResult(results);
     return ResponseHandler.generateResponse("Successfully Added",
                HttpStatus.OK, "Result", newResult);
+  }
+  /**
+   *check status of user whether he attempted quiz or not.
+   *@return true or false
+   *@param userId userId
+   *@param subCategoryId subCategoryId
+  */
+  @PostMapping("/status/{userId}/{subCategoryId}")
+  public final ResponseEntity<Object> checkAttemptOrNot(@PathVariable final
+                          Long userId, @PathVariable final Long subCategoryId) {
+    boolean result = resultService
+         .findResultsByUserAndSubCategory(userId, subCategoryId);
+    return ResponseHandler.generateResponse("Retrieved Status",
+            HttpStatus.OK, "status", result);
   }
 }

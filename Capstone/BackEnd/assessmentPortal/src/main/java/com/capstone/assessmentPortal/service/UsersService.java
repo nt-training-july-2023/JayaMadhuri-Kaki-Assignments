@@ -2,7 +2,10 @@ package com.capstone.assessmentPortal.service;
 
 import java.util.Map;
 
-import com.capstone.assessmentPortal.model.Users;
+import com.capstone.assessmentPortal.dto.LoginRequest;
+import com.capstone.assessmentPortal.dto.SignUpRequest;
+import com.capstone.assessmentPortal.dto.UserDetails;
+import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 
 /**
  * Users service interface.
@@ -12,15 +15,15 @@ public interface UsersService {
   /**
    * registeration of students.
    * @return users
-   * @param users users
+   * @param signUpRequest signUpRequest
   */
-  String studentRegistration(Users users);
+  String studentRegistration(SignUpRequest signUpRequest);
   /**
    * authenticate user by credentials.
    * @return authenticatedUser
-   * @param users users
+   * @param loginRequest loginRequest
   */
-  Map<String, String> authenticateUser(Users users);
+  Map<String, String> authenticateUser(LoginRequest loginRequest);
   /**
    * delete student by id.
    * @param studentId studentId
@@ -32,11 +35,12 @@ public interface UsersService {
    * @param studentId studentId
    * @param users users
   */
-  Users updateStudentDetails(Long studentId, Users users);
+  UserDetailsForUpdate updateStudentDetails(Long studentId,
+          UserDetailsForUpdate users);
   /**
    * get student by student id.
    * @return student
    * @param studentId studentId
   */
-  Users getStudentById(Long studentId);
+  UserDetails getStudentById(Long studentId);
 }

@@ -2,7 +2,7 @@ package com.capstone.assessmentPortal.service;
 
 import java.util.List;
 
-import com.capstone.assessmentPortal.model.SubCategory;
+import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 
 /**
  * subCategory service interface.
@@ -14,25 +14,25 @@ public interface SubCategoryService {
    * @return subCategory
    * @param subCategory subCategory
   */
-  SubCategory addSubCategory(SubCategory subCategory);
+  SubCategoryDetailsDto addSubCategory(SubCategoryDetailsDto subCategory);
   /**
    * get list of all subcategories in table.
    * @return list of subcategories
   */
-  List<SubCategory> getAllSubCategories();
+  List<SubCategoryDetailsDto> getAllSubCategories();
   /**
    * get subcategory by id.
    * @return subCategory
    * @param subCategoryId subCategoryId
   */
-  SubCategory getSubCategoryById(Long subCategoryId);
+  SubCategoryDetailsDto getSubCategoryById(Long subCategoryId);
   /**
    * update subcategory by id and given details.
    * @return subCategory
    * @param subCategory subCategory
    * @param subCategoryId subCategoryId
   */
-  SubCategory updateSubCategory(SubCategory subCategory,
+  SubCategoryDetailsDto updateSubCategory(SubCategoryDetailsDto subCategory,
                  Long subCategoryId);
   /**
    * delete subcategory by id.
@@ -44,5 +44,5 @@ public interface SubCategoryService {
    * @return subCategory
    * @param categoryId categoryId
   */
-  List<SubCategory> getSubCategoryByCategoryId(Long categoryId);
+  List<SubCategoryDetailsDto> getSubCategoryByCategoryId(Long categoryId);
 }

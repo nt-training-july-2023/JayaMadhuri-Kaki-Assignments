@@ -90,10 +90,10 @@ public class QuestionServiceImplementation implements QuestionService {
       } else {
         questionRepo.save(existingQuestion);
         return existingQuestion;
-  }
-} else {
-  throw new NoSuchElementException();
-}
+      }
+    } else {
+      throw new NoSuchElementException();
+    }
   }
   @Override
   public final void deleteQuestion(final Long questionId) {

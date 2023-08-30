@@ -8,6 +8,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capstone.assessmentPortal.dto.LoginRequest;
+import com.capstone.assessmentPortal.dto.SignUpRequest;
+import com.capstone.assessmentPortal.dto.UserDetails;
+import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
@@ -27,25 +31,34 @@ public class UsersServiceImplementation implements UsersService {
   @Autowired
   private UsersRepo usersRepo;
   @Override
-  public final String studentRegistration(final Users users) {
+  public final String studentRegistration(final SignUpRequest signUpRequest) {
     Optional<Users> existingUser = usersRepo
-          .findUserByEmailId(users.getEmailId());
-    String name = users.getFirstName() + users.getLastName();
+          .findUserByEmailId(signUpRequest.getEmailId());
+    String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
     if (existingUser.isPresent()) {
       throw new EmailAlreadyExistsException();
     } else {
+      Users users = new Users();
+      users.setFirstName(signUpRequest.getFirstName());
+      users.setLastName(signUpRequest.getLastName());
+      users.setDateOfBirth(signUpRequest.getDateOfBirth());
+      users.setGender(signUpRequest.getGender());
+      users.setEmailId(signUpRequest.getEmailId());
+      users.setPassword(signUpRequest.getPassword());
+      users.setUserType(signUpRequest.getUserType());
       usersRepo.save(users);
     }
     return name;
   }
   @Override
-  public final Map<String, String> authenticateUser(final Users users) {
-    Optional<Users> existingUser = usersRepo.findUserByEmailId(users
+  public final Map<String, String> authenticateUser(final
+          LoginRequest loginRequest) {
+    Optional<Users> existingUser = usersRepo.findUserByEmailId(loginRequest
              .getEmailId());
     Map<String, String> userDetails = new HashMap<String, String>();
     if (existingUser.isPresent()) {
       String existingUserPassword = existingUser.get().getPassword();
-      if (users.getPassword().equals(existingUserPassword)) {
+      if (loginRequest.getPassword().equals(existingUserPassword)) {
         userDetails.put("UserType: ", existingUser.get().getUserType());
         userDetails.put("Name: ", existingUser.get().getFirstName()
               + " " + existingUser.get().getLastName());
@@ -68,29 +81,40 @@ public class UsersServiceImplementation implements UsersService {
     }
   }
   @Override
-  public final Users updateStudentDetails(final Long studentId,
-                 final Users users) {
-    Users existinguser = usersRepo.findById(studentId).orElse(null);
-    if (existinguser == null) {
-      throw new NoSuchElementException();
-    } else {
-      existinguser.setFirstName(users.getFirstName());
-      existinguser.setLastName(users.getLastName());
-      existinguser.setDateOfBirth(users.getDateOfBirth());
-      existinguser.setGender(users.getGender());
-      if (existinguser.getFirstName().isEmpty()
-         || existinguser.getLastName().isEmpty()
-         || existinguser.getDateOfBirth().isEmpty()
-         || existinguser.getGender().isEmpty()) {
-        throw new InputEmptyException();
-      }
-      return usersRepo.save(existinguser);
+  public final UserDetailsForUpdate updateStudentDetails(final Long studentId,
+                 final UserDetailsForUpdate users) {
+    Users existinguser = usersRepo.findById(studentId).orElseThrow(() ->
+    new NoSuchElementException());
+    existinguser.setFirstName(users.getFirstName());
+    existinguser.setLastName(users.getLastName());
+    existinguser.setDateOfBirth(users.getDateOfBirth());
+    existinguser.setGender(users.getGender());
+    if (existinguser.getFirstName().isEmpty()
+       || existinguser.getLastName().isEmpty()
+       || existinguser.getDateOfBirth().isEmpty()
+       || existinguser.getGender().isEmpty()) {
+      throw new InputEmptyException();
     }
+    Users updatedUser = usersRepo.save(existinguser);
+    UserDetailsForUpdate updatedDetails = new UserDetailsForUpdate();
+    updatedDetails.setFirstName(updatedUser.getFirstName());
+    updatedDetails.setLastName(updatedUser.getLastName());
+    updatedDetails.setDateOfBirth(updatedUser.getDateOfBirth());
+    updatedDetails.setGender(updatedUser.getGender());
+    return updatedDetails;
   }
   @Override
-  public final Users getStudentById(final Long studentId) {
-    return usersRepo.findById(studentId).orElseThrow(
-               () -> new NoSuchElementException(
-               "Cannot find User with id: " + studentId));
+  public final UserDetails getStudentById(final Long studentId) {
+    Users userDetails = usersRepo.findById(studentId).orElseThrow(
+            () -> new NoSuchElementException(
+            "Cannot find User with id: " + studentId));
+    UserDetails userDetailsDto = new UserDetails();
+    userDetailsDto.setFirstName(userDetails.getFirstName());
+    userDetailsDto.setLastName(userDetails.getLastName());
+    userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());
+    userDetailsDto.setGender(userDetails.getGender());
+    userDetailsDto.setEmailId(userDetails.getEmailId());
+    userDetailsDto.setUserType(userDetails.getUserType());
+    return userDetailsDto;
   }
 }
