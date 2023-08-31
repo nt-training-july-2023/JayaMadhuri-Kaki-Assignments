@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.EmptyListException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
@@ -40,6 +39,7 @@ public class CategoryServiceImplementation implements CategoryService {
         throw new InputEmptyException();
       }
       Category newCategory = new Category();
+      newCategory.setCategoryId(category.getCategoryId());
       newCategory.setCategoryName(category.getCategoryName());
       newCategory.setCategoryDescription(category.getCategoryDescription());
       categoryRepo.save(newCategory);
@@ -49,13 +49,9 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final List<CategoryDetailsDto> getAllCategories() {
     List<Category> listOfCategories = categoryRepo.findAll();
-    if (listOfCategories.isEmpty()) {
-      throw new EmptyListException();
-    } else {
       return listOfCategories.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
-    }
   }
   /**
    * converting entity to dto for get all method.
@@ -64,6 +60,7 @@ public class CategoryServiceImplementation implements CategoryService {
   */
   private CategoryDetailsDto convertEntityToDto(final Category category) {
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
+    categoryDto.setCategoryId(category.getCategoryId());
     categoryDto.setCategoryName(category.getCategoryName());
     categoryDto.setCategoryDescription(category.getCategoryDescription());
     return categoryDto;
@@ -74,6 +71,7 @@ public class CategoryServiceImplementation implements CategoryService {
             () -> new NoSuchElementException(
                     "Cannot find category with id: " + categoryId));
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
+    categoryDto.setCategoryId(category.getCategoryId());
     categoryDto.setCategoryName(category.getCategoryName());
     categoryDto.setCategoryDescription(category.getCategoryDescription());
     return categoryDto;
@@ -94,11 +92,7 @@ public class CategoryServiceImplementation implements CategoryService {
     Category existingCategory = categoryRepo
                .findById(categoryId).orElse(null);
     if (existingCategory != null) {
-      Optional<Category> existingCategoryName = categoryRepo
-                .getCategoryByName(category.getCategoryName());
-      if (existingCategoryName.isPresent()) {
-        throw new AlreadyExistsException();
-      }
+      existingCategory.setCategoryId(category.getCategoryId());
       existingCategory.setCategoryName(category.getCategoryName());
       existingCategory.setCategoryDescription(category
                 .getCategoryDescription());

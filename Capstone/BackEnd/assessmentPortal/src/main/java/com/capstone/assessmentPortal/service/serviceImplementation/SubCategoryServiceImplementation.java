@@ -117,14 +117,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
        || existingquiz.getTimeLimitInMinutes().isEmpty()) {
         throw new InputEmptyException();
       } else {
-        Optional<SubCategory> existingSubCategory = subCategoryRepo
-                .getSubCategoryByName(existingquiz.getSubCategoryName());
-        if (existingSubCategory.isPresent()) {
-          throw new AlreadyExistsException();
-        } else {
           subCategoryRepo.save(existingquiz);
           return subCategory;
-        }
       }
     } else {
        throw new NoSuchElementException();

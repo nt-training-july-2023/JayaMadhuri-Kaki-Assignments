@@ -38,7 +38,7 @@ public class SubCategoryController {
               .getAllSubCategories();
     return ResponseHandler.generateResponse(
           "Successfully Retrieved All SubCategories",
-          HttpStatus.OK, "List of SubCategories", subCategories);
+          HttpStatus.OK, "ListOfSubCategories", subCategories);
   }
   /**
    *get subcategory by subcategory id.
@@ -66,7 +66,7 @@ public class SubCategoryController {
          .getSubCategoryByCategoryId(categoryId);
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Category Id",
-          HttpStatus.OK, "SubCategory by category id", subCategory);
+          HttpStatus.OK, "SubCategoryByCategoryId", subCategory);
   }
   /**
    *add subcategory to subcategory table.

@@ -54,6 +54,21 @@
 		    <groupId>org.springframework.security</groupId>     
 		    <artifactId>spring-security-crypto</artifactId> 
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -99,8 +114,8 @@
 		    </plugin>
 		    <plugin>
 			    <groupId>com.github.spotbugs</groupId>
-			    <artifactId>spotbugs-maven-plugin</artifactId>
-			    <version>4.7.3.5</version>
+	            <artifactId>spotbugs-maven-plugin</artifactId>
+	            <version>4.3.0</version>
 	            <executions>
 	                <execution>
 	                    <id>spotbugs-check</id>

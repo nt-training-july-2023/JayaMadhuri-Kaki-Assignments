@@ -30,7 +30,14 @@ public class UsersServiceImplementation implements UsersService {
   */
   @Autowired
   private UsersRepo usersRepo;
-  @Override
+  /**
+   * users service implementation class.
+   * @param usersRepo2 usersRepo2
+  */
+  public UsersServiceImplementation(final UsersRepo usersRepo2) {
+    this.usersRepo = usersRepo2;
+  }
+@Override
   public final String studentRegistration(final SignUpRequest signUpRequest) {
     Optional<Users> existingUser = usersRepo
           .findUserByEmailId(signUpRequest.getEmailId());

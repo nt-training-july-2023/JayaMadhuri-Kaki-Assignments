@@ -40,7 +40,7 @@ public class QuestionController {
           .getQuestionsBySubCategoryId(subCategoryId);
     return ResponseHandler.generateResponse(
            "Successfully Retrieved Questions By SubCategory Id",
-           HttpStatus.OK, "Question by SubCategory id", question);
+           HttpStatus.OK, "QuestionBySubCategoryId", question);
   }
   /**
    *add questions to questions table.

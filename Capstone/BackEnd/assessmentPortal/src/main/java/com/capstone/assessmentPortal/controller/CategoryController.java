@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.capstone.assessmentPortal.service.CategoryService;
 /**
  * Category Controller class.
  */
+@CrossOrigin(origins = "*")
 @RestController
 public class CategoryController {
   /**
@@ -35,7 +37,7 @@ public class CategoryController {
     List<CategoryDetailsDto> categories = categoryService.getAllCategories();
     return ResponseHandler.generateResponse("Successfully Retrieved"
                   + " All Categories",
-                  HttpStatus.OK, "List of Categories", categories);
+                  HttpStatus.OK, "listOfCategories", categories);
   }
   /**
    * get category by id.
@@ -48,7 +50,7 @@ public class CategoryController {
     CategoryDetailsDto category = categoryService.getCategoryById(categoryId);
     return ResponseHandler.generateResponse("Successfully "
              + "Retrieved Category By Id",
-                HttpStatus.OK, "Category Details", category);
+                HttpStatus.OK, "CategoryDetails", category);
   }
   /**
    *add category to category table.
@@ -60,7 +62,7 @@ public class CategoryController {
             @RequestBody final CategoryDetailsDto category) {
     CategoryDetailsDto newCategory = categoryService.addCategory(category);
     return ResponseHandler.generateResponse("Successfully Added",
-          HttpStatus.OK, "Category Details", newCategory);
+          HttpStatus.OK, "CategoryDetails", newCategory);
   }
   /**
    * update category details by id.
@@ -75,7 +77,7 @@ public class CategoryController {
     CategoryDetailsDto updatedCategory = categoryService.updateCategory(
                    categoryId, category);
     return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, "Category Details", updatedCategory);
+          HttpStatus.OK, "CategoryDetails", updatedCategory);
   }
   /**
    * delete category by id.
@@ -87,6 +89,6 @@ public class CategoryController {
            @PathVariable final Long categoryId) {
     categoryService.deleteCategory(categoryId);
     return ResponseHandler.generateResponse("Successfully Deleted",
-    HttpStatus.OK, "Category Details", null);
+    HttpStatus.OK, "CategoryDetails", null);
   }
 }

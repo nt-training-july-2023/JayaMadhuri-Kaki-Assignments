@@ -42,7 +42,7 @@ public class UsersController {
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     String response = usersService.studentRegistration(signUpRequest);
     return ResponseHandler.generateResponse("Successfully Registered",
-            HttpStatus.OK, "User Details", response);
+            HttpStatus.OK, "UserDetails", response);
   }
   /**
    *user login.
@@ -55,7 +55,7 @@ public class UsersController {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
     return ResponseHandler.generateResponse("Login Successfull",
-                  HttpStatus.OK, "User Details", userDetails);
+                  HttpStatus.OK, "UserDetails", userDetails);
   }
   /**
    *get student details by id.
@@ -67,7 +67,7 @@ public class UsersController {
                  @PathVariable final Long studentId) {
     UserDetails studentDetails = usersService.getStudentById(studentId);
     return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, "Student Details", studentDetails);
+                 HttpStatus.OK, "StudentDetails", studentDetails);
   }
   /**
    * update student details by id.
@@ -82,7 +82,7 @@ public class UsersController {
     UserDetailsForUpdate studentDetails = usersService
             .updateStudentDetails(studentId, users);
     return ResponseHandler.generateResponse("Successfully Updated",
-           HttpStatus.OK, "Student Details", studentDetails);
+           HttpStatus.OK, "StudentDetails", studentDetails);
   }
   /**
    * delete student details by id.
@@ -94,6 +94,6 @@ public class UsersController {
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
     return ResponseHandler.generateResponse("Successfully Deleted",
-           HttpStatus.OK, "Student Details", null);
+           HttpStatus.OK, "StudentDetails", null);
   }
 }
