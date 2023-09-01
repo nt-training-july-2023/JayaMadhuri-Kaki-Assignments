@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.EmptyListException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
@@ -76,13 +75,9 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   @Override
   public final List<SubCategoryDetailsDto> getAllSubCategories() {
     List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
-    if (listOfSubCategories.size() == 0) {
-      throw new EmptyListException();
-    } else {
       return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
-    }
   }
   /**
    * converting entity to dto for get all method.
@@ -154,13 +149,9 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     } else {
       List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
-      if (listOfSubCategories.size() == 0) {
-        throw new EmptyListException();
-      } else {
         return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
-      }
     }
   }
 }

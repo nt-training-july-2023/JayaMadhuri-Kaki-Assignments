@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
@@ -22,7 +23,7 @@ import com.capstone.assessmentPortal.repository.CategoryRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
+@SpringBootTest
 class CategoryServiceImplementationTest {
     @Autowired
     CategoryRepo categoryRepo;
@@ -45,12 +46,9 @@ class CategoryServiceImplementationTest {
     
     @Test
     void testAddCategoryWhenEmptyField() {
-        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
-        categoryDetailsDto.setCategoryId(1L);
-        categoryDetailsDto.setCategoryName("");
-        Category category = new Category();
-        category.setCategoryId(categoryDetailsDto.getCategoryId());
-        category.setCategoryName(categoryDetailsDto.getCategoryName());
+        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto(1L,"","");
+        Category category = new Category(categoryDetailsDto.getCategoryId(),categoryDetailsDto.getCategoryName(),
+                categoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         assertThrows(InputEmptyException.class, () -> categoryServiceImpl.addCategory(categoryDetailsDto));
     }
@@ -79,11 +77,12 @@ class CategoryServiceImplementationTest {
         category.setCategoryId(categoryDetailsDto.getCategoryId());
         category.setCategoryName(categoryDetailsDto.getCategoryName());
         List<Category> listofcategories = new ArrayList<>();
+        listofcategories.add(category);
         when(categoryRepo.getCategoryByName(category.getCategoryName())).thenReturn(Optional.empty());
         categoryRepo.save(category);
         when(categoryRepo.findAll()).thenReturn(listofcategories);
         List<CategoryDetailsDto> categoryList = categoryServiceImpl.getAllCategories();
-        assertEquals(listofcategories, categoryList);
+        assertEquals("Java", categoryList.get(0).getCategoryName());
     }
 
     @Test
@@ -96,12 +95,9 @@ class CategoryServiceImplementationTest {
     @Test
     void testGetCategoryByIdIfIdExists() {
         Long categoryId = 1L;
-        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
-        categoryDetailsDto.setCategoryId(categoryId);
-        categoryDetailsDto.setCategoryName("Java");
-        Category category = new Category();
-        category.setCategoryId(categoryDetailsDto.getCategoryId());
-        category.setCategoryName(categoryDetailsDto.getCategoryName());
+        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto(1L,"Java","");
+        Category category = new Category(categoryDetailsDto.getCategoryId(),categoryDetailsDto.getCategoryName(),
+                categoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDetails = categoryServiceImpl.getCategoryById(categoryId);
         assertEquals(category.getCategoryName(), categoryDetails.getCategoryName());
@@ -120,12 +116,14 @@ class CategoryServiceImplementationTest {
         CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
         categoryDetailsDto.setCategoryId(categoryId);
         categoryDetailsDto.setCategoryName("Java");
+        categoryDetailsDto.setCategoryDescription("programming language");
         Category category = new Category();
         category.setCategoryId(categoryDetailsDto.getCategoryId());
         category.setCategoryName(categoryDetailsDto.getCategoryName());
+        category.setCategoryDescription(categoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         categoryServiceImpl.deleteCategory(categoryId);
-        assertFalse(categoryRepo.existsById(categoryId));
+        assertFalse(categoryRepo.existsById(category.getCategoryId()));
     }
 
     @Test
@@ -154,22 +152,17 @@ class CategoryServiceImplementationTest {
     @Test
     void testUpdateCategory() {
         Long categoryId = 1L;
-        CategoryDetailsDto existingcategoryDetailsDto = new CategoryDetailsDto();
-        existingcategoryDetailsDto.setCategoryId(categoryId);
-        existingcategoryDetailsDto.setCategoryName("Java");
-        Category category = new Category();
-        category.setCategoryId(existingcategoryDetailsDto.getCategoryId());
-        category.setCategoryName(existingcategoryDetailsDto.getCategoryName());
-        CategoryDetailsDto updatedcategoryDetailsDto = new CategoryDetailsDto();
-        updatedcategoryDetailsDto.setCategoryId(categoryId);
-        updatedcategoryDetailsDto.setCategoryName("Spring");
-        Category updatedCategory = new Category();
-        updatedCategory.setCategoryId(updatedcategoryDetailsDto.getCategoryId());
-        updatedCategory.setCategoryName(updatedcategoryDetailsDto.getCategoryName());
+        CategoryDetailsDto existingcategoryDetailsDto = new CategoryDetailsDto(categoryId,"Java","Programming language");
+        Category category = new Category(existingcategoryDetailsDto.getCategoryId(),existingcategoryDetailsDto.getCategoryName(),
+                existingcategoryDetailsDto.getCategoryDescription());
+        CategoryDetailsDto updatedcategoryDetailsDto = new CategoryDetailsDto(categoryId,"Spring","Programming language");
+        Category updatedCategory = new Category(updatedcategoryDetailsDto.getCategoryId(),updatedcategoryDetailsDto.getCategoryName(),
+                updatedcategoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         when(categoryRepo.save(category)).thenReturn(updatedCategory);
         CategoryDetailsDto categoryDto = categoryServiceImpl.updateCategory(categoryId, updatedcategoryDetailsDto);
         assertNotNull(categoryDto);
         assertEquals(updatedCategory.getCategoryName(),categoryDto.getCategoryName());
+        assertEquals(updatedCategory.getCategoryDescription(),categoryDto.getCategoryDescription());
     }
 }

@@ -111,4 +111,13 @@ public class Users {
         this.userId = userid;
         this.firstName = name;
     }
+    public Users(final Long userid, final String firstname, final String lastname, final String dateofBirth,
+            final String genDer, final String emailid) {
+        this.userId = userid;
+        this.firstName = firstname;
+        this.lastName = lastname;
+        this.dateOfBirth = dateofBirth;
+        this.gender = genDer; 
+        this.emailId = emailid;
+    }
 }

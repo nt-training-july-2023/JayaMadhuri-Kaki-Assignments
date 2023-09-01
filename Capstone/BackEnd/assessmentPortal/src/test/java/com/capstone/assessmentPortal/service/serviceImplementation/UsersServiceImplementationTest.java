@@ -122,14 +122,7 @@ class UsersServiceImplementationTest {
     @Test
     void testDeleteStudent() {
         Long userId = 1L;
-        Users users = new Users();
-        users.setFirstName("Jaya");
-        users.setLastName("kaki");
-        users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
-        users.setEmailId("jayamadhuri@nucleusteq.com");
-        users.setPassword("Madhu@123");
-        users.setUserType("Student");
+        Users users = new Users(1L,"Jaya","kaki","23-01-2001","female","jayamadhuri@nucleusteq.com");
         when(usersRepo.findById(userId)).thenReturn(Optional.of(users));
         usersServiceImpl.deleteStudent(userId);
         assertFalse(usersRepo.existsById(userId));

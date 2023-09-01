@@ -83,7 +83,7 @@ public class SubCategory {
      */
     public final void setCategory(final Category cate) {
         this.category = new Category(cate.getCategoryId(),
-                category.getCategoryName(),
+                cate.getCategoryName(),
                 cate.getCategoryDescription());
     }
     /**
