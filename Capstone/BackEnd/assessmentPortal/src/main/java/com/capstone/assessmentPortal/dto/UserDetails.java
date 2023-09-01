@@ -3,13 +3,15 @@ package com.capstone.assessmentPortal.dto;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * users Dto class for getting user details.
 */
 
-@Data
+@Setter
+@Getter
 public class UserDetails {
   /**
    *first name of user attribute.

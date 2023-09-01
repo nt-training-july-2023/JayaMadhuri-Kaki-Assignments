@@ -27,17 +27,24 @@ public class CategoryServiceImplementation implements CategoryService {
   */
   @Autowired
   private CategoryRepo categoryRepo;
-  @Override
+  /**
+   * parameter constructor.
+   * @param categoryRepo2 categoryRepo2
+  */
+  public CategoryServiceImplementation(final CategoryRepo categoryRepo2) {
+    this.categoryRepo = categoryRepo2;
+}
+@Override
   public final CategoryDetailsDto addCategory(final
            CategoryDetailsDto category) {
-    Optional<Category> existingCategory = categoryRepo
-              .getCategoryByName(category.getCategoryName());
-    if (existingCategory.isPresent()) {
-      throw new AlreadyExistsException();
-    } else {
       if (category.getCategoryName().isEmpty()) {
         throw new InputEmptyException();
-      }
+      } else {
+     Optional<Category> existingCategory = categoryRepo
+             .getCategoryByName(category.getCategoryName());
+     if (existingCategory.isPresent()) {
+         throw new AlreadyExistsException();
+       }
       Category newCategory = new Category();
       newCategory.setCategoryId(category.getCategoryId());
       newCategory.setCategoryName(category.getCategoryName());

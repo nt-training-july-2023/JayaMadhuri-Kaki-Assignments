@@ -195,7 +195,7 @@ class UsersServiceImplementationTest {
         updateduser.setGender(updatedusers.getGender());
         when(usersRepo.findById(userId)).thenReturn(Optional.of(user));
         when(usersRepo.save(user)).thenReturn(updateduser);
-        UserDetailsForUpdate updatedDetails = usersServiceImpl.updateStudentDetails(userId, users);
+        UserDetailsForUpdate updatedDetails = usersServiceImpl.updateStudentDetails(userId, updatedusers);
         assertNotNull(updatedDetails);
         assertEquals(updateduser.getFirstName(),updatedDetails.getFirstName());
     }
@@ -221,6 +221,8 @@ class UsersServiceImplementationTest {
        when(usersRepo.findById(userId)).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentById(userId);
        assertEquals(userDetails.getEmailId(), result.getEmailId());
+       assertEquals(userDetails.getFirstName(), result.getFirstName());
+       assertEquals(userDetails.getLastName(), result.getLastName());
     }
     
     @Test

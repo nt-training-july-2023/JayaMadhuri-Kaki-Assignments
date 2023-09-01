@@ -34,19 +34,30 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   */
   @Autowired
   private CategoryRepo categoryRepo;
-  @Override
+  /**
+   * parameter constructor.
+   * @param subCategoryRepo2 subCategoryRepo2
+   * @param categoryRepo2 categoryRepo2
+  */
+  public SubCategoryServiceImplementation(final
+          SubCategoryRepo subCategoryRepo2,
+          final CategoryRepo categoryRepo2) {
+    this.subCategoryRepo = subCategoryRepo2;
+    this.categoryRepo = categoryRepo2;
+}
+@Override
   public final SubCategoryDetailsDto addSubCategory(final
                SubCategoryDetailsDto subCategory) {
-    Optional<SubCategory> existingSubCategory = subCategoryRepo
-             .getSubCategoryByName(subCategory.getSubCategoryName());
-    if (existingSubCategory.isPresent()) {
-      throw new AlreadyExistsException();
-    } else {
       if (subCategory.getSubCategoryName().isEmpty()
-           || subCategory.getCategoryId() == 0
-           || subCategory.getTimeLimitInMinutes().isEmpty()) {
-        throw new InputEmptyException();
-      } else {
+              || subCategory.getCategoryId() == 0
+              || subCategory.getTimeLimitInMinutes().isEmpty()) {
+           throw new InputEmptyException();
+         } else {
+         Optional<SubCategory> existingSubCategory = subCategoryRepo
+                 .getSubCategoryByName(subCategory.getSubCategoryName());
+         if (existingSubCategory.isPresent()) {
+             throw new AlreadyExistsException();
+         } else {
           SubCategory newSubCategory = new SubCategory();
           newSubCategory.setSubCategoryName(subCategory.getSubCategoryName());
           newSubCategory.setSubCategoryDescription(subCategory
