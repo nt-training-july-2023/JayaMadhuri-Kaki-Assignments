@@ -158,14 +158,8 @@ class UsersServiceImplementationTest {
         Long userId = 1L;
         UserDetailsForUpdate users = new UserDetailsForUpdate();
         users.setFirstName("");
-        users.setLastName("");
-        users.setDateOfBirth("");
-        users.setGender("");
         Users user = new Users();
         user.setFirstName(users.getFirstName());
-        user.setLastName(users.getLastName());
-        user.setDateOfBirth(users.getDateOfBirth());
-        user.setGender(users.getGender());
         when(usersRepo.findById(userId)).thenReturn(Optional.of(user));
         assertThrows(InputEmptyException.class, () -> usersServiceImpl.updateStudentDetails(userId,users));
     }  

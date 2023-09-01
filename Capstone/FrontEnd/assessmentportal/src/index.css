@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: url('https://olc-wordpress-assets.s3.amazonaws.com/uploads/2020/03/Assessment.jpg');
+  background-image: url('https://img.freepik.com/premium-photo/assessment-time-shot-woman-filling-answer-sheet-test_590464-25113.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -11,7 +11,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

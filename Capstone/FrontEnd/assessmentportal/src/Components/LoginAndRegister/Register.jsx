@@ -23,14 +23,6 @@ const Register = (props) =>{
     const handleChangeRadio = (e) =>{
         setRegisterRequestBody({...registerRequestBody,gender:e.target.value})
     }
-    const finalValues ={
-        firstName:"First Name is required",
-        lastName:"Last Name is required",
-        dateOfBirth:"Date of Birth is required",
-        emailId: "Email ID is required", 
-        password: "Password is required",
-        confirmPassword:"Confirm password is required"
-    };
     const handleChange = (e) =>{
         const {name,value} = e.target;
         if(name === "emailId"){
@@ -38,7 +30,7 @@ const Register = (props) =>{
                 setErrors({...errors,emailId:'Email Required'});
             }
             else if(!/^[A-Z0-9a-z+_-]+@nucleusteq[.]com$/.test(value)){
-                setErrors({...errors,emailId:'Invalid Email'});
+                setErrors({...errors,emailId:'Email should contain .nucleusteq'});
             }
             else{
                 setErrors({...errors,emailId:''});
@@ -105,16 +97,8 @@ const Register = (props) =>{
         }
         setRegisterRequestBody({...registerRequestBody,[name]:value});
     }
-    console.log(registerRequestBody)
-    console.log(errors)
-    const handleRegister=()=>{
-        setErrors(finalValues);
-        if (errors?.firstName?.length == 0 && errors?.lastName?.length == 0 && errors?.dateOfBirth?.length == 0 && errors?.emailId?.length == 0 && errors?.password?.length == 0 && errors?.confirmPassword?.length == 0) {
-            setRenderComponent("login")
-        }
-        else if(errors?.firstName?.length != 0 || errors?.lastName?.length != 0 || errors?.dateOfBirth?.length != 0 || errors?.emailId?.length != 0 || errors?.password?.length != 0 || errors?.confirmPassword?.length != 0){
-            setRenderComponent("register")
-        }
+    const handleRegister = () =>{
+        setRenderComponent("login")
     }
     useEffect(() => {
         if (errors?.firstName?.length == 0 && errors?.lastName?.length == 0 && errors?.dateOfBirth?.length == 0 && errors?.emailId?.length == 0 && errors?.password?.length == 0 && errors?.confirmPassword?.length == 0) {
@@ -146,7 +130,7 @@ const Register = (props) =>{
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className='input'/>
                 <p className='error'>{errors.confirmPassword}</p>
                 <div className='btn'>
-                    <button className='login-btn' onClick={handleRegister}>Register</button>
+                    <button className='login-btn' onClick={handleRegister} disabled={isDisable}>Register</button>
                     <p className='register-btn'> Having an account! <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
                 </div>
             </div>

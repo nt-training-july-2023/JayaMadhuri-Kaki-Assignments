@@ -7,6 +7,7 @@ const Login = (props) =>{
     }
     const [loginRequestBody,setLoginRequestBody] = useState(initialValues);
     const [loginErrors,setLoginErrors] = useState({});
+    const [isDisable,setIsDisable] = useState(true);
     const finalValues={
         emailId:"Email Id is required",
         password:"Password is required"
@@ -33,18 +34,20 @@ const Login = (props) =>{
         }
     }
     const handleLogin = () =>{
-        setLoginErrors(finalValues)
-        if (loginErrors?.emailId?.length == 0 && loginErrors?.password?.length == 0) {
-            
-        }
-        else if(loginErrors?.emailId?.length != 0 || loginErrors?.password?.length != 0){
-            setRenderComponent("login")
-        }
+        setRenderComponent("login")
     }
     const {setRenderComponent} = props;
     const handleClick = () =>{
         setRenderComponent("register");
     }
+    useEffect(() => {
+        if (loginErrors?.emailId?.length == 0 && loginErrors?.password?.length == 0) {
+            setIsDisable(false);
+        }
+        else if(loginErrors?.emailId?.length != 0 || loginErrors?.password?.length != 0){
+            setIsDisable(true);
+        }
+    },[loginErrors]);
     return(
         <div className='login-body'>
             <div className="login-form">
