@@ -2,7 +2,7 @@ package com.capstone.assessmentPortal.service;
 
 import java.util.List;
 
-import com.capstone.assessmentPortal.model.Question;
+import com.capstone.assessmentPortal.dto.QuestionDto;
 
 /**
  * question service interface.
@@ -14,20 +14,20 @@ public interface QuestionService {
    * @return question
    * @param question question
   */
-  Question addQuestion(Question question);
+  QuestionDto addQuestion(QuestionDto question);
   /**
    * get list of question by subcategory id.
    * @return questions
    * @param subCategoryId subCategoryId
   */
-  List<Question> getQuestionsBySubCategoryId(Long subCategoryId);
+  List<QuestionDto> getQuestionsBySubCategoryId(Long subCategoryId);
   /**
    * update questions by question id and new details.
    * @return question
    * @param questionId questionId
    * @param question question
   */
-  Question updateQuestion(Long questionId, Question question);
+  QuestionDto updateQuestion(Long questionId, QuestionDto question);
   /**
    * delete question by question id.
    * @param questionId questionId

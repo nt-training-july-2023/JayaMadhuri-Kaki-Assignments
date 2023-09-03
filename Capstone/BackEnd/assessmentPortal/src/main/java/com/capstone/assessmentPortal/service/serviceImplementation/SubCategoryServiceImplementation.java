@@ -58,6 +58,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
              throw new AlreadyExistsException();
          } else {
           SubCategory newSubCategory = new SubCategory();
+          newSubCategory.setSubCategoryId(subCategory.getSubCategoryId());
           newSubCategory.setSubCategoryName(subCategory.getSubCategoryName());
           newSubCategory.setSubCategoryDescription(subCategory
                         .getSubCategoryDescription());
@@ -87,6 +88,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   private SubCategoryDetailsDto convertEntityToDto(final
                       SubCategory subCategory) {
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+    subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
     subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
     subCategoryDto.setSubCategoryDescription(subCategory
               .getSubCategoryDescription());
@@ -101,6 +103,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
          .orElseThrow(() -> new NoSuchElementException("Cannot "
          + "find Subcategory with id: " + subCategoryId));
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+    subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
     subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
     subCategoryDto.setSubCategoryDescription(subCategory
                         .getSubCategoryDescription());
@@ -115,6 +118,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     SubCategory existingquiz = subCategoryRepo
                  .findById(subCategoryId).orElse(null);
     if (existingquiz != null) {
+      existingquiz.setSubCategoryId(subCategory.getSubCategoryId());
       existingquiz.setSubCategoryName(subCategory.getSubCategoryName());
       existingquiz.setSubCategoryDescription(subCategory
                .getSubCategoryDescription());

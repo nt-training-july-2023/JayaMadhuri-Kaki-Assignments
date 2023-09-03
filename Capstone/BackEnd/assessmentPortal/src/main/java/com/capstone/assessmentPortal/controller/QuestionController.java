@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.assessmentPortal.model.Question;
+import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.QuestionService;
 
@@ -36,7 +36,7 @@ public class QuestionController {
   @GetMapping("/getAllQuestions/{subCategoryId}")
   public final ResponseEntity<Object> getAllQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
-    List<Question> question = questionService
+    List<QuestionDto> question = questionService
           .getQuestionsBySubCategoryId(subCategoryId);
     return ResponseHandler.generateResponse(
            "Successfully Retrieved Questions By SubCategory Id",
@@ -49,8 +49,8 @@ public class QuestionController {
   */
   @PostMapping("/addQuestion")
   public final ResponseEntity<Object> addQuestion(
-            @RequestBody final Question question) {
-    Question newQuestion = questionService.addQuestion(question);
+            @RequestBody final QuestionDto question) {
+    QuestionDto newQuestion = questionService.addQuestion(question);
     return ResponseHandler.generateResponse("Successfully Added",
             HttpStatus.OK, "Question", newQuestion);
   }
@@ -63,8 +63,8 @@ public class QuestionController {
   @PutMapping("/updateQuestion/{questionId}")
   public final ResponseEntity<Object> updateQuestion(
           @PathVariable final Long questionId,
-          @RequestBody final Question question) {
-    Question updatedQuestion = questionService.updateQuestion(questionId,
+          @RequestBody final QuestionDto question) {
+    QuestionDto updatedQuestion = questionService.updateQuestion(questionId,
                        question);
     return ResponseHandler.generateResponse("Successfully Updated",
           HttpStatus.OK, "Question", updatedQuestion);

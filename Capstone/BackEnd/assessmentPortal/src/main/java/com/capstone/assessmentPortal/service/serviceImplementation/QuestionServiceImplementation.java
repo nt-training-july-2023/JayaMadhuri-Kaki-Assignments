@@ -2,10 +2,12 @@ package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.capstone.assessmentPortal.exception.EmptyListException;
+
+import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Question;
@@ -32,27 +34,34 @@ public class QuestionServiceImplementation implements QuestionService {
   */
   @Autowired
   private SubCategoryRepo subCategoryRepo;
-  @Override
-  public final Question addQuestion(final Question question) {
-    SubCategory existingSubCategory = subCategoryRepo.findById(
-           question.getSubCategory().getSubCategoryId()).orElse(null);
+  public QuestionServiceImplementation(SubCategoryRepo subCategoryRepo2, QuestionRepo questionRepo2) {
+    this.subCategoryRepo = subCategoryRepo2;
+    this.questionRepo = questionRepo2;
+}
+@Override
+  public final QuestionDto addQuestion(final QuestionDto question) {
     if (question.getQuestionContent().isEmpty()
-            || question.getOptionA().isEmpty()
-            || question.getOptionB().isEmpty()
-            || question.getOptionC().isEmpty()
-            || question.getOptionD().isEmpty()
-            || question.getCorrectAnswer().isEmpty()) {
+            || question.getSubCategoryId() == null) {
       throw new InputEmptyException();
     } else {
-      if (existingSubCategory != null) {
-        return questionRepo.save(question);
-      } else {
-          throw new NotFoundException("SubCategory Not Found");
-      }
+      SubCategory existingSubCategory = subCategoryRepo.findById(
+               question.getSubCategoryId()).orElseThrow(() ->
+               new NotFoundException());
+      Question que = new Question();
+      que.setQuestionContent(question.getQuestionContent());
+      que.setOptionA(question.getOptionA());
+      que.setOptionB(question.getOptionB());
+      que.setOptionC(question.getOptionC());
+      que.setOptionD(question.getOptionD());
+      que.setCorrectAnswer(question.getCorrectAnswer());
+      que.setSubCategory(existingSubCategory);
+      System.out.println(existingSubCategory.getSubCategoryName());
+      questionRepo.save(que);
+      return question;
     }
   }
   @Override
-  public final List<Question> getQuestionsBySubCategoryId(final
+  public final List<QuestionDto> getQuestionsBySubCategoryId(final
                    Long subCategoryId) {
     SubCategory existingSubCategory = subCategoryRepo
               .findById(subCategoryId).orElse(null);
@@ -61,16 +70,36 @@ public class QuestionServiceImplementation implements QuestionService {
     } else {
       List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
-      if (listOfQuestions.size() == 0) {
-        throw new EmptyListException();
-      } else {
-        return listOfQuestions;
-      }
+      return listOfQuestions.stream()
+              .map(this::convertEntityToDto)
+              .collect(Collectors.toList());
     }
   }
+  /**
+   * converting entity to dto for get all method.
+   * @return questionDto
+   * @param question question
+  */
+  private QuestionDto convertEntityToDto(final
+          Question question) {
+    QuestionDto questionDto = new QuestionDto();
+    questionDto.setQuestionId(question.getQuestionId());
+    questionDto.setQuestionContent(question.getQuestionContent());
+    questionDto.setOptionA(question
+              .getOptionA());
+    questionDto.setOptionB(question
+            .getOptionB());
+    questionDto.setOptionC(question
+            .getOptionC());
+    questionDto.setOptionD(question
+            .getOptionD());
+    questionDto.setCorrectAnswer(question.getCorrectAnswer());
+    questionDto.setSubCategoryId(question.getSubCategory().getSubCategoryId());
+    return questionDto;
+  }
   @Override
-  public final Question updateQuestion(final Long questionId, final
-                  Question question) {
+  public final QuestionDto updateQuestion(final Long questionId, final
+          QuestionDto question) {
     Question existingQuestion = questionRepo
                 .findById(questionId).orElseThrow();
     if (existingQuestion != null) {
@@ -89,7 +118,7 @@ public class QuestionServiceImplementation implements QuestionService {
         throw new InputEmptyException();
       } else {
         questionRepo.save(existingQuestion);
-        return existingQuestion;
+        return question;
       }
     } else {
       throw new NoSuchElementException();
