@@ -54,6 +54,7 @@ class ResultServiceImplementationTest {
     @Test
     void testAddTemporaryResultIfUserIdNotExists() {
         ResultsDto resultsDto = new ResultsDto();
+        resultsDto.setResultId(1L);
         resultsDto.setStudentId(10L);
         when(usersRepo.findById(10L)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
@@ -62,6 +63,7 @@ class ResultServiceImplementationTest {
     @Test
     void testAddTemporaryResultIfSubCategoryIdNotExists() {
         ResultsDto resultsDto = new ResultsDto();
+        resultsDto.setResultId(1L);
         resultsDto.setStudentId(10L);
         Users users = new Users();
         users.setUserId(10L);
@@ -73,15 +75,7 @@ class ResultServiceImplementationTest {
     
     @Test
     void testAddTemporaryResult() {
-        ResultsDto resultsDto = new ResultsDto();
-        resultsDto.setStudentId(10L);
-        resultsDto.setSubCategoryId(11L);
-        resultsDto.setCategoryId(12L);
-        resultsDto.setTotalMarks(10);
-        resultsDto.setMarksObtained(9);
-        resultsDto.setNumOfAttemptedQuestions(9);
-        resultsDto.setTotalQuestions(10);
-        resultsDto.setDateAndTime("23-01-23");
+        ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
         Users users = new Users();
         SubCategory subCategory = new SubCategory();
         Category category = new Category();
@@ -89,18 +83,27 @@ class ResultServiceImplementationTest {
         when(categoryRepo.findById(12L)).thenReturn(Optional.of(category));
         when(subCategoryRepo.findById(11L)).thenReturn(Optional.of(subCategory));
         subCategory.setCategory(category);
+        Results res = new Results();
+        res.setResultId(resultsDto.getResultId());
+        res.setStudents(users);
+        res.setSubCategory(subCategory);
+        res.setTotalMarks(resultsDto.getTotalMarks());
+        res.setMarksObtained(resultsDto.getMarksObtained());
+        res.setNumOfAttemptedQuestions(resultsDto.getNumOfAttemptedQuestions());
+        res.setTotalQuestions(resultsDto.getTotalQuestions());
+        res.setDateAndTime(resultsDto.getDateAndTime());
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
-        finalResults.setStudentId(resultsDto.getStudentId());
+        finalResults.setStudentId(res.getStudents().getUserId());
         finalResults.setStudentName(users.getFirstName()+" "
                 +users.getLastName());
         finalResults.setCategoryName(category.getCategoryName());
         finalResults.setQuizName(subCategory.getSubCategoryName());
-        finalResults.setMarksObtained(resultsDto.getMarksObtained());
-        finalResults.setTotalMarks(resultsDto.getTotalMarks());
+        finalResults.setMarksObtained(res.getMarksObtained());
+        finalResults.setTotalMarks(res.getTotalMarks());
         finalResults.setNumOfAttemptedQuestions(resultsDto
                  .getNumOfAttemptedQuestions());
-        finalResults.setTotalQuestions(resultsDto.getTotalQuestions());
-        finalResults.setDateAndTime(resultsDto.getDateAndTime());
+        finalResults.setTotalQuestions(res.getTotalQuestions());
+        finalResults.setDateAndTime(res.getDateAndTime());
         when(finalResultRepo.save(finalResults)).thenReturn(finalResults);
         ResultsDto resultsdto = resultsService.addTemporaryResult(resultsDto);
         assertNotNull(resultsdto);
@@ -108,9 +111,15 @@ class ResultServiceImplementationTest {
     }
 
     @Test
-    void testFindResultsByUserAndSubCategoryIfEmptyField() {
+    void testFindResultsByUserAndSubCategoryIfEmptyFieldUserID() {
         Long userId = null;
-        Long subCategoryId = 2L;
+        Long subCategoryId = 1L;
+        assertThrows(InputEmptyException.class, () -> resultsService.findResultsByUserAndSubCategory(userId,subCategoryId));
+    }
+    @Test
+    void testFindResultsByUserAndSubCategoryIfEmptyField() {
+        Long userId = 1L;
+        Long subCategoryId = null;
         assertThrows(InputEmptyException.class, () -> resultsService.findResultsByUserAndSubCategory(userId,subCategoryId));
     }
     

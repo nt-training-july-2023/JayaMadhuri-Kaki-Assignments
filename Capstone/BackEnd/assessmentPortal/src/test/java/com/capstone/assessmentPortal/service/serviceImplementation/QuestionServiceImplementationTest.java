@@ -42,6 +42,7 @@ class QuestionServiceImplementationTest {
     void testAddQuestionIfFieldsEmpty() {
        Long questionId = 1L;
        QuestionDto questionDto = new QuestionDto();
+       questionDto.setQuestionId(questionId);
        questionDto.setQuestionContent("");
        Question question = new Question();
        question.setQuestionId(questionId);
@@ -54,6 +55,7 @@ class QuestionServiceImplementationTest {
     void testAddQuestionIfSubcategoryIdNotFound() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto();
+        questionDto.setQuestionId(questionId);
         questionDto.setQuestionContent("what is array");
         questionDto.setOptionA("a");
         questionDto.setOptionB("b");
@@ -147,6 +149,7 @@ class QuestionServiceImplementationTest {
     void updateQuestionIfIdNotExists() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto();
+        questionDto.setQuestionId(questionId);
         when(questionRepo.findById(questionId)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> questionService.updateQuestion(questionId,questionDto)); 
     }
@@ -155,6 +158,7 @@ class QuestionServiceImplementationTest {
     void updateQuestionIfEmptyFields() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto();
+        questionDto.setQuestionId(questionId);
         questionDto.setQuestionContent("");
         Question question = new Question();
         question.setQuestionId(questionId);

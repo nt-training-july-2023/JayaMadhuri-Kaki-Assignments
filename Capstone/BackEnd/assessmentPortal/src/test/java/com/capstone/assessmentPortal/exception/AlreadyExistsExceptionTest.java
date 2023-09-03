@@ -17,11 +17,7 @@ class AlreadyExistsExceptionTest {
      */
     @Test
     void testAlreadyExistsExceptionString() {
-        try {
         AlreadyExistsException ex = new AlreadyExistsException();
-        }catch(Exception ex) {
-            fail("Exception should not be thrown from default constructor");
-        }
     }
 
     /**

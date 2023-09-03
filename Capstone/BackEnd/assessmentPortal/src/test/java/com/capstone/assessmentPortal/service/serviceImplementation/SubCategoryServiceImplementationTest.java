@@ -177,6 +177,7 @@ class SubCategoryServiceImplementationTest {
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.getSubCategoryById(subCategoryId);
         assertEquals(subCategory.getSubCategoryName(), subCategoryDetailsDto.getSubCategoryName());
+        assertEquals(subCategory.getSubCategoryDescription(), subCategoryDetailsDto.getSubCategoryDescription());
     }
     
     @Test

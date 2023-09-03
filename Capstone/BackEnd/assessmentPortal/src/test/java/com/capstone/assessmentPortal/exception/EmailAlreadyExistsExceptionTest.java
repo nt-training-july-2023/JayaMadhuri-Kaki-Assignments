@@ -8,11 +8,7 @@ class EmailAlreadyExistsExceptionTest {
 
     @Test
     void testEmailAlreadyExistsExceptionString() {
-        try {
             EmailAlreadyExistsException ex = new EmailAlreadyExistsException();
-        }catch(Exception e) {
-            fail("Exception should not be thrown from default constructor");
-        }
     }
 
     @Test

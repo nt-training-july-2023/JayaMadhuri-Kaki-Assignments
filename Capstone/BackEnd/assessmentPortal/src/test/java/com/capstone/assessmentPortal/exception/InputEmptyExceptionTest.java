@@ -8,11 +8,7 @@ class InputEmptyExceptionTest {
 
     @Test
     void testInputEmptyExceptionString() {
-        try {
             InputEmptyException ex = new InputEmptyException();
-        }catch(Exception e) {
-            fail("Exception should not be thrown from default constructor");
-        }
     }
 
     @Test

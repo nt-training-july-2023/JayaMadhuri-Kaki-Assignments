@@ -8,11 +8,7 @@ class UserNotFoundExceptionTest {
 
     @Test
     void testUserNotFoundExceptionString() {
-        try {
             UserNotFoundException ex = new UserNotFoundException(); 
-        } catch(Exception e) {
-            fail("Exception should not be thrown from default constructor");
-        }
     }
 
     @Test

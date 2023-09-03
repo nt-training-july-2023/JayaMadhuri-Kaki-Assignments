@@ -210,6 +210,9 @@ class UsersServiceImplementationTest {
        assertEquals(userDetails.getEmailId(), result.getEmailId());
        assertEquals(userDetails.getFirstName(), result.getFirstName());
        assertEquals(userDetails.getLastName(), result.getLastName());
+       assertEquals(userDetails.getDateOfBirth(),result.getDateOfBirth());
+       assertEquals(userDetails.getGender(),result.getGender());
+       assertEquals(userDetails.getUserType(),result.getUserType());
     }
     
     @Test
