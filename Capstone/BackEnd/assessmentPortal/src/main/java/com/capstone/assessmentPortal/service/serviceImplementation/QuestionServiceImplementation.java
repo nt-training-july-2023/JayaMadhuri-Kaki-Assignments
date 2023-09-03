@@ -107,7 +107,7 @@ public class QuestionServiceImplementation implements QuestionService {
   public final QuestionDto updateQuestion(final Long questionId, final
           QuestionDto question) {
     Question existingQuestion = questionRepo
-                .findById(questionId).orElseThrow();
+                .findById(questionId).orElse(null);
     if (existingQuestion != null) {
       existingQuestion.setQuestionContent(question.getQuestionContent());
       existingQuestion.setOptionA(question.getOptionA());

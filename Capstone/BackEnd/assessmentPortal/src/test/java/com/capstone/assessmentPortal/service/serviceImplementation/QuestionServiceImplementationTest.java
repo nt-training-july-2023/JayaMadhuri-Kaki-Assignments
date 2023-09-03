@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
+import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.QuestionRepo;
@@ -53,7 +54,7 @@ class QuestionServiceImplementationTest {
     void testAddQuestionIfSubcategoryIdNotFound() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto();
-        questionDto.setQuestionContent("");
+        questionDto.setQuestionContent("what is array");
         questionDto.setOptionA("a");
         questionDto.setOptionB("b");
         questionDto.setOptionC("c");
@@ -69,28 +70,16 @@ class QuestionServiceImplementationTest {
         question.setOptionD(questionDto.getOptionD());
         question.setCorrectAnswer(question.getCorrectAnswer());
         when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.empty());
-        assertThrows(InputEmptyException.class, () -> questionService.addQuestion(questionDto));
+        assertThrows(NotFoundException.class, () -> questionService.addQuestion(questionDto));
     }
     
     @Test
     void testAddQuestion() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto();
-        questionDto.setQuestionContent("what is array");
-        questionDto.setOptionA("a");
-        questionDto.setOptionB("b");
-        questionDto.setOptionC("c");
-        questionDto.setOptionD("d");
-        questionDto.setCorrectAnswer("c");
-        questionDto.setSubCategoryId(10L);
-        Question question = new Question();
-        question.setQuestionId(questionId);
-        question.setQuestionContent(questionDto.getQuestionContent());
-        question.setOptionA(questionDto.getOptionA());
-        question.setOptionB(questionDto.getOptionB());
-        question.setOptionC(questionDto.getOptionC());
-        question.setOptionD(questionDto.getOptionD());
-        question.setCorrectAnswer(questionDto.getCorrectAnswer());
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        Question question = new Question(questionDto.getQuestionContent(),
+                questionDto.getOptionA(),questionDto.getOptionB(),
+                questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(questionDto.getSubCategoryId());
         SubCategory subCategory = new SubCategory();
@@ -113,22 +102,10 @@ class QuestionServiceImplementationTest {
     @Test
     void testGetQuestionsBySubCategoryId() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto();
-        questionDto.setQuestionContent("what is array");
-        questionDto.setOptionA("a");
-        questionDto.setOptionB("b");
-        questionDto.setOptionC("c");
-        questionDto.setOptionD("d");
-        questionDto.setCorrectAnswer("c");
-        questionDto.setSubCategoryId(10L);
-        Question question = new Question();
-        question.setQuestionId(questionId);
-        question.setQuestionContent(questionDto.getQuestionContent());
-        question.setOptionA(questionDto.getOptionA());
-        question.setOptionB(questionDto.getOptionB());
-        question.setOptionC(questionDto.getOptionC());
-        question.setOptionD(questionDto.getOptionD());
-        question.setCorrectAnswer(questionDto.getCorrectAnswer());
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        Question question = new Question(questionDto.getQuestionContent(),
+                questionDto.getOptionA(),questionDto.getOptionB(),
+                questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(questionDto.getSubCategoryId());
         SubCategory subCategory = new SubCategory();
@@ -146,22 +123,10 @@ class QuestionServiceImplementationTest {
     @Test
     void testUpdateQuestion() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto();
-        questionDto.setQuestionContent("what is array");
-        questionDto.setOptionA("a");
-        questionDto.setOptionB("b");
-        questionDto.setOptionC("c");
-        questionDto.setOptionD("d");
-        questionDto.setCorrectAnswer("c");
-        Question question = new Question();
-        question.setQuestionId(questionId);
-        question.setQuestionContent(questionDto.getQuestionContent());
-        question.setOptionA(questionDto.getOptionA());
-        question.setOptionB(questionDto.getOptionB());
-        question.setOptionC(questionDto.getOptionC());
-        question.setOptionD(questionDto.getOptionD());
-        question.setCorrectAnswer(questionDto.getCorrectAnswer());
-        
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        Question question = new Question(questionDto.getQuestionContent(),
+                questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
+                questionDto.getOptionD(),questionDto.getCorrectAnswer());
         QuestionDto questionDto1 = new QuestionDto();
         questionDto1.setQuestionContent("what is array");
         questionDto1.setOptionA("d");
@@ -169,14 +134,9 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionC("c");
         questionDto1.setOptionD("a");
         questionDto1.setCorrectAnswer("c");
-        Question question1 = new Question();
-        question1.setQuestionId(questionId);
-        question1.setQuestionContent(questionDto1.getQuestionContent());
-        question1.setOptionA(questionDto1.getOptionA());
-        question1.setOptionB(questionDto1.getOptionB());
-        question1.setOptionC(questionDto1.getOptionC());
-        question1.setOptionD(questionDto1.getOptionD());
-        question1.setCorrectAnswer(questionDto1.getCorrectAnswer());
+        Question question1 = new Question(questionDto1.getQuestionContent(),
+                questionDto1.getOptionA(),questionDto1.getOptionB(),
+                questionDto1.getOptionC(),questionDto1.getOptionD(),questionDto1.getCorrectAnswer());
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         when(questionRepo.save(question)).thenReturn(question1);
         QuestionDto questiondto = questionService.updateQuestion(questionId, questionDto1);
@@ -213,14 +173,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testDelete() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto();
-        questionDto.setQuestionContent("what is array");
-        questionDto.setOptionA("a");
-        questionDto.setOptionB("b");
-        questionDto.setOptionC("c");
-        questionDto.setOptionD("d");
-        questionDto.setCorrectAnswer("c");
-        questionDto.setSubCategoryId(10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
         Question question = new Question();
         question.setQuestionId(questionId);
         question.setQuestionContent(questionDto.getQuestionContent());
