@@ -1,6 +1,6 @@
 package com.capstone.assessmentPortal.service;
 
-import com.capstone.assessmentPortal.model.Results;
+import com.capstone.assessmentPortal.dto.ResultsDto;
 
 /**
  * Result service interface.
@@ -12,7 +12,7 @@ public interface ResultService {
    * @return temporaryResult
    * @param results results
   */
-  Results addTemporaryResult(Results results);
+  ResultsDto addTemporaryResult(ResultsDto results);
   /**
    * adding temporary result.
    * @return results

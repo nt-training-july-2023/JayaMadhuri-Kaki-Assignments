@@ -34,7 +34,13 @@ public class QuestionServiceImplementation implements QuestionService {
   */
   @Autowired
   private SubCategoryRepo subCategoryRepo;
-  public QuestionServiceImplementation(SubCategoryRepo subCategoryRepo2, QuestionRepo questionRepo2) {
+  /**
+   * parameter constructor.
+   * @param subCategoryRepo2 subCategoryRepo2
+   * @param questionRepo2 questionRepo2
+  */
+  public QuestionServiceImplementation(final SubCategoryRepo subCategoryRepo2,
+          final QuestionRepo questionRepo2) {
     this.subCategoryRepo = subCategoryRepo2;
     this.questionRepo = questionRepo2;
 }

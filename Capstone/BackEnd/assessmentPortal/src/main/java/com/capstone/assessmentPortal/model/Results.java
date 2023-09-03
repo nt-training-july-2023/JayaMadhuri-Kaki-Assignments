@@ -92,7 +92,7 @@ public class Results {
      * @param subcategory subcategory
      */
     public final void setSubCategory(final SubCategory subcategory) {
-        this.subCategory = new SubCategory(subCategory.getSubCategoryId(),
+        this.subCategory = new SubCategory(subcategory.getSubCategoryId(),
                 subcategory.getSubCategoryName(),
                 subcategory.getSubCategoryDescription(),
                 subcategory.getTimeLimitInMinutes());

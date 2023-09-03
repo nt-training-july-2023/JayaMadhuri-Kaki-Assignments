@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.ResultService;
-import com.capstone.assessmentPortal.model.Results;
+import com.capstone.assessmentPortal.dto.ResultsDto;
 
 /**
  *Temporary Results controller class.
@@ -30,8 +30,8 @@ public class ResultsController {
   */
   @PostMapping("/addResults")
   public final ResponseEntity<Object> addResult(@RequestBody final
-                Results results) {
-    Results newResult = resultService.addTemporaryResult(results);
+                ResultsDto results) {
+    ResultsDto newResult = resultService.addTemporaryResult(results);
     return ResponseHandler.generateResponse("Successfully Added",
                HttpStatus.OK, "Result", newResult);
   }
