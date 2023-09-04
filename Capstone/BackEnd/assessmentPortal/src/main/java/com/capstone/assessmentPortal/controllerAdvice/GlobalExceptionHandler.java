@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
    * @param exception emailAlreadyExistsException
   */
   @ExceptionHandler(EmailAlreadyExistsException.class)
-  public final ResponseEntity<String> handleAlreadyExistsException(
+  public final ResponseEntity<String> handleEmailAlreadyExistsException(
             final EmailAlreadyExistsException exception) {
     return new ResponseEntity<String>("An account is already registered "
             + "with this Email", HttpStatus.CONFLICT);
