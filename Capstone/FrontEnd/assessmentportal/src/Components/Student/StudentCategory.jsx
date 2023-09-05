@@ -6,3 +6,5 @@ const StudentCategory = () =>{
         </div>
     )
 }
+
+export default StudentCategory;

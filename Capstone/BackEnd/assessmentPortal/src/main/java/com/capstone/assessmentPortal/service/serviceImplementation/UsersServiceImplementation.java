@@ -66,10 +66,10 @@ public class UsersServiceImplementation implements UsersService {
     if (existingUser.isPresent()) {
       String existingUserPassword = existingUser.get().getPassword();
       if (loginRequest.getPassword().equals(existingUserPassword)) {
-        userDetails.put("UserType: ", existingUser.get().getUserType());
-        userDetails.put("Name: ", existingUser.get().getFirstName()
+        userDetails.put("UserType", existingUser.get().getUserType());
+        userDetails.put("Name", existingUser.get().getFirstName()
               + " " + existingUser.get().getLastName());
-        userDetails.put("Email Id: ", existingUser.get().getEmailId());
+        userDetails.put("Email Id", existingUser.get().getEmailId());
         return userDetails;
       } else {
         throw new UserNotFoundException();

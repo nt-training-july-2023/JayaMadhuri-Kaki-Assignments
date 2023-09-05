@@ -1,5 +1,7 @@
 import {useState,useEffect} from 'react'
-import './Register.scss'
+import './Register.scss';
+import axios from 'axios';
+import swal from 'sweetalert'
 
 const Register = (props) =>{
     const initialValues = {
@@ -9,7 +11,6 @@ const Register = (props) =>{
         gender:"male",
         emailId: "", 
         password: "",
-        userType: "Student",
         confirmPassword:""
     };
     const {setRenderComponent} = props;
@@ -48,8 +49,17 @@ const Register = (props) =>{
             if(!value){
                 setErrors({...errors,password:'Password Required'});
             }
-            else if((!re.capital.test(value))||(!re.specialChar.test(value))||(!re.length.test(value))||(!re.digit.test(value))){
-                setErrors({...errors,password:'Password must contain atleast a Capital, Special character, Number and minimum 8 characters '});
+            else if(!re.digit.test(value)){
+                setErrors({...errors,password:'Must contain a number'});
+            }
+            else if(!re.capital.test(value)){
+                setErrors({...errors,password:'One Captial letter required'})
+            }
+            else if(!re.specialChar.test(value)){
+                setErrors({...errors,password:'No special character'})
+            }
+            else if(!re.length.test(value)){
+                setErrors({...errors,password:'Minimum 8 characters required'})
             }
             else{
                 setErrors({...errors,password:''});
@@ -97,8 +107,53 @@ const Register = (props) =>{
         }
         setRegisterRequestBody({...registerRequestBody,[name]:value});
     }
+    const finalValues = {
+        firstName:registerRequestBody.firstName,
+        lastName:registerRequestBody.lastName,
+        dateOfBirth:registerRequestBody.dateOfBirth,
+        gender:registerRequestBody.gender,
+        emailId:registerRequestBody.emailId,
+        password:registerRequestBody.password
+    }
     const handleRegister = () =>{
-        setRenderComponent("login")
+        console.log(finalValues)
+        axios.post('http://localhost:6060/studentRegister',finalValues)
+        .then(response =>{
+            console.log(response)
+            if(response?.data?.statusCode == 200){
+                swal({
+                    title: 'Redirecting to Login page.....',
+                    text: 'User Registered Successfully',
+                    timer: 1000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                  });  
+                setTimeout(function() {
+                    setRenderComponent("login")
+                }, 3000)
+            }
+        })
+        .catch(error=>{
+            console.log(error)
+            if(error?.message == "Network Error"){
+                swal({
+                    title: 'Oops.....',
+                    text: 'NetWork Error',
+                    timer: 1000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                  });  
+            }
+            else if(error?.response?.status==409){
+                swal({
+                    title: 'Error.....',
+                    text: 'An Account already exists with this Email',
+                    timer: 1000,
+                    showCancelButton: false,
+                    showConfirmButton: false
+                  });  
+            }
+        })
     }
     useEffect(() => {
         if (errors?.firstName?.length == 0 && errors?.lastName?.length == 0 && errors?.dateOfBirth?.length == 0 && errors?.emailId?.length == 0 && errors?.password?.length == 0 && errors?.confirmPassword?.length == 0) {
@@ -110,28 +165,32 @@ const Register = (props) =>{
     },[errors]);
     return(
         <div className="body">
+             <div>
+                <img src='https://nucleusteq.com/wp-content/uploads/2020/03/logo-header-1.svg' className='logo'/>
+            </div>
             <div className="form">
-                <h1>Sign Up</h1>
+                <h1 className='title'>Sign Up</h1>
+                <b><p>*Fill all fields to enable Register button</p></b>
                 <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} className='input' />
-                <p className='error'>{errors.firstName}</p>
+                <b><p className='error'>{errors.firstName}</p></b>
                 <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} className='input' />
-                <p className='error'>{errors.lastName}</p>
+                <b><p className='error'>{errors.lastName}</p></b>
                 <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} className='input' />
-                <p className='error'>{errors.dateOfBirth}</p>
+                <b><p className='error'>{errors.dateOfBirth}</p></b>
                 <div className='radio-div'>
-                    <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="male"/>Male
-                    <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="female"/>Female
-                    <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="others"/>Other
+                    <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="male" checked/><b>Male</b>
+                    <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="female"/><b>Female</b>
+                    <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="others"/><b>Others</b>
                 </div>
                 <input type="email" name="emailId" placeholder="Email Id" onChange={handleChange} className='input' />
-                <p className='error'>{errors.emailId}</p>
+                <b><p className='error'>{errors.emailId}</p></b>
                 <input type="password" name="password" placeholder="Password" onChange={handleChange} className='input' />
-                <p className='error' style={{marginLeft:"30px"}}>{errors.password}</p>
+                <b><p className='error'>{errors.password}</p></b>
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className='input'/>
-                <p className='error'>{errors.confirmPassword}</p>
+                <b><p className='error'>{errors.confirmPassword}</p></b>
                 <div className='btn'>
-                    <button className='login-btn' onClick={handleRegister} disabled={isDisable}>Register</button>
-                    <p className='register-btn'> Having an account! <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
+                    <button className='login-btn' onClick={handleRegister} disabled={isDisable}><b>Register</b></button>
+                    <p className='register-btn'> <b>Having an Account!</b> <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
                 </div>
             </div>
         </div>

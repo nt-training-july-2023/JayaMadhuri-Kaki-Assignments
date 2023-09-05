@@ -29,7 +29,7 @@ public class SignUpRequest {
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column
-  @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}",
+  @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
          message = "Date of birth pattern should be yyyy-mm-dd")
   @NotBlank(message = "Date of birth is required")
   private String dateOfBirth;
