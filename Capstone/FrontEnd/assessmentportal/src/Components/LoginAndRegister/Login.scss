@@ -1,43 +1,174 @@
-.login-body{
+.login-body {
+    align-items: center;
+    background-image: url("https://c4.wallpaperflare.com/wallpaper/180/18/459/assess-composition-data-desk-wallpaper-preview.jpg");
+    // background-image: linear-gradient(to bottom right,white,#15172b);
+    display: flex;
+    justify-content: center;
+    width:100%;
+    height: 100vh;
+    flex-direction: column;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: cover;
+    background-size: cover;
+  }
+  .title {
+    background: linear-gradient(to right,#15172b,white);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+   }
+   .logo{
+    width:100%;
+    height: auto;
+    max-width :300px;
     position: absolute;
-    right:0;
-    margin-top: 150px;
-    margin-right: 200px;
-    .login-form{
-        background-color: white;
-        width:25em;
-        height: 22em;
-        position: relative;
-        border-radius: 1em;
-        box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        opacity: 0.8;
-        .input{
-         width:250px;
-         height: 30px;
-        }
-        .error{
-            margin-bottom: 10px;
-            margin-top:0px;
-        }
-        .btn{
-         .login-btn{
-             width:250px;
-             height: 30px;
-             background-color: black;
-             color: white;
-         }
-         .register-btn{
-             font-size: small;
-             margin-left: 30px;
-         }
-         .click-btn{
-            border:none;
-            background-color: white;
-         }
-        }
-     }
-}
+    left:0px;
+    top:20px;
+    @media screen and (max-width:600px) {
+        width:50%;
+        height: auto;
+        max-width :300px;
+        position: absolute;
+        left:0px;
+        top:20px;
+    }
+   }
+   .assessment-heading {
+    position: absolute;
+    left: 5%;
+    top: 50%; /* Adjust the vertical position as needed */
+    transform: translateY(-50%);
+    text-align: center;
+    color: #15172b;
+    font-size: 35px;
+    opacity: 0.5;
+    font-weight: bold;
+    padding: 20px;
+    font-family: 'Brush Script MT', cursive;
+    @media screen and (max-width:1248px) {
+        top:15%;
+        padding: 330px;
+        font-size: 30px;
+    }
+    @media screen and (max-width:1000px) {
+        top:15%;
+        padding: 250px;
+        font-size: 30px;
+    }
+    @media screen and (max-width:820px) {
+        top:15%;
+        padding: 220px;
+        font-size: 28px;
+    }
+    @media screen and (max-width:768px) {
+        top:15%;
+        padding: 200px;
+        font-size: 25px;
+    }
+    @media screen and (max-width:600px) {
+        top:15%;
+        padding: 100px;
+        font-size: 25px;
+    }
+    @media screen and (max-width:414px) {
+        top:15%;
+        padding: 40px;
+        font-size: 25px;
+    }
+    @media screen and (max-width:375px) {
+        top:15%;
+        padding: 50px;
+        font-size: 20px;
+    }
+  }
+  .para{
+    position: absolute;
+    left: 5%;
+    top: 60%; /* Adjust the vertical position as needed */
+    transform: translateY(-50%);
+    text-align: center;
+    color: #15172b;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 20px;
+    font-family: 'Brush Script MT', cursive;
+    word-wrap: initial;
+    @media screen and (max-width:1248px) {
+        top:25%;
+        padding: 350px;
+        font-size: 25px;
+    }
+    @media screen and (max-width:1060px) {
+        top:25%;
+        padding: 280px;
+        font-size: 20px;
+    }
+    @media screen and (max-width:820px) {
+        top:25%;
+        padding: 200px;
+        font-size: 25px;
+    }
+    @media screen and (max-width:768px) {
+        top:25%;
+        padding: 200px;
+        font-size: 20px;
+    }
+    @media screen and (max-width:600px) {
+        top:22%;
+        padding: 90px;
+        font-size: 15px;
+    }
+    @media screen and (max-width:414px) {
+        top:25%;
+        padding: 50px;
+        font-size: 18px;
+    }
+    @media screen and (max-width:375px) {
+        top:22%;
+        padding: 30px;
+        font-size: 11px;
+    }
+  }
+  .input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 18px;
+    height: 40px;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+  }
+
+  p{
+    color:red;
+  }
+  
+  .login-btn {
+    background-color: white;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #15172b;
+    cursor: pointer;
+    font-size: 18px;
+    height: 40px;
+    text-align: center;
+    width: 100%;
+  }
+  .register-btn{
+    color:black;
+  }
+  .click-btn{
+    border:none;
+    background: none;
+    font-size: medium;
+    color: white;
+  }
+  

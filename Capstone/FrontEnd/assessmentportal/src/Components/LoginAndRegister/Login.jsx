@@ -34,7 +34,7 @@ const Login = (props) =>{
         }
     }
     const handleLogin = () =>{
-        setRenderComponent("login")
+        setRenderComponent("register")
     }
     const {setRenderComponent} = props;
     const handleClick = () =>{
@@ -50,15 +50,20 @@ const Login = (props) =>{
     },[loginErrors]);
     return(
         <div className='login-body'>
-            <div className="login-form">
-                <h1>Login</h1>
+            <div>
+                <img src='https://nucleusteq.com/wp-content/uploads/2020/03/logo-header-1.svg' className='logo'/>
+            </div>
+            <div>
+                <h1 className='title'>Login</h1>
+                <div className="assessment-heading">ASSESSMENT PORTAL</div>
+                <div className='para'>NucleusTeq Members Can Log In Here To Access<br/>The Online Assessments</div>
                 <input type="email" placeholder="Email Id" onChange={handleChange} name='emailId' className='input'/>
-                <p className='error'>{loginErrors.emailId}</p>
+                <b><p>{loginErrors.emailId}</p></b>
                 <input type="password" placeholder="Password" onChange={handleChange} name='password' className='input'/>
-                <p className='error'>{loginErrors.password}</p>
-                <div className='btn'>
-                    <button className='login-btn' onClick={handleLogin}>Login</button>
-                    <p className='register-btn'> Not having an account! <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
+                <b><p>{loginErrors.password}</p></b>
+                <div>
+                    <button className='login-btn' onClick={handleLogin}><b>Login</b></button>
+                    <p className='register-btn'><b>Not having an account! </b> <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
                 </div>
             </div>
         </div>
