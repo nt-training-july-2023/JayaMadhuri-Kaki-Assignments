@@ -3,10 +3,9 @@ const StudentDashboard = (props) =>{
     const {setRenderComponent} = props;
     return(
         <div>
-            <p>This is student dashboard</p>
-            <button onClick={()=>{
-                setRenderComponent("login")
-            }}>Logout</button>
+            <di>
+            </di>
+            <h1>This is student dashboard</h1>
         </div>
     )
 }

@@ -2,10 +2,8 @@ import './App.scss'
 import {useState} from 'react'
 import Login from './Components/LoginAndRegister/Login';
 import Register from './Components/LoginAndRegister/Register';
-import AdminDashboard from './Components/Admin/AdminDashboard';
-import AdminCategory from './Components/Admin/AdminCateogy';
-import StudentDashboard from './Components/Student/StudentDashboard';
-import StudentCategory from './Components/Student/StudentCategory';
+import Navbar from './Components/NavBar/NavBar';
+import StudentNavbar from './Components/NavBar/StudentNavbar'
 function App() {
   const [renderComponent,setRenderComponent] = useState("login");
   const renderPage = () => {
@@ -14,14 +12,10 @@ function App() {
         return <Login setRenderComponent={setRenderComponent}/>;
       case 'register':
         return <Register setRenderComponent={setRenderComponent}/>;
-      case 'adminDashboard':
-        return <AdminDashboard setRenderComponent={setRenderComponent}/>;
-      case 'studentDashboard':
-        return <StudentDashboard setRenderComponent={setRenderComponent}/>;
-      case 'adminCategory':
-        return <AdminCategory setRenderComponent={setRenderComponent}/>;
-        case 'studentCategory':
-        return <StudentCategory setRenderComponent={setRenderComponent}/>;
+        case 'navbar':
+        return <Navbar setRenderComponent={setRenderComponent}/>;
+        case 'studentNavbar':
+        return <StudentNavbar setRenderComponent={setRenderComponent}/>;
       default:
         return null;
     }

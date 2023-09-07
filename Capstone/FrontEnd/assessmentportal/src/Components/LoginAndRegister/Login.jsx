@@ -1,16 +1,17 @@
 import { useState,useEffect } from 'react';
 import './Login.scss'
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const Login = (props) =>{
+    const {setRenderComponent} = props;
     const initialValues = {
         "emailId":"",
         "password":""
     }
     const [loginRequestBody,setLoginRequestBody] = useState(initialValues);
-    const [emailError,setEmailError] = useState({});
-    const [passwordError,setPasswordError] = useState({});
+    const [emailError,setEmailError] = useState('');
+    const [passwordError,setPasswordError] = useState('');
     const finalValues={
         emailId: loginRequestBody.emailId,
         password: loginRequestBody.password
@@ -19,94 +20,105 @@ const Login = (props) =>{
         const {name,value} = e.target;
         if(name === "emailId"){
             if(!value){
-                setPasswordError({...passwordError,emailId:'Email Required'});
+                setEmailError('Email Required');
             }
             else{
-                setPasswordError({...passwordError,emailId:''});
+                setEmailError('');
                 setLoginRequestBody({...loginRequestBody,emailId:value})
             }
         }
         else if(name === "password"){
             if(!value){
-                setEmailError({...emailError,password:'Password Required'});
+                setPasswordError('Password Required');
             }
             else{
-                setEmailError({...emailError,password:''});
+                setPasswordError('');
                 setLoginRequestBody({...loginRequestBody,password:value})
             }
         }
     }
     const handleLogin = () =>{
         if(finalValues.emailId.length!=0 && finalValues.password.length!=0){
-            setPasswordError({...passwordError,password:''});
-            setEmailError({...emailError,emailId:''});
+            setPasswordError('');
+            setEmailError('');
             axios.post('http://localhost:6060/userLogin',finalValues)
             .then(response=>{
                 if(response?.data?.statusCode == 200){
                     if(response?.data?.UserDetails?.UserType === "Admin"){
-                        swal({
-                            title: 'Redirecting to Admin Dashboard.....',
-                            text: 'Login Successfully',
+                        Swal.fire({
+                            title: 'Login Successfully',
+                            text: 'Redirecting to Admin Dashboard.....',
                             timer: 2000,
-                            showCancelButton: false,
-                            showConfirmButton: false
+                            showConfirmButton:false,
+                            showCancelButton:false,
+                            icon: "success",
+                            background:"#15172b",
+                            color:"white",
                         }); 
                         setTimeout(function() {
-                            setRenderComponent("adminDashboard") 
-                        }, 1000);
+                            setRenderComponent("navbar") 
+                        }, 2000);
                     }
                     if(response?.data?.UserDetails?.UserType === "Student"){
-                        swal({
-                            title: 'Redirecting to Student Dashboard.....',
-                            text: 'Login Successfully',
+                        Swal.fire({
+                            title: 'Login Successfully',
+                            text: 'Redirecting to Student Dashboard.....',
                             timer: 2000,
-                            showCancelButton: false,
-                            showConfirmButton: false
+                            showConfirmButton:false,
+                            showCancelButton:false,
+                            icon: "success",
+                            background:"#15172b",
+                            color:"white",
                         });  
                         setTimeout(function() {
-                            setRenderComponent("studentDashboard") 
-                        }, 1000);
+                            setRenderComponent("studentNavbar") 
+                        }, 2000);
                     }
                 }
             }).catch(error=>{
                 if(error?.response?.status == 404){
-                    swal({
-                        title: 'Oops.....',
+                    Swal.fire({
+                        title: 'Error',
                         text: 'InCorrect Credentials',
                         timer: 2000,
-                        showCancelButton: false,
-                        showConfirmButton: false
+                        showConfirmButton:false,
+                        showCancelButton:false,
+                        icon: "warning",
+                        background:"#15172b",
+                        color:"white",
+                    });  
+                }else if(error?.message == "Network Error"){
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'NetWork Error',
+                        timer: 2000,
+                        showConfirmButton:false,
+                        showCancelButton:false,
+                        icon: "warning",
+                        background:"#15172b",
+                        color:"white",
                     });  
                 }
             })
         }
         else if(finalValues.emailId.length!=0){
-            setPasswordError({...passwordError,password:'Password Required'});
-            setEmailError({...emailError,emailId:''});
+            setPasswordError('Password Required');
+            setEmailError('');
         }
         else if(finalValues.password.length!=0){
-            setEmailError({...emailError,emailId:'Email Required'});
-            setPasswordError({...passwordError,password:''});
+            setEmailError('Email Required');
+            setPasswordError('');
         }
         else{
-            setPasswordError({...passwordError,password:'Password Required'});
-            setEmailError({...emailError,emailId:'Email Required'});
+            setPasswordError('Password Required');
+            setEmailError('Email Required');
         }
     }
-    const {setRenderComponent} = props;
     const handleClick = () =>{
         setRenderComponent("register");
     }
     useEffect(() => {
-        if(finalValues.emailId.length!=0 && finalValues.password.length!=0){
-            setPasswordError({...passwordError,password:''});
-            setEmailError({...emailError,emailId:''});
-        }else if(finalValues.emailId.length!=0 && finalValues.password.length==0 ){
-            setEmailError({...emailError,emailId:''});
-        }else if(finalValues.password.length!=0 && finalValues.emailId.length!=0){
-            setPasswordError({...passwordError,password:''});
-        }
-    },[emailError,passwordError]);
+    },[]);
     return(
         <div className='login-body'>
             <div>
@@ -117,9 +129,9 @@ const Login = (props) =>{
                 <div className="assessment-heading">ASSESSMENT PORTAL</div>
                 <div className='para'>NucleusTeq Members Can Log In Here To Access<br/>The Online Assessments</div>
                 <input type="email" placeholder="Email Id" onChange={handleChange} name='emailId' className='input'/>
-                <b><p>{emailError.emailId}</p></b>
+                <b><p className='errors'>{emailError}</p></b>
                 <input type="password" placeholder="Password" onChange={handleChange} name='password' className='input'/>
-                <b><p>{passwordError.password}</p></b>
+                <b><p className='errors'>{passwordError}</p></b>
                 <div>
                     <button className='login-btn' onClick={handleLogin}><b>Login</b></button>
                     <p className='register-btn'><b>Not having an account! </b> <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>

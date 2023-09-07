@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react'
 import './Register.scss';
 import axios from 'axios';
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 const Register = (props) =>{
     const initialValues = {
@@ -115,43 +115,52 @@ const Register = (props) =>{
         emailId:registerRequestBody.emailId,
         password:registerRequestBody.password
     }
-    const handleRegister = () =>{
+    const handleRegister = (e) =>{
+        e.preventDefault();
         console.log(finalValues)
         axios.post('http://localhost:6060/studentRegister',finalValues)
         .then(response =>{
             console.log(response)
             if(response?.data?.statusCode == 200){
-                swal({
-                    title: 'Redirecting to Login page.....',
-                    text: 'User Registered Successfully',
-                    timer: 1000,
-                    showCancelButton: false,
-                    showConfirmButton: false
+                Swal.fire({
+                    title: 'User Registered Successfully',
+                    text: 'Redirecting to Login page.....',
+                    timer: 2000,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "success",
+                    background:"#15172b",
+                    color:"white",
                   });  
                 setTimeout(function() {
                     setRenderComponent("login")
-                }, 3000)
+                }, 2000)
             }
         })
         .catch(error=>{
             console.log(error)
-            if(error?.message == "Network Error"){
-                swal({
-                    title: 'Oops.....',
-                    text: 'NetWork Error',
-                    timer: 1000,
-                    showCancelButton: false,
-                    showConfirmButton: false
-                  });  
-            }
-            else if(error?.response?.status==409){
-                swal({
+            if(error?.response?.status==409){
+                Swal.fire({
                     title: 'Error.....',
                     text: 'An Account already exists with this Email',
-                    timer: 1000,
-                    showCancelButton: false,
-                    showConfirmButton: false
+                    timer: 2000,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
                   });  
+            }else if(error?.message == "Network Error"){
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'NetWork Error',
+                    timer: 2000,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                });  
             }
         })
     }
@@ -170,12 +179,12 @@ const Register = (props) =>{
             </div>
             <div className="form">
                 <h1 className='title'>Sign Up</h1>
-                <b><p>*Fill all fields to enable Register button</p></b>
+                <b><p className='error'>*Fill all fields to enable Register button</p></b>
                 <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} className='input' />
                 <b><p className='error'>{errors.firstName}</p></b>
                 <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} className='input' />
                 <b><p className='error'>{errors.lastName}</p></b>
-                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} className='input' />
+                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} className='input' max="2023-09-06" />
                 <b><p className='error'>{errors.dateOfBirth}</p></b>
                 <div className='radio-div'>
                     <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="male" checked/><b>Male</b>
@@ -188,7 +197,7 @@ const Register = (props) =>{
                 <b><p className='error'>{errors.password}</p></b>
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className='input'/>
                 <b><p className='error'>{errors.confirmPassword}</p></b>
-                <div className='btn'>
+                <div className='button-register'>
                     <button className='login-btn' onClick={handleRegister} disabled={isDisable}><b>Register</b></button>
                     <p className='register-btn'> <b>Having an Account!</b> <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
                 </div>
