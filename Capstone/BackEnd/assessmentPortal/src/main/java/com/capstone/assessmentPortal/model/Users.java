@@ -62,7 +62,7 @@ public class Users {
      */
     @Column(unique = true)
     @NotBlank(message = "Email is required")
-    @Pattern(regexp = "^[A-Z0-9a-z+_-]+@nucleusteq[.]com$",
+    @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
     message = "Email is not Valid")
     private String emailId;
     /**

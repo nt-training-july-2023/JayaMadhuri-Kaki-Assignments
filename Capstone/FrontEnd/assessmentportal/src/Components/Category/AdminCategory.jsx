@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import axios from 'axios'
 import './AdminCategory.scss'
 import AddCategory from './AddCategory';
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 const AdminCategory = () =>{
     const [category,setCategory] = useState([]);
@@ -42,8 +42,8 @@ const AdminCategory = () =>{
             {category.map((item) => (
             <div key={item.categoryId} className="category-card">
                 {/* <p>Category ID: {item.categoryId}</p> */}
-                <p>Category Name: {item.categoryName}</p>
-                <p>Category Description: {item.categoryDescription}</p>
+                <p>Name: {item.categoryName}</p>
+                <p>Description: {item.categoryDescription}</p>
                 <div>
                     <button onClick={()=>{
                         setPopUp(true);
@@ -55,11 +55,12 @@ const AdminCategory = () =>{
                             axios.delete(`http://localhost:6060/deleteCategory/${item.categoryId}`)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
-                                    swal({
+                                    Swal.fire({
                                         title: 'Delete',
                                         text: 'Successfully Deleted',
                                         timer: 1000,
-                                        button: false,
+                                        showConfirmButton:false,
+                                        showCancelButton:false,
                                         icon: "success",
                                         background:"#15172b",
                                         color:"white",
@@ -68,11 +69,12 @@ const AdminCategory = () =>{
                                 }
                             }).catch(error=>{
                                 if(error?.response?.status == "404"){
-                                    swal({
+                                    Swal.fire({
                                         title: 'Delete',
                                         text: 'ID Not Found',
                                         timer: 1000,
-                                        button: false,
+                                        showConfirmButton:false,
+                                        showCancelButton:false,
                                         icon: "warning",
                                         background:"#15172b",
                                         color:"white",

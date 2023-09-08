@@ -30,7 +30,7 @@ const Register = (props) =>{
             if(!value){
                 setErrors({...errors,emailId:'Email Required'});
             }
-            else if(!/^[A-Z0-9a-z+_-]+@nucleusteq[.]com$/.test(value)){
+            else if(!/^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$/.test(value)){
                 setErrors({...errors,emailId:'Email should contain .nucleusteq'});
             }
             else{

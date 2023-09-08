@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import axios from 'axios'
 import './AdminCategory.scss';
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 const AddCategory = (props) =>{
     const {title,setPopUp,initialValues,fetchData} = props;
@@ -13,11 +13,12 @@ const AddCategory = (props) =>{
             axios.post("http://localhost:6060/addCategory",categoryDetails)
             .then(response=>{
                 if(response?.data?.statusCode === 200){
-                    swal({
+                    Swal.fire({
                         title: 'Add',
                         text: 'Successfully Added',
                         timer: 1500,
-                        button: false,
+                        showConfirmButton:false,
+                        showCancelButton:false,
                         icon: "success",
                         background:"#15172b",
                         color:"white",
@@ -27,11 +28,12 @@ const AddCategory = (props) =>{
                 }
             }).catch(error=>{
                 if(error?.response?.status === 409){
-                    swal({
+                    Swal.fire({
                         title: 'Error',
                         text: 'Category Name Already Exists',
                         timer: 1500,
-                        button: false,
+                        showConfirmButton:false,
+                        showCancelButton:false,
                         icon: "warning",
                         background:"#15172b",
                         color:"white",
@@ -49,11 +51,12 @@ const AddCategory = (props) =>{
             .then(response=>{
                 console.log(response)
                 if(response?.data?.statusCode === 200){
-                    swal({
+                    Swal.fire({
                         title: 'Update',
                         text: 'Successfully Updated',
                         timer: 1500,
-                        button: false,
+                        showConfirmButton:false,
+                        showCancelButton:false,
                         icon: "success",
                         background:"#15172b",
                         color:"white",
@@ -64,21 +67,23 @@ const AddCategory = (props) =>{
             }).catch(error=>{
                 console.log(error)
                 if(error?.response?.status === 409){
-                    swal({
+                    Swal.fire({
                         title: 'Error',
                         text: 'Something Wrong',
                         timer: 1500,
-                        button: false,
+                        showConfirmButton:false,
+                        showCancelButton:false,
                         icon: "warning",
                         background:"#15172b",
                         color:"white",
                     }); 
                 }else{
-                    swal({
+                    Swal.fire({
                         title: 'Error',
                         text: 'A Category is Already Exists With Same Name',
                         timer: 1500,
-                        button: false,
+                        showConfirmButton:false,
+                        showCancelButton:false,
                         icon: "warning",
                         background:"#15172b",
                         color:"white",
@@ -111,7 +116,7 @@ const AddCategory = (props) =>{
         <div className="cat-container">
             <h1 className="category-title1">{title}</h1>
             <input className='name' type="text" name="categoryName" value={categoryDetails?.categoryName} placeholder='Enter Category Name' onChange={handleChange}/>
-            <p className='error'>{error}</p>
+            <p className='err'>{error}</p>
             <textarea className='description' type="text" name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange}/>
             <button className='btn' onClick={handleClick}>{title == "Add Category"? "Add" : "Update"}</button>
             <button className='btn' onClick={()=>{setPopUp(false)}}>Close</button>

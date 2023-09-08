@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const Login = (props) =>{
-    const {setRenderComponent} = props;
+    const {setRenderComponent,setUserDetails} = props;
     const initialValues = {
         "emailId":"",
         "password":""
@@ -44,6 +44,7 @@ const Login = (props) =>{
             axios.post('http://localhost:6060/userLogin',finalValues)
             .then(response=>{
                 if(response?.data?.statusCode == 200){
+                    console.log(response)
                     if(response?.data?.UserDetails?.UserType === "Admin"){
                         Swal.fire({
                             title: 'Login Successfully',
@@ -58,6 +59,7 @@ const Login = (props) =>{
                         setTimeout(function() {
                             setRenderComponent("navbar") 
                         }, 2000);
+                        setUserDetails(response?.data?.UserDetails);
                     }
                     if(response?.data?.UserDetails?.UserType === "Student"){
                         Swal.fire({
@@ -73,6 +75,7 @@ const Login = (props) =>{
                         setTimeout(function() {
                             setRenderComponent("studentNavbar") 
                         }, 2000);
+                        setUserDetails(response?.data?.UserDetails);
                     }
                 }
             }).catch(error=>{

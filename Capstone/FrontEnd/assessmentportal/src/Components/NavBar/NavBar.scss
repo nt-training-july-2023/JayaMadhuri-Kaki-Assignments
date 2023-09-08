@@ -52,14 +52,14 @@
         position: absolute;
         top: 50px; 
         right: 0; 
-        background: linear-gradient(to right,#15172b,#1a1c2e);
+        background: #23263d;
         padding:30px;
         flex-direction: column;
         align-items: center;
         height: auto;
         width:30%;
         z-index: 1;
-      }
+    }
     
       .navigation-menu.expanded {
         display: flex;

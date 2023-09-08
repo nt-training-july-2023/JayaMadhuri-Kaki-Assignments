@@ -69,7 +69,7 @@ public class UsersServiceImplementation implements UsersService {
         userDetails.put("UserType", existingUser.get().getUserType());
         userDetails.put("Name", existingUser.get().getFirstName()
               + " " + existingUser.get().getLastName());
-        userDetails.put("Email Id", existingUser.get().getEmailId());
+        userDetails.put("EmailId", existingUser.get().getEmailId());
         return userDetails;
       } else {
         throw new UserNotFoundException();

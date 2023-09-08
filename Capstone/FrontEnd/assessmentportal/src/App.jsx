@@ -6,16 +6,18 @@ import Navbar from './Components/NavBar/NavBar';
 import StudentNavbar from './Components/NavBar/StudentNavbar'
 function App() {
   const [renderComponent,setRenderComponent] = useState("login");
+  const [userDetails,setUserDetails] = useState({});
   const renderPage = () => {
+    console.log(userDetails)
     switch (renderComponent) {
       case 'login':
-        return <Login setRenderComponent={setRenderComponent}/>;
+        return <Login setRenderComponent={setRenderComponent} setUserDetails={setUserDetails}/>;
       case 'register':
         return <Register setRenderComponent={setRenderComponent}/>;
         case 'navbar':
-        return <Navbar setRenderComponent={setRenderComponent}/>;
+        return <Navbar setRenderComponent={setRenderComponent} userDetails={userDetails}/>;
         case 'studentNavbar':
-        return <StudentNavbar setRenderComponent={setRenderComponent}/>;
+        return <StudentNavbar setRenderComponent={setRenderComponent} userDetails={userDetails}/>;
       default:
         return null;
     }

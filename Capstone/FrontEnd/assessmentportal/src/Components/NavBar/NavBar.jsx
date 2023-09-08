@@ -1,12 +1,13 @@
-import React,{useState} from 'react';
-import './NavBar.scss'; // Import your CSS file
+import React,{useEffect, useState} from 'react';
+import './NavBar.scss'; 
 import {FaBars} from'react-icons/fa';
 import Swal from 'sweetalert2'
 import AdminCategory from '../Category/AdminCategory';
 import Profile from '../Profile/Profile';
 import AdminResults from '../Results/AdminResults';
 
-const Navbar = ({setRenderComponent}) => {
+const Navbar = (props) => {
+  const {setRenderComponent,userDetails} = props;
   const [activeButton, setActiveButton] = useState("adminCategory");
   const [isNavExpanded, setIsNavExpanded] = useState(false)
   const toggleMenu = () =>{
@@ -60,6 +61,15 @@ const Navbar = ({setRenderComponent}) => {
         }
       })
   }
+  useEffect(()=>{
+    Swal.fire({
+        text:'WELCOME TO ADMIN DASHBOARD!',
+        timer:1900,
+        showConfirmButton:false,
+        color:'white',
+        background:'#15172b'
+    })
+  },[]);
   return (
     <div>
         <nav className='navigation'>
