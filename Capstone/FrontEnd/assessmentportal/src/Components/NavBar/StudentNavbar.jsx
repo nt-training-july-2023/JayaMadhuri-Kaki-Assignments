@@ -5,7 +5,6 @@ import Swal from 'sweetalert2'
 import StudentCategory from '../Student/StudentCategory';
 import Profile from '../Profile/Profile';
 import StudentResults from '../Results/StudentResults';
-import axios from 'axios';
 
 const StudentNavbar = (props) => {
   const {setRenderComponent,userDetails} = props;
@@ -44,7 +43,7 @@ const StudentNavbar = (props) => {
         customClass: {
             confirmButton: 'custom-button-text', 
             cancelButton: 'custom-button-text', 
-          },
+        },
       }).then(function(result) {
         if(result.value === true){
             Swal.fire({
@@ -60,7 +59,7 @@ const StudentNavbar = (props) => {
         }else{
             setRenderComponent("studentNavbar")
         }
-      })
+    })
   }
   useEffect(()=>{
     Swal.fire({
