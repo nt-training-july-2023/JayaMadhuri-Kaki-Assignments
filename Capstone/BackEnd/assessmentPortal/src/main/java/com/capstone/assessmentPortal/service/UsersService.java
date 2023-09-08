@@ -43,4 +43,10 @@ public interface UsersService {
    * @param studentId studentId
   */
   UserDetails getStudentById(Long studentId);
+  /**
+   * get student by email id.
+   * @return student
+   * @param emailId emailId
+  */
+  UserDetails getStudentDetailsByEmail(String emailId);
 }

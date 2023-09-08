@@ -77,7 +77,7 @@ class UsersServiceImplementationTest {
         userDetails.setEmailId(users.getEmailId());
         userDetails.setPassword(users.getPassword());
         userDetails.setUserType(users.getUserType());
-        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(new Users()));
+        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(new Users());
         assertThrows(EmailAlreadyExistsException.class, () -> usersServiceImpl.studentRegistration(users));
     }
 
@@ -89,12 +89,12 @@ class UsersServiceImplementationTest {
         Users users = new Users();
         users.setEmailId(login.getEmailId());
         users.setPassword(login.getPassword());
-        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
+        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(users);
         Map<String,String> map = usersServiceImpl.authenticateUser(login);
         assertNotNull(map);
-        assertEquals("Student", map.get("UserType: "));
-        assertEquals("null null", map.get("Name: "));
-        assertEquals("jayamadhuri@nucleusteq.com", map.get("Email Id: "));
+        assertEquals("Student", map.get("UserType"));
+        assertEquals("null null", map.get("Name"));
+        assertEquals("jayamadhuri@nucleusteq.com", map.get("EmailId"));
     }
     
     @Test
@@ -105,7 +105,7 @@ class UsersServiceImplementationTest {
         Users users = new Users();
         users.setEmailId(login.getEmailId());
         users.setPassword("Madhu");
-        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
+        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(users);
         assertNotEquals(users.getPassword(),login.getPassword());
         assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
     }
@@ -114,7 +114,7 @@ class UsersServiceImplementationTest {
         LoginRequest login = new LoginRequest();
         login.setEmailId("jayamadhuri@nucleusteq.com");
         login.setPassword("Madhu@123");
-        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.empty());
+        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(null);
         assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
     }
     
@@ -220,6 +220,41 @@ class UsersServiceImplementationTest {
        Long userId = 13L;
        when(usersRepo.findById(userId)).thenReturn(Optional.empty());
        assertThrows(NoSuchElementException.class, () -> usersServiceImpl.getStudentById(userId));
+    }
+    
+    @Test
+    void testGetStudentByEmailIdNotExists() {
+       String emailId = "jaya@nucleusteq.com";
+       when(usersRepo.findUserByEmailId(emailId)).thenReturn(null);
+       assertThrows(NoSuchElementException.class, () -> usersServiceImpl.getStudentDetailsByEmail(emailId));
+    }
+    
+    @Test
+    void testGetStudentByEmailId() {
+       SignUpRequest users = new SignUpRequest();;
+       users.setFirstName("Jaya");
+       users.setLastName("kaki");
+       users.setDateOfBirth("23-01-2001");
+       users.setGender("female");
+       users.setEmailId("jayamadhuri@nucleusteq.com");
+       users.setPassword("Madhu@123");
+       users.setUserType("Student");
+       Users userDetails = new Users();
+       userDetails.setFirstName(users.getFirstName());
+       userDetails.setLastName(users.getLastName());
+       userDetails.setDateOfBirth(users.getDateOfBirth());
+       userDetails.setGender(users.getGender());
+       userDetails.setEmailId(users.getEmailId());
+       userDetails.setPassword(users.getPassword());
+       userDetails.setUserType(users.getUserType());
+       when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(userDetails);
+       UserDetails result = usersServiceImpl.getStudentDetailsByEmail(users.getEmailId());
+       assertEquals(userDetails.getEmailId(), result.getEmailId());
+       assertEquals(userDetails.getFirstName(), result.getFirstName());
+       assertEquals(userDetails.getLastName(), result.getLastName());
+       assertEquals(userDetails.getDateOfBirth(),result.getDateOfBirth());
+       assertEquals(userDetails.getGender(),result.getGender());
+       assertEquals(userDetails.getUserType(),result.getUserType());
     }
 
 }

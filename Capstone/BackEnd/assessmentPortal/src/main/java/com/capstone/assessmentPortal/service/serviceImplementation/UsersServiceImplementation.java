@@ -39,10 +39,10 @@ public class UsersServiceImplementation implements UsersService {
   }
 @Override
   public final String studentRegistration(final SignUpRequest signUpRequest) {
-    Optional<Users> existingUser = usersRepo
+    Users existingUser = usersRepo
           .findUserByEmailId(signUpRequest.getEmailId());
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
-    if (existingUser.isPresent()) {
+    if (existingUser != null) {
       throw new EmailAlreadyExistsException();
     } else {
       Users users = new Users();
@@ -60,16 +60,16 @@ public class UsersServiceImplementation implements UsersService {
   @Override
   public final Map<String, String> authenticateUser(final
           LoginRequest loginRequest) {
-    Optional<Users> existingUser = usersRepo.findUserByEmailId(loginRequest
+    Users existingUser = usersRepo.findUserByEmailId(loginRequest
              .getEmailId());
     Map<String, String> userDetails = new HashMap<String, String>();
-    if (existingUser.isPresent()) {
-      String existingUserPassword = existingUser.get().getPassword();
+    if (existingUser != null) {
+      String existingUserPassword = existingUser.getPassword();
       if (loginRequest.getPassword().equals(existingUserPassword)) {
-        userDetails.put("UserType", existingUser.get().getUserType());
-        userDetails.put("Name", existingUser.get().getFirstName()
-              + " " + existingUser.get().getLastName());
-        userDetails.put("EmailId", existingUser.get().getEmailId());
+        userDetails.put("UserType", existingUser.getUserType());
+        userDetails.put("Name", existingUser.getFirstName()
+              + " " + existingUser.getLastName());
+        userDetails.put("EmailId", existingUser.getEmailId());
         return userDetails;
       } else {
         throw new UserNotFoundException();
@@ -124,4 +124,20 @@ public class UsersServiceImplementation implements UsersService {
     userDetailsDto.setUserType(userDetails.getUserType());
     return userDetailsDto;
   }
+    @Override
+    public final UserDetails getStudentDetailsByEmail(final String emailId) {
+        Users userDetails = usersRepo.findUserByEmailId(emailId);
+        if (userDetails != null) {
+            UserDetails userDetailsDto = new UserDetails();
+            userDetailsDto.setFirstName(userDetails.getFirstName());
+            userDetailsDto.setLastName(userDetails.getLastName());
+            userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());
+            userDetailsDto.setGender(userDetails.getGender());
+            userDetailsDto.setEmailId(userDetails.getEmailId());
+            userDetailsDto.setUserType(userDetails.getUserType());
+            return userDetailsDto;
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
 }

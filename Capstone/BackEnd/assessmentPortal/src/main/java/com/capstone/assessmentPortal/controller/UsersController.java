@@ -71,6 +71,18 @@ public class UsersController {
                  HttpStatus.OK, "StudentDetails", studentDetails);
   }
   /**
+   *get student details by email Id.
+   *@return studentDetails
+   *@param emailId emailId
+  */
+  @GetMapping("/getUsers/{emailId}")
+  public final ResponseEntity<Object> getStudentByEmailId(
+                 @PathVariable final String emailId) {
+    UserDetails studentDetails = usersService.getStudentDetailsByEmail(emailId);
+    return ResponseHandler.generateResponse("Successfully Retrieved",
+                 HttpStatus.OK, "StudentDetails", studentDetails);
+  }
+  /**
    * update student details by id.
    * @return studentDetails
    * @param studentId studentId
