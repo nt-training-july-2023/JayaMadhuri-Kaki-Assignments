@@ -20,7 +20,7 @@ const Navbar = (props) => {
     if(activeButton === "adminCategory"){
         return <AdminCategory/>;
     }else if(activeButton === "profile"){
-        return <Profile/>;
+        return <Profile userDetails={userDetails}/>;
     }else if(activeButton === "results"){
         return <AdminResults/>
     }

@@ -44,7 +44,6 @@ const Login = (props) =>{
             axios.post('http://localhost:6060/userLogin',finalValues)
             .then(response=>{
                 if(response?.data?.statusCode == 200){
-                    console.log(response)
                     if(response?.data?.UserDetails?.UserType === "Admin"){
                         Swal.fire({
                             title: 'Login Successfully',

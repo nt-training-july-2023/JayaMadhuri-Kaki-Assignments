@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 const AdminCategory = () =>{
     const [category,setCategory] = useState([]);
     const [title,setTitle] = useState("Add Category");
+    const message = "No Categories Found!";
     const [popUp,setPopUp] = useState(false);
     const [initialValues,setInitialValues] = useState({
         categoryName:"",
@@ -23,9 +24,9 @@ const AdminCategory = () =>{
     const fetchData = async () => {
         try {
           const response = await axios.get("http://localhost:6060/allCategories");
-          setCategory(response?.data?.listOfCategories);
+            setCategory(response?.data?.listOfCategories);
         } catch (error) {
-          console.error(error);
+            message();
         }
     };
     useEffect(() => {

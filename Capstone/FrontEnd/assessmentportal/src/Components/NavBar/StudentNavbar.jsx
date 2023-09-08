@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import StudentCategory from '../Student/StudentCategory';
 import Profile from '../Profile/Profile';
 import StudentResults from '../Results/StudentResults';
+import axios from 'axios';
 
 const StudentNavbar = (props) => {
   const {setRenderComponent,userDetails} = props;
@@ -20,7 +21,7 @@ const StudentNavbar = (props) => {
     if(activeButton === "studentCategory"){
         return <StudentCategory/>;
     }else if(activeButton === "profile"){
-        return <Profile/>;
+        return <Profile userDetails={userDetails}/>;
     }else if(activeButton === "studentResults"){
         return <StudentResults/>
     }
@@ -28,9 +29,6 @@ const StudentNavbar = (props) => {
         return null;
     }
   }
-//   const handleUserDetails = () =>{
-//     axios.get(`http://localhost:6060/updateCategory/${userDetails.EmailId}`)
-//   }
   const handleLogOut = () =>{
     setIsNavExpanded(false);
     Swal.fire({
