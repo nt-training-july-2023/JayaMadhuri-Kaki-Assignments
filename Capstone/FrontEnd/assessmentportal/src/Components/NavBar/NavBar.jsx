@@ -5,10 +5,12 @@ import Swal from 'sweetalert2'
 import AdminCategory from '../Category/AdminCategory';
 import Profile from '../Profile/Profile';
 import AdminResults from '../Results/AdminResults';
+import StudentCategory from '../Student/StudentCategory';
 
 const Navbar = (props) => {
   const {setRenderComponent,userDetails} = props;
-  const [activeButton, setActiveButton] = useState("adminCategory");
+  const role = userDetails.UserType;
+  const [activeButton, setActiveButton] = useState("");
   const [isNavExpanded, setIsNavExpanded] = useState(false)
   const toggleMenu = () =>{
     setIsNavExpanded(!isNavExpanded);
@@ -23,6 +25,8 @@ const Navbar = (props) => {
         return <Profile userDetails={userDetails}/>;
     }else if(activeButton === "results"){
         return <AdminResults/>
+    }else if(activeButton === "studentCategory"){
+        return <StudentCategory/>
     }
     else{
         return null;
@@ -62,13 +66,25 @@ const Navbar = (props) => {
       })
   }
   useEffect(()=>{
-    Swal.fire({
-        text:'WELCOME TO ADMIN DASHBOARD!',
-        timer:1900,
-        showConfirmButton:false,
-        color:'white',
-        background:'#15172b'
-    })
+    if(role === "Admin"){
+        setActiveButton("adminCategory")
+        Swal.fire({
+            text:'WELCOME TO ADMIN DASHBOARD!',
+            timer:1900,
+            showConfirmButton:false,
+            color:'white',
+            background:'#15172b'
+        })
+    }else{
+        setActiveButton("studentCategory")
+        Swal.fire({
+            text:`WELCOME ${userDetails?.Name} TO STUDENT DASHBOARD!`,
+            timer:1900,
+            showConfirmButton:false,
+            color:'white',
+            background:'#15172b'
+        })
+    }
   },[]);
   return (
     <div>
@@ -82,9 +98,18 @@ const Navbar = (props) => {
             }>
                 <ul>
                     <li>
-                    <button onClick={() => {handleButtonClick('adminCategory');setIsNavExpanded(false);}}
+                    <button onClick={() => {
+                        {userDetails.UserType === "Admin"?(handleButtonClick('adminCategory')):(handleButtonClick('studentCategory'))}
+                        setIsNavExpanded(false);
+                    }}
                 className={`nav-button ${
-                activeButton === "adminCategory" ? 'active' : ''
+                    role === "Admin"
+                    ? activeButton === "adminCategory"
+                      ? 'active'
+                      : ''
+                    : activeButton === "studentCategory"
+                    ? 'active'
+                    : ''
                 }`}>
                 Home
                 </button>

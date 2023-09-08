@@ -3,7 +3,6 @@ import {useState} from 'react'
 import Login from './Components/LoginAndRegister/Login';
 import Register from './Components/LoginAndRegister/Register';
 import Navbar from './Components/NavBar/NavBar';
-import StudentNavbar from './Components/NavBar/StudentNavbar'
 function App() {
   const [renderComponent,setRenderComponent] = useState("login");
   const [userDetails,setUserDetails] = useState({});
@@ -15,8 +14,6 @@ function App() {
         return <Register setRenderComponent={setRenderComponent}/>;
         case 'navbar':
         return <Navbar setRenderComponent={setRenderComponent} userDetails={userDetails}/>;
-        case 'studentNavbar':
-        return <StudentNavbar setRenderComponent={setRenderComponent} userDetails={userDetails}/>;
       default:
         return null;
     }

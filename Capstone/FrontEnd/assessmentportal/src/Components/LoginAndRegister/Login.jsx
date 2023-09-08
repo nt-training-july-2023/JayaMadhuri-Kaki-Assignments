@@ -59,8 +59,7 @@ const Login = (props) =>{
                             setRenderComponent("navbar") 
                         }, 2000);
                         setUserDetails(response?.data?.UserDetails);
-                    }
-                    if(response?.data?.UserDetails?.UserType === "Student"){
+                    } else if(response?.data?.UserDetails?.UserType === "Student"){
                         Swal.fire({
                             title: 'Login Successfully',
                             text: 'Redirecting to Student Dashboard.....',
@@ -72,9 +71,20 @@ const Login = (props) =>{
                             color:"white",
                         });  
                         setTimeout(function() {
-                            setRenderComponent("studentNavbar") 
+                            setRenderComponent("navbar") 
                         }, 2000);
                         setUserDetails(response?.data?.UserDetails);
+                    } else{
+                        Swal.fire({
+                            title: 'Login Successfully',
+                            text: 'Something went wrong! Cannot found UserType',
+                            timer: 2000,
+                            showConfirmButton:false,
+                            showCancelButton:false,
+                            icon: "success",
+                            background:"#15172b",
+                            color:"white",
+                        });  
                     }
                 }
             }).catch(error=>{
