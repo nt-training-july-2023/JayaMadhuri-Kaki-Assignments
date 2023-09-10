@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios'
-import './AdminCategory.scss'
+import './Category.scss'
 import AddCategory from './AddCategory';
 import Swal from 'sweetalert2'
 
-const AdminCategory = () =>{
+const Category = ({userDetails}) =>{
     const [category,setCategory] = useState([]);
     const [title,setTitle] = useState("Add Category");
     const message = "No Categories Found!";
@@ -35,7 +35,7 @@ const AdminCategory = () =>{
     return(
         <div>
             <div>
-                <button className='addcategory-btn' onClick={handleAdd}>Add Category</button>
+                {userDetails?.UserType === "Admin" && <button className='addcategory-btn' onClick={handleAdd}>Add Category</button>}
                 <h1 className='category-title'>Category</h1>
                 <hr/>
             </div>
@@ -45,7 +45,7 @@ const AdminCategory = () =>{
                 {/* <p>Category ID: {item.categoryId}</p> */}
                 <p>Name: {item.categoryName}</p>
                 <p>Description: {item.categoryDescription}</p>
-                <div>
+                {userDetails?.UserType === "Admin" && <div>
                     <button onClick={()=>{
                         setPopUp(true);
                         let updateInitialValues = {categoryId:item?.categoryId, categoryName:item?.categoryName, categoryDescription:item?.categoryDescription};
@@ -84,7 +84,7 @@ const AdminCategory = () =>{
                             })
                             
                         }} className='category-btn'>Delete</button>
-                </div>
+                </div>}
             </div>
             ))}
             </div>
@@ -96,4 +96,4 @@ const AdminCategory = () =>{
     )
 }
 
-export default AdminCategory;
+export default Category;

@@ -10,7 +10,6 @@
     background-repeat: no-repeat;
     background-position: cover;
     background-size: cover;
-  }
   .title {
     background: linear-gradient(to right,#15172b,white);
     -webkit-text-fill-color: transparent;
@@ -165,6 +164,7 @@
     color:red;
     position: relative;
     top:20px;
+    text-align: center;
   }
   
   .login-btn {
@@ -182,7 +182,7 @@
     top:20px;
   }
   .register-btn{
-    color:black;
+    color:#15172b;
     position: relative;
     top:20px;
   }
@@ -192,4 +192,4 @@
     font-size: medium;
     color: white;
   }
-  
+} 

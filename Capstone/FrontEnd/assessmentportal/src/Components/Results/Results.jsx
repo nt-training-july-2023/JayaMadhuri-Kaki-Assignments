@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
-
-const AdminResults = () =>{
+import './Results.scss'
+const Results = () =>{
     return (
         <div>
             <h1>Results</h1>
         </div>
     )
 }
-export default AdminResults;
+export default Results;

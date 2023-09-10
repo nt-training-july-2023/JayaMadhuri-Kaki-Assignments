@@ -2,10 +2,9 @@ import React,{useEffect, useState} from 'react';
 import './NavBar.scss'; 
 import {FaBars} from'react-icons/fa';
 import Swal from 'sweetalert2'
-import AdminCategory from '../Category/AdminCategory';
+import Category from '../Category/Category';
 import Profile from '../Profile/Profile';
-import AdminResults from '../Results/AdminResults';
-import StudentCategory from '../Student/StudentCategory';
+import Results from '../Results/Results';
 
 const Navbar = (props) => {
   const {setRenderComponent,userDetails} = props;
@@ -19,14 +18,12 @@ const Navbar = (props) => {
     setActiveButton(page);
   };
   const render = () =>{
-    if(activeButton === "adminCategory"){
-        return <AdminCategory/>;
+    if(activeButton === "category"){
+        return <Category userDetails={userDetails}/>;
     }else if(activeButton === "profile"){
         return <Profile userDetails={userDetails}/>;
     }else if(activeButton === "results"){
-        return <AdminResults/>
-    }else if(activeButton === "studentCategory"){
-        return <StudentCategory/>
+        return <Results/>
     }
     else{
         return null;
@@ -40,7 +37,7 @@ const Navbar = (props) => {
         showCancelButton: true,
         confirmButtonColor: 'white',
         cancelButtonColor: 'white',
-        cancelButtonText: '<span style="color:#15172b"> StayIn </span>',
+        cancelButtonText: '<span style="color:#15172b"> Stay </span>',
         confirmButtonText:'<span style="color: #15172b">LogOut</span>',
         background:"#15172b",
         color:"white",
@@ -67,7 +64,7 @@ const Navbar = (props) => {
   }
   useEffect(()=>{
     if(role === "Admin"){
-        setActiveButton("adminCategory")
+        setActiveButton("category")
         Swal.fire({
             text:'WELCOME TO ADMIN DASHBOARD!',
             timer:1900,
@@ -76,7 +73,7 @@ const Navbar = (props) => {
             background:'#15172b'
         })
     }else{
-        setActiveButton("studentCategory")
+        setActiveButton("category")
         Swal.fire({
             text:`WELCOME ${userDetails?.Name} TO STUDENT DASHBOARD!`,
             timer:1900,
@@ -98,16 +95,12 @@ const Navbar = (props) => {
             }>
                 <ul>
                     <li>
-                    <button onClick={() => {
-                        {userDetails.UserType === "Admin"?(handleButtonClick('adminCategory')):(handleButtonClick('studentCategory'))}
+                    <button onClick={()=>{
+                        handleButtonClick('category')
                         setIsNavExpanded(false);
                     }}
                 className={`nav-button ${
-                    role === "Admin"
-                    ? activeButton === "adminCategory"
-                      ? 'active'
-                      : ''
-                    : activeButton === "studentCategory"
+                    activeButton === "category"
                     ? 'active'
                     : ''
                 }`}>

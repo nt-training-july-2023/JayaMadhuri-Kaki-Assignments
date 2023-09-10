@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import axios from 'axios'
-import './AdminCategory.scss';
+import './Category.scss';
 import Swal from 'sweetalert2'
 
 const AddCategory = (props) =>{
