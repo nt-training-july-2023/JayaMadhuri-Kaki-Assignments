@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react';
 import './Login.scss'
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = (props) =>{
     const {setRenderComponent,setUserDetails} = props;
@@ -12,10 +13,14 @@ const Login = (props) =>{
     const [loginRequestBody,setLoginRequestBody] = useState(initialValues);
     const [emailError,setEmailError] = useState('');
     const [passwordError,setPasswordError] = useState('');
+    const [passwordVisible,setPasswordVisible] = useState("false")
     const finalValues={
         emailId: loginRequestBody.emailId,
         password: loginRequestBody.password
     }
+    const togglePasswordVisible = () => {
+        setPasswordVisible(!passwordVisible);
+    };
     const handleChange = (e) =>{
         const {name,value} = e.target;
         if(name === "emailId"){
@@ -142,7 +147,12 @@ const Login = (props) =>{
                 <div className='para'>NucleusTeq Members Can Log In Here To Access<br/>The Online Assessments</div>
                 <input type="email" placeholder="Email Id" onChange={handleChange} name='emailId' className='input'/>
                 <b><p className='errors'>{emailError}</p></b>
-                <input type="password" placeholder="Password" onChange={handleChange} name='password' className='input'/>
+                <div className='password-container'>
+                <input type={passwordVisible ? 'password' : 'text'} placeholder="Password" onChange={handleChange} name='password' className='input' style={{ paddingRight: '40px' }}/>
+                <button className="toggle-password" onClick={togglePasswordVisible} >
+                    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+                </div>
                 <b><p className='errors'>{passwordError}</p></b>
                 <div>
                     <button className='login-btn' onClick={handleLogin}><b>Login</b></button>

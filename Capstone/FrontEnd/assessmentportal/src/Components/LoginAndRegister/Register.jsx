@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import './Register.scss';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 
 const Register = (props) =>{
@@ -26,11 +27,19 @@ const Register = (props) =>{
     const [registerRequestBody,setRegisterRequestBody] = useState(initialValues);
     const [password,setPassword] = useState("")
     const [email,setEmail] = useState("")
+    const [passwordVisible,setPasswordVisible] = useState("false")
+    const [confirmPasswordVisible,setConfirmPasswordVisible] = useState("false")
     const [flags,setFlags] = useState({
       emailIdFlag: true,
       passwordFlag:false,
       detailsFlag:false,
-    });     
+    }); 
+    const togglePasswordVisible = () => {
+      setPasswordVisible(!passwordVisible);
+    };
+    const toggleConfirmPasswordVisible = () => {
+      setConfirmPasswordVisible(!confirmPasswordVisible);
+    };
     const [buttonName,setButtonName] = useState("Validate")
     const handleClick = () =>{
         setRenderComponent("login");
@@ -48,18 +57,24 @@ const Register = (props) =>{
         };
         switch (name) {
           case "emailId":
-            if (!value) {
+            setRegisterRequestBody({ ...registerRequestBody, emailId: value });
+            if (value.length<1) {
               setErrors({ ...errors, emailId: "Email Required" });
             } else if (!/^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$/.test(value)) {
               setErrors({ ...errors, emailId: "Email should contain .nucleusteq" });
             } else {
               setErrors({ ...errors, emailId: "" });
-              setRegisterRequestBody({ ...registerRequestBody, emailId: value });
+            } 
+            if(value != email){
+              setButtonName("Validate")
+            }else{
+              setButtonName("Next")
             }
             break;
       
           case "password":
             setPassword(value);
+            setRegisterRequestBody({ ...registerRequestBody, password: value });
             switch (true) {
                 case !value:
                   setErrors({ ...errors, password: "Password Required" });
@@ -78,46 +93,45 @@ const Register = (props) =>{
                   break;
                 default:
                   setErrors({ ...errors, password: "" });
-                  setRegisterRequestBody({ ...registerRequestBody, password: value });
                   break;
               }              
             break;
       
           case "firstName":
+            setRegisterRequestBody({ ...registerRequestBody, firstName: value });
             if (!value) {
               setErrors({ ...errors, firstName: "First Name Required" });
             } else {
               setErrors({ ...errors, firstName: "" });
-              setRegisterRequestBody({ ...registerRequestBody, firstName: value });
             }
             break;
       
           case "lastName":
+            setRegisterRequestBody({ ...registerRequestBody, lastName: value });
             if (!value) {
               setErrors({ ...errors, lastName: "Last Name Required" });
             } else {
               setErrors({ ...errors, lastName: "" });
-              setRegisterRequestBody({ ...registerRequestBody, lastName: value });
             }
             break;
 
           case "dateOfBirth":
+            setRegisterRequestBody({ ...registerRequestBody, dateOfBirth: value });
             if (!value) {
               setErrors({ ...errors, dateOfBirth: "Date of Birth Required" });
             } else {
               setErrors({ ...errors, dateOfBirth: "" });
-              setRegisterRequestBody({ ...registerRequestBody, dateOfBirth: value });
             }
             break;
 
           case "confirmPassword":
+            setRegisterRequestBody({ ...registerRequestBody, confirmPassword: value });
             if (!value) {
               setErrors({ ...errors, confirmPassword: "Confirm your password" });
             } else if (password !== value) {
               setErrors({ ...errors, confirmPassword: "Passwords do not match" });
             } else {
               setErrors({ ...errors, confirmPassword: "" });
-              setRegisterRequestBody({ ...registerRequestBody, confirmPassword: value });
             }
             break;
             
@@ -146,6 +160,7 @@ const Register = (props) =>{
          if(error?.response?.status==404){
           Swal.fire({
             text:'Validated Successfully.......',
+            icon: "success",
             timer:1000,
             showConfirmButton:false,
             color:'white',
@@ -170,7 +185,6 @@ const Register = (props) =>{
     const handleRegister = () =>{
         axios.post('http://localhost:6060/studentRegister',finalValues)
         .then(response =>{
-            console.log(response)
             if(response?.data?.statusCode == 200){
                 Swal.fire({
                     title: 'User Registered Successfully',
@@ -188,19 +202,7 @@ const Register = (props) =>{
             }
         })
         .catch(error=>{
-            console.log(error)
-            if(error?.response?.status==409){
-                Swal.fire({
-                    title: 'Error.....',
-                    text: 'An Account already exists with this Email',
-                    timer: 2000,
-                    showConfirmButton:false,
-                    showCancelButton:false,
-                    icon: "warning",
-                    background:"#15172b",
-                    color:"white",
-                  });  
-            }else if(error?.message == "Network Error"){
+            if(error?.message == "Network Error"){
                 Swal.fire({
                     title: 'Erro',
                     text: 'NetWork Error',
@@ -214,35 +216,32 @@ const Register = (props) =>{
             }
         })
     }
-    const handleNext = () =>{
+    const handleValidateRegister = () =>{
+      let firstNameError="",lastNameError="",dateOfBirthError="";
       switch(true){
-        case flags?.emailIdFlag:
-          if(JSON.stringify(errors) == JSON.stringify(initialErrors)){
+        case registerRequestBody?.firstName.length<1:
+          firstNameError="First Name Required";
+        case registerRequestBody?.lastName.length<1:
+          lastNameError="Last Name Required"
+        case registerRequestBody?.dateOfBirth.length<1:
+          dateOfBirthError = "Date of Birth Required"
+        default:
+          setErrors({ ...errors, firstName: firstNameError,lastName: lastNameError,dateOfBirth: dateOfBirthError});
+          handleRegister();
+        }
+    }
+    const handleNext = () =>{
+        if(flags?.emailIdFlag){
+          if(errors.emailId == ""){
             if(registerRequestBody.emailId === email){
-              console.log(flags)
               setFlags({ ...flags,emailIdFlag:false,passwordFlag:true,detailsFlag:false });
-              console.log(flags)
-            }else{
-              Swal.fire({
-                title: 'Error.....',
-                text: 'Email Id Changed Validate Again',
-                timer: 2000,
-                showConfirmButton:false,
-                showCancelButton:false,
-                icon: "warning",
-                background:"#15172b",
-                color:"white",
-              });  
-              setButtonName("Validate")
             }
           }
-          break;
-        case flags?.passwordFlag:
-          if(JSON.stringify(errors) == JSON.stringify(initialErrors)){
+        }else if(flags?.passwordFlag){
+          if(errors.password == ""){
             if(registerRequestBody?.password.length>0 && registerRequestBody?.confirmPassword.length>0){
               setFlags({ ...flags,emailIdFlag:false,passwordFlag:false,detailsFlag:true });
               setButtonName("Register")
-              setErrors({ ...errors, firstName: "First Name Required",lastName: "Last Name Required",dateOfBirth: "Date of Birth Required"});
             }else if(registerRequestBody?.password.length>0 && registerRequestBody?.confirmPassword.length===0){
               setErrors({ ...errors, confirmPassword: "Confirm your password" });
             }else if(registerRequestBody?.password.length===0 && registerRequestBody?.confirmPassword.length>0){
@@ -251,16 +250,24 @@ const Register = (props) =>{
               setErrors({ ...errors, password: "Password Required" ,confirmPassword: "Confirm your password" });
             }
           }
-          break;
-          case flags?.detailsFlag:
-            if(JSON.stringify(errors) == JSON.stringify(initialErrors)){
-              handleRegister();
-            }
-            break;
-          default:
-            console.log("something happend")
-            break;
+        }
+    }
+    const handleCommonButtonClick = () =>{
+      if(buttonName == "Validate"){
+        emailValidation()
+      }else if(buttonName == "Next"){
+        handleNext();
+      }else{
+        handleValidateRegister();
       }
+    }
+    const handleBack = () =>{
+       if(flags?.passwordFlag){
+        setFlags({ ...flags,emailIdFlag:true,passwordFlag:false,detailsFlag:false})
+       }else if(flags?.detailsFlag){
+        setFlags({ ...flags,emailIdFlag:false,passwordFlag:true,detailsFlag:false})
+       }
+       setButtonName("Next")
     }
     return(
         <div className="body">
@@ -269,17 +276,25 @@ const Register = (props) =>{
             </div>
             <div className="form">
                 <h1 className='title'>Sign Up</h1>
-                {flags?.emailIdFlag && <><input type="email" name="emailId" placeholder="Email Id" onChange={handleChange} className='input' />
+                {flags?.emailIdFlag && <><input type="email" name="emailId" placeholder="Email Id" value={registerRequestBody?.emailId} onChange={handleChange} className='input' />
                 <b><p className='error'>{errors.emailId}</p></b></>}
-                {flags?.passwordFlag && <><input type="password" name="password" placeholder="Password" onChange={handleChange} className='input' />
+                {flags?.passwordFlag && <><div className="password-container"><input type={passwordVisible ? 'password' : 'text'}  name="password" placeholder="Password" value={registerRequestBody?.password} onChange={handleChange} className='input' />
+                <button className="toggle-password" onClick={togglePasswordVisible}> 
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+                </div>
                 <b><p className='error'>{errors.password}</p></b>
-                <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className='input'/>
+                <div className="password-container"><input type={confirmPasswordVisible ? 'password' : 'text'}  name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} value={registerRequestBody?.confirmPassword} className='input'/>
+                <button className="toggle-password" onClick={toggleConfirmPasswordVisible}>
+                {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+                </div>
                 <b><p className='error'>{errors.confirmPassword}</p></b> </> }
-                {flags?.detailsFlag && <><input type="text" name="firstName" placeholder="First Name" onChange={handleChange} className='input' />
+                {flags?.detailsFlag && <><input type="text" name="firstName" placeholder="First Name" onChange={handleChange} value={registerRequestBody?.firstName} className='input' />
                 <b><p className='error'>{errors.firstName}</p></b>
-                <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} className='input' />
+                <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} value={registerRequestBody?.lastName} className='input' />
                 <b><p className='error'>{errors.lastName}</p></b>
-                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} className='input' max="2023-09-06" />
+                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} value={registerRequestBody?.dateOfBirth} className='input' max="2023-09-06" />
                 <b><p className='error'>{errors.dateOfBirth}</p></b>
                 <div className='radio-div'>
                     <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="male" checked/><b>Male</b>
@@ -287,11 +302,9 @@ const Register = (props) =>{
                     <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="others"/><b>Others</b>
                 </div></>}
                 <div className='button-register'>
-                    <button className='login-btn' onClick={buttonName == "Validate"?(emailValidation):(handleNext)}><b>{buttonName}</b></button>
-                    {/* {flags.passwordFlag || flags.detailsFlag ? (<button className='login-btn'
-                     onClick={flags.passwordFlag?(setFlags({ ...flags,emailIdFlag:true,passwordFlag:false,detailsFlag:false}))
-                     :(setFlags({ ...flags,emailIdFlag:false,passwordFlag:true,detailsFlag:false })
-                    )}><b>Back</b></button>):(null)} */}
+                    <button className='login-btn' onClick={handleCommonButtonClick}><b>{buttonName}</b></button>
+                    {(flags?.passwordFlag || flags?.detailsFlag) && <button className='login-btn'
+                     onClick={handleBack}><b>Back</b></button>}
                     <p className='register-btn'> <b>Having an Account!</b> <button onClick={handleClick} className='click-btn'><b>Click here</b></button></p>
                 </div>
             </div>

@@ -49,18 +49,32 @@
     outline: 0;
     padding: 4px 20px 0;
     width: 100%;
+    flex-grow: 1;
   }
   .input::placeholder{
     color:white;
     font-size: 14px;
   }
-
   .radio-div{
     margin-left: 20px;
     margin-top:10px;
     margin-bottom: 10px;
     color:#15172b;
     accent-color:#15172b;
+  }
+  .password-container{
+    position: relative;
+  }
+  .toggle-password{
+    position: absolute;
+    top: 50%; 
+    right: 10px; 
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color:white;
+    font-size: medium;
   }
   .error{
     text-align: center;
@@ -82,6 +96,7 @@
     height: 40px;
     text-align: center;
     width: 100%;
+    margin-bottom: 10px;
   }
   .register-btn{
     color:#15172b;
@@ -94,9 +109,4 @@
     font-size: medium;
     color: white;
   }
-  button:disabled{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-}
 }

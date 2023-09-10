@@ -91,42 +91,42 @@ const Navbar = (props) => {
                     <FaBars/>
                 </div>
                 <div className={
-            isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
-            }>
+                    isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
+                }>
                 <ul>
                     <li>
-                    <button onClick={()=>{
-                        handleButtonClick('category')
-                        setIsNavExpanded(false);
-                    }}
-                className={`nav-button ${
-                    activeButton === "category"
-                    ? 'active'
-                    : ''
-                }`}>
-                Home
-                </button>
+                        <button onClick={()=>{
+                            handleButtonClick('category')
+                            setIsNavExpanded(false);
+                        }}
+                        className={`nav-button ${
+                            activeButton === "category"
+                            ? 'active'
+                            : ''
+                        }`}>
+                        Home
+                        </button>
                     </li>
                     <li>
-                    <button onClick={() => {handleButtonClick('results');setIsNavExpanded(false);}}
-                className={`nav-button ${
-                activeButton === "results" ? 'active' : ''
-                }`}>
-                Results
-                </button>
+                        <button onClick={() => {handleButtonClick('results');setIsNavExpanded(false);}}
+                        className={`nav-button ${
+                        activeButton === "results" ? 'active' : ''
+                        }`}>
+                        Results
+                        </button>
+                            </li>
+                            <li>
+                            <button onClick={() => {handleButtonClick('profile');setIsNavExpanded(false);}}
+                        className={`nav-button ${
+                        activeButton === "profile" ? 'active' : ''
+                        }`}>
+                        Profile
+                        </button>
                     </li>
                     <li>
-                    <button onClick={() => {handleButtonClick('profile');setIsNavExpanded(false);}}
-                className={`nav-button ${
-                activeButton === "profile" ? 'active' : ''
-                }`}>
-                Profile
-                </button>
-                    </li>
-                    <li>
-                    <button onClick={handleLogOut} className="nav-button">
-                LogOut
-                </button>
+                        <button onClick={handleLogOut} className="nav-button">
+                        LogOut
+                        </button>
                     </li>
                 </ul>
             </div>

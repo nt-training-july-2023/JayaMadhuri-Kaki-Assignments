@@ -82,7 +82,6 @@ const Category = ({userDetails}) =>{
                                     }); 
                                 }
                             })
-                            
                         }} className='category-btn'>Delete</button>
                 </div>}
             </div>
@@ -91,7 +90,6 @@ const Category = ({userDetails}) =>{
             {popUp && (
                 <AddCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
             )}
-            
         </div>
     )
 }

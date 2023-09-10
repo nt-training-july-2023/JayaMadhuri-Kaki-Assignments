@@ -40,7 +40,7 @@
    .assessment-heading {
     position: absolute;
     left: 5%;
-    top: 50%; /* Adjust the vertical position as needed */
+    top: 50%; 
     transform: translateY(-50%);
     text-align: center;
     color: #15172b;
@@ -56,51 +56,44 @@
     }
     @media screen and (max-width:1000px) {
         top:15%;
-        // padding: 250px;
         left:34%;
         font-size: 22px;
     }
     @media screen and (max-width:820px) {
         top:15%;
         left:34%;
-        // padding: 220px;
         font-size: 22px;
     }
     @media screen and (max-width:768px) {
         top:16%;
-        // padding: 220px;
         left:34%;
         font-size: 22px;
     }
     @media screen and (max-width:600px) {
         top:15%;
         left:23%;
-        // padding: 100px;
         font-size: 25px;
     }
     @media screen and (max-width:431px) {
         top:15%;
         left:15%;
-        // padding: 40px;
         font-size: 25px;
     }
     @media screen and (max-width:390px) {
         top:15%;
         left:10%;
-        // padding: 50px;
         font-size: 25px;
     }
     @media screen and (max-width:300px) {
         top:15%;
         left:10%;
-        // padding: 50px;
         font-size: 20px;
     }
   }
   .para{
     position: absolute;
     left: 5%;
-    top: 60%; /* Adjust the vertical position as needed */
+    top: 60%; 
     transform: translateY(-50%);
     text-align: center;
     color: #15172b;
@@ -159,14 +152,26 @@
     position: relative;
     top:20px;
   }
-
+  .password-container{
+    position: relative;
+  }
+  .toggle-password{
+    position: absolute;
+    top: 100%; 
+    right: 10px; 
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color:white;
+    font-size: medium;
+  }
   .errors{
     color:red;
     position: relative;
     top:20px;
     text-align: center;
   }
-  
   .login-btn {
     background-color: white;
     border-radius: 12px;
@@ -185,6 +190,7 @@
     color:#15172b;
     position: relative;
     top:20px;
+    text-align: center;
   }
   .click-btn{
     border:none;
