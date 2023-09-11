@@ -48,10 +48,10 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   public final SubCategoryDetailsDto addSubCategory(final
                SubCategoryDetailsDto subCategory) {
       if (subCategory.getSubCategoryName().isEmpty()
-              || subCategory.getCategoryId() == 0
+              || subCategory.getCategoryId() == null
               || subCategory.getTimeLimitInMinutes().isEmpty()) {
            throw new InputEmptyException();
-         } else {
+         }else {
          Optional<SubCategory> existingSubCategory = subCategoryRepo
                  .getSubCategoryByName(subCategory.getSubCategoryName());
          if (existingSubCategory.isPresent()) {

@@ -61,7 +61,7 @@ const Register = (props) =>{
             if (value.length<1) {
               setErrors({ ...errors, emailId: "Email Required" });
             } else if (!/^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$/.test(value)) {
-              setErrors({ ...errors, emailId: "Email should contain .nucleusteq" });
+              setErrors({ ...errors, emailId: "Email should contain @nucleusteq" });
             } else {
               setErrors({ ...errors, emailId: "" });
             } 
@@ -71,7 +71,7 @@ const Register = (props) =>{
               setButtonName("Next")
             }
             break;
-      
+
           case "password":
             setPassword(value);
             setRegisterRequestBody({ ...registerRequestBody, password: value });
@@ -250,6 +250,8 @@ const Register = (props) =>{
               setErrors({ ...errors, password: "Password Required" ,confirmPassword: "Confirm your password" });
             }
           }
+        }else{
+
         }
     }
     const handleCommonButtonClick = () =>{
@@ -266,6 +268,9 @@ const Register = (props) =>{
         setFlags({ ...flags,emailIdFlag:true,passwordFlag:false,detailsFlag:false})
        }else if(flags?.detailsFlag){
         setFlags({ ...flags,emailIdFlag:false,passwordFlag:true,detailsFlag:false})
+       }
+       else{
+        
        }
        setButtonName("Next")
     }
@@ -294,7 +299,7 @@ const Register = (props) =>{
                 <b><p className='error'>{errors.firstName}</p></b>
                 <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} value={registerRequestBody?.lastName} className='input' />
                 <b><p className='error'>{errors.lastName}</p></b>
-                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} value={registerRequestBody?.dateOfBirth} className='input' max="2023-09-06" />
+                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} value={registerRequestBody?.dateOfBirth} className='input' max="2005-11-09" />
                 <b><p className='error'>{errors.dateOfBirth}</p></b>
                 <div className='radio-div'>
                     <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="male" checked/><b>Male</b>

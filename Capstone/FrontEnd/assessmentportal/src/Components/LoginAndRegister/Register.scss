@@ -55,6 +55,9 @@
     color:white;
     font-size: 14px;
   }
+  .input::-webkit-calendar-picker-indicator {
+    filter: invert(1)
+  }
   .radio-div{
     margin-left: 20px;
     margin-top:10px;

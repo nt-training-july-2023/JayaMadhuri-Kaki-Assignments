@@ -39,7 +39,8 @@ class FinalResultServiceImplementationTest {
         finalDto.setTotalQuestions(10);
         finalDto.setDateAndTime("23-01-23");
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz(finalDto.getFinalResultId(),
-                finalDto.getStudentId(), finalDto.getStudentName(),finalDto.getQuizName()
+                finalDto.getStudentId(), finalDto.getStudentEmailId(),
+                finalDto.getStudentName(),finalDto.getQuizName()
                 ,finalDto.getCategoryName(),
                 finalDto.getMarksObtained(),finalDto.getNumOfAttemptedQuestions(),
                 finalDto.getTotalMarks(),finalDto.getTotalQuestions(),finalDto.getDateAndTime());
@@ -54,10 +55,11 @@ class FinalResultServiceImplementationTest {
     @Test
     void testGetFinalResultByStudentId() {
         Long studentId = 1L;
-        FinalResultsDto finalDto = new FinalResultsDto(10L,studentId, "Madhuri","Array",
+        FinalResultsDto finalDto = new FinalResultsDto(10L,studentId,"jaya@nucleusteq.com","Madhuri","Array",
                 "Java",9,9,10,10,"23-10-23");
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz(finalDto.getFinalResultId(),
-                finalDto.getStudentId(), finalDto.getStudentName(),finalDto.getQuizName()
+                finalDto.getStudentId(), finalDto.getStudentEmailId(),
+                finalDto.getStudentName(),finalDto.getQuizName()
                 ,finalDto.getCategoryName(),
                 finalDto.getMarksObtained(),finalDto.getNumOfAttemptedQuestions(),
                 finalDto.getTotalMarks(),finalDto.getTotalQuestions(),finalDto.getDateAndTime());

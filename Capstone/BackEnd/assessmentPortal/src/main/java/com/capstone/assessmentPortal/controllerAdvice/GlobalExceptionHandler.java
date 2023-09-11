@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(AlreadyExistsException.class)
   public final ResponseEntity<String> handleAlreadyExistsException(final
            AlreadyExistsException exception) {
-    return new ResponseEntity<String>("Data already exists with same name",
+    return new ResponseEntity<String>("Data already exists",
            HttpStatus.CONFLICT);
   }
   /**

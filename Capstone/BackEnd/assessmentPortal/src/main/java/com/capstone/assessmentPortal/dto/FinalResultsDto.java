@@ -30,6 +30,11 @@ public class FinalResultsDto {
     @Column(nullable = false)
     private Long studentId;
     /**
+     *student email attribute.
+    */
+    @Column(nullable = false)
+    private String studentEmailId;
+    /**
      *student name attribute.
     */
     @Column(nullable = false)

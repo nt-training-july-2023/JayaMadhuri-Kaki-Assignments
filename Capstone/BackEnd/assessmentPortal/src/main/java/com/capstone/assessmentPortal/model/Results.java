@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +20,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"studentId", "subCategoryId"})
+}) 
 @Entity
 public class Results {
     /**
@@ -61,7 +66,6 @@ public class Results {
     /**
      * date and time of quiz attempted attribute.
      */
-    @Column(nullable = false)
     private String dateAndTime;
     /**
      * get students.

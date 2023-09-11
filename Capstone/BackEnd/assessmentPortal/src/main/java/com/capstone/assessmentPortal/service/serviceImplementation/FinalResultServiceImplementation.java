@@ -50,6 +50,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
     FinalResultsDto finalDto = new FinalResultsDto();
     finalDto.setFinalResultId(finalResults.getFinalResultId());
     finalDto.setStudentId(finalResults.getStudentId());
+    finalDto.setStudentEmailId(finalResults.getStudentEmailId());
     finalDto.setStudentName(finalResults.getStudentName());
     finalDto.setQuizName(finalResults
               .getQuizName());
@@ -82,6 +83,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
       FinalResultsDto finalDto = new FinalResultsDto();
       finalDto.setFinalResultId(results.getFinalResultId());
       finalDto.setStudentId(studentId);
+      finalDto.setStudentEmailId(results.getStudentEmailId());
       finalDto.setStudentName(results.getStudentName());
       finalDto.setQuizName(results
                 .getQuizName());

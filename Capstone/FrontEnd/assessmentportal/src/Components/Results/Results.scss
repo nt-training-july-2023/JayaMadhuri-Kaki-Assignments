@@ -1,0 +1,29 @@
+.result-container{
+    overflow-x:auto;
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    tr{
+        th{
+            background-color: #31334e;
+            color:white;
+        }
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+        color:black;
+        text-align: center;
+    }
+    tbody{
+        tr:nth-child(even) {
+            background-color: #d4d5dd;
+            color:white;
+        }
+        tr:nth-child(odd) {
+            background-color: white;
+            color:#31334e;
+        }
+    }
+}
