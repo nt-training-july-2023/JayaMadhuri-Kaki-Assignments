@@ -1,67 +1,66 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios'
-import './Category.scss'
-import AddCategory from './AddCategory';
+import './Quiz.scss'
 import Swal from 'sweetalert2'
-import Quiz from '../Quiz/Quiz';
+import AddQuiz from './AddQuiz';
 
-const Category = ({userDetails}) =>{
-    const [category,setCategory] = useState([]);
-    const [title,setTitle] = useState("Add Category");
-    const message = "No Categories Found!";
+const Quiz = (props) =>{
+    const {userDetails,setShowQuiz} = props;
+    const [quiz,setQuiz] = useState([]);
+    const [title,setTitle] = useState("Add Quiz");
+    const message = "No Quiz Found!";
     const [popUp,setPopUp] = useState(false);
-    const [showQuiz,setShowQuiz] = useState(false);
     const [initialValues,setInitialValues] = useState({
-        categoryName:"",
-        categoryDescription:""
+        subCategoryName:"",
+        subCategoryDescription:"",
+        timeLimitInMinutes:"",
+        categoryId:""
     })
     const handleAdd = () =>{
-        setTitle("Add Category");
+        setTitle("Add Quiz");
         setInitialValues({
-            categoryName:"",
-            categoryDescription:""
+            subCategoryName:"",
+            subCategoryDescription:"",
+            timeLimitInMinutes:"",
+            categoryId:""
         })
         setPopUp(true);
     }
     const fetchData = async () => {
         try {
-          const response = await axios.get("http://localhost:6060/allCategories");
-            setCategory(response?.data?.listOfCategories);
+          const response = await axios.get(`http://localhost:6060/subCategoryByCategory/504`);
+            setQuiz(response?.data?.SubCategoryByCategoryId);
         } catch (error) {
             message();
         }
     };
-    const handleCardClick = () => {
-        setShowQuiz(true);
-    }      
     useEffect(() => {
         fetchData();
     }, []);
     return(
         <div>
-            {!showQuiz && <div>
-                {userDetails?.UserType === "Admin" && <button className='addcategory-btn' onClick={handleAdd}>Add Category</button>}
-                <h1 className='category-title'>Category</h1>
+            <div>
+                {userDetails?.UserType === "Admin" && <button className='addquiz-btn' onClick={handleAdd}>Add Quiz</button>}
+                {userDetails?.UserType === "Admin" && <button className='backquiz-btn' onClick={()=>{setShowQuiz(false)}}>Back</button>}
+                <h1 className='category-title'>Quiz</h1>
                 <hr/>
-            </div>}
-            {showQuiz ? (
-                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz}/>
-            ) : (<div>
-            <div className="category-container">
-            {category.map((item) => (
-            <div key={item.categoryId} className="category-card" onClick={handleCardClick}>
-                {/* <p>Category ID: {item.categoryId}</p> */}
-                <p>Name: {item.categoryName}</p>
-                <p>Description: {item.categoryDescription}</p>
+            </div>
+            <div className="quiz-container">
+            {quiz.map((item) => (
+            <div key={item.subCategoryId} className="quiz-card">
+                {/* <p>subCategoryId ID: {item.subCategoryId}</p> */}
+                <p className='p'>Name: {item.subCategoryName}</p>
+                <p className='p'>Description: {item.subCategoryDescription}</p>
+                <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
                 {userDetails?.UserType === "Admin" && <div>
                     <button onClick={()=>{
                         setPopUp(true);
-                        let updateInitialValues = {categoryId:item?.categoryId, categoryName:item?.categoryName, categoryDescription:item?.categoryDescription};
+                        let updateInitialValues = {subCategoryId:item?.subCategoryId, subCategoryName:item?.subCategoryName, subCategoryDescription:item?.subCategoryDescription, timeLimitInMinutes:item?.timeLimitInMinutes, categoryId:item?.categoryId};
                         setInitialValues(updateInitialValues);
-                        setTitle("Update Category");
-                    }}  className='category-btn'>Update</button>
+                        setTitle("Update Quiz");
+                    }}  className='quiz-btn'>Update</button>
                     <button onClick={()=>{
-                            axios.delete(`http://localhost:6060/deleteCategory/${item.categoryId}`)
+                            axios.delete(`http://localhost:6060/deleteSubCategory/${item.subCategoryId}`)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
                                     Swal.fire({
@@ -90,18 +89,16 @@ const Category = ({userDetails}) =>{
                                     }); 
                                 }
                             })
-                        }} className='category-btn'>Delete</button>
+                        }} className='quiz-btn'>Delete</button>
                 </div>}
-            </div>
+                </div>
             ))}
             </div>
             {popUp && (
-                <AddCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
+                <AddQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
             )}
-            </div>
-            )};
         </div>
     )
 }
 
-export default Category;
+export default Quiz;

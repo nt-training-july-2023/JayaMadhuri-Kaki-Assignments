@@ -20,9 +20,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-@Table(uniqueConstraints={
+@Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"studentId", "subCategoryId"})
-}) 
+})
 @Entity
 public class Results {
     /**

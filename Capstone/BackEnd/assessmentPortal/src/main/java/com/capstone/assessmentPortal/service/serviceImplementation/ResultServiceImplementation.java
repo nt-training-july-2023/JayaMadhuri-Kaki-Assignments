@@ -72,32 +72,34 @@ public class ResultServiceImplementation implements ResultService {
 }
 @Override
   public final ResultsDto addTemporaryResult(final ResultsDto results) {
-    if(results.getStudentId() == null || results.getCategoryId() == null
-            || results.getSubCategoryId() == null || results.getMarksObtained() == 0
+    if (results.getStudentId() == null || results.getCategoryId() == null
+            || results.getSubCategoryId() == null
+            || results.getMarksObtained() == 0
             || results.getTotalMarks() == 0 || results.getTotalQuestions() == 0
             || results.getNumOfAttemptedQuestions() == 0) {
        throw new InputEmptyException();
-    }else {
-        if (resultRepo.findResultsByStudentsAndSubCategory(results.getStudentId(), results.getSubCategoryId()) != null){
+    } else {
+        if (resultRepo.findResultsByStudentsAndSubCategory(results
+                .getStudentId(), results.getSubCategoryId()) != null) {
             throw new AlreadyExistsException();
         }
         Users existinguser = usersRepo.findById(results
                 .getStudentId()).orElse(null);
        if (existinguser == null) {
          throw new NoSuchElementException();
-       }
-       else {
+       } else {
          SubCategory existingquiz = subCategoryRepo.findById(
          results.getSubCategoryId()).orElse(null);
          if (existingquiz != null) {
                FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
                finalResults.setStudentId(results.getStudentId());
-               Optional<Users> users = usersRepo.findById(results.getStudentId());
+               Optional<Users> users = usersRepo.findById(results
+                       .getStudentId());
                finalResults.setStudentEmailId(users.get().getEmailId());
                finalResults.setStudentName(users.get().getFirstName()
                        + users.get().getLastName());
-               Optional<SubCategory> subCategory = subCategoryRepo.findById(results
-                       .getSubCategoryId());
+               Optional<SubCategory> subCategory = subCategoryRepo
+                       .findById(results.getSubCategoryId());
                Optional<Category> category = categoryRepo.findById(results
                        .getCategoryId());
                finalResults.setCategoryName(category.get().getCategoryName());
@@ -107,16 +109,17 @@ public class ResultServiceImplementation implements ResultService {
                finalResults.setNumOfAttemptedQuestions(results
                         .getNumOfAttemptedQuestions());
                finalResults.setTotalQuestions(results.getTotalQuestions());
-               finalResults.setDateAndTime(results.getDateAndTime());
+               finalResults.setDateAndTime(results.setDateAndTimeMethod());
              finalResultsRepo.save(finalResults);
              Results res = new Results();
              res.setStudents(existinguser);
              res.setSubCategory(existingquiz);
              res.setTotalMarks(results.getTotalMarks());
              res.setMarksObtained(results.getMarksObtained());
-             res.setNumOfAttemptedQuestions(results.getNumOfAttemptedQuestions());
+             res.setNumOfAttemptedQuestions(results
+                     .getNumOfAttemptedQuestions());
              res.setTotalQuestions(results.getTotalQuestions());
-             res.setDateAndTime(results.getDateAndTime());
+             res.setDateAndTime(results.setDateAndTimeMethod());
              resultRepo.save(res);
              return results;
            } else {
