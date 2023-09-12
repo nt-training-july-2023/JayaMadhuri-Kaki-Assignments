@@ -43,7 +43,6 @@ const AddUpdateQuiz = (props) =>{
                             color:"white",
                         }); 
                     }
-                    console.log(error)
                 })
             
             }else{
@@ -77,11 +76,10 @@ const AddUpdateQuiz = (props) =>{
                     setPopUp(false);
                 }
             }).catch(error=>{
-                console.log(error)
                 if(error?.response?.status === 409){
                     Swal.fire({
                         title: 'Error',
-                        text: 'Something Wrong',
+                        text: 'Quiz Name Already Exists',
                         timer: 1500,
                         showConfirmButton:false,
                         showCancelButton:false,
@@ -92,7 +90,7 @@ const AddUpdateQuiz = (props) =>{
                 }else{
                     Swal.fire({
                         title: 'Error',
-                        text: 'A Quiz is Already Exists With Same Name',
+                        text: 'Something went wrong',
                         timer: 1500,
                         showConfirmButton:false,
                         showCancelButton:false,

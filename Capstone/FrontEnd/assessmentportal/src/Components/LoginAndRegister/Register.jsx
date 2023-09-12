@@ -141,6 +141,7 @@ const Register = (props) =>{
         }
     };
     const emailValidation = () =>{
+      if(errors.emailId == ""){
        if(registerRequestBody?.emailId.length>0){
         axios.get(`http://localhost:6060/getUsers/${registerRequestBody.emailId}`)
         .then(response=>{
@@ -173,6 +174,7 @@ const Register = (props) =>{
        }else{
         setErrors({ ...errors, emailId: "Email Required" });
        }
+      }
     }
     const finalValues = {
         firstName:registerRequestBody.firstName,
@@ -202,9 +204,10 @@ const Register = (props) =>{
             }
         })
         .catch(error=>{
+          console.log(error)
             if(error?.message == "Network Error"){
                 Swal.fire({
-                    title: 'Erro',
+                    title: 'Error',
                     text: 'NetWork Error',
                     timer: 2000,
                     showConfirmButton:false,
@@ -213,6 +216,17 @@ const Register = (props) =>{
                     background:"#15172b",
                     color:"white",
                 });  
+            }else{
+              Swal.fire({
+                title: 'Error',
+                text: 'Enter Valid Date! Age should be Minimum 18',
+                timer: 2000,
+                showConfirmButton:false,
+                showCancelButton:false,
+                icon: "warning",
+                background:"#15172b",
+                color:"white",
+            });  
             }
         })
     }
@@ -299,7 +313,7 @@ const Register = (props) =>{
                 <b><p className='error'>{errors.firstName}</p></b>
                 <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} value={registerRequestBody?.lastName} className='input' />
                 <b><p className='error'>{errors.lastName}</p></b>
-                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} value={registerRequestBody?.dateOfBirth} className='input' max="2005-11-09" />
+                <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} value={registerRequestBody?.dateOfBirth} className='input'/>
                 <b><p className='error'>{errors.dateOfBirth}</p></b>
                 <div className='radio-div'>
                     <input type="radio" className='radio-input' onChange={handleChangeRadio} name='gender' value="male" checked/><b>Male</b>

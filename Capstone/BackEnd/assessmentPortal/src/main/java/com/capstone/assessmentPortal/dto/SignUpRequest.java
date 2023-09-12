@@ -1,5 +1,6 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.customAnnotations.AdultAge;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -29,6 +30,7 @@ public class SignUpRequest {
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column
+  @AdultAge(message = "User must be at least 18 years old")
   @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
          message = "Date of birth pattern should be yyyy-mm-dd")
   @NotBlank(message = "Date of birth is required")

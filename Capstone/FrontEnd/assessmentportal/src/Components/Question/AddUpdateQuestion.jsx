@@ -28,10 +28,10 @@ const AddUpdateQuestion = (props) =>{
                     }
                     console.log(response)
                 }).catch(error=>{
-                    if(error?.response?.status === 404){
+                    if(error?.response?.status === 409){
                         Swal.fire({
                             title: 'Error',
-                            text: 'Quiz Id Not Found',
+                            text: 'Input Fields are Empty',
                             timer: 1500,
                             showConfirmButton:false,
                             showCancelButton:false,
@@ -67,11 +67,10 @@ const AddUpdateQuestion = (props) =>{
                     setPopUp(false);
                 }
             }).catch(error=>{
-                console.log(error)
                 if(error?.response?.status === 409){
                     Swal.fire({
                         title: 'Error',
-                        text: 'Something Wrong',
+                        text: 'Input Fields are Empty',
                         timer: 1500,
                         showConfirmButton:false,
                         showCancelButton:false,

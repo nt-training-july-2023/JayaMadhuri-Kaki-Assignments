@@ -8,7 +8,6 @@ import Quiz from '../Quiz/Quiz';
 const Category = ({userDetails}) =>{
     const [category,setCategory] = useState([]);
     const [title,setTitle] = useState("Add Category");
-    const message = "No Categories Found!";
     const [popUp,setPopUp] = useState(false);
     const [showQuiz,setShowQuiz] = useState(false);
     const [selectedId,setSelectedId] = useState(null);
@@ -29,7 +28,16 @@ const Category = ({userDetails}) =>{
           const response = await axios.get("http://localhost:6060/allCategories");
             setCategory(response?.data?.listOfCategories);
         } catch (error) {
-            message();
+            Swal.fire({
+                title: 'Error',
+                text: 'Error In Getting Category List',
+                timer: 1500,
+                showConfirmButton:false,
+                showCancelButton:false,
+                icon: "warning",
+                background:"#15172b",
+                color:"white",
+            }); 
         }
     };   
     useEffect(() => {

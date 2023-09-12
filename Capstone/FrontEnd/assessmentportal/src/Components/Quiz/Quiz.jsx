@@ -10,7 +10,6 @@ const Quiz = (props) =>{
     const [quiz,setQuiz] = useState([]);
     const [title,setTitle] = useState("Add Quiz");
     const [selectedQuizId,setSelectedQuizId] = useState(null)
-    const message = "No Quiz Found!";
     const [popUp,setPopUp] = useState(false);
     const [showQuestion,setShowQuestion] = useState(false);
     const [initialValues,setInitialValues] = useState({
@@ -35,8 +34,16 @@ const Quiz = (props) =>{
             setQuiz(response?.data?.SubCategoryByCategoryId);
         } catch (error) {
             if(error?.response?.statusCode == 400){
-                console.log(message);
-            }
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error in getting Quiz List',
+                    timer: 1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                });             }
         }
     };
     useEffect(() => {
@@ -61,13 +68,15 @@ const Quiz = (props) =>{
                 <p className='p'>Description: {item.subCategoryDescription}</p>
                 <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
                 {userDetails?.UserType === "Admin" && <div>
-                    <button onClick={()=>{
+                    <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
+                        event.stopPropagation();
                         setPopUp(true);
                         let updateInitialValues = {subCategoryId:item?.subCategoryId, subCategoryName:item?.subCategoryName, subCategoryDescription:item?.subCategoryDescription, timeLimitInMinutes:item?.timeLimitInMinutes, categoryId:item?.categoryId};
                         setInitialValues(updateInitialValues);
                         setTitle("Update Quiz");
                     }}  className='quiz-btn'>Update</button>
-                    <button onClick={()=>{
+                    <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
+                            event.stopPropagation();
                             axios.delete(`http://localhost:6060/deleteSubCategory/${item.subCategoryId}`)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){

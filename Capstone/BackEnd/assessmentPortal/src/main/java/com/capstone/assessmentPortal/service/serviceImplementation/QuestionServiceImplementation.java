@@ -47,7 +47,12 @@ public class QuestionServiceImplementation implements QuestionService {
 @Override
   public final QuestionDto addQuestion(final QuestionDto question) {
     if (question.getQuestionContent().isEmpty()
-            || question.getSubCategoryId() == null) {
+            || question.getSubCategoryId() == null
+            || question.getOptionA().isEmpty()
+            || question.getOptionB().isEmpty()
+            || question.getOptionC().isEmpty()
+            || question.getOptionD().isEmpty()
+            || question.getCorrectAnswer().isEmpty()) {
       throw new InputEmptyException();
     } else {
       SubCategory existingSubCategory = subCategoryRepo.findById(

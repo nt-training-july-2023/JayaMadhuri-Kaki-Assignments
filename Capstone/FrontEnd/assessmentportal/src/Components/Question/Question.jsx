@@ -8,7 +8,6 @@ const Question = (props) =>{
     const {selectedQuizId,setShowQuestion,userDetails} = props;
     const [question,setQuestion] = useState([]);
     const [titleQuestion,setTitleQuestion] = useState("Add Question");
-    const message = "No Questions Found!";
     const [popUp,setPopUp] = useState(false);
     const [initialValues,setInitialValues] = useState({
         questionContent:"",
@@ -37,9 +36,16 @@ const Question = (props) =>{
           const response = await axios.get(`http://localhost:6060/getAllQuestions/${selectedQuizId}`);
             setQuestion(response?.data?.QuestionBySubCategoryId);
         } catch (error) {
-            if(error?.response?.statusCode == 400){
-                console.log(message);
-            }
+            Swal.fire({
+                title: 'Error',
+                text: 'Error in getting Questions List',
+                timer: 1500,
+                showConfirmButton:false,
+                showCancelButton:false,
+                icon: "warning",
+                background:"#15172b",
+                color:"white",
+            }); 
         }
     };
     useEffect(() => {
@@ -65,13 +71,15 @@ const Question = (props) =>{
                 <p className='p'>{item.optionD}</p>
                 <p className='p'>{item.correctAnswer}</p>
                 {userDetails?.UserType === "Admin" && <div>
-                    <button onClick={()=>{
+                    <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
                         setPopUp(true);
                         let updateInitialValues = {questionId:item?.questionId, questionContent:item?.questionContent, optionA:item?.optionA, optionB:item?.optionB, optionC:item?.optionC, optionD:item?.optionD, correctAnswer:item?.correctAnswer, subCategoryId:item?.subCategoryId};
                         setInitialValues(updateInitialValues);
                         setTitleQuestion("Update Question");
+                        event.stopPropagation();
                     }}  className='quiz-btn'>Update</button>
-                    <button onClick={()=>{
+                    <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
+                            event.stopPropagation();
                             axios.delete(`http://localhost:6060/deleteQuestion/${item.questionId}`)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
