@@ -1,17 +1,16 @@
 import React,{useState} from 'react';
 import axios from 'axios'
-import './Quiz.scss';
+import './Question.scss';
 import Swal from 'sweetalert2'
 
-const AddQuiz = (props) =>{
-    const {title,setPopUp,initialValues,fetchData} = props;
-    const [quizDetails,setQuizDetails] = useState(initialValues);
+const AddUpdateQuestion = (props) =>{
+    const {titleQuestion,setPopUp,initialValues,fetchData} = props;
+    const [questionDetails,setQuestionDetails] = useState(initialValues);
     const [error,setError] = useState("");
     const handleAdd = () =>{
-        if(quizDetails?.subCategoryName.length!=0){
-            if(quizDetails?.timeLimitInMinutes.length!=0){
+        if(questionDetails?.questionContent.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionB.length!=0||questionDetails?.optionC.length!=0||questionDetails?.optionD.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionA.length!=0||questionDetails?.optionA.length!=0||questionDetails?.correctAnswer.length!=0){
                 setError('')
-                axios.post("http://localhost:6060/addSubCategory",quizDetails)
+                axios.post("http://localhost:6060/addQuestion",questionDetails)
                 .then(response=>{
                     if(response?.data?.statusCode === 200){
                         Swal.fire({
@@ -27,11 +26,12 @@ const AddQuiz = (props) =>{
                         fetchData();
                         setPopUp(false);
                     }
+                    console.log(response)
                 }).catch(error=>{
-                    if(error?.response?.status === 409){
+                    if(error?.response?.status === 404){
                         Swal.fire({
                             title: 'Error',
-                            text: 'Category Name Already Exists',
+                            text: 'Quiz Id Not Found',
                             timer: 1500,
                             showConfirmButton:false,
                             showCancelButton:false,
@@ -40,19 +40,16 @@ const AddQuiz = (props) =>{
                             color:"white",
                         }); 
                     }
+                    console.log(error)
                 })
-            
             }else{
-                setError('Time Limit Required')
-            }
-            }else{
-            setError('SubCategory Name Required')
+            setError('Question Required')
         }
     }
     const handleUpdate = () =>{
-        if(quizDetails?.subCategoryName.length!=0){
+        if(questionDetails?.questionContent.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionB.length!=0||questionDetails?.optionC.length!=0||questionDetails?.optionD.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionA.length!=0||questionDetails?.optionA.length!=0||questionDetails?.correctAnswer.length!=0){
             setError('')
-            axios.put(`http://localhost:6060/updateSubCategory/${initialValues.subCategoryId}`,quizDetails)
+            axios.put(`http://localhost:6060/updateQuestion/${initialValues.questionId}`,questionDetails)
             .then(response=>{
                 console.log(response)
                 if(response?.data?.statusCode === 200){
@@ -85,7 +82,7 @@ const AddQuiz = (props) =>{
                 }else{
                     Swal.fire({
                         title: 'Error',
-                        text: 'A Quiz is Already Exists With Same Name',
+                        text: 'Internal Server Error',
                         timer: 1500,
                         showConfirmButton:false,
                         showCancelButton:false,
@@ -96,11 +93,11 @@ const AddQuiz = (props) =>{
                 }
             })
         }else{
-            setError('Quiz Name Required')
-        }
+        setError('Question Required')
+    }
     }
     const handleClick = () =>{
-        if(title == "Add Quiz"){
+        if(titleQuestion == "Add Question"){
             handleAdd();
         }else{
             handleUpdate();
@@ -108,26 +105,32 @@ const AddQuiz = (props) =>{
     }
     const handleChange = (e) =>{
         const {name,value} = e.target;
-        if(name == "subCategoryName"){
+        if(name == "questionContent"){
             if(!value){
-                setError('SubCategory name required')
+                setError('question required')
             }else{
                 setError('')
             }
         }
-        setQuizDetails({...quizDetails,[name]:value})
+        setQuestionDetails({...questionDetails,[name]:value})
     }
     return(
-        <div className="addquiz-container">
-            <h1 className="quiz-title1">{title}</h1>
-            <input className='name' type="text" name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange}/>
+        <div className="addquestion-container">
+            <h1 className="question-title1">{titleQuestion}</h1>
+            <input className='name' type="text" name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange}/>
             <p className='err'>{error}</p>
-            <textarea className='description' type="text" name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange}/>
-            <input className='name' type="text" name="timeLimitInMinutes" value={quizDetails?.timeLimitInMinutes} placeholder='Enter Time Limit' onChange={handleChange}/>
+            <input className='name' type="text" name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange}/>
             <p className='err'>{error}</p>
-            <button className='btn' onClick={handleClick}>{title == "Add Quiz"? "Add" : "Update"}</button>
+            <input className='name' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange}/>
+            <p className='err'>{error}</p>
+            <input className='name' type="text" name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange}/>
+            <p className='err'>{error}</p>
+            <input className='name' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange}/>
+            <p className='err'>{error}</p>
+            <textarea className='name' type="text" name='correctAnswer' value={questionDetails?.correctAnswer} placeholder='Enter Correct answer' onChange={handleChange}/>
+            <button className='btn' onClick={handleClick}>{titleQuestion == "Add Question"? "Add" : "Update"}</button>
             <button className='btn' onClick={()=>{setPopUp(false)}}>Close</button>
         </div>
     )
 }
-export default AddQuiz;
+export default AddUpdateQuestion;

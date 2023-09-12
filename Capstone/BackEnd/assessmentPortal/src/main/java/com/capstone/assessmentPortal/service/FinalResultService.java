@@ -16,11 +16,11 @@ public interface FinalResultService {
   */
   List<FinalResultsDto> getAllFinalResults();
   /**
-   * get final result by student id.
+   * get final result by student emailId.
    * @return list of final results
-   * @param studentId studentId
+   * @param emailId emailId
   */
-  List<FinalResultsDto> getFinalResultByStudentId(Long studentId);
+  List<FinalResultsDto> getFinalResultByStudentEmail(String emailId);
   /**
    * get final result by student id and quiz .
    * @return finalresult

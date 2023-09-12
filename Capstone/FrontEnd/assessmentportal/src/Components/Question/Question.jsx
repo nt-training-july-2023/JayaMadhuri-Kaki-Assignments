@@ -1,38 +1,41 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios'
-import './Quiz.scss'
+import './Question.scss'
 import Swal from 'sweetalert2'
-import AddUpdateQuiz from './AddUpdateQuiz';
-import Question from '../Question/Question';
+import AddUpdateQuestion from './AddUpdateQuestion';
 
-const Quiz = (props) =>{
-    const {userDetails,setShowQuiz,selectedId} = props;
-    const [quiz,setQuiz] = useState([]);
-    const [title,setTitle] = useState("Add Quiz");
-    const [selectedQuizId,setSelectedQuizId] = useState(null)
-    const message = "No Quiz Found!";
+const Question = (props) =>{
+    const {selectedQuizId,setShowQuestion,userDetails} = props;
+    const [question,setQuestion] = useState([]);
+    const [titleQuestion,setTitleQuestion] = useState("Add Question");
+    const message = "No Questions Found!";
     const [popUp,setPopUp] = useState(false);
-    const [showQuestion,setShowQuestion] = useState(false);
     const [initialValues,setInitialValues] = useState({
-        subCategoryName:"",
-        subCategoryDescription:"",
-        timeLimitInMinutes:"",
-        categoryId:"",
+        questionContent:"",
+        optionA:"",
+        optionB:"",
+        optionC:"",
+        optionD:"",
+        correctAnswer:"",
+        subCategoryId:selectedQuizId
     })
     const handleAdd = () =>{
-        setTitle("Add Quiz");
+        setTitleQuestion("Add Question");
         setInitialValues({
-            subCategoryName:"",
-            subCategoryDescription:"",
-            timeLimitInMinutes:"",
-            categoryId:selectedId
+            questionContent:"",
+            optionA:"",
+            optionB:"",
+            optionC:"",
+            optionD:"",
+            correctAnswer:"",
+            subCategoryId:selectedQuizId
         })
         setPopUp(true);
     }
     const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:6060/subCategoryByCategory/${selectedId}`);
-            setQuiz(response?.data?.SubCategoryByCategoryId);
+          const response = await axios.get(`http://localhost:6060/getAllQuestions/${selectedQuizId}`);
+            setQuestion(response?.data?.QuestionBySubCategoryId);
         } catch (error) {
             if(error?.response?.statusCode == 400){
                 console.log(message);
@@ -44,31 +47,32 @@ const Quiz = (props) =>{
     }, []);
     return(
         <div>
-            {!showQuestion && 
             <div>
-                {userDetails?.UserType === "Admin" && <button className='addquiz-btn' onClick={handleAdd}>Add Quiz</button>}
-                <button className='backquiz-btn' onClick={()=>{setShowQuiz(false)}}>Back</button>
-                <h1 className='category-title'>Quiz</h1>
+                {userDetails?.UserType === "Admin" && <button className='addquestion-btn' onClick={handleAdd}>Add Question</button>}
+                <button className='backquestion-btn' onClick={()=>{setShowQuestion(false);}}>Back</button>
+                <h1 className='category-title'>Questions</h1>
                 <hr/>
-            </div>}
-            {!showQuestion ?(<>
-            {quiz.length>0 ? (
-            <div className="quiz-container">
-            {quiz.map((item) => (
-            <div key={item.subCategoryId} className="quiz-card" onClick={()=>{setShowQuestion(true);setSelectedQuizId(item.subCategoryId);}}>
+            </div>
+            {question.length>0 ? (
+            <div className="question-container">
+            {question.map((item) => (
+            <div key={item.questionId} className="question-card">
                 {/* <p>subCategoryId ID: {item.subCategoryId}</p> */}
-                <p className='p'>Name: {item.subCategoryName}</p>
-                <p className='p'>Description: {item.subCategoryDescription}</p>
-                <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
+                <p className='p'>{item.questionContent}</p>
+                <p className='p'>{item.optionA}</p>
+                <p className='p'>{item.optionB}</p>
+                <p className='p'>{item.optionC}</p>
+                <p className='p'>{item.optionD}</p>
+                <p className='p'>{item.correctAnswer}</p>
                 {userDetails?.UserType === "Admin" && <div>
                     <button onClick={()=>{
                         setPopUp(true);
-                        let updateInitialValues = {subCategoryId:item?.subCategoryId, subCategoryName:item?.subCategoryName, subCategoryDescription:item?.subCategoryDescription, timeLimitInMinutes:item?.timeLimitInMinutes, categoryId:item?.categoryId};
+                        let updateInitialValues = {questionId:item?.questionId, questionContent:item?.questionContent, optionA:item?.optionA, optionB:item?.optionB, optionC:item?.optionC, optionD:item?.optionD, correctAnswer:item?.correctAnswer, subCategoryId:item?.subCategoryId};
                         setInitialValues(updateInitialValues);
-                        setTitle("Update Quiz");
+                        setTitleQuestion("Update Question");
                     }}  className='quiz-btn'>Update</button>
                     <button onClick={()=>{
-                            axios.delete(`http://localhost:6060/deleteSubCategory/${item.subCategoryId}`)
+                            axios.delete(`http://localhost:6060/deleteQuestion/${item.questionId}`)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
                                     Swal.fire({
@@ -99,23 +103,17 @@ const Quiz = (props) =>{
                             })
                         }} className='quiz-btn'>Delete</button>
                 </div>}
-                {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()} 
-                className='quiz-btn' onClick={(event)=>{event.stopPropagation()}}>Start Test</button>}
                 </div>
             ))}
             </div>
             ):(
-                <h2 style={{textAlign:"center",color:"#31334e"}}>No Quizes</h2>
+                <h2 style={{textAlign:"center",color:"#31334e"}}>No Questions</h2>
             )}
             {popUp && (
-                <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
-            )}
-            </>
-            ):(
-                <Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} userDetails={userDetails}/>
+                <AddUpdateQuestion titleQuestion={titleQuestion} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
             )}
         </div>
     )
 }
 
-export default Quiz;
+export default Question;

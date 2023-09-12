@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios'
 import './Category.scss'
-import AddCategory from './AddCategory';
+import AddUpdateCategory from './AddUpdateCategory';
 import Swal from 'sweetalert2'
 import Quiz from '../Quiz/Quiz';
 
@@ -11,6 +11,7 @@ const Category = ({userDetails}) =>{
     const message = "No Categories Found!";
     const [popUp,setPopUp] = useState(false);
     const [showQuiz,setShowQuiz] = useState(false);
+    const [selectedId,setSelectedId] = useState(null);
     const [initialValues,setInitialValues] = useState({
         categoryName:"",
         categoryDescription:""
@@ -30,10 +31,7 @@ const Category = ({userDetails}) =>{
         } catch (error) {
             message();
         }
-    };
-    const handleCardClick = () => {
-        setShowQuiz(true);
-    }      
+    };   
     useEffect(() => {
         fetchData();
     }, []);
@@ -45,22 +43,26 @@ const Category = ({userDetails}) =>{
                 <hr/>
             </div>}
             {showQuiz ? (
-                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz}/>
-            ) : (<div>
+                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId}/>
+            ) : (
+            <div>
+            {category.length>0 ?(<>
             <div className="category-container">
             {category.map((item) => (
-            <div key={item.categoryId} className="category-card" onClick={handleCardClick}>
+            <div key={item.categoryId} className="category-card" onClick={()=>{setShowQuiz(true);setSelectedId(item.categoryId);}}>
                 {/* <p>Category ID: {item.categoryId}</p> */}
                 <p>Name: {item.categoryName}</p>
                 <p>Description: {item.categoryDescription}</p>
                 {userDetails?.UserType === "Admin" && <div>
-                    <button onClick={()=>{
+                    <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
                         setPopUp(true);
+                        event.stopPropagation();
                         let updateInitialValues = {categoryId:item?.categoryId, categoryName:item?.categoryName, categoryDescription:item?.categoryDescription};
                         setInitialValues(updateInitialValues);
                         setTitle("Update Category");
                     }}  className='category-btn'>Update</button>
-                    <button onClick={()=>{
+                    <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
+                            event.stopPropagation();
                             axios.delete(`http://localhost:6060/deleteCategory/${item.categoryId}`)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
@@ -95,8 +97,12 @@ const Category = ({userDetails}) =>{
             </div>
             ))}
             </div>
+            </>):
+            (
+                <h2 style={{textAlign:"center",color:"#31334e"}}>No Categories</h2>
+            )}
             {popUp && (
-                <AddCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
+                <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
             )}
             </div>
             )};

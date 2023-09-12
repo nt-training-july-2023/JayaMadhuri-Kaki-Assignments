@@ -12,7 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class Category {
      * category name attribute.
      */
     @Column(unique = true)
-    @NotEmpty(message = "Category Name is required")
+    @NotBlank(message = "Category Name is required")
     private String categoryName;
     /**
      * category description attribute.

@@ -18,12 +18,10 @@
     }
     tbody{
         tr:nth-child(even) {
-            background-color: #d4d5dd;
-            color:white;
+            background-color: #8b8d9c;
         }
         tr:nth-child(odd) {
-            background-color: white;
-            color:#31334e;
+            background-color: #d3d4e0;
         }
     }
 }

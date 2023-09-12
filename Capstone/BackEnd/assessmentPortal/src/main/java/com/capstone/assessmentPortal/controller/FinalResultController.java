@@ -55,13 +55,13 @@ public class FinalResultController {
   /**
    * get all final results by student id.
    * @return finalResult
-   * @param studentId studentId
+   * @param emailId emailId
   */
-  @GetMapping("/getAllFinalResults/{studentId}")
-  public final ResponseEntity<Object> getAllFinalResultByStudentId(
-          @PathVariable final Long studentId) {
+  @GetMapping("/getAllFinalResults/{emailId}")
+  public final ResponseEntity<Object> getAllFinalResultByStudentEmail(
+          @PathVariable final String emailId) {
     List<FinalResultsDto> finalResult = finalResultService
-                .getFinalResultByStudentId(studentId);
+                .getFinalResultByStudentEmail(emailId);
     return ResponseHandler.generateResponse("Successfully Retrieved",
           HttpStatus.OK, "FinalResults", finalResult);
   }

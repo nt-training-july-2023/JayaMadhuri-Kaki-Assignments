@@ -29,10 +29,11 @@ public interface FinalResultOfQuizRepo extends JpaRepository
   Optional<FinalResultsOfQuiz> getFinalResultsByStudentIdQuizName(Long
            studentId, String subCategoryName);
   /**
-   *query to get records in final results table when given student id exists.
+   *query to get records in final results table when given student email exists.
    *@return finalResults
-   *@param studentId studentId
+   *@param studentEmailId studentEmailId
   */
-  @Query("select f from FinalResultsOfQuiz as f where f.studentId = :studentId")
-  List<FinalResultsOfQuiz> getFinalResultsByStudentId(Long studentId);
+  @Query("select f from FinalResultsOfQuiz as f where f.studentEmailId ="
+          + ":studentEmailId")
+  List<FinalResultsOfQuiz> getFinalResultsByStudentEmail(String studentEmailId);
 }

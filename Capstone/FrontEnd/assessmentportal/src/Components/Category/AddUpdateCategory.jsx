@@ -3,7 +3,7 @@ import axios from 'axios'
 import './Category.scss';
 import Swal from 'sweetalert2'
 
-const AddCategory = (props) =>{
+const AddUpdateCategory = (props) =>{
     const {title,setPopUp,initialValues,fetchData} = props;
     const [categoryDetails,setCategoryDetails] = useState(initialValues);
     const [error,setError] = useState("");
@@ -123,4 +123,4 @@ const AddCategory = (props) =>{
         </div>
     )
 }
-export default AddCategory;
+export default AddUpdateCategory;

@@ -66,8 +66,8 @@ class FinalResultServiceImplementationTest {
         List<FinalResultsOfQuiz> listoffinalresults = new ArrayList<>();
         listoffinalresults.add(finalResults);
         finalResultsRepo.save(finalResults);
-        when(finalResultsRepo.getFinalResultsByStudentId(studentId)).thenReturn(listoffinalresults);
-        List<FinalResultsDto> finalResultsDto = finalResultsService.getFinalResultByStudentId(studentId);
+        when(finalResultsRepo.getFinalResultsByStudentEmail(finalDto.getStudentEmailId())).thenReturn(listoffinalresults);
+        List<FinalResultsDto> finalResultsDto = finalResultsService.getFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(listoffinalresults.get(0).getCategoryName(), finalResultsDto.get(0).getCategoryName());
     }
 

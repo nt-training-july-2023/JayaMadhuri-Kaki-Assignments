@@ -23,7 +23,7 @@ const Navbar = (props) => {
     }else if(activeButton === "profile"){
         return <Profile userDetails={userDetails}/>;
     }else if(activeButton === "results"){
-        return <Results/>
+        return <Results userDetails={userDetails}/>
     }
     else{
         return null;

@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import './Results.scss';
 import axios from 'axios'
 import Swal from 'sweetalert2'
-const Results = () =>{
+const Results = ({userDetails}) =>{
     const [results,setResults] = useState([]);
     const handleResutlts = async() =>{
         await axios.get('http://localhost:6060/getAllFinalResults')
@@ -25,29 +25,33 @@ const Results = () =>{
             }
         })
     }
-    // const handleResutltsOfStudents = async() =>{
-    //     await axios.get(`http://localhost:6060/getAllFinalResults\${studentId}`)
-    //     .then(response=>{
-    //         if(response?.data?.statusCode == 200){
-    //             setResults(response?.data?.FinalResults)
-    //         }
-    //     }).catch(error=>{
-    //         if(error?.response?.message === "Network Error"){
-    //             Swal.fire({
-    //                 title: 'Erro',
-    //                 text: 'NetWork Error',
-    //                 timer: 2000,
-    //                 showConfirmButton:false,
-    //                 showCancelButton:false,
-    //                 icon: "warning",
-    //                 background:"#15172b",
-    //                 color:"white",
-    //             });  
-    //         }
-    //     })
-    // }
+    const handleResutltsOfStudents = async() =>{
+        await axios.get(`http://localhost:6060/getAllFinalResults/${userDetails.EmailId}`)
+        .then(response=>{
+            if(response?.data?.statusCode == 200){
+                setResults(response?.data?.FinalResults)
+            }
+        }).catch(error=>{
+            if(error?.response?.message === "Network Error"){
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'NetWork Error',
+                    timer: 2000,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                });  
+            }
+        })
+    }
     useEffect(()=>{
-        handleResutlts();
+        if(userDetails.UserType == "Admin"){
+            handleResutlts();
+        }else{
+            handleResutltsOfStudents();
+        }
     },[])
     return (
         <div>
@@ -56,6 +60,7 @@ const Results = () =>{
               <hr/>
             </div>
             <div className='result-container'>
+            {results.length>0 ?(
                 <table class= "table table-responsive">
                     <tr>
                         <th>Student Id</th>
@@ -86,6 +91,9 @@ const Results = () =>{
                         ))}
                     </tbody>
                 </table>
+                 ):(
+                    <h2 style={{textAlign:"center",color:"#31334e"}}>No Results</h2>
+                )}
             </div>
         </div>
     )

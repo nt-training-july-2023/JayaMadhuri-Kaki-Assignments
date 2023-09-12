@@ -66,15 +66,6 @@ public class FinalResultServiceImplementation implements FinalResultService {
     return finalDto;
   }
   @Override
-  public final List<FinalResultsDto> getFinalResultByStudentId(
-               final Long studentId) {
-    List<FinalResultsOfQuiz> listOfFinalResults =
-    finalResultRepo.getFinalResultsByStudentId(studentId);
-      return listOfFinalResults.stream()
-              .map(this::convertEntityToDto)
-              .collect(Collectors.toList());
-  }
-  @Override
   public final Optional<FinalResultsDto> getFinalResultsByStudentIdQuizName(
                final Long studentId, final String subCategoryName) {
     Optional<FinalResultsOfQuiz> finalResults = finalResultRepo
@@ -97,5 +88,14 @@ public class FinalResultServiceImplementation implements FinalResultService {
       finalDto.setTotalQuestions(results.getTotalQuestions());
       finalDto.setDateAndTime(results.getDateAndTime());
       return Optional.of(finalDto);
+  }
+  @Override
+  public final List<FinalResultsDto> getFinalResultByStudentEmail(final
+          String emailId) {
+      List<FinalResultsOfQuiz> listOfFinalResults =
+              finalResultRepo.getFinalResultsByStudentEmail(emailId);
+                return listOfFinalResults.stream()
+                        .map(this::convertEntityToDto)
+                        .collect(Collectors.toList());
   }
 }

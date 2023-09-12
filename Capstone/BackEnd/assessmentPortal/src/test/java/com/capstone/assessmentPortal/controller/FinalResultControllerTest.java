@@ -75,9 +75,9 @@ class FinalResultControllerTest {
         finalDto.setTotalQuestions(10);
         finalDto.setDateAndTime("23-01-23");
         List<FinalResultsDto> list = new ArrayList<>();
-        when(finalResults.getFinalResultByStudentId(1L)).thenReturn(list);
+        when(finalResults.getFinalResultByStudentEmail(finalDto.getStudentEmailId())).thenReturn(list);
         ResponseEntity<Object> response = finalResultController
-                .getAllFinalResultByStudentId(1L);
+                .getAllFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 }
