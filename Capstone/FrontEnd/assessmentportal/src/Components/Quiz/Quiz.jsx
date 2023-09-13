@@ -12,6 +12,7 @@ const Quiz = (props) =>{
     const [title,setTitle] = useState("Add Quiz");
     const [selectedQuizId,setSelectedQuizId] = useState(null)
     const [popUp,setPopUp] = useState(false);
+    const [time,setTime] = useState(null)
     const [showQuestion,setShowQuestion] = useState(false);
     const [initialValues,setInitialValues] = useState({
         subCategoryName:"",
@@ -55,7 +56,7 @@ const Quiz = (props) =>{
             {!showQuestion && 
             <div>
                 {userDetails?.UserType === "Admin" && <button className='addquiz-btn' onClick={handleAdd}>Add Quiz</button>}
-                <button className='backquiz-btn' onClick={()=>{setShowQuiz(false)}}>Back</button>
+                <button className={userDetails?.UserType === "Admin" ?('backquiz-btn'):('addquiz-btn')} onClick={()=>{setShowQuiz(false)}}>Back</button>
                 <h1 className='category-title'>Quiz</h1>
                 <hr/>
             </div>}
@@ -112,15 +113,12 @@ const Quiz = (props) =>{
                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()} 
                 className='quiz-btn' onClick={(event)=>{
                     event.stopPropagation();
-                    Swal.fire({
-                        title: 'Instructions:',
-                        text: 'Once, test started user should not leave the quiz without submit.',
-                        showCancelButton:false,
-                        background:"#15172b",
-                        color:"white",
-                    }); 
                     setShowQuestion(true);
                     setSelectedQuizId(item.subCategoryId);
+                    let timer = new Date();
+                    const time_min = item.timeLimitInMinutes * 1;
+                    timer.setMinutes(timer.getMinutes()+time_min);
+                    setTime(timer)
                     }}>Start Test</button>}
                 </div>
             ))}
@@ -133,7 +131,7 @@ const Quiz = (props) =>{
             )}
             </>
             ):(
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion}/>)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time}/>)}</>
             )}
         </div>
     )
