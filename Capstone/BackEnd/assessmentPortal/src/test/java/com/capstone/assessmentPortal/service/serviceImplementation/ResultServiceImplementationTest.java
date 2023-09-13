@@ -53,22 +53,18 @@ class ResultServiceImplementationTest {
     }
     @Test
     void testAddTemporaryResultIfUserIdNotExists() {
-        ResultsDto resultsDto = new ResultsDto();
-        resultsDto.setResultId(1L);
-        resultsDto.setStudentId(10L);
+        ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
         when(usersRepo.findById(10L)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
     }
     
     @Test
     void testAddTemporaryResultIfSubCategoryIdNotExists() {
-        ResultsDto resultsDto = new ResultsDto();
-        resultsDto.setResultId(1L);
-        resultsDto.setStudentId(10L);
+        ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
         Users users = new Users();
-        users.setUserId(10L);
-        resultsDto.setSubCategoryId(11L);
+        Category category = new Category();
         when(usersRepo.findById(10L)).thenReturn(Optional.of(users));
+        when(categoryRepo.findById(12L)).thenReturn(Optional.of(category));
         when(subCategoryRepo.findById(11L)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
     }

@@ -62,7 +62,7 @@ const Quiz = (props) =>{
             {quiz.length>0 ? (
             <div className="quiz-container">
             {quiz.map((item) => (
-            <div key={item.subCategoryId} className="quiz-card" onClick={()=>{setShowQuestion(true);setSelectedQuizId(item.subCategoryId);}}>
+            <div key={item.subCategoryId} className={userDetails?.UserType === "Admin"?("quiz-card"):("quiz-card1")} onClick={()=>{{userDetails?.UserType === "Admin" && setShowQuestion(true);setSelectedQuizId(item.subCategoryId);}}}>
                 {/* <p>subCategoryId ID: {item.subCategoryId}</p> */}
                 <p className='p'>Name: {item.subCategoryName}</p>
                 <p className='p'>Description: {item.subCategoryDescription}</p>
@@ -109,7 +109,18 @@ const Quiz = (props) =>{
                         }} className='quiz-btn'>Delete</button>
                 </div>}
                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()} 
-                className='quiz-btn' onClick={(event)=>{event.stopPropagation()}}>Start Test</button>}
+                className='quiz-btn' onClick={(event)=>{
+                    event.stopPropagation();
+                    Swal.fire({
+                        title: 'Instructions:',
+                        text: 'Once, test started user should not leave the quiz without submit.',
+                        showCancelButton:false,
+                        background:"#15172b",
+                        color:"white",
+                    }); 
+                    setShowQuestion(true);
+                    setSelectedQuizId(item.subCategoryId);
+                    }}>Start Test</button>}
                 </div>
             ))}
             </div>
