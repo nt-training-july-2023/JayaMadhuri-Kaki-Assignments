@@ -4,6 +4,7 @@ import './Quiz.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../Question/Question';
+import QuestionForStudent from '../Question/QuestionForStudent';
 
 const Quiz = (props) =>{
     const {userDetails,setShowQuiz,selectedId} = props;
@@ -58,7 +59,7 @@ const Quiz = (props) =>{
                 <h1 className='category-title'>Quiz</h1>
                 <hr/>
             </div>}
-            {!showQuestion ?(<>
+            {!showQuestion?(<>
             {quiz.length>0 ? (
             <div className="quiz-container">
             {quiz.map((item) => (
@@ -132,7 +133,7 @@ const Quiz = (props) =>{
             )}
             </>
             ):(
-                <Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} userDetails={userDetails}/>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion}/>)}</>
             )}
         </div>
     )
