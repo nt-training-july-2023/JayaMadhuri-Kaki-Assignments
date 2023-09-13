@@ -112,13 +112,24 @@ const Quiz = (props) =>{
                 </div>}
                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()} 
                 className='quiz-btn' onClick={(event)=>{
-                    event.stopPropagation();
-                    setShowQuestion(true);
-                    setSelectedQuizId(item.subCategoryId);
-                    let timer = new Date();
-                    const time_min = item.timeLimitInMinutes * 1;
-                    timer.setMinutes(timer.getMinutes()+time_min);
-                    setTime(timer)
+                    Swal.fire({
+                        title: 'Instructions:',
+                        text: 'Once, test started user should not leave the quiz without submit.',
+                        showConfirmButton:true,
+                        showCancelButton:true,
+                        background:"#15172b",
+                        color:"white",
+                    }).then((result)=>{
+                        if(result.isConfirmed){
+                            event.stopPropagation();
+                            setShowQuestion(true);
+                            setSelectedQuizId(item.subCategoryId);
+                            let timer = new Date();
+                            const time_min = item.timeLimitInMinutes * 1;
+                            timer.setMinutes(timer.getMinutes()+time_min);
+                            setTime(timer)
+                        }
+                    })
                     }}>Start Test</button>}
                 </div>
             ))}
