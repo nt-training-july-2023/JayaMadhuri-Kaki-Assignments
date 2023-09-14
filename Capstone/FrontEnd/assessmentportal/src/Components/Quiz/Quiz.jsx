@@ -9,6 +9,7 @@ import QuestionForStudent from '../Question/QuestionForStudent';
 const Quiz = (props) =>{
     const {userDetails,setShowQuiz,selectedId} = props;
     const [quiz,setQuiz] = useState([]);
+    const [details,setDetails] = useState({})
     const [title,setTitle] = useState("Add Quiz");
     const [selectedQuizId,setSelectedQuizId] = useState(null)
     const [popUp,setPopUp] = useState(false);
@@ -45,11 +46,54 @@ const Quiz = (props) =>{
                     icon: "warning",
                     background:"#15172b",
                     color:"white",
-                });             }
+                });             
+            }
         }
     };
+    const isAttempted = async(id) =>{
+        await axios.get(`http://localhost:6060/status/${details.userId}/${id}`)
+        .then(response=>{
+            if(response?.data?.status === true){
+                Swal.fire({
+                    title: 'Already Attempted',
+                    text: 'User can attempt quiz only once',
+                    timer:1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon:"warning",
+                    background:"#15172b",
+                    color:"white",
+                })
+            }
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
+    const getUserDetails = async() =>{
+        await axios.get(`http://localhost:6060/getUsers/${userDetails.EmailId}`)
+        .then(response=>{
+            if(response?.data?.statusCode === 200){
+                const user = response?.data?.StudentDetails;
+                setDetails(user);
+            }
+        }).catch(error=>{
+            if(error?.response?.message === "Network Error"){
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'NetWork Error',
+                    timer: 2000,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                });  
+            }
+        })
+    }
     useEffect(() => {
         fetchData();
+        getUserDetails();
     }, []);
     return(
         <div>
@@ -112,25 +156,26 @@ const Quiz = (props) =>{
                 </div>}
                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()} 
                 className='quiz-btn' onClick={(event)=>{
-                    Swal.fire({
-                        title: 'Instructions:',
-                        text: 'Once, test started user should not leave the quiz without submit.',
-                        showConfirmButton:true,
-                        showCancelButton:true,
-                        background:"#15172b",
-                        color:"white",
-                    }).then((result)=>{
-                        if(result.isConfirmed){
-                            event.stopPropagation();
-                            setShowQuestion(true);
-                            setSelectedQuizId(item.subCategoryId);
-                            let timer = new Date();
-                            const time_min = item.timeLimitInMinutes * 1;
-                            timer.setMinutes(timer.getMinutes()+time_min);
-                            setTime(timer)
-                        }
-                    })
-                    }}>Start Test</button>}
+                    isAttempted(item.subCategoryId);
+                        Swal.fire({
+                            title: 'Instructions:',
+                            html: '*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.',
+                            showConfirmButton:true,
+                            showCancelButton:true,
+                            background:"#15172b",
+                            color:"white",
+                        }).then((result)=>{
+                            if(result.isConfirmed){
+                                event.stopPropagation();
+                                setShowQuestion(true);
+                                setSelectedQuizId(item.subCategoryId);
+                                let timer = new Date();
+                                const time_min = item.timeLimitInMinutes * 1;
+                                timer.setMinutes(timer.getMinutes()+time_min);
+                                setTime(timer)
+                            }
+                        })
+                    }} >Start Test</button>}
                 </div>
             ))}
             </div>
@@ -142,7 +187,7 @@ const Quiz = (props) =>{
             )}
             </>
             ):(
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time}/>)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId}/>)}</>
             )}
         </div>
     )

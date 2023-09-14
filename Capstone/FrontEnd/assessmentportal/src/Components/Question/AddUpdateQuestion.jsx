@@ -126,7 +126,13 @@ const AddUpdateQuestion = (props) =>{
             <p className='err'>{error}</p>
             <input className='name' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange}/>
             <p className='err'>{error}</p>
-            <textarea className='name' type="text" name='correctAnswer' value={questionDetails?.correctAnswer} placeholder='Enter Correct answer' onChange={handleChange}/>
+            <select className='name' name='correctAnswer' value={questionDetails?.correctAnswer} onChange={handleChange}>
+            <option > -- select an option -- </option>
+            <option value="optionA">Option A</option>
+            <option value="optionB">Option B</option>
+            <option value="optionC">Option C</option>
+            <option value="optionD">Option D</option>
+            </select>
             <button className='btn' onClick={handleClick}>{titleQuestion == "Add Question"? "Add" : "Update"}</button>
             <button className='btn' onClick={()=>{setPopUp(false)}}>Close</button>
         </div>

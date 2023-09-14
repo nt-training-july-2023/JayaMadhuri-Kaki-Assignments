@@ -1,9 +1,8 @@
 import React from 'react';
 import {useTimer} from 'react-timer-hook';
 import Swal from 'sweetalert2'
-
 const Timer = (props) =>{
-    const {expiryTimestamp,setShowQuestion} = props;
+    const {expiryTimestamp,setShowQuestion,checkAnswers} = props;
     const {
         seconds,
         minutes,
@@ -19,11 +18,11 @@ const Timer = (props) =>{
                 background:"#15172b",
                 color:"white",
             });
+            checkAnswers();
             setTimeout(function() {
                 setShowQuestion(false)
             }, 1500);
         }});
-
     return(
         <div>
             <div style={{fontSize: '50px'}}>
