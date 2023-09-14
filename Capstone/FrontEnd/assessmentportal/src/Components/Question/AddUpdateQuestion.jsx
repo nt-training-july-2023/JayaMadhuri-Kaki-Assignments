@@ -8,50 +8,43 @@ const AddUpdateQuestion = (props) =>{
     const [questionDetails,setQuestionDetails] = useState(initialValues);
     const [error,setError] = useState("");
     const handleAdd = () =>{
-        if(questionDetails?.questionContent.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionB.length!=0||questionDetails?.optionC.length!=0||questionDetails?.optionD.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionA.length!=0||questionDetails?.optionA.length!=0||questionDetails?.correctAnswer.length!=0){
-                setError('')
-                axios.post("http://localhost:6060/addQuestion",questionDetails)
-                .then(response=>{
-                    if(response?.data?.statusCode === 200){
-                        Swal.fire({
-                            title: 'Add',
-                            text: 'Successfully Added',
-                            timer: 1500,
-                            showConfirmButton:false,
-                            showCancelButton:false,
-                            icon: "success",
-                            background:"#15172b",
-                            color:"white",
-                        }); 
-                        fetchData();
-                        setPopUp(false);
-                    }
-                    console.log(response)
-                }).catch(error=>{
-                    if(error?.response?.status === 409){
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Input Fields are Empty',
-                            timer: 1500,
-                            showConfirmButton:false,
-                            showCancelButton:false,
-                            icon: "warning",
-                            background:"#15172b",
-                            color:"white",
-                        }); 
-                    }
-                    console.log(error)
-                })
-            }else{
-            setError('Question Required')
-        }
+        axios.post("http://localhost:6060/addQuestion",questionDetails)
+        .then(response=>{
+            if(response?.data?.statusCode === 200){
+                Swal.fire({
+                    title: 'Add',
+                    text: 'Successfully Added',
+                    timer: 1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "success",
+                    background:"#15172b",
+                    color:"white",
+                }); 
+                fetchData();
+                setPopUp(false);
+            }
+            console.log(response)
+        }).catch(error=>{
+            if(error?.response?.status === 409){
+                Swal.fire({
+                    title: 'Error',
+                    text: 'All Fields are Mandatory',
+                    timer: 1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                }); 
+            }
+        })
     }
     const handleUpdate = () =>{
         if(questionDetails?.questionContent.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionB.length!=0||questionDetails?.optionC.length!=0||questionDetails?.optionD.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionA.length!=0||questionDetails?.optionA.length!=0||questionDetails?.correctAnswer.length!=0){
             setError('')
             axios.put(`http://localhost:6060/updateQuestion/${initialValues.questionId}`,questionDetails)
             .then(response=>{
-                console.log(response)
                 if(response?.data?.statusCode === 200){
                     Swal.fire({
                         title: 'Update',
@@ -70,7 +63,7 @@ const AddUpdateQuestion = (props) =>{
                 if(error?.response?.status === 409){
                     Swal.fire({
                         title: 'Error',
-                        text: 'Input Fields are Empty',
+                        text: 'All Fields are Mandatory',
                         timer: 1500,
                         showConfirmButton:false,
                         showCancelButton:false,
@@ -104,28 +97,16 @@ const AddUpdateQuestion = (props) =>{
     }
     const handleChange = (e) =>{
         const {name,value} = e.target;
-        if(name == "questionContent"){
-            if(!value){
-                setError('question required')
-            }else{
-                setError('')
-            }
-        }
         setQuestionDetails({...questionDetails,[name]:value})
     }
     return(
         <div className="addquestion-container">
             <h1 className="question-title1">{titleQuestion}</h1>
             <input className='name' type="text" name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange}/>
-            <p className='err'>{error}</p>
             <input className='name' type="text" name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange}/>
-            <p className='err'>{error}</p>
             <input className='name' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange}/>
-            <p className='err'>{error}</p>
             <input className='name' type="text" name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange}/>
-            <p className='err'>{error}</p>
             <input className='name' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange}/>
-            <p className='err'>{error}</p>
             <select className='name' name='correctAnswer' value={questionDetails?.correctAnswer} onChange={handleChange}>
             <option > -- select an option -- </option>
             <option value="optionA">Option A</option>
