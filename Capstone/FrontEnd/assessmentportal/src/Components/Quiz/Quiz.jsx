@@ -101,16 +101,16 @@ const Quiz = (props) => {
         <div>
             {!showQuestion &&
                 <div>
-                    {userDetails?.UserType === "Admin" && <button className='addquiz-btn' onClick={handleAdd}>Add Quiz</button>}
-                    <button className={userDetails?.UserType === "Admin" ? ('backquiz-btn') : ('addquiz-btn')} onClick={() => { setShowQuiz(false) }}>Back</button>
+                    {userDetails?.UserType === "Admin" && <button className='addcategory-btn' onClick={handleAdd}>Add Quiz</button>}
+                    <button className={userDetails?.UserType === "Admin" ? ('backquiz-btn') : ('addcategory-btn')} onClick={() => { setShowQuiz(false) }}>Back</button>
                     <h1 className='category-title'>Quiz</h1>
                     <hr />
                 </div>}
             {!showQuestion ? (<>
                 {quiz.length > 0 ? (
-                    <div className="quiz-container">
+                    <div className="category-container">
                         {quiz.map((item) => (
-                            <div key={item.subCategoryId} className={userDetails?.UserType === "Admin" ? ("quiz-card") : ("quiz-card1")} onClick={() => { { userDetails?.UserType === "Admin" && setShowQuestion(true); setSelectedQuizId(item.subCategoryId); } }}>
+                            <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && setShowQuestion(true); setSelectedQuizId(item.subCategoryId); } }}>
                                 <p className='p'>Name: {item.subCategoryName}</p>
                                 <p className='p'>Description: {item.subCategoryDescription}</p>
                                 <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
@@ -121,7 +121,7 @@ const Quiz = (props) => {
                                         let updateInitialValues = { subCategoryId: item?.subCategoryId, subCategoryName: item?.subCategoryName, subCategoryDescription: item?.subCategoryDescription, timeLimitInMinutes: item?.timeLimitInMinutes, categoryId: item?.categoryId };
                                         setInitialValues(updateInitialValues);
                                         setTitle("Update Quiz");
-                                    }} className='quiz-btn'>Update</button>
+                                    }} className='category-btn'>Update</button>
                                     <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                         event.stopPropagation();
                                         QuizUrl.deleteQuiz(item.subCategoryId)
@@ -153,10 +153,10 @@ const Quiz = (props) => {
                                                     });
                                                 }
                                             })
-                                    }} className='quiz-btn'>Delete</button>
+                                    }} className='category-btn'>Delete</button>
                                 </div>}
                                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
-                                    className='quiz-btn' onClick={(event) => {
+                                    className='category-btn' onClick={(event) => {
                                         isAttempted(item.subCategoryId);
                                         Swal.fire({
                                             title: 'Instructions:',

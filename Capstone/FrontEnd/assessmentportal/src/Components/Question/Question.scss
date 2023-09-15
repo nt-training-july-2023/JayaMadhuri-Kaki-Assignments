@@ -1,179 +1,133 @@
-.question-container{
-    overflow-x:auto;
+.question-container {
+    overflow-x: auto;
+
     table {
         border-collapse: collapse;
         width: 100%;
     }
-    tr{
-        th{
+
+    tr {
+        th {
             background-color: #31334e;
-            color:white;
+            color: white;
         }
     }
-    th, td {
+
+    th,
+    td {
         text-align: left;
         padding: 8px;
-        color:black;
+        color: black;
         text-align: center;
     }
-    tbody{
+
+    tbody {
         tr:nth-child(even) {
             background-color: #8b8d9c;
         }
+
         tr:nth-child(odd) {
             background-color: #d3d4e0;
         }
     }
 }
-p {
-  font-size: 16px;
-  color:white;
-}
-.err{
-    text-align: center;
-    color:red;
-}
-.addquestion-btn{
+.addquestion-btn {
     position: absolute;
-    right:0;
-    top:auto;
+    right: 0;
+    top: auto;
     background-color: #31334e;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
     color: white;
     font-size: 18px;
-    height:40px;
-    padding-left:30px;
+    height: 40px;
+    padding-left: 30px;
     padding-right: 30px;
     text-align: center;
     cursor: pointer;
-    @media screen and (max-width:450px){
-        padding:10px;
+    @media screen and (max-width:450px) {
+        padding: 10px;
     }
 }
-.backquestion-btn{
+
+.backquestion-btn {
     position: absolute;
-    right:200px;
-    top:auto;
+    right: 200px;
+    top: auto;
     background-color: #31334e;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
     color: white;
     font-size: 18px;
-    height:40px;
-    padding-left:30px;
+    height: 40px;
+    padding-left: 30px;
     padding-right: 30px;
     text-align: center;
     cursor: pointer;
-    @media screen and (max-width:530px){
-        padding:10px;
-        right:170px;
+
+    @media screen and (max-width:530px) {
+        padding: 10px;
+        right: 170px;
     }
-    @media screen and (max-width:450px){
-        padding:10px;
-        right:140px;
-    }
-}
-.question-btn{
-    background-color: white;
-    color: #31334e;
-    border-radius: 12px;
-    height:40px;
-    font-size: 18px;
-    padding-left:40px;
-    padding-right: 40px;
-    @media screen and (max-width:330){
-        margin-left: auto;
+
+    @media screen and (max-width:450px) {
+        padding: 10px;
+        right: 140px;
     }
 }
-.addquestion-container{
-    position: fixed;
-    top: 60%; 
-    left: 50%; 
-    background-color: white;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #15172b;
-    box-shadow: 10 10px 16px rgba(20, 14, 14, 0.1);
-    z-index: 999; 
-    height: auto;
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 998; 
-}
-.question-title1{
-    text-align: center;
-    color:#15172b;
-}
-.name{
+.question-input{
     background-color: #15172b;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
-    color: white;
+    color:white;
     font-size: 18px;
     height: 40px;
     outline: 0;
+    margin-top: 10px;
     padding: 4px 20px 0;
     width: 100%;
 }
-.btn{
-    background-color: #15172b;
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    height: 40px;
-    text-align: center;
-    width: 45%;
-    margin-top:10px;
-    margin-left: 10px;
-    @media screen and (max-width:490px){
-        width:85%;
-    }
-}
-}
-.timer{
+.timer {
     text-align: end;
 }
-.question-body{
+
+.question-body {
     display: flex;
     align-items: center;
     justify-content: center;
-    .card{
+
+    .card {
         background-color: #f5f5f5;
         padding: 20px;
         margin-top: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-        width: 400px; 
+        width: 400px;
         height: auto;
+
         @media (max-width: 450px) {
-            width: 280px; 
+            width: 280px;
         }
+
         @media (max-width: 380px) {
-            width: 200px; 
+            width: 200px;
         }
-        .student-question-container{
-            h3{
-                color:#15172b;
+
+        .student-question-container {
+            h3 {
+                color: #15172b;
                 font-size: 25px;
             }
+
             .answer-options {
                 display: flex;
                 flex-direction: column;
-                align-items: stretch; 
+                align-items: stretch;
             }
+
             .answer-button {
                 background: #cfd0db;
                 color: black;
@@ -183,29 +137,32 @@ p {
                 margin-bottom: 10px;
                 border-radius: 5px;
                 text-align: left;
-                width: 100%; 
+                width: 100%;
                 overflow: auto;
                 text-align: center;
             }
+
             .answer-button.selected {
-                background-color: #15172b; 
-                color:white;
+                background-color: #15172b;
+                color: white;
             }
+
             @media (max-width: 768px) {
                 .answer-button {
-                font-size: 14px; 
+                    font-size: 14px;
                 }
             }
         }
-        .submit-btn{
-            .submit-quiz{
+
+        .submit-btn {
+            .submit-quiz {
                 background-color: #31334e;
                 color: white;
                 border-radius: 12px;
-                border:0;
-                height:40px;
+                border: 0;
+                height: 40px;
                 font-size: 18px;
-                padding-left:40px;
+                padding-left: 40px;
                 padding-right: 40px;
                 cursor: pointer;
             }

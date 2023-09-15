@@ -93,14 +93,14 @@ const AddUpdateQuestion = (props) => {
         setQuestionDetails({ ...questionDetails, [name]: value })
     }
     return (
-        <div className="addquestion-container">
-            <h1 className="question-title1">{titleQuestion}</h1>
-            <input className='name' type="text" name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
-            <input className='name' type="text" name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
-            <input className='name' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
-            <input className='name' type="text" name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
-            <input className='name' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
-            <select className='name' name='correctAnswer' value={questionDetails?.correctAnswer} onChange={handleChange}>
+        <div className="cat-container">
+            <h1 className="category-title1">{titleQuestion}</h1>
+            <input className='question-input' type="text" name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
+            <input className='question-input' type="text" name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
+            <input className='question-input' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
+            <input className='question-input' type="text" name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
+            <input className='question-input' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
+            <select className='question-input' name='correctAnswer' value={questionDetails?.correctAnswer} onChange={handleChange}>
                 <option > -- select an option -- </option>
                 <option value="optionA">Option A</option>
                 <option value="optionB">Option B</option>

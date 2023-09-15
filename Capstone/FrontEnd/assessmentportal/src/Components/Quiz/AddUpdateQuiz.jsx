@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Quiz.scss';
+import '../Category/Category.scss';
 import Swal from 'sweetalert2'
 import QuizUrl from '../../Services/Url';
 
@@ -131,8 +131,8 @@ const AddUpdateQuiz = (props) => {
         setQuizDetails({ ...quizDetails, [name]: value })
     }
     return (
-        <div className="addquiz-container">
-            <h1 className="quiz-title1">{title}</h1>
+        <div className="cat-container">
+            <h1 className="category-title1">{title}</h1>
             <input className='name' type="text" name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange} />
             <p className='err'>{error}</p>
             <input className='name' type="number" name="timeLimitInMinutes" value={quizDetails?.timeLimitInMinutes} placeholder='Enter Time Limit(In Minutes)' onChange={handleChange} />
