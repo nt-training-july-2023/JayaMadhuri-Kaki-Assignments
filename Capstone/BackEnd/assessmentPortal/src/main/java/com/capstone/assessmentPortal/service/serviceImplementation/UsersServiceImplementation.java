@@ -129,7 +129,7 @@ public class UsersServiceImplementation implements UsersService {
         Users userDetails = usersRepo.findUserByEmailId(emailId);
         if (userDetails != null) {
             UserDetails userDetailsDto = new UserDetails();
-            userDetailsDto.setUserId(userDetails.getUserId());          
+            userDetailsDto.setUserId(userDetails.getUserId());
             userDetailsDto.setFirstName(userDetails.getFirstName());
             userDetailsDto.setLastName(userDetails.getLastName());
             userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());

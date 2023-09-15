@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import './Login.scss'
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import UsersUrl from '../../Urls/UsersUrl';
+import UsersUrl from '../../Urls/Url';
 
 const Login = (props) =>{
     const {setRenderComponent,setUserDetails} = props;

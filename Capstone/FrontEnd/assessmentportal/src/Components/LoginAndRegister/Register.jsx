@@ -2,7 +2,7 @@ import {useState} from 'react'
 import './Register.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'
-import UsersUrl from '../../Urls/UsersUrl';
+import UsersUrl from '../../Urls/Url';
 
 const Register = (props) =>{
   const {setRenderComponent} = props;

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -20,6 +22,7 @@ import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
+import com.capstone.assessmentPortal.model.Results;
 import com.capstone.assessmentPortal.model.Users;
 import com.capstone.assessmentPortal.repository.UsersRepo;
 
@@ -205,6 +208,8 @@ class UsersServiceImplementationTest {
        userDetails.setEmailId(users.getEmailId());
        userDetails.setPassword(users.getPassword());
        userDetails.setUserType(users.getUserType());
+       List<Results> listOfResults = new ArrayList<>();
+       userDetails.setResults(listOfResults);
        when(usersRepo.findById(userId)).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentById(userId);
        assertEquals(userDetails.getEmailId(), result.getEmailId());
@@ -249,6 +254,7 @@ class UsersServiceImplementationTest {
        userDetails.setUserType(users.getUserType());
        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(userDetails);
        UserDetails result = usersServiceImpl.getStudentDetailsByEmail(users.getEmailId());
+       assertEquals(userDetails.getUserId(), result.getUserId());
        assertEquals(userDetails.getEmailId(), result.getEmailId());
        assertEquals(userDetails.getFirstName(), result.getFirstName());
        assertEquals(userDetails.getLastName(), result.getLastName());

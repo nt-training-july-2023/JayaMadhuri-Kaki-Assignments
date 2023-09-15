@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import './Results.scss';
 import Swal from 'sweetalert2'
-import FinalResultsUrl from '../../Urls/FinalResultsUrl';
+import FinalResultsUrl from '../../Urls/Url';
 
 const Results = ({userDetails}) =>{
     const [results,setResults] = useState([]);

@@ -18,6 +18,8 @@ import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
+import com.capstone.assessmentPortal.model.Question;
+import com.capstone.assessmentPortal.model.Results;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
@@ -59,6 +61,8 @@ class SubCategoryServiceImplementationTest {
         category.setCategoryDescription(category.getCategoryDescription());
         SubCategory subCategory = new SubCategory(subCategoryDto.getSubCategoryId(),subCategoryDto.getSubCategoryName(),
                 subCategoryDto.getTimeLimitInMinutes(),subCategoryDto.getSubCategoryDescription());
+        List<SubCategory> listOfSubCategories = new ArrayList<>();
+        category.setSubCategory(listOfSubCategories);
         when(subCategoryRepo.getSubCategoryByName(subCategory.getSubCategoryName())).thenReturn(Optional.empty());
         when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.of(category));
         subCategory.setCategory(category);
@@ -77,6 +81,10 @@ class SubCategoryServiceImplementationTest {
         SubCategory subCategory = new SubCategory();
         subCategory.setSubCategoryId(subCategoryDto.getSubCategoryId());
         subCategory.setSubCategoryName(subCategoryDto.getSubCategoryName());
+        List<Results> listOfResults = new ArrayList<>();
+        subCategory.setResults(listOfResults);
+        List<Question> listOfQuestions = new ArrayList<>();
+        subCategory.setQuestion(listOfQuestions);
         when(subCategoryRepo.findById(subCategoryId)).thenReturn(Optional.of(subCategory));
         assertThrows(InputEmptyException.class, () -> subCategoryServiceImpl.addSubCategory(subCategoryDto));
     }

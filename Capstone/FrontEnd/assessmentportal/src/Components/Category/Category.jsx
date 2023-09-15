@@ -3,7 +3,7 @@ import './Category.scss'
 import AddUpdateCategory from './AddUpdateCategory' 
 import Swal from 'sweetalert2'
 import Quiz from '../Quiz/Quiz' 
-import CategoryUrl from '../../Urls/CategoryUrl'
+import CategoryUrl from '../../Urls/Url'
 
 const Category = ({userDetails,setEnable}) =>{
     const [category,setCategory] = useState([]) 

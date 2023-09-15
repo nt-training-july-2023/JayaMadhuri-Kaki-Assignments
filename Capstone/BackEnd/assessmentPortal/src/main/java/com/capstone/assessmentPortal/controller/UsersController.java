@@ -75,7 +75,7 @@ public class UsersController {
    *@return studentDetails
    *@param emailId emailId
   */
-  @GetMapping("/users/{emailId}")
+  @GetMapping("/users/email/{emailId}")
   public final ResponseEntity<Object> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails studentDetails = usersService.getStudentDetailsByEmail(emailId);

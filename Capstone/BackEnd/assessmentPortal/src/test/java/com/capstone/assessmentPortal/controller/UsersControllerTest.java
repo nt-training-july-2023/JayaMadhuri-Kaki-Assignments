@@ -66,6 +66,15 @@ class UsersControllerTest {
         ResponseEntity<Object> response = usersController.getStudentById(studentId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
+    
+    @Test
+    void testGetStudentByEmail() {
+        String studentEmail = "jaya@nucleusteq.com";
+        UserDetails users = new UserDetails();
+        when(usersService.getStudentDetailsByEmail(studentEmail)).thenReturn(users);
+        ResponseEntity<Object> response = usersController.getStudentByEmailId(studentEmail);
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
 
     @Test
     void testUpdateStudentDetails() {

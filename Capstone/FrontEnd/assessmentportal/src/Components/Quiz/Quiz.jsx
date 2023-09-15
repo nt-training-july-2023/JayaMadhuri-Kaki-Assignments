@@ -4,9 +4,9 @@ import Swal from 'sweetalert2'
 import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../Question/Question';
 import QuestionForStudent from '../Question/QuestionForStudent';
-import QuizUrl from '../../Urls/QuizUrl';
-import ResultUrl from '../../Urls/ResultUrl';
-import UsersUrl from '../../Urls/UsersUrl';
+import QuizUrl from '../../Urls/Url';
+import ResultUrl from '../../Urls/Url';
+import UsersUrl from '../../Urls/Url';
 
 const Quiz = (props) =>{
     const {userDetails,setShowQuiz,selectedId,setEnable} = props;

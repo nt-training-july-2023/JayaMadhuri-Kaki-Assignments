@@ -59,7 +59,7 @@ class FinalResultControllerTest {
         FinalResultsDto finalRes= new FinalResultsDto();
         when(finalResults.getFinalResultsByStudentIdQuizName(studentId, quizName))
         .thenReturn(Optional.of(finalRes));
-        ResponseEntity<Object> response = finalResultController.getAllFinalResults();
+        ResponseEntity<Object> response = finalResultController.getAllFinalResultByStudentIdAndQuiz(quizName,studentId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
     @Test

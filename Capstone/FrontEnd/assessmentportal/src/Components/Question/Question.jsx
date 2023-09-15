@@ -3,7 +3,7 @@ import axios from 'axios'
 import './Question.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuestion from './AddUpdateQuestion' 
-import QuestionUrl from '../../Urls/QuestionUrl'
+import QuestionUrl from '../../Urls/Url'
 
 const Question = (props) =>{
     const {selectedQuizId,setShowQuestion} = props 

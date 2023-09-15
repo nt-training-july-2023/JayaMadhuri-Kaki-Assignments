@@ -53,7 +53,16 @@ class ResultServiceImplementationTest {
     }
     @Test
     void testAddTemporaryResultIfUserIdNotExists() {
-        ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
+        ResultsDto resultsDto = new ResultsDto();
+        resultsDto.setResultId(1L);
+        resultsDto.setCategoryId(10L);
+        resultsDto.setStudentId(11L);
+        resultsDto.setSubCategoryId(12L);
+        resultsDto.setMarksObtained(10);
+        resultsDto.setTotalMarks(10);
+        resultsDto.setNumOfAttemptedQuestions(9);
+        resultsDto.setTotalQuestions(10);
+        resultsDto.setDateAndTime("23-10-23");
         when(usersRepo.findById(10L)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
     }
@@ -89,14 +98,15 @@ class ResultServiceImplementationTest {
         res.setTotalQuestions(resultsDto.getTotalQuestions());
         res.setDateAndTime(resultsDto.getDateAndTime());
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
+        finalResults.setFinalResultId(res.getResultId());
         finalResults.setStudentId(res.getStudents().getUserId());
         finalResults.setStudentName(users.getFirstName()+" "
                 +users.getLastName());
         finalResults.setCategoryName(category.getCategoryName());
-        finalResults.setQuizName(subCategory.getSubCategoryName());
+        finalResults.setQuizName(res.getSubCategory().getSubCategoryName());
         finalResults.setMarksObtained(res.getMarksObtained());
         finalResults.setTotalMarks(res.getTotalMarks());
-        finalResults.setNumOfAttemptedQuestions(resultsDto
+        finalResults.setNumOfAttemptedQuestions(res
                  .getNumOfAttemptedQuestions());
         finalResults.setTotalQuestions(res.getTotalQuestions());
         finalResults.setDateAndTime(res.getDateAndTime());

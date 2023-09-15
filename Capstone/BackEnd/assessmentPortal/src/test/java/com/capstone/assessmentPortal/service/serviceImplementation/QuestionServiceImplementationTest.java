@@ -120,6 +120,7 @@ class QuestionServiceImplementationTest {
         when(questionRepo.getQuestionBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionsList);
         List<QuestionDto> questionListDto = questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
         assertEquals("what is array", questionListDto.get(0).getQuestionContent());
+        assertEquals(null,questionListDto.get(0).getQuestionId());
     }
 
     @Test
@@ -130,6 +131,7 @@ class QuestionServiceImplementationTest {
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
                 questionDto.getOptionD(),questionDto.getCorrectAnswer());
         QuestionDto questionDto1 = new QuestionDto();
+        questionDto1.setQuestionId(questionId);
         questionDto1.setQuestionContent("what is array");
         questionDto1.setOptionA("d");
         questionDto1.setOptionB("b");
@@ -179,7 +181,7 @@ class QuestionServiceImplementationTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
         Question question = new Question();
-        question.setQuestionId(questionId);
+        question.setQuestionId(questionDto.getQuestionId());
         question.setQuestionContent(questionDto.getQuestionContent());
         question.setOptionA(questionDto.getOptionA());
         question.setOptionB(questionDto.getOptionB());

@@ -1,7 +1,7 @@
 import React,{useState} from 'react' 
 import './Question.scss' 
 import Swal from 'sweetalert2'
-import QuestionUrl from '../../Urls/QuestionUrl'
+import QuestionUrl from '../../Urls/Url'
 
 const AddUpdateQuestion = (props) =>{
     const {titleQuestion,setPopUp,initialValues,fetchData} = props 
