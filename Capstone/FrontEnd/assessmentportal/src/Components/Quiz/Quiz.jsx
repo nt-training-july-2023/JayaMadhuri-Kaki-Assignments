@@ -161,17 +161,17 @@ const Quiz = (props) =>{
                             title: 'Instructions:',
                             html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',
                             showConfirmButton:true,
+                            icon:"info",
                             showCancelButton:true,
                             background:"#15172b",
                             color:"white",
                         }).then((result)=>{
                             if(result.isConfirmed){
                                 event.stopPropagation();
-                                setEnable(true)
                                 setShowQuestion(true);
                                 setSelectedQuizId(item.subCategoryId);
                                 let timer = new Date();
-                                const time_min = item.timeLimitInMinutes;
+                                const time_min = item.timeLimitInMinutes * 1;
                                 timer.setMinutes(timer.getMinutes()+time_min);
                                 setTime(timer)
                             }
@@ -188,7 +188,7 @@ const Quiz = (props) =>{
             )}
             </>
             ):(
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId} setEnable={setEnable}/>)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId}  setEnable={setEnable}/>)}</>
             )}
         </div>
     )

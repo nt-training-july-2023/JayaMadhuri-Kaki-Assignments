@@ -27,13 +27,16 @@ const QuestionForStudent = (props) =>{
     };
     
     const handleAnswerClick = (questionId, optionValue) => {
-        setSelectedOption({
-          ...selectedOption,
-          [questionId]: optionValue,
-        });
-        setAttemptedQuestions(prevCount => prevCount + 1);
+        if (!selectedOption.hasOwnProperty(questionId) || selectedOption[questionId] !== optionValue) {
+            setSelectedOption({
+            ...selectedOption,
+            [questionId]: optionValue,
+            });
+            setAttemptedQuestions(prevCount => prevCount + 1);
+        }
     };
     const checkAnswers = () => {
+        if(attemptedQuestions>0){
         const score = question.reduce((acc, item) => {
             const questionId = item.questionId;
             const selectedOptionValue = selectedOption[questionId];
@@ -63,8 +66,20 @@ const QuestionForStudent = (props) =>{
             color: 'white',
         })
         setTimeout(function() {
+            {setEnable(false)}
             setShowQuestion(false)
         }, 2000);
+    }else{
+        Swal.fire({
+            title: 'Please Attempt Quiz',
+            timer: 2000,
+            showConfirmButton: false,
+            showCancelButton: false,
+            icon: 'warning',
+            background: '#15172b',
+            color: 'white',
+        })
+    }
     };
     const handleResults = (results)=>{
         axios.post(`http://localhost:6060/addResults`,results)
@@ -72,15 +87,6 @@ const QuestionForStudent = (props) =>{
             console.log(response)
         }).catch(error=>{
             console.log(error)
-            Swal.fire({
-                title: 'Error in Storing Results',
-                timer: 2000,
-                showConfirmButton: false,
-                showCancelButton: false,
-                icon: 'info',
-                background: '#15172b',
-                color: 'white',
-            })
         })
     }
     useEffect(() => {
@@ -89,19 +95,19 @@ const QuestionForStudent = (props) =>{
     return(
         <div>
             <div>
-            {question.length===0 && <>{setEnable(false)}<button className='addquestion-btn' onClick={()=>{setShowQuestion(false);}}>Back</button></>}
+            {question.length===0 && <><button className='addquestion-btn' onClick={()=>{setShowQuestion(false);}}>Back</button></>}
                 <h1 className='category-title'>Questions</h1>
                 <hr/>
             </div>
             {question.length>0 ? (
             <>
+            {setEnable(true)}
             <div className='timer'>
-                <Timer expiryTimestamp={time} setShowQuestion={setShowQuestion} checkAnswers={checkAnswers}/>
+                <Timer expiryTimestamp={time} setShowQuestion={setShowQuestion} checkAnswers={checkAnswers} setEnable={setEnable}/>
             </div>
             <div className='question-body'>
             <div className='card'>
             <div className='student-question-container'>
-                {setEnable(true)}
                 {question.map((item) => (
                 <div key={item.questionId}>
                     <h3>{item.questionContent}</h3>

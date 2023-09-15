@@ -73,10 +73,7 @@ public class ResultServiceImplementation implements ResultService {
 @Override
   public final ResultsDto addTemporaryResult(final ResultsDto results) {
     if (results.getStudentId() == null || results.getCategoryId() == null
-            || results.getSubCategoryId() == null
-            || results.getMarksObtained() == 0
-            || results.getTotalMarks() == 0 || results.getTotalQuestions() == 0
-            || results.getNumOfAttemptedQuestions() == 0) {
+            || results.getSubCategoryId() == null) {
        throw new InputEmptyException();
     } else {
         if (resultRepo.findResultsByStudentsAndSubCategory(results
