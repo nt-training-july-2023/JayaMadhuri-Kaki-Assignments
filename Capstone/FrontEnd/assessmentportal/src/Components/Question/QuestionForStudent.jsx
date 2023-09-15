@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Timer from '../Timer/Timer';
 import './Question.scss'
 import Swal from 'sweetalert2'
-import QuestionUrl from '../../Urls/Url';
-import ResultUrl from '../../Urls/Url';
+import QuestionUrl from '../../Services/Url';
+import ResultUrl from '../../Services/Url';
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable } = props;

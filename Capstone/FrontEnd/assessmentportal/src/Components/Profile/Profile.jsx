@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import './Profile.scss'
-import UsersUrl from '../../Urls/Url';
+import UsersUrl from '../../Services/Url';
 
 const Profile = ({ userDetails }) => {
     const [details, setDetails] = useState({});

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Quiz.scss';
 import Swal from 'sweetalert2'
-import QuizUrl from '../../Urls/Url';
+import QuizUrl from '../../Services/Url';
 
 const AddUpdateQuiz = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;

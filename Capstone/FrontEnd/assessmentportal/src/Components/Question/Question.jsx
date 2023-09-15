@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import './Question.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuestion from './AddUpdateQuestion'
-import QuestionUrl from '../../Urls/Url'
+import QuestionUrl from '../../Services/Url'
 
 const Question = (props) => {
     const { selectedQuizId, setShowQuestion } = props
@@ -129,7 +128,7 @@ const Question = (props) => {
                     </table>
                 </div>
             ) : (
-                <h2 style={{ textAlign: "center", color: "#31334e" }}>No Questions</h2>
+                <h2 style={{ textAlign: "center", color: "#31334e", marginTop:"200px" }}>No Questions</h2>
             )}
             <>
                 {popUp && (

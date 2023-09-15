@@ -3,7 +3,7 @@ import './Category.scss'
 import AddUpdateCategory from './AddUpdateCategory'
 import Swal from 'sweetalert2'
 import Quiz from '../Quiz/Quiz'
-import CategoryUrl from '../../Urls/Url'
+import CategoryUrl from '../../Services/Url'
 
 const Category = ({ userDetails, setEnable }) => {
     const [category, setCategory] = useState([])
@@ -106,7 +106,7 @@ const Category = ({ userDetails, setEnable }) => {
                         </div>
                     </>) :
                         (
-                            <h2 style={{ textAlign: "center", color: "#31334e" }}>No Categories</h2>
+                            <h2 style={{ textAlign: "center", color: "#31334e", marginTop:"200px" }}>No Categories</h2>
                         )}
                     {popUp && (
                         <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />

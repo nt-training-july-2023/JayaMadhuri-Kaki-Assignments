@@ -4,9 +4,9 @@ import Swal from 'sweetalert2'
 import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../Question/Question';
 import QuestionForStudent from '../Question/QuestionForStudent';
-import QuizUrl from '../../Urls/Url';
-import ResultUrl from '../../Urls/Url';
-import UsersUrl from '../../Urls/Url';
+import QuizUrl from '../../Services/Url';
+import ResultUrl from '../../Services/Url';
+import UsersUrl from '../../Services/Url';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable } = props;
@@ -182,7 +182,7 @@ const Quiz = (props) => {
                         ))}
                     </div>
                 ) : (
-                    <h2 style={{ textAlign: "center", color: "#31334e" }}>No Quizes</h2>
+                    <h2 style={{ textAlign: "center", color: "#31334e", marginTop:"200px"}}>No Quizes</h2>
                 )}
                 {popUp && (
                     <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Category.scss';
 import Swal from 'sweetalert2'
-import CategoryUrl from '../../Urls/Url';
+import CategoryUrl from '../../Services/Url';
 
 const AddUpdateCategory = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
