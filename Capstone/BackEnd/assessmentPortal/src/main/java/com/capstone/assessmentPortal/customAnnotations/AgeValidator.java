@@ -26,7 +26,7 @@ public class AgeValidator implements ConstraintValidator<AdultAge, String> {
             Period age = Period.between(birthDate, currentDate);
             return age.getYears() >= minAge;
         } catch (Exception e) {
-            return false; 
+            return false;
         }
     }
 }
