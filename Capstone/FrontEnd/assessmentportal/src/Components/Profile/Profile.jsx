@@ -1,44 +1,44 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import './Profile.scss'
 import UsersUrl from '../../Urls/Url';
 
-const Profile = ({userDetails}) =>{
-    const [details,setDetails] = useState({});
-    const handleUserDetails = async() =>{
+const Profile = ({ userDetails }) => {
+    const [details, setDetails] = useState({});
+    const handleUserDetails = async () => {
         UsersUrl.getUserByEmail(userDetails.EmailId)
-        .then(response=>{
-            if(response?.data?.statusCode === 200){
-                const user = response?.data?.StudentDetails;
-                setDetails(user);
-            }
-        }).catch(error=>{
-            if(error?.response?.message === "Network Error"){
-                Swal.fire({
-                    title: 'Erro',
-                    text: 'NetWork Error',
-                    timer: 2000,
-                    showConfirmButton:false,
-                    showCancelButton:false,
-                    icon: "warning",
-                    background:"#15172b",
-                    color:"white",
-                });  
-            }
-        })
+            .then(response => {
+                if (response?.data?.statusCode === 200) {
+                    const user = response?.data?.StudentDetails;
+                    setDetails(user);
+                }
+            }).catch(error => {
+                if (error?.response?.message === "Network Error") {
+                    Swal.fire({
+                        title: 'Erro',
+                        text: 'NetWork Error',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        showCancelButton: false,
+                        icon: "warning",
+                        background: "#15172b",
+                        color: "white",
+                    });
+                }
+            })
     }
-    useEffect(()=>{
+    useEffect(() => {
         handleUserDetails()
-    },[])
-    return(
+    }, [])
+    return (
         <div>
             <div>
                 <h1 className='category-title'>Profile</h1>
-                <hr/>
+                <hr />
             </div>
             <div className='profile-container'>
                 <div className='card'>
-                <img src={details.gender === "male" ? ("https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"):("https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small/beautiful-latin-woman-avatar-character-icon-free-vector.jpg")} alt="Avatar" className='image'/>
+                    <img src={details.gender === "male" ? ("https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg") : ("https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small/beautiful-latin-woman-avatar-character-icon-free-vector.jpg")} alt="Avatar" className='image' />
                     <div className="profile-card">
                         <table>
                             <tr>First Name:<td>{details.firstName}</td></tr>

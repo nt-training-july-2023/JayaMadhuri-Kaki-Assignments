@@ -1,32 +1,34 @@
 import React from 'react';
-import {useTimer} from 'react-timer-hook';
+import { useTimer } from 'react-timer-hook';
 import Swal from 'sweetalert2'
-const Timer = (props) =>{
-    const {expiryTimestamp,setShowQuestion,checkAnswers,setEnable} = props;
+const Timer = (props) => {
+    const { expiryTimestamp, setShowQuestion, checkAnswers, setEnable } = props;
     const {
         seconds,
         minutes,
         hours
-        } = useTimer({expiryTimestamp, onExpire: () =>{
+    } = useTimer({
+        expiryTimestamp, onExpire: () => {
             Swal.fire({
                 title: 'Times Up',
                 text: 'Quiz Submitted Successfully',
-                timer:1500,
-                showConfirmButton:false,
-                showCancelButton:false,
-                icon:"warning",
-                background:"#15172b",
-                color:"white",
+                timer: 1500,
+                showConfirmButton: false,
+                showCancelButton: false,
+                icon: "warning",
+                background: "#15172b",
+                color: "white",
             });
             checkAnswers();
-            setTimeout(function() {
+            setTimeout(function () {
                 setEnable(false)
                 setShowQuestion(false)
             }, 1500);
-        }});
-    return(
+        }
+    });
+    return (
         <div>
-            <div style={{fontSize: '50px'}}>
+            <div style={{ fontSize: '50px' }}>
                 <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
             </div>
         </div>
