@@ -5,7 +5,7 @@ import AddUpdateCategory from './AddUpdateCategory';
 import Swal from 'sweetalert2'
 import Quiz from '../Quiz/Quiz';
 
-const Category = ({userDetails}) =>{
+const Category = ({userDetails,setEnable}) =>{
     const [category,setCategory] = useState([]);
     const [title,setTitle] = useState("Add Category");
     const [popUp,setPopUp] = useState(false);
@@ -51,7 +51,7 @@ const Category = ({userDetails}) =>{
                 <hr/>
             </div>}
             {showQuiz ? (
-                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId}/>
+                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable}/>
             ) : (
             <div>
             {category.length>0 ?(<>

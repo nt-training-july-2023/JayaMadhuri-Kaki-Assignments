@@ -4,7 +4,7 @@ import './Question.scss'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 const QuestionForStudent = (props) =>{
-    const {selectedQuizId,setShowQuestion,time,details,selectedId} = props;
+    const {selectedQuizId,setShowQuestion,time,details,selectedId,setEnable} = props;
     const [selectedOption,setSelectedOption] = useState({});
     const [question,setQuestion] = useState([]);
     const [attemptedQuestions,setAttemptedQuestions] = useState(0)
@@ -26,7 +26,7 @@ const QuestionForStudent = (props) =>{
         }
     };
     
-    const handleChangeRadio = (questionId, optionValue) => {
+    const handleAnswerClick = (questionId, optionValue) => {
         setSelectedOption({
           ...selectedOption,
           [questionId]: optionValue,
@@ -89,7 +89,7 @@ const QuestionForStudent = (props) =>{
     return(
         <div>
             <div>
-            {question.length===0 && (<button className='addquestion-btn' onClick={()=>{setShowQuestion(false);}}>Back</button>)}
+            {question.length===0 && <>{setEnable(false)}<button className='addquestion-btn' onClick={()=>{setShowQuestion(false);}}>Back</button></>}
                 <h1 className='category-title'>Questions</h1>
                 <hr/>
             </div>
@@ -98,64 +98,57 @@ const QuestionForStudent = (props) =>{
             <div className='timer'>
                 <Timer expiryTimestamp={time} setShowQuestion={setShowQuestion} checkAnswers={checkAnswers}/>
             </div>
-            <div>
+            <div className='question-body'>
+            <div className='card'>
+            <div className='student-question-container'>
+                {setEnable(true)}
                 {question.map((item) => (
                 <div key={item.questionId}>
                     <h3>{item.questionContent}</h3>
-                    <div>
-                    <label>
-                        <input
-                        type="radio"
-                        className="radio-input"
-                        onChange={() => handleChangeRadio(item.questionId, 'optionA')}
-                        name={`question-${item.questionId}`}
-                        value="optionA"
-                        />
-                        Option A: {item.optionA}
-                    </label>
-                    </div>
-                    <div>
-                    <label>
-                        <input
-                        type="radio"
-                        className="radio-input"
-                        onChange={() => handleChangeRadio(item.questionId, 'optionB')}
-                        name={`question-${item.questionId}`}
-                        value="optionB"
-                        />
-                        Option B: {item.optionB}
-                    </label>
-                    </div>
-                    <div>
-                    <label>
-                        <input
-                        type="radio"
-                        className="radio-input"
-                        onChange={() => handleChangeRadio(item.questionId, 'optionC')}
-                        name={`question-${item.questionId}`}
-                        value="optionC"
-                        />
-                        Option C: {item.optionC}
-                    </label>
-                    </div>
-                    <div>
-                    <label>
-                        <input
-                        type="radio"
-                        className="radio-input"
-                        onChange={() => handleChangeRadio(item.questionId, 'optionD')}
-                        name={`question-${item.questionId}`}
-                        value="optionD"
-                        />
-                        Option D: {item.optionD}
-                    </label>
+                    <div className='answer-options'>
+                    <button
+                        className={`answer-button ${
+                        selectedOption[item.questionId] === 'optionA' ? 'selected' : ''
+                        }`}
+                        onClick={() => handleAnswerClick(item.questionId, 'optionA')}
+                    >
+                        {item.optionA}
+                    </button>
+                    <button
+                        className={`answer-button ${
+                        selectedOption[item.questionId] === 'optionB' ? 'selected' : ''
+                        }`}
+                        onClick={() => handleAnswerClick(item.questionId, 'optionB')}
+                    >
+                        {item.optionB}
+                    </button>
+                    <button
+                        className={`answer-button ${
+                        selectedOption[item.questionId] === 'optionC' ? 'selected' : ''
+                        }`}
+                        onClick={() => handleAnswerClick(item.questionId, 'optionC')}
+                    >
+                        {item.optionC}
+                    </button>
+                    <button
+                        className={`answer-button ${
+                        selectedOption[item.questionId] === 'optionD' ? 'selected' : ''
+                        }`}
+                        onClick={() => handleAnswerClick(item.questionId, 'optionD')}
+                    >
+                        {item.optionD}
+                    </button>
                     </div>
                 </div>
                 ))}
                 </div>
-                <button className="submit-quiz-btn" onClick={checkAnswers}>
-                    Submit Quiz
-                </button>
+                <div className="submit-btn">
+                    <button className="submit-quiz" onClick={checkAnswers}>
+                        Submit Quiz
+                    </button>
+                </div>
+            </div>
+            </div>
             </>
             ):(
                 <h2 style={{textAlign:"center",color:"#31334e"}}>No Questions</h2>

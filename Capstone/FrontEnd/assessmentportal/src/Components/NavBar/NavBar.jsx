@@ -11,6 +11,7 @@ const Navbar = (props) => {
   const role = userDetails.UserType;
   const [activeButton, setActiveButton] = useState("");
   const [isNavExpanded, setIsNavExpanded] = useState(false)
+  const [enable,setEnable] = useState(false)
   const toggleMenu = () =>{
     setIsNavExpanded(!isNavExpanded);
   };
@@ -19,7 +20,7 @@ const Navbar = (props) => {
   };
   const render = () =>{
     if(activeButton === "category"){
-        return <Category userDetails={userDetails}/>;
+        return <Category userDetails={userDetails} setEnable={setEnable}/>;
     }else if(activeButton === "profile"){
         return <Profile userDetails={userDetails}/>;
     }else if(activeButton === "results"){
@@ -111,20 +112,20 @@ const Navbar = (props) => {
                         <button onClick={() => {handleButtonClick('results');setIsNavExpanded(false);}}
                         className={`nav-button ${
                         activeButton === "results" ? 'active' : ''
-                        }`}>
+                        }`} disabled={enable}>
                         Results
                         </button>
-                            </li>
-                            <li>
-                            <button onClick={() => {handleButtonClick('profile');setIsNavExpanded(false);}}
+                    </li>
+                    <li>
+                        <button onClick={() => {handleButtonClick('profile');setIsNavExpanded(false);}}
                         className={`nav-button ${
                         activeButton === "profile" ? 'active' : ''
-                        }`}>
+                        }`} disabled={enable}>
                         Profile
                         </button>
                     </li>
                     <li>
-                        <button onClick={handleLogOut} className="nav-button">
+                        <button onClick={handleLogOut} className="nav-button" disabled={enable}>
                         LogOut
                         </button>
                     </li>

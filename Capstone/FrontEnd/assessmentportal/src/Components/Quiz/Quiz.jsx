@@ -7,7 +7,7 @@ import Question from '../Question/Question';
 import QuestionForStudent from '../Question/QuestionForStudent';
 
 const Quiz = (props) =>{
-    const {userDetails,setShowQuiz,selectedId} = props;
+    const {userDetails,setShowQuiz,selectedId,setEnable} = props;
     const [quiz,setQuiz] = useState([]);
     const [details,setDetails] = useState({})
     const [title,setTitle] = useState("Add Quiz");
@@ -159,7 +159,7 @@ const Quiz = (props) =>{
                     isAttempted(item.subCategoryId);
                         Swal.fire({
                             title: 'Instructions:',
-                            html: '*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.',
+                            html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',
                             showConfirmButton:true,
                             showCancelButton:true,
                             background:"#15172b",
@@ -167,10 +167,11 @@ const Quiz = (props) =>{
                         }).then((result)=>{
                             if(result.isConfirmed){
                                 event.stopPropagation();
+                                setEnable(true)
                                 setShowQuestion(true);
                                 setSelectedQuizId(item.subCategoryId);
                                 let timer = new Date();
-                                const time_min = item.timeLimitInMinutes * 1;
+                                const time_min = item.timeLimitInMinutes;
                                 timer.setMinutes(timer.getMinutes()+time_min);
                                 setTime(timer)
                             }
@@ -187,7 +188,7 @@ const Quiz = (props) =>{
             )}
             </>
             ):(
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId}/>)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion}/>):(<QuestionForStudent selectedQuizId = {selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId} setEnable={setEnable}/>)}</>
             )}
         </div>
     )
