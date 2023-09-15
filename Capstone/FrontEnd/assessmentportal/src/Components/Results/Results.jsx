@@ -1,11 +1,12 @@
 import React,{useEffect, useState} from 'react';
 import './Results.scss';
-import axios from 'axios'
 import Swal from 'sweetalert2'
+import FinalResultsUrl from '../../Urls/FinalResultsUrl';
+
 const Results = ({userDetails}) =>{
     const [results,setResults] = useState([]);
     const handleResutlts = async() =>{
-        await axios.get('http://localhost:6060/getAllFinalResults')
+        FinalResultsUrl.getAllResults()
         .then(response=>{
             if(response?.data?.statusCode == 200){
                 setResults(response?.data?.FinalResults)
@@ -26,7 +27,7 @@ const Results = ({userDetails}) =>{
         })
     }
     const handleResutltsOfStudents = async() =>{
-        await axios.get(`http://localhost:6060/getAllFinalResults/${userDetails.EmailId}`)
+        FinalResultsUrl.getAllResultsByStudentEmail(userDetails.EmailId)
         .then(response=>{
             if(response?.data?.statusCode == 200){
                 setResults(response?.data?.FinalResults)

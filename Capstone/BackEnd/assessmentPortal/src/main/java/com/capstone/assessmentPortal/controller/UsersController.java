@@ -38,7 +38,7 @@ public class UsersController {
    *@return response
    *@param signUpRequest signUpRequest
   */
-  @PostMapping("/studentRegister")
+  @PostMapping("/users/register")
   public final ResponseEntity<Object> studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     String response = usersService.studentRegistration(signUpRequest);
@@ -50,7 +50,7 @@ public class UsersController {
    *@return userDetails
    *@param loginRequest loginRequest
   */
-  @PostMapping("/userLogin")
+  @PostMapping("/users/login")
   public final ResponseEntity<Object> userLogin(
                   @RequestBody final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
@@ -63,7 +63,7 @@ public class UsersController {
    *@return studentDetails
    *@param studentId studentId
   */
-  @GetMapping("/getUser/{studentId}")
+  @GetMapping("/users/{studentId}")
   public final ResponseEntity<Object> getStudentById(
                  @PathVariable final Long studentId) {
     UserDetails studentDetails = usersService.getStudentById(studentId);
@@ -75,7 +75,7 @@ public class UsersController {
    *@return studentDetails
    *@param emailId emailId
   */
-  @GetMapping("/getUsers/{emailId}")
+  @GetMapping("/users/{emailId}")
   public final ResponseEntity<Object> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails studentDetails = usersService.getStudentDetailsByEmail(emailId);
@@ -88,7 +88,7 @@ public class UsersController {
    * @param studentId studentId
    * @param users users
   */
-  @PutMapping("/updateStudent/{studentId}")
+  @PutMapping("/users/update/{studentId}")
   public final ResponseEntity<Object> updateStudentDetails(
            @PathVariable final Long studentId,
            @RequestBody final UserDetailsForUpdate users) {
@@ -102,7 +102,7 @@ public class UsersController {
    * @return deletedStudent
    * @param studentId studentId
   */
-  @DeleteMapping("/deleteStudent/{studentId}")
+  @DeleteMapping("/users/delete/{studentId}")
   public final ResponseEntity<Object> deleteStudent(
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);

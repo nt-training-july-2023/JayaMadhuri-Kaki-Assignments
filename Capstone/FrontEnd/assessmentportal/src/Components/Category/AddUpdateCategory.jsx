@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
-import axios from 'axios'
 import './Category.scss';
 import Swal from 'sweetalert2'
+import CategoryUrl from '../../Urls/CategoryUrl';
 
 const AddUpdateCategory = (props) =>{
     const {title,setPopUp,initialValues,fetchData} = props;
@@ -10,7 +10,7 @@ const AddUpdateCategory = (props) =>{
     const handleAdd = () =>{
         if(categoryDetails?.categoryName.length!=0){
             setError('')
-            axios.post("http://localhost:6060/addCategory",categoryDetails)
+            CategoryUrl.addCategory(categoryDetails)
             .then(response=>{
                 if(response?.data?.statusCode === 200){
                     Swal.fire({
@@ -47,9 +47,8 @@ const AddUpdateCategory = (props) =>{
     const handleUpdate = () =>{
         if(categoryDetails?.categoryName.length!=0){
             setError('')
-            axios.put(`http://localhost:6060/updateCategory/${initialValues.categoryId}`,categoryDetails)
+            CategoryUrl.updateCategory(initialValues.categoryId,categoryDetails)
             .then(response=>{
-                console.log(response)
                 if(response?.data?.statusCode === 200){
                     Swal.fire({
                         title: 'Update',
@@ -65,7 +64,6 @@ const AddUpdateCategory = (props) =>{
                     setPopUp(false);
                 }
             }).catch(error=>{
-                console.log(error)
                 if(error?.response?.status === 409){
                     Swal.fire({
                         title: 'Error',

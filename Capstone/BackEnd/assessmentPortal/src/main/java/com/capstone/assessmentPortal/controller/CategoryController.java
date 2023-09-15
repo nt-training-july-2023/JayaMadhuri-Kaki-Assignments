@@ -32,7 +32,7 @@ public class CategoryController {
    *get all categories in category table.
    *@return categories
   */
-  @GetMapping("/allCategories")
+  @GetMapping("/category/all")
   public final ResponseEntity<Object> getAllCategories() {
     List<CategoryDetailsDto> categories = categoryService.getAllCategories();
     return ResponseHandler.generateResponse("Successfully Retrieved"
@@ -57,7 +57,7 @@ public class CategoryController {
    *@return newCategory
    *@param category category
   */
-  @PostMapping("/addCategory")
+  @PostMapping("/category/add")
   public final ResponseEntity<Object> addCategory(
             @RequestBody final CategoryDetailsDto category) {
     CategoryDetailsDto newCategory = categoryService.addCategory(category);
@@ -70,7 +70,7 @@ public class CategoryController {
    * @param categoryId categoryId
    * @param category category
    */
-  @PutMapping("/updateCategory/{categoryId}")
+  @PutMapping("/category/update/{categoryId}")
   public final ResponseEntity<Object> updateCategory(@PathVariable
            final Long categoryId,
            @RequestBody final CategoryDetailsDto category) {
@@ -84,7 +84,7 @@ public class CategoryController {
    * @return deletedCategory
    * @param categoryId categoryId
   */
-  @DeleteMapping("/deleteCategory/{categoryId}")
+  @DeleteMapping("/category/delete/{categoryId}")
   public final ResponseEntity<Object> deleteCategory(
            @PathVariable final Long categoryId) {
     categoryService.deleteCategory(categoryId);

@@ -1,14 +1,13 @@
-import React,{useState} from 'react';
-import axios from 'axios'
-import './Question.scss';
+import React,{useState} from 'react' 
+import './Question.scss' 
 import Swal from 'sweetalert2'
+import QuestionUrl from '../../Urls/QuestionUrl'
 
 const AddUpdateQuestion = (props) =>{
-    const {titleQuestion,setPopUp,initialValues,fetchData} = props;
-    const [questionDetails,setQuestionDetails] = useState(initialValues);
-    const [error,setError] = useState("");
+    const {titleQuestion,setPopUp,initialValues,fetchData} = props 
+    const [questionDetails,setQuestionDetails] = useState(initialValues) 
     const handleAdd = () =>{
-        axios.post("http://localhost:6060/addQuestion",questionDetails)
+        QuestionUrl.addQuestion(questionDetails)
         .then(response=>{
             if(response?.data?.statusCode === 200){
                 Swal.fire({
@@ -20,11 +19,10 @@ const AddUpdateQuestion = (props) =>{
                     icon: "success",
                     background:"#15172b",
                     color:"white",
-                }); 
-                fetchData();
-                setPopUp(false);
+                })  
+                fetchData() 
+                setPopUp(false) 
             }
-            console.log(response)
         }).catch(error=>{
             if(error?.response?.status === 409){
                 Swal.fire({
@@ -36,67 +34,62 @@ const AddUpdateQuestion = (props) =>{
                     icon: "warning",
                     background:"#15172b",
                     color:"white",
-                }); 
+                })  
             }
         })
     }
     const handleUpdate = () =>{
-        if(questionDetails?.questionContent.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionB.length!=0||questionDetails?.optionC.length!=0||questionDetails?.optionD.length!=0 ||questionDetails?.optionA.length!=0 ||questionDetails?.optionA.length!=0||questionDetails?.optionA.length!=0||questionDetails?.correctAnswer.length!=0){
-            setError('')
-            axios.put(`http://localhost:6060/updateQuestion/${initialValues.questionId}`,questionDetails)
-            .then(response=>{
-                if(response?.data?.statusCode === 200){
-                    Swal.fire({
-                        title: 'Update',
-                        text: 'Successfully Updated',
-                        timer: 1500,
-                        showConfirmButton:false,
-                        showCancelButton:false,
-                        icon: "success",
-                        background:"#15172b",
-                        color:"white",
-                    }); 
-                    fetchData();
-                    setPopUp(false);
-                }
-            }).catch(error=>{
-                if(error?.response?.status === 409){
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'All Fields are Mandatory',
-                        timer: 1500,
-                        showConfirmButton:false,
-                        showCancelButton:false,
-                        icon: "warning",
-                        background:"#15172b",
-                        color:"white",
-                    }); 
-                }else{
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Internal Server Error',
-                        timer: 1500,
-                        showConfirmButton:false,
-                        showCancelButton:false,
-                        icon: "warning",
-                        background:"#15172b",
-                        color:"white",
-                    }); 
-                }
-            })
-        }else{
-        setError('Question Required')
-    }
+        QuestionUrl.updateQuestion(initialValues.questionId,questionDetails)
+        .then(response=>{
+            if(response?.data?.statusCode === 200){
+                Swal.fire({
+                    title: 'Update',
+                    text: 'Successfully Updated',
+                    timer: 1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "success",
+                    background:"#15172b",
+                    color:"white",
+                })  
+                fetchData() 
+                setPopUp(false) 
+            }
+        }).catch(error=>{
+            if(error?.response?.status === 409){
+                Swal.fire({
+                    title: 'Error',
+                    text: 'All Fields are Mandatory',
+                    timer: 1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                })  
+            }else{
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Internal Server Error',
+                    timer: 1500,
+                    showConfirmButton:false,
+                    showCancelButton:false,
+                    icon: "warning",
+                    background:"#15172b",
+                    color:"white",
+                })  
+            }
+        })
     }
     const handleClick = () =>{
         if(titleQuestion == "Add Question"){
-            handleAdd();
+            handleAdd() 
         }else{
-            handleUpdate();
+            handleUpdate() 
         }
     }
     const handleChange = (e) =>{
-        const {name,value} = e.target;
+        const {name,value} = e.target 
         setQuestionDetails({...questionDetails,[name]:value})
     }
     return(
@@ -119,4 +112,4 @@ const AddUpdateQuestion = (props) =>{
         </div>
     )
 }
-export default AddUpdateQuestion;
+export default AddUpdateQuestion 

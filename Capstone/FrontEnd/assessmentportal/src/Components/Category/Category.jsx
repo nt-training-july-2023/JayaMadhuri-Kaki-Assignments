@@ -1,48 +1,48 @@
-import React,{useState,useEffect} from 'react';
-import axios from 'axios'
+import React,{useState,useEffect} from 'react' 
 import './Category.scss'
-import AddUpdateCategory from './AddUpdateCategory';
+import AddUpdateCategory from './AddUpdateCategory' 
 import Swal from 'sweetalert2'
-import Quiz from '../Quiz/Quiz';
+import Quiz from '../Quiz/Quiz' 
+import CategoryUrl from '../../Urls/CategoryUrl'
 
 const Category = ({userDetails,setEnable}) =>{
-    const [category,setCategory] = useState([]);
-    const [title,setTitle] = useState("Add Category");
-    const [popUp,setPopUp] = useState(false);
-    const [showQuiz,setShowQuiz] = useState(false);
-    const [selectedId,setSelectedId] = useState(null);
+    const [category,setCategory] = useState([]) 
+    const [title,setTitle] = useState("Add Category") 
+    const [popUp,setPopUp] = useState(false) 
+    const [showQuiz,setShowQuiz] = useState(false) 
+    const [selectedId,setSelectedId] = useState(null) 
     const [initialValues,setInitialValues] = useState({
         categoryName:"",
         categoryDescription:""
     })
     const handleAdd = () =>{
-        setTitle("Add Category");
+        setTitle("Add Category") 
         setInitialValues({
             categoryName:"",
             categoryDescription:""
         })
-        setPopUp(true);
+        setPopUp(true) 
     }
     const fetchData = async () => {
-        try {
-          const response = await axios.get("http://localhost:6060/allCategories");
-            setCategory(response?.data?.listOfCategories);
-        } catch (error) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Error In Getting Category List',
-                timer: 1500,
-                showConfirmButton:false,
-                showCancelButton:false,
-                icon: "warning",
-                background:"#15172b",
-                color:"white",
-            }); 
-        }
-    };   
+        CategoryUrl.getAllCategories()
+        .then(response=>{
+            setCategory(response?.data?.listOfCategories) 
+        }).catch(error=>{
+        Swal.fire({
+            title: 'Error',
+            text: 'Error In Getting Category List',
+            timer: 1500,
+            showConfirmButton:false,
+            showCancelButton:false,
+            icon: "warning",
+            background:"#15172b",
+            color:"white",
+        })  
+        })
+    }    
     useEffect(() => {
-        fetchData();
-    }, []);
+        fetchData() 
+    }, []) 
     return(
         <div>
             {!showQuiz && <div>
@@ -54,24 +54,23 @@ const Category = ({userDetails,setEnable}) =>{
                 <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable}/>
             ) : (
             <div>
-            {category.length>0 ?(<>
+            {category?.length>0 ?(<>
             <div className="category-container">
             {category.map((item) => (
-            <div key={item.categoryId} className="category-card" onClick={()=>{setShowQuiz(true);setSelectedId(item.categoryId);}}>
-                {/* <p>Category ID: {item.categoryId}</p> */}
+            <div key={item.categoryId} className="category-card" onClick={()=>{setShowQuiz(true); setSelectedId(item.categoryId) }}>
                 <p>Name: {item.categoryName}</p>
                 <p>Description: {item.categoryDescription}</p>
                 {userDetails?.UserType === "Admin" && <div>
                     <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
-                        setPopUp(true);
-                        event.stopPropagation();
-                        let updateInitialValues = {categoryId:item?.categoryId, categoryName:item?.categoryName, categoryDescription:item?.categoryDescription};
-                        setInitialValues(updateInitialValues);
-                        setTitle("Update Category");
+                        setPopUp(true) 
+                        event.stopPropagation() 
+                        let updateInitialValues = {categoryId:item?.categoryId, categoryName:item?.categoryName, categoryDescription:item?.categoryDescription} 
+                        setInitialValues(updateInitialValues) 
+                        setTitle("Update Category") 
                     }}  className='category-btn'>Update</button>
                     <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
-                            event.stopPropagation();
-                            axios.delete(`http://localhost:6060/deleteCategory/${item.categoryId}`)
+                            event.stopPropagation() 
+                            CategoryUrl.deleteCategory(item.categoryId)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
                                     Swal.fire({
@@ -83,7 +82,7 @@ const Category = ({userDetails,setEnable}) =>{
                                         icon: "success",
                                         background:"#15172b",
                                         color:"white",
-                                    }); 
+                                    })  
                                     fetchData()
                                 }
                             }).catch(error=>{
@@ -97,7 +96,7 @@ const Category = ({userDetails,setEnable}) =>{
                                         icon: "warning",
                                         background:"#15172b",
                                         color:"white",
-                                    }); 
+                                    })  
                                 }
                             })
                         }} className='category-btn'>Delete</button>
@@ -113,9 +112,9 @@ const Category = ({userDetails,setEnable}) =>{
                 <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData}/>
             )}
             </div>
-            )};
+            )} 
         </div>
     )
 }
 
-export default Category;
+export default Category 

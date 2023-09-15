@@ -114,62 +114,62 @@
     box-shadow: 10 10px 16px rgba(20, 14, 14, 0.1);
     z-index: 999; 
     height: auto;
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 998; 
-}
-.quiz-title1{
-    text-align: center;
-    color:#15172b;
-}
-.name{
-    background-color: #15172b;
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color: white;
-    font-size: 18px;
-    height: 40px;
-    outline: 0;
-    padding: 4px 20px 0;
-    width: 100%;
-}
-.description{
-    background-color: #15172b;
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color:white;
-    font-size: 18px;
-    height: 40px;
-    outline: 0;
-    padding: 4px 20px 0;
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.description::placeholder{
-    font-family: Arial, Helvetica, sans-serif;
-}
-.btn{
-    background-color: #15172b;
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    height: 40px;
-    text-align: center;
-    width: 45%;
-    margin-top:10px;
-    margin-left: 10px;
-    @media screen and (max-width:490px){
-        width:85%;
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); 
+        z-index: 998; 
     }
-}
+    .quiz-title1{
+        text-align: center;
+        color:#15172b;
+    }
+    .name{
+        background-color: #15172b;
+        border-radius: 12px;
+        border: 0;
+        box-sizing: border-box;
+        color: white;
+        font-size: 18px;
+        height: 40px;
+        outline: 0;
+        padding: 4px 20px 0;
+        width: 100%;
+    }
+    .description{
+        background-color: #15172b;
+        border-radius: 12px;
+        border: 0;
+        box-sizing: border-box;
+        color:white;
+        font-size: 18px;
+        height: 40px;
+        outline: 0;
+        padding: 4px 20px 0;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .description::placeholder{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .btn{
+        background-color: #15172b;
+        border-radius: 12px;
+        border: 0;
+        box-sizing: border-box;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+        height: 40px;
+        text-align: center;
+        width: 45%;
+        margin-top:10px;
+        margin-left: 10px;
+        @media screen and (max-width:490px){
+            width:85%;
+        }
+    }
 }

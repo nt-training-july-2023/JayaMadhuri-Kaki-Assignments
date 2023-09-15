@@ -34,7 +34,7 @@ public class QuestionController {
    * @return question
    * @param subCategoryId subCategoryId
   */
-  @GetMapping("/getAllQuestions/{subCategoryId}")
+  @GetMapping("/questions/{subCategoryId}")
   public final ResponseEntity<Object> getAllQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> question = questionService
@@ -48,7 +48,7 @@ public class QuestionController {
    *@return newQuestion
    *@param question question
   */
-  @PostMapping("/addQuestion")
+  @PostMapping("/questions/add")
   public final ResponseEntity<Object> addQuestion(
             @RequestBody final QuestionDto question) {
     QuestionDto newQuestion = questionService.addQuestion(question);
@@ -61,7 +61,7 @@ public class QuestionController {
    *@param questionId questionId
    *@param question question
   */
-  @PutMapping("/updateQuestion/{questionId}")
+  @PutMapping("/questions/update/{questionId}")
   public final ResponseEntity<Object> updateQuestion(
           @PathVariable final Long questionId,
           @RequestBody final QuestionDto question) {
@@ -75,7 +75,7 @@ public class QuestionController {
    *@return deletedQuestion
    *@param questionId questionId
   */
-  @DeleteMapping("/deleteQuestion/{questionId}")
+  @DeleteMapping("/questions/delete/{questionId}")
   public final ResponseEntity<Object> deleteQuestion(
          @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);

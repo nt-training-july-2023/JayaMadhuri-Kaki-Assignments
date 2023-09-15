@@ -17,7 +17,7 @@ function App() {
       default:
         return null;
     }
-    };
+    }
   return (
     <div>
       {renderPage()}

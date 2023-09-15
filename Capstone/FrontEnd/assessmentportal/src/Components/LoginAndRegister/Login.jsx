@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react';
 import './Login.scss'
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import UsersUrl from '../../Urls/UsersUrl';
 
 const Login = (props) =>{
     const {setRenderComponent,setUserDetails} = props;
@@ -46,7 +46,7 @@ const Login = (props) =>{
         if(finalValues.emailId.length!=0 && finalValues.password.length!=0){
             setPasswordError('');
             setEmailError('');
-            axios.post('http://localhost:6060/userLogin',finalValues)
+            UsersUrl.userLogin(finalValues)
             .then(response=>{
                 if(response?.data?.statusCode == 200){
                     if(response?.data?.UserDetails?.UserType === "Admin"){

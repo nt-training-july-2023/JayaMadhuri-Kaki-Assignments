@@ -30,7 +30,7 @@ public class FinalResultController {
    * get all final results.
    * @return finalResult
   */
-  @GetMapping("/getAllFinalResults")
+  @GetMapping("/finalResults")
   public final ResponseEntity<Object> getAllFinalResults() {
     List<FinalResultsDto> finalResult = finalResultService
                      .getAllFinalResults();
@@ -43,7 +43,7 @@ public class FinalResultController {
    * @param studentId studentId
    * @param quizName quizName
   */
-  @GetMapping("/getFinalResult/{studentId}/{quizName}")
+  @GetMapping("/finalResults/{studentId}/{quizName}")
   public final ResponseEntity<Object> getAllFinalResultByStudentIdAndQuiz(
           @PathVariable final String quizName,
           @PathVariable final Long studentId) {
@@ -57,7 +57,7 @@ public class FinalResultController {
    * @return finalResult
    * @param emailId emailId
   */
-  @GetMapping("/getAllFinalResults/{emailId}")
+  @GetMapping("/finalResults/{emailId}")
   public final ResponseEntity<Object> getAllFinalResultByStudentEmail(
           @PathVariable final String emailId) {
     List<FinalResultsDto> finalResult = finalResultService

@@ -1,10 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import axios from 'axios'
 import './Quiz.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../Question/Question';
 import QuestionForStudent from '../Question/QuestionForStudent';
+import QuizUrl from '../../Urls/QuizUrl';
+import ResultUrl from '../../Urls/ResultUrl';
+import UsersUrl from '../../Urls/UsersUrl';
 
 const Quiz = (props) =>{
     const {userDetails,setShowQuiz,selectedId,setEnable} = props;
@@ -32,10 +34,10 @@ const Quiz = (props) =>{
         setPopUp(true);
     }
     const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:6060/subCategoryByCategory/${selectedId}`);
+          QuizUrl.getQuizByCategoryId(selectedId)
+          .then(response=>{
             setQuiz(response?.data?.SubCategoryByCategoryId);
-        } catch (error) {
+        }).catch (error=>{
             if(error?.response?.statusCode == 400){
                 Swal.fire({
                     title: 'Error',
@@ -48,10 +50,10 @@ const Quiz = (props) =>{
                     color:"white",
                 });             
             }
-        }
+        })
     };
-    const isAttempted = async(id) =>{
-        await axios.get(`http://localhost:6060/status/${details.userId}/${id}`)
+    const isAttempted = async(QuizId) =>{
+        ResultUrl.checkIsAttempted(details.userId,QuizId)
         .then(response=>{
             if(response?.data?.status === true){
                 Swal.fire({
@@ -70,7 +72,7 @@ const Quiz = (props) =>{
         })
     }
     const getUserDetails = async() =>{
-        await axios.get(`http://localhost:6060/getUsers/${userDetails.EmailId}`)
+        UsersUrl.getUserByEmail(userDetails.EmailId)
         .then(response=>{
             if(response?.data?.statusCode === 200){
                 const user = response?.data?.StudentDetails;
@@ -109,7 +111,6 @@ const Quiz = (props) =>{
             <div className="quiz-container">
             {quiz.map((item) => (
             <div key={item.subCategoryId} className={userDetails?.UserType === "Admin"?("quiz-card"):("quiz-card1")} onClick={()=>{{userDetails?.UserType === "Admin" && setShowQuestion(true);setSelectedQuizId(item.subCategoryId);}}}>
-                {/* <p>subCategoryId ID: {item.subCategoryId}</p> */}
                 <p className='p'>Name: {item.subCategoryName}</p>
                 <p className='p'>Description: {item.subCategoryDescription}</p>
                 <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
@@ -123,7 +124,7 @@ const Quiz = (props) =>{
                     }}  className='quiz-btn'>Update</button>
                     <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
                             event.stopPropagation();
-                            axios.delete(`http://localhost:6060/deleteSubCategory/${item.subCategoryId}`)
+                            QuizUrl.deleteQuiz(item.subCategoryId)
                             .then(response=>{
                                 if(response?.data?.statusCode == 200){
                                     Swal.fire({

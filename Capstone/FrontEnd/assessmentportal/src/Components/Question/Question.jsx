@@ -1,14 +1,15 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react' 
 import axios from 'axios'
 import './Question.scss'
 import Swal from 'sweetalert2'
-import AddUpdateQuestion from './AddUpdateQuestion';
+import AddUpdateQuestion from './AddUpdateQuestion' 
+import QuestionUrl from '../../Urls/QuestionUrl'
 
 const Question = (props) =>{
-    const {selectedQuizId,setShowQuestion} = props;
-    const [question,setQuestion] = useState([]);
-    const [titleQuestion,setTitleQuestion] = useState("Add Question");
-    const [popUp,setPopUp] = useState(false);
+    const {selectedQuizId,setShowQuestion} = props 
+    const [question,setQuestion] = useState([]) 
+    const [titleQuestion,setTitleQuestion] = useState("Add Question") 
+    const [popUp,setPopUp] = useState(false) 
     const [initialValues,setInitialValues] = useState({
         questionContent:"",
         optionA:"",
@@ -19,7 +20,7 @@ const Question = (props) =>{
         subCategoryId:selectedQuizId
     })
     const handleAdd = () =>{
-        setTitleQuestion("Add Question");
+        setTitleQuestion("Add Question") 
         setInitialValues({
             questionContent:"",
             optionA:"",
@@ -29,13 +30,13 @@ const Question = (props) =>{
             correctAnswer:"",
             subCategoryId:selectedQuizId
         })
-        setPopUp(true);
+        setPopUp(true) 
     }
     const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:6060/getAllQuestions/${selectedQuizId}`);
-            setQuestion(response?.data?.QuestionBySubCategoryId);
-        } catch (error) {
+        QuestionUrl.getAllQuestionsByQuizId(selectedQuizId)
+        .then(response=>{
+            setQuestion(response?.data?.QuestionBySubCategoryId) 
+        }).catch (error=> {
             Swal.fire({
                 title: 'Error',
                 text: 'Error in getting Questions List',
@@ -45,17 +46,17 @@ const Question = (props) =>{
                 icon: "warning",
                 background:"#15172b",
                 color:"white",
-            }); 
-        }
-    };
+            })  
+        })
+    } 
     useEffect(() => {
-        fetchData();
-    }, []);
+        fetchData() 
+    }, []) 
     return(
         <div>
             <div>
                 <button className='addquestion-btn' onClick={handleAdd}>Add Question</button>
-                <button className='backquestion-btn' onClick={()=>{setShowQuestion(false);}}>Back</button>
+                <button className='backquestion-btn' onClick={()=>{setShowQuestion(false)}}>Back</button>
                 <h1 className='category-title'>Questions</h1>
                 <hr/>
             </div>
@@ -82,15 +83,16 @@ const Question = (props) =>{
                             <td>{item.correctAnswer}</td>
                             <td>
                                 <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
-                                    setPopUp(true);
-                                    let updateInitialValues = {questionId:item?.questionId, questionContent:item?.questionContent, optionA:item?.optionA, optionB:item?.optionB, optionC:item?.optionC, optionD:item?.optionD, correctAnswer:item?.correctAnswer, subCategoryId:item?.subCategoryId};
-                                    setInitialValues(updateInitialValues);
-                                    setTitleQuestion("Update Question");
-                                    event.stopPropagation();
+                                    setPopUp(true) 
+                                    let updateInitialValues = {questionId:item?.questionId, questionContent:item?.questionContent, optionA:item?.optionA, optionB:item?.optionB, optionC:item?.optionC, optionD:item?.optionD, correctAnswer:item?.correctAnswer, subCategoryId:item?.subCategoryId} 
+                                    setInitialValues(updateInitialValues) 
+                                    setTitleQuestion("Update Question") 
+                                    event.stopPropagation() 
                                 }}  className='quiz-btn'>Update</button>
-                                <button onMouseDown={event => event.stopPropagation()} onClick={(event)=>{
-                                        event.stopPropagation();
-                                        axios.delete(`http://localhost:6060/deleteQuestion/${item.questionId}`)
+                                <button onMouseDown={event => event.stopPropagation()}
+                                onClick={(event)=>{
+                                        event.stopPropagation() 
+                                        QuestionUrl.deleteQuestion(item.questionId)
                                         .then(response=>{
                                             if(response?.data?.statusCode == 200){
                                                 Swal.fire({
@@ -102,7 +104,7 @@ const Question = (props) =>{
                                                     icon: "success",
                                                     background:"#15172b",
                                                     color:"white",
-                                                }); 
+                                                })  
                                                 fetchData()
                                             }
                                         }).catch(error=>{
@@ -116,7 +118,7 @@ const Question = (props) =>{
                                                     icon: "warning",
                                                     background:"#15172b",
                                                     color:"white",
-                                                }); 
+                                                })  
                                             }
                                         })
                                 }} className='quiz-btn'>Delete</button>
@@ -138,4 +140,4 @@ const Question = (props) =>{
     )
 }
 
-export default Question;
+export default Question 

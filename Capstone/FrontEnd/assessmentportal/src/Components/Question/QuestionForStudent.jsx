@@ -2,17 +2,19 @@ import React,{useState,useEffect} from 'react';
 import Timer from '../Timer/Timer';
 import './Question.scss'
 import Swal from 'sweetalert2'
-import axios from 'axios'
+import QuestionUrl from '../../Urls/QuestionUrl';
+import ResultUrl from '../../Urls/ResultUrl';
+
 const QuestionForStudent = (props) =>{
     const {selectedQuizId,setShowQuestion,time,details,selectedId,setEnable} = props;
     const [selectedOption,setSelectedOption] = useState({});
     const [question,setQuestion] = useState([]);
     const [attemptedQuestions,setAttemptedQuestions] = useState(0)
     const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:6060/getAllQuestions/${selectedQuizId}`);
-            setQuestion(response?.data?.QuestionBySubCategoryId);
-        } catch (error) {
+            QuestionUrl.getAllQuestionsByQuizId(selectedQuizId)
+            .then(response=>{
+                setQuestion(response?.data?.QuestionBySubCategoryId);
+            }).catch(error=>{
             Swal.fire({
                 title: 'Error',
                 text: 'Error in getting Questions List',
@@ -23,9 +25,8 @@ const QuestionForStudent = (props) =>{
                 background:"#15172b",
                 color:"white",
             }); 
-        }
+        })
     };
-    
     const handleAnswerClick = (questionId, optionValue) => {
         if (!selectedOption.hasOwnProperty(questionId) || selectedOption[questionId] !== optionValue) {
             setSelectedOption({
@@ -54,7 +55,6 @@ const QuestionForStudent = (props) =>{
             totalQuestions:question.length,
             numOfAttemptedQuestions:attemptedQuestions
         }
-        handleResults(payload);
         Swal.fire({
             title: 'Quiz Result',
             text: `Your Score: ${score} out of ${question.length}`,
@@ -65,6 +65,7 @@ const QuestionForStudent = (props) =>{
             background: '#15172b',
             color: 'white',
         })
+        handleResults(payload);
         setTimeout(function() {
             {setEnable(false)}
             setShowQuestion(false)
@@ -82,11 +83,24 @@ const QuestionForStudent = (props) =>{
     }
     };
     const handleResults = (results)=>{
-        axios.post(`http://localhost:6060/addResults`,results)
+        ResultUrl.addResults(results)
         .then(response=>{
             console.log(response)
         }).catch(error=>{
-            console.log(error)
+            Swal.fire({
+                title: 'Error In Submission',
+                text:'Please do attempt quiz again',
+                timer: 2000,
+                showConfirmButton: false,
+                showCancelButton: false,
+                icon: 'error',
+                background: '#15172b',
+                color: 'white',
+            })
+            setTimeout(function() {
+                {setEnable(false)}
+                setShowQuestion(false)
+            }, 2000);
         })
     }
     useEffect(() => {

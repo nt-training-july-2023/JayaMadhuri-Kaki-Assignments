@@ -44,35 +44,35 @@
     display: block; 
   }
   .navigation-menu {
-      display: none; 
-      position: absolute;
-      top: 50px; 
-      right: 0; 
-      background: #23263d;
-      padding:30px;
-      flex-direction: column;
-      align-items: center;
-      height: auto;
-      width:30%;
-      z-index: 1;
-    }
-    .navigation-menu.expanded {
-      display: flex;
-    }
-    .navigation-menu ul {
-      flex-direction: column;
-      align-items: flex-end;
-    }
-  
-    .navigation-menu li {
-      margin-right: 0; 
-    }
-    .nav-button {
-      background-color: transparent;
-      border: none;
-      color: white; 
-      font-size: 16px; 
-      cursor: pointer;
-      margin-bottom: 40px;
-    }
+    display: none; 
+    position: absolute;
+    top: 50px; 
+    right: 0; 
+    background: #23263d;
+    padding:30px;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width:30%;
+    z-index: 1;
   }
+  .navigation-menu.expanded {
+    display: flex;
+  }
+  .navigation-menu ul {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .navigation-menu li {
+    margin-right: 0; 
+  }
+  .nav-button {
+    background-color: transparent;
+    border: none;
+    color: white; 
+    font-size: 16px; 
+    cursor: pointer;
+    margin-bottom: 40px;
+  }
+}

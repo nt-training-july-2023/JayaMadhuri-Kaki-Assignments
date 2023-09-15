@@ -1,37 +1,37 @@
-import React,{useEffect, useState} from 'react';
-import './NavBar.scss'; 
-import {FaBars} from'react-icons/fa';
+import React,{useEffect, useState} from 'react' 
+import './NavBar.scss'  
+import {FaBars} from'react-icons/fa' 
 import Swal from 'sweetalert2'
-import Category from '../Category/Category';
-import Profile from '../Profile/Profile';
-import Results from '../Results/Results';
+import Category from '../Category/Category' 
+import Profile from '../Profile/Profile' 
+import Results from '../Results/Results' 
 
 const Navbar = (props) => {
-  const {setRenderComponent,userDetails} = props;
-  const role = userDetails.UserType;
-  const [activeButton, setActiveButton] = useState("");
+  const {setRenderComponent,userDetails} = props 
+  const role = userDetails.UserType 
+  const [activeButton, setActiveButton] = useState("") 
   const [isNavExpanded, setIsNavExpanded] = useState(false)
   const [enable,setEnable] = useState(false)
   const toggleMenu = () =>{
-    setIsNavExpanded(!isNavExpanded);
-  };
+    setIsNavExpanded(!isNavExpanded) 
+  } 
   const handleButtonClick = (page) => {
-    setActiveButton(page);
-  };
+    setActiveButton(page) 
+  } 
   const render = () =>{
     if(activeButton === "category"){
-        return <Category userDetails={userDetails} setEnable={setEnable}/>;
+        return <Category userDetails={userDetails} setEnable={setEnable}/>
     }else if(activeButton === "profile"){
-        return <Profile userDetails={userDetails}/>;
+        return <Profile userDetails={userDetails}/>
     }else if(activeButton === "results"){
         return <Results userDetails={userDetails}/>
     }
     else{
-        return null;
+        return null 
     }
   }
   const handleLogOut = () =>{
-    setIsNavExpanded(false);
+    setIsNavExpanded(false) 
     Swal.fire({
         text: "Are You Really Want To LogOut?",
         type: 'warning',
@@ -45,8 +45,8 @@ const Navbar = (props) => {
         customClass: {
             confirmButton: 'custom-button-text', 
             cancelButton: 'custom-button-text', 
-          },
-      }).then(function(result) {
+        },
+    }).then(function(result) {
         if(result.value === true){
             Swal.fire({
                 text:'Logging Out! Redirecting to Login Page...',
@@ -57,11 +57,11 @@ const Navbar = (props) => {
             })
             setTimeout(function() {
                 setRenderComponent("login") 
-            }, 2000);
+            }, 2000) 
         }else{
             setRenderComponent("navbar")
         }
-      })
+    })
   }
   useEffect(()=>{
     if(role === "Admin"){
@@ -83,7 +83,7 @@ const Navbar = (props) => {
             background:'#15172b'
         })
     }
-  },[]);
+  },[])
   return (
     <div>
         <nav className='navigation'>
@@ -98,7 +98,7 @@ const Navbar = (props) => {
                     <li>
                         <button onClick={()=>{
                             handleButtonClick('category')
-                            setIsNavExpanded(false);
+                            setIsNavExpanded(false) 
                         }}
                         className={`nav-button ${
                             activeButton === "category"
@@ -109,7 +109,7 @@ const Navbar = (props) => {
                         </button>
                     </li>
                     <li>
-                        <button onClick={() => {handleButtonClick('results');setIsNavExpanded(false);}}
+                        <button onClick={() => {handleButtonClick('results'); setIsNavExpanded(false) }}
                         className={`nav-button ${
                         activeButton === "results" ? 'active' : ''
                         }`} disabled={enable}>
@@ -117,7 +117,7 @@ const Navbar = (props) => {
                         </button>
                     </li>
                     <li>
-                        <button onClick={() => {handleButtonClick('profile');setIsNavExpanded(false);}}
+                        <button onClick={() => {handleButtonClick('profile'); setIsNavExpanded(false) }}
                         className={`nav-button ${
                         activeButton === "profile" ? 'active' : ''
                         }`} disabled={enable}>
@@ -136,6 +136,6 @@ const Navbar = (props) => {
             {render()}
         </div>
     </div>
-  );
-};
-export default Navbar;
+  ) 
+} 
+export default Navbar 

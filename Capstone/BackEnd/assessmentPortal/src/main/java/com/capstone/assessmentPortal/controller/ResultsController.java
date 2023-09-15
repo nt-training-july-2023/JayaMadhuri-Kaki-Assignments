@@ -30,7 +30,7 @@ public class ResultsController {
    *@return newResult
    *@param results results
   */
-  @PostMapping("/addResults")
+  @PostMapping("/results/add")
   public final ResponseEntity<Object> addResult(@RequestBody final
                 ResultsDto results) {
     ResultsDto newResult = resultService.addTemporaryResult(results);
@@ -43,7 +43,7 @@ public class ResultsController {
    *@param userId userId
    *@param subCategoryId subCategoryId
   */
-  @GetMapping("/status/{userId}/{subCategoryId}")
+  @GetMapping("/results/{userId}/{subCategoryId}")
   public final ResponseEntity<Object> checkAttemptOrNot(@PathVariable final
                           Long userId, @PathVariable final Long subCategoryId) {
     boolean result = resultService

@@ -33,7 +33,7 @@ public class SubCategoryController {
    *get all subcategories.
    *@return subCategories
   */
-  @GetMapping("/allSubCategories")
+  @GetMapping("/subCategory/all")
   public final ResponseEntity<Object> getAllSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getAllSubCategories();
@@ -60,7 +60,7 @@ public class SubCategoryController {
    *@return subCategory
    *@param categoryId categoryId
   */
-  @GetMapping("/subCategoryByCategory/{categoryId}")
+  @GetMapping("/subCategory/subCategoryByCategory/{categoryId}")
   public final ResponseEntity<Object> getSubCategoryByCategoryId(
          @PathVariable final Long categoryId) {
     List<SubCategoryDetailsDto> subCategory = subCategoryService
@@ -74,7 +74,7 @@ public class SubCategoryController {
    *@return newSubCategoy
    *@param subCategory subCategory
   */
-  @PostMapping("/addSubCategory")
+  @PostMapping("/subCategory/add")
   public final ResponseEntity<Object> addSubCategory(
             @RequestBody final SubCategoryDetailsDto subCategory) {
     SubCategoryDetailsDto newSubCategory = subCategoryService
@@ -88,7 +88,7 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
    *@param subCategory subCategory
   */
-  @PutMapping("/updateSubCategory/{subCategoryId}")
+  @PutMapping("/subCategory/update/{subCategoryId}")
   public final ResponseEntity<Object> updateSubCategory(
           @PathVariable final Long subCategoryId,
           @RequestBody final SubCategoryDetailsDto subCategory) {
@@ -102,7 +102,7 @@ public class SubCategoryController {
    *@return deletedSubCategory
    *@param subCategoryId subCategoryId
   */
-  @DeleteMapping("/deleteSubCategory/{subCategoryId}")
+  @DeleteMapping("/subCategory/delete/{subCategoryId}")
   public final ResponseEntity<Object> deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);

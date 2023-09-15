@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import './Profile.scss'
+import UsersUrl from '../../Urls/UsersUrl';
+
 const Profile = ({userDetails}) =>{
     const [details,setDetails] = useState({});
     const handleUserDetails = async() =>{
-        await axios.get(`http://localhost:6060/getUsers/${userDetails.EmailId}`)
+        UsersUrl.getUserByEmail(userDetails.EmailId)
         .then(response=>{
             if(response?.data?.statusCode === 200){
                 const user = response?.data?.StudentDetails;

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
-import axios from 'axios'
 import './Quiz.scss';
 import Swal from 'sweetalert2'
+import QuizUrl from '../../Urls/QuizUrl';
 
 const AddUpdateQuiz = (props) =>{
     const {title,setPopUp,initialValues,fetchData} = props;
@@ -13,7 +13,7 @@ const AddUpdateQuiz = (props) =>{
             if(quizDetails?.timeLimitInMinutes.length!=0){
                 setError('')
                 setTimeError('')
-                axios.post("http://localhost:6060/addSubCategory",quizDetails)
+                QuizUrl.addQuiz(quizDetails)
                 .then(response=>{
                     if(response?.data?.statusCode === 200){
                         Swal.fire({
@@ -29,7 +29,6 @@ const AddUpdateQuiz = (props) =>{
                         fetchData();
                         setPopUp(false);
                     }
-                    console.log(response)
                 }).catch(error=>{
                     if(error?.response?.status === 409){
                         Swal.fire({
@@ -48,7 +47,7 @@ const AddUpdateQuiz = (props) =>{
             }else{
                 setTimeError('Time Limit Required')
             }
-            }else{
+        }else{
             setError('Quiz Name Required')
         }
     }
@@ -58,9 +57,8 @@ const AddUpdateQuiz = (props) =>{
                 setError('')
                 setTimeError('')
             setError('')
-            axios.put(`http://localhost:6060/updateSubCategory/${initialValues.subCategoryId}`,quizDetails)
+            QuizUrl.updateQuiz(initialValues.subCategoryId,quizDetails)
             .then(response=>{
-                console.log(response)
                 if(response?.data?.statusCode === 200){
                     Swal.fire({
                         title: 'Update',
