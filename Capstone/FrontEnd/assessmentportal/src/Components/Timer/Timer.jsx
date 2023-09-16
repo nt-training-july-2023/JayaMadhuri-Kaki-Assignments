@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTimer } from 'react-timer-hook';
-import Swal from 'sweetalert2'
 const Timer = (props) => {
     const { expiryTimestamp, setShowQuestion, checkAnswers, setEnable } = props;
     const {
@@ -9,16 +8,6 @@ const Timer = (props) => {
         hours
     } = useTimer({
         expiryTimestamp, onExpire: () => {
-            Swal.fire({
-                title: 'Times Up',
-                text: 'Quiz Submitted Successfully',
-                timer: 1500,
-                showConfirmButton: false,
-                showCancelButton: false,
-                icon: "warning",
-                background: "#15172b",
-                color: "white",
-            });
             checkAnswers();
             setTimeout(function () {
                 setEnable(false)

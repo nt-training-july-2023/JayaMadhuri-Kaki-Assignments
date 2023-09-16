@@ -6,6 +6,8 @@ import QuestionUrl from '../../Services/Url'
 const AddUpdateQuestion = (props) => {
     const { titleQuestion, setPopUp, initialValues, fetchData } = props
     const [questionDetails, setQuestionDetails] = useState(initialValues)
+    const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
+    const options = ["optionA", "optionB", "optionC", "optionD"];
     const handleAdd = () => {
         QuestionUrl.addQuestion(questionDetails)
             .then(response => {
@@ -82,7 +84,7 @@ const AddUpdateQuestion = (props) => {
             })
     }
     const handleClick = () => {
-        if (titleQuestion == "Add Question") {
+        if (titleQuestion === "Add Question") {
             handleAdd()
         } else {
             handleUpdate()
@@ -92,6 +94,14 @@ const AddUpdateQuestion = (props) => {
         const { name, value } = e.target
         setQuestionDetails({ ...questionDetails, [name]: value })
     }
+    const handleOptionChange = (direction) => {
+        let newIndex = selectedOptionIndex;
+        if (direction === "down") {
+            newIndex = (newIndex + 1) % options.length;
+        } 
+        setSelectedOptionIndex(newIndex);
+        setQuestionDetails({ ...questionDetails, correctAnswer: options[newIndex] });
+    }
     return (
         <div className="cat-container">
             <h1 className="category-title1">{titleQuestion}</h1>
@@ -100,14 +110,17 @@ const AddUpdateQuestion = (props) => {
             <input className='question-input' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
             <input className='question-input' type="text" name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
             <input className='question-input' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
-            <select className='question-input' name='correctAnswer' value={questionDetails?.correctAnswer} onChange={handleChange}>
-                <option > -- select an option -- </option>
-                <option value="optionA">Option A</option>
-                <option value="optionB">Option B</option>
-                <option value="optionC">Option C</option>
-                <option value="optionD">Option D</option>
-            </select>
-            <button className='btn' onClick={handleClick}>{titleQuestion == "Add Question" ? "Add" : "Update"}</button>
+            <div className="custom-input">
+                <input
+                    type="text"
+                    className='question-input'
+                    placeholder='Click arrow to enter value'
+                    value={questionDetails?.correctAnswer || ""}
+                    readOnly
+                />
+                <button className="arrow-button" onClick={() => handleOptionChange("down")}>&#9660;</button>
+            </div>
+            <button className='btn' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</button>
             <button className='btn' onClick={() => { setPopUp(false) }}>Close</button>
         </div>
     )

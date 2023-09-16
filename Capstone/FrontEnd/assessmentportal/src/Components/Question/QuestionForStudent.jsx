@@ -8,6 +8,7 @@ const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable } = props;
     const [selectedOption, setSelectedOption] = useState({});
     const [question, setQuestion] = useState([]);
+    const [prevSelectedOption, setPrevSelectedOption] = useState({});
     const [attemptedQuestions, setAttemptedQuestions] = useState(0)
     const fetchData = async () => {
         Url.getAllQuestionsByQuizId(selectedQuizId)
@@ -32,8 +33,14 @@ const QuestionForStudent = (props) => {
                 ...selectedOption,
                 [questionId]: optionValue,
             });
-            setAttemptedQuestions(prevCount => prevCount + 1);
+            setAttemptedQuestions((prevCount) => {
+                if (prevCount === 0 || selectedOption[questionId] !== prevSelectedOption) {
+                    return prevCount + 1;
+                }
+                return prevCount;
+            });
         }
+        setPrevSelectedOption(optionValue);
     };
     const checkAnswers = () => {
         if (attemptedQuestions > 0) {
@@ -66,7 +73,7 @@ const QuestionForStudent = (props) => {
             })
             handleResults(payload);
             setTimeout(function () {
-                { setEnable(false) }
+                setEnable(false)
                 setShowQuestion(false)
             }, 2000);
         } else {
@@ -97,7 +104,7 @@ const QuestionForStudent = (props) => {
                     color: 'white',
                 })
                 setTimeout(function () {
-                    { setEnable(false) }
+                    setEnable(false)
                     setShowQuestion(false)
                 }, 2000);
             })
