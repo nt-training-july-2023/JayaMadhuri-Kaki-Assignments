@@ -116,5 +116,4 @@ const Category = ({ userDetails, setEnable }) => {
         </div>
     )
 }
-
 export default Category 

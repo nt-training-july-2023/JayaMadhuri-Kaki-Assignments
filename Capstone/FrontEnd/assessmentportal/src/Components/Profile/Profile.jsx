@@ -55,5 +55,4 @@ const Profile = ({ userDetails }) => {
         </div>
     )
 }
-
 export default Profile;

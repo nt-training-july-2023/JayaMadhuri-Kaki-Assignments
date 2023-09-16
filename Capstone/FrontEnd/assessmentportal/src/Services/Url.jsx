@@ -105,5 +105,4 @@ class Url {
         return axios.get(FINALRESULT_URL + "/" + Email);
     }
 }
-
 export default new Url()
