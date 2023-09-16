@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Results.scss';
+import '../Styles/Question.scss';
 import Swal from 'sweetalert2'
 import FinalResultsUrl from '../../Services/Url';
 
@@ -60,7 +60,7 @@ const Results = ({ userDetails }) => {
                 <h1 className='category-title'>Results</h1>
                 <hr />
             </div>
-            <div className='result-container'>
+            <div className='question-container'>
                 {results.length > 0 ? (
                     <table class="table table-responsive">
                         <tr>

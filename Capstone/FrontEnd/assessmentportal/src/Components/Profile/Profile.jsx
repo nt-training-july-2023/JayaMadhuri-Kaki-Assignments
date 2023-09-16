@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import './Profile.scss'
+import '../Styles/Profile.scss'
 import UsersUrl from '../../Services/Url';
 
 const Profile = ({ userDetails }) => {
@@ -38,7 +38,8 @@ const Profile = ({ userDetails }) => {
             </div>
             <div className='profile-container'>
                 <div className='card'>
-                    <img src={details.gender === "male" ? ("https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg") : ("https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small/beautiful-latin-woman-avatar-character-icon-free-vector.jpg")} alt="Avatar" className='image' />
+                    <img src={details.gender === "male" ? ("https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg")
+                    : ("https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small/beautiful-latin-woman-avatar-character-icon-free-vector.jpg")} alt="Avatar" className='image' />
                     <div className="profile-card">
                         <table>
                             <tr>First Name:<td>{details.firstName}</td></tr>

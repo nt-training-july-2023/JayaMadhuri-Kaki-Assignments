@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Question.scss'
+import '../Styles/Question.scss'
 import Swal from 'sweetalert2'
 import QuestionUrl from '../../Services/Url'
 

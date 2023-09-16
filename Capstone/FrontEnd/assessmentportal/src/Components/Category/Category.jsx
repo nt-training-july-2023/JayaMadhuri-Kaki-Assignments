@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './Category.scss'
+import '../Styles/Category.scss';
 import AddUpdateCategory from './AddUpdateCategory'
 import Swal from 'sweetalert2'
 import Quiz from '../Quiz/Quiz'

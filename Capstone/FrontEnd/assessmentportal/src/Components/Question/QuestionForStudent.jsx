@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Timer from '../Timer/Timer';
-import './Question.scss'
+import '../Styles/Question.scss'
 import Swal from 'sweetalert2'
-import QuestionUrl from '../../Services/Url';
-import ResultUrl from '../../Services/Url';
+import Url from '../../Services/Url';
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable } = props;
@@ -11,7 +10,7 @@ const QuestionForStudent = (props) => {
     const [question, setQuestion] = useState([]);
     const [attemptedQuestions, setAttemptedQuestions] = useState(0)
     const fetchData = async () => {
-        QuestionUrl.getAllQuestionsByQuizId(selectedQuizId)
+        Url.getAllQuestionsByQuizId(selectedQuizId)
             .then(response => {
                 setQuestion(response?.data?.QuestionBySubCategoryId);
             }).catch(error => {
@@ -83,7 +82,7 @@ const QuestionForStudent = (props) => {
         }
     };
     const handleResults = (results) => {
-        ResultUrl.addResults(results)
+        Url.addResults(results)
             .then(response => {
                 console.log(response)
             }).catch(error => {

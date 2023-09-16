@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './Question.scss'
+import '../Styles/Question.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuestion from './AddUpdateQuestion'
 import QuestionUrl from '../../Services/Url'
@@ -83,7 +83,14 @@ const Question = (props) => {
                                     <td>
                                         <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                             setPopUp(true)
-                                            let updateInitialValues = { questionId: item?.questionId, questionContent: item?.questionContent, optionA: item?.optionA, optionB: item?.optionB, optionC: item?.optionC, optionD: item?.optionD, correctAnswer: item?.correctAnswer, subCategoryId: item?.subCategoryId }
+                                            let updateInitialValues = { questionId: item?.questionId,
+                                                questionContent: item?.questionContent,
+                                                optionA: item?.optionA,
+                                                optionB: item?.optionB,
+                                                optionC: item?.optionC,
+                                                optionD: item?.optionD,
+                                                correctAnswer: item?.correctAnswer,
+                                                subCategoryId: item?.subCategoryId }
                                             setInitialValues(updateInitialValues)
                                             setTitleQuestion("Update Question")
                                             event.stopPropagation()

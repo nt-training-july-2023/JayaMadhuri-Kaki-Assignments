@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './NavBar.scss'
+import '../Styles/NavBar.scss'
 import { FaBars } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import Category from '../Category/Category'

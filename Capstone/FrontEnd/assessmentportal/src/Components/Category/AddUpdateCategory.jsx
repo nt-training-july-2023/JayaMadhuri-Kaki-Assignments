@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Category.scss';
+import '../Styles/Category.scss';
 import Swal from 'sweetalert2'
 import CategoryUrl from '../../Services/Url';
 

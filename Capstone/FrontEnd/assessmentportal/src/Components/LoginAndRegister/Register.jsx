@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './Register.scss';
+import '../Styles/Register.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import UsersUrl from '../../Services/Url';

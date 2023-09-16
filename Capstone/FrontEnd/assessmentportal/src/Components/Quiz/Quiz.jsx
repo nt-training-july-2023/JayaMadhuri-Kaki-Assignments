@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './Quiz.scss'
+import '../Styles/Category.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../Question/Question';
 import QuestionForStudent from '../Question/QuestionForStudent';
-import QuizUrl from '../../Services/Url';
-import ResultUrl from '../../Services/Url';
-import UsersUrl from '../../Services/Url';
+import Url from '../../Services/Url';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable } = props;
@@ -34,7 +32,7 @@ const Quiz = (props) => {
         setPopUp(true);
     }
     const fetchData = async () => {
-        QuizUrl.getQuizByCategoryId(selectedId)
+        Url.getQuizByCategoryId(selectedId)
             .then(response => {
                 setQuiz(response?.data?.SubCategoryByCategoryId);
             }).catch(error => {
@@ -53,7 +51,7 @@ const Quiz = (props) => {
             })
     };
     const isAttempted = async (QuizId) => {
-        ResultUrl.checkIsAttempted(details.userId, QuizId)
+        Url.checkIsAttempted(details.userId, QuizId)
             .then(response => {
                 if (response?.data?.status === true) {
                     Swal.fire({
@@ -72,7 +70,7 @@ const Quiz = (props) => {
             })
     }
     const getUserDetails = async () => {
-        UsersUrl.getUserByEmail(userDetails.EmailId)
+        Url.getUserByEmail(userDetails.EmailId)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
                     const user = response?.data?.StudentDetails;
@@ -118,13 +116,17 @@ const Quiz = (props) => {
                                     <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                         event.stopPropagation();
                                         setPopUp(true);
-                                        let updateInitialValues = { subCategoryId: item?.subCategoryId, subCategoryName: item?.subCategoryName, subCategoryDescription: item?.subCategoryDescription, timeLimitInMinutes: item?.timeLimitInMinutes, categoryId: item?.categoryId };
+                                        let updateInitialValues = { subCategoryId: item?.subCategoryId,
+                                            subCategoryName: item?.subCategoryName,
+                                            subCategoryDescription: item?.subCategoryDescription,
+                                            timeLimitInMinutes: item?.timeLimitInMinutes,
+                                            categoryId: item?.categoryId };
                                         setInitialValues(updateInitialValues);
                                         setTitle("Update Quiz");
                                     }} className='category-btn'>Update</button>
                                     <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                         event.stopPropagation();
-                                        QuizUrl.deleteQuiz(item.subCategoryId)
+                                        Url.deleteQuiz(item.subCategoryId)
                                             .then(response => {
                                                 if (response?.data?.statusCode == 200) {
                                                     Swal.fire({

@@ -49,6 +49,13 @@
     @media screen and (max-width:450px) {
         padding: 10px;
     }
+    @media screen and (max-width:320px){
+        padding:5px;
+    }
+    @media screen and (max-width:280px){
+        padding:0px;
+        width:90px;
+    }
 }
 
 .backquestion-btn {
@@ -75,6 +82,15 @@
     @media screen and (max-width:450px) {
         padding: 10px;
         right: 140px;
+    }
+
+    @media screen and (max-width:330px){
+        padding:5px;
+        right:120px;
+    }
+    @media screen and (max-width:280px){
+        padding:3px;
+        right:95px;
     }
 }
 .question-input{

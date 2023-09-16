@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Login.scss'
+import '../Styles/Login.scss'
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../Services/Url';

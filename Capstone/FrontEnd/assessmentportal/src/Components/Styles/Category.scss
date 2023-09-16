@@ -39,7 +39,7 @@
     @media screen and (max-width:360px){
         font-size: 25px;
     }
-    @media screen and (max-width:360px){
+    @media screen and (max-width:300px){
         font-size: 20px;
     }
 }
@@ -81,17 +81,16 @@
 }
 .cat-container{
     position: fixed;
-    top: 60%; 
-    left: 50%; 
-    background-color: white;
+    top: 60%;
+    left: 50%;
     transform: translate(-50%, -50%);
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #15172b;
-    box-shadow: 10 10px 16px rgba(20, 14, 14, 0.1);
-    z-index: 999; 
-    width: 400px;
-    height: auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    text-align: center;
     .overlay {
         position: fixed;
         top: 0;
@@ -149,5 +148,29 @@
         @media screen and (max-width:490px){
             width:85%;
         }
+    }
+}
+.backquiz-btn{
+    position: absolute;
+    right:150px;
+    top:auto;
+    background-color: #31334e;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: white;
+    font-size: 18px;
+    height:40px;
+    padding-left:30px;
+    padding-right: 30px;
+    text-align: center;
+    cursor: pointer;
+    @media screen and (max-width:320px){
+        padding:10px;
+        right:160px;
+    }
+    @media screen and (max-width:268px){
+        padding:10px;
+        right:90px;
     }
 }
