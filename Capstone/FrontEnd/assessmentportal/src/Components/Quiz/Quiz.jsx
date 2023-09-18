@@ -106,9 +106,9 @@ const Quiz = (props) => {
                     <h1 className='category-title'>Quiz</h1>
                     <hr />
                 </div>
-                <div>
+                {userDetails?.UserType === "Admin" && <div>
                     <h2 className='sub-title'>{selectedName}/</h2>
-                </div>
+                </div>}
             </>}
             {!showQuestion ? (<>
                 {quiz.length > 0 ? (

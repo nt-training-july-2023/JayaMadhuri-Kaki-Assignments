@@ -88,16 +88,16 @@
 }
 .cat-container{
     position: fixed;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 60%; 
+    left: 50%; 
     background-color: white;
+    transform: translate(-50%, -50%);
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #15172b;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    text-align: center;
+    box-shadow: 10 10px 16px rgba(20, 14, 14, 0.1);
+    z-index: 999; 
+    height: auto;
     .overlay {
         position: fixed;
         top: 0;
@@ -110,8 +110,6 @@
     .category-title1{
         text-align: center;
         color:#15172b;
-        margin-bottom: auto;
-        margin-top: auto;
     }
     .name{
         background-color: #15172b;
@@ -140,6 +138,7 @@
     }
     .description::placeholder{
         font-family: Arial, Helvetica, sans-serif;
+        padding-top: 5px;
     }
     .btn{
         background-color: #15172b;

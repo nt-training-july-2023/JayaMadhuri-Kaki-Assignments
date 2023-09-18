@@ -103,8 +103,8 @@ const AddUpdateQuestion = (props) => {
         setQuestionDetails({ ...questionDetails, correctAnswer: options[newIndex] });
     }
     return (
-        <div className="cat-container">
-            <h1 className="category-title1">{titleQuestion}</h1>
+        <div className="que-container">
+            <h1 className="question-title1">{titleQuestion}</h1>
             <input className='question-input' type="text" name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
             <input className='question-input' type="text" name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
             <input className='question-input' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
