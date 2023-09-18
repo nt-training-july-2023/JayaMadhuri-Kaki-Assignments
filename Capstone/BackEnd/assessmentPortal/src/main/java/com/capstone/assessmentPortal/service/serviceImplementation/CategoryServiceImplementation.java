@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,11 @@ public class CategoryServiceImplementation implements CategoryService {
   @Autowired
   private CategoryRepo categoryRepo;
   /**
+   *logger instance.
+  */
+  private Logger logger = LoggerFactory.getLogger(
+          CategoryServiceImplementation.class);
+  /**
    * parameter constructor.
    * @param categoryRepo2 categoryRepo2
   */
@@ -38,13 +45,16 @@ public class CategoryServiceImplementation implements CategoryService {
   public final CategoryDetailsDto addCategory(final
            CategoryDetailsDto category) {
       if (category.getCategoryName().isEmpty()) {
+        logger.error("Category name is empty");
         throw new InputEmptyException();
       } else {
      Optional<Category> existingCategory = categoryRepo
              .getCategoryByName(category.getCategoryName());
      if (existingCategory.isPresent()) {
+         logger.error("Category with same name already exists");
          throw new AlreadyExistsException();
        }
+      logger.info("Category Added");
       Category newCategory = new Category();
       newCategory.setCategoryId(category.getCategoryId());
       newCategory.setCategoryName(category.getCategoryName());
@@ -56,6 +66,7 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final List<CategoryDetailsDto> getAllCategories() {
     List<Category> listOfCategories = categoryRepo.findAll();
+    logger.info("Retrieved all the categories");
       return listOfCategories.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
@@ -66,6 +77,7 @@ public class CategoryServiceImplementation implements CategoryService {
    * @param category category
   */
   private CategoryDetailsDto convertEntityToDto(final Category category) {
+    logger.info("Entity to Dto conversion in Category");
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
     categoryDto.setCategoryId(category.getCategoryId());
     categoryDto.setCategoryName(category.getCategoryName());
@@ -77,6 +89,7 @@ public class CategoryServiceImplementation implements CategoryService {
     Category category = categoryRepo.findById(categoryId).orElseThrow(
             () -> new NoSuchElementException(
                     "Cannot find category with id: " + categoryId));
+    logger.info("Retrieved Category By Id");
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
     categoryDto.setCategoryId(category.getCategoryId());
     categoryDto.setCategoryName(category.getCategoryName());
@@ -88,8 +101,10 @@ public class CategoryServiceImplementation implements CategoryService {
     Category existingCategory = categoryRepo
               .findById(categoryId).orElse(null);
     if (existingCategory == null) {
+      logger.error("Category with id does not found! Not deleted");
       throw new NoSuchElementException();
     } else {
+      logger.info("Category Deleted");
       categoryRepo.deleteById(categoryId);
     }
   }
@@ -99,13 +114,16 @@ public class CategoryServiceImplementation implements CategoryService {
     Category existingCategory = categoryRepo
                .findById(categoryId).orElse(null);
     if (existingCategory != null) {
+      logger.info("Category found with id");
       existingCategory.setCategoryId(category.getCategoryId());
       existingCategory.setCategoryName(category.getCategoryName());
       existingCategory.setCategoryDescription(category
                 .getCategoryDescription());
       if (existingCategory.getCategoryName().isEmpty()) {
+        logger.error("Input fields are empty");
         throw new InputEmptyException();
       }
+      logger.info("Category Updated");
       Category updatedCategory = categoryRepo.save(existingCategory);
       CategoryDetailsDto updatedCategoryDto = new CategoryDetailsDto();
       updatedCategoryDto.setCategoryName(updatedCategory.getCategoryName());
@@ -113,6 +131,7 @@ public class CategoryServiceImplementation implements CategoryService {
                  .getCategoryDescription());
       return updatedCategoryDto;
       } else {
+       logger.error("Category Not found with id! Not Updated");
        throw new NoSuchElementException();
      }
   }

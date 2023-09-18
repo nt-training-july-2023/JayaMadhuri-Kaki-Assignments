@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,11 @@ public class FinalResultServiceImplementation implements FinalResultService {
   @Autowired
   private FinalResultOfQuizRepo finalResultRepo;
   /**
+   *logger instance.
+  */
+  private Logger logger = LoggerFactory.getLogger(
+          FinalResultServiceImplementation.class);
+  /**
    * parameter constructor.
    * @param finalResultsRepo2 finalResultsRepo2
   */
@@ -36,6 +43,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
 @Override
   public final List<FinalResultsDto> getAllFinalResults() {
     List<FinalResultsOfQuiz> listOfFinalResults = finalResultRepo.findAll();
+    logger.info("Retrieved all the final results");
       return listOfFinalResults.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
@@ -47,6 +55,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
   */
   private FinalResultsDto convertEntityToDto(final
           FinalResultsOfQuiz finalResults) {
+    logger.info("Entity to Dto conversion in Final results");
     FinalResultsDto finalDto = new FinalResultsDto();
     finalDto.setFinalResultId(finalResults.getFinalResultId());
     finalDto.setStudentId(finalResults.getStudentId());
@@ -70,6 +79,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
                final Long studentId, final String subCategoryName) {
     Optional<FinalResultsOfQuiz> finalResults = finalResultRepo
              .getFinalResultsByStudentIdQuizName(studentId, subCategoryName);
+      logger.info("Retrieved final results by student id and quiz name");
       FinalResultsOfQuiz results = finalResults.get();
       FinalResultsDto finalDto = new FinalResultsDto();
       finalDto.setFinalResultId(results.getFinalResultId());
@@ -94,6 +104,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
           String emailId) {
       List<FinalResultsOfQuiz> listOfFinalResults =
               finalResultRepo.getFinalResultsByStudentEmail(emailId);
+      logger.info("Retrieved final results by student EmailId");
                 return listOfFinalResults.stream()
                         .map(this::convertEntityToDto)
                         .collect(Collectors.toList());

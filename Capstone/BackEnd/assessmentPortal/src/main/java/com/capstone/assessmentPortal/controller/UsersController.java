@@ -39,7 +39,7 @@ public class UsersController {
   /**
    *logger instance.
   */
-  Logger logger = LoggerFactory.getLogger(UsersController.class);
+  private Logger logger = LoggerFactory.getLogger(UsersController.class);
   /**
    *registeration of students.
    *@return response

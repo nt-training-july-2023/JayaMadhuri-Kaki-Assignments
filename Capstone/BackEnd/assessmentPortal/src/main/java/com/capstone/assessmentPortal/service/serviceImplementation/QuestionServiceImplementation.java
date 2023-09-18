@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,11 @@ public class QuestionServiceImplementation implements QuestionService {
   @Autowired
   private SubCategoryRepo subCategoryRepo;
   /**
+   *logger instance.
+  */
+  private Logger logger = LoggerFactory.getLogger(
+          QuestionServiceImplementation.class);
+  /**
    * parameter constructor.
    * @param subCategoryRepo2 subCategoryRepo2
    * @param questionRepo2 questionRepo2
@@ -53,11 +60,13 @@ public class QuestionServiceImplementation implements QuestionService {
             || question.getOptionC().isEmpty()
             || question.getOptionD().isEmpty()
             || question.getCorrectAnswer().isEmpty()) {
+      logger.error("Input fields are empty");
       throw new InputEmptyException();
     } else {
       SubCategory existingSubCategory = subCategoryRepo.findById(
                question.getSubCategoryId()).orElseThrow(() ->
                new NotFoundException());
+      logger.info("Question Added");
       Question que = new Question();
       que.setQuestionContent(question.getQuestionContent());
       que.setOptionA(question.getOptionA());
@@ -77,10 +86,12 @@ public class QuestionServiceImplementation implements QuestionService {
     SubCategory existingSubCategory = subCategoryRepo
               .findById(subCategoryId).orElse(null);
     if (existingSubCategory == null) {
+      logger.error("Quiz with id not found!");
       throw new NoSuchElementException();
     } else {
       List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
+      logger.info("Retrieved Question by Quiz id");
       return listOfQuestions.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
@@ -93,6 +104,7 @@ public class QuestionServiceImplementation implements QuestionService {
   */
   private QuestionDto convertEntityToDto(final
           Question question) {
+    logger.info("Entity to Dto conversion in Questions");
     QuestionDto questionDto = new QuestionDto();
     questionDto.setQuestionId(question.getQuestionId());
     questionDto.setQuestionContent(question.getQuestionContent());
@@ -114,6 +126,7 @@ public class QuestionServiceImplementation implements QuestionService {
     Question existingQuestion = questionRepo
                 .findById(questionId).orElse(null);
     if (existingQuestion != null) {
+      logger.info("Question with id exists");
       existingQuestion.setQuestionContent(question.getQuestionContent());
       existingQuestion.setOptionA(question.getOptionA());
       existingQuestion.setOptionB(question.getOptionB());
@@ -126,12 +139,15 @@ public class QuestionServiceImplementation implements QuestionService {
           || existingQuestion.getOptionC().isEmpty()
           || existingQuestion.getOptionD().isEmpty()
           || existingQuestion.getCorrectAnswer().isEmpty()) {
+        logger.error("Input fields are empty");
         throw new InputEmptyException();
       } else {
+        logger.info("Question Updated");
         questionRepo.save(existingQuestion);
         return question;
       }
     } else {
+      logger.error("Question with id not exists");
       throw new NoSuchElementException();
     }
   }
@@ -139,8 +155,10 @@ public class QuestionServiceImplementation implements QuestionService {
   public final void deleteQuestion(final Long questionId) {
     Question existingQuestion = questionRepo.findById(questionId).orElse(null);
     if (existingQuestion == null) {
+      logger.error("Question with id not exists");
       throw new NoSuchElementException();
     } else {
+      logger.info("Question Deleted");
       questionRepo.deleteById(questionId);
     }
   }

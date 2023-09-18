@@ -34,7 +34,7 @@ public class QuestionController {
   /**
    *logger instance.
   */
-  Logger logger = LoggerFactory.getLogger(QuestionController.class);
+  private Logger logger = LoggerFactory.getLogger(QuestionController.class);
   /**
    * get all questions by sub category id.
    * @return question

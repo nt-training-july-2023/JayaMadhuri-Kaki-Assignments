@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
@@ -34,6 +36,11 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   @Autowired
   private CategoryRepo categoryRepo;
   /**
+   *logger instance.
+  */
+  private Logger logger = LoggerFactory.getLogger(
+          SubCategoryServiceImplementation.class);
+  /**
    * parameter constructor.
    * @param subCategoryRepo2 subCategoryRepo2
    * @param categoryRepo2 categoryRepo2
@@ -50,13 +57,16 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
       if (subCategory.getSubCategoryName().isEmpty()
               || subCategory.getCategoryId() == null
               || subCategory.getTimeLimitInMinutes().isEmpty()) {
+           logger.error("Input fields are empty");
            throw new InputEmptyException();
          } else {
          Optional<SubCategory> existingSubCategory = subCategoryRepo
                  .getSubCategoryByName(subCategory.getSubCategoryName());
          if (existingSubCategory.isPresent()) {
+             logger.error("A Quiz is already exists with the same name");
              throw new AlreadyExistsException();
          } else {
+          logger.info("Quiz Added");
           SubCategory newSubCategory = new SubCategory();
           newSubCategory.setSubCategoryId(subCategory.getSubCategoryId());
           newSubCategory.setSubCategoryName(subCategory.getSubCategoryName());
@@ -76,6 +86,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   @Override
   public final List<SubCategoryDetailsDto> getAllSubCategories() {
     List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
+      logger.info("Retrieved all the quizes");
       return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
@@ -87,6 +98,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   */
   private SubCategoryDetailsDto convertEntityToDto(final
                       SubCategory subCategory) {
+    logger.info("Entity to Dto conversion in Quiz");
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
     subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
     subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
@@ -102,6 +114,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     SubCategory subCategory = subCategoryRepo.findById(subCategoryId)
          .orElseThrow(() -> new NoSuchElementException("Cannot "
          + "find Subcategory with id: " + subCategoryId));
+    logger.info("Retrieved quiz details by id");
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
     subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
     subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
@@ -118,6 +131,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     SubCategory existingquiz = subCategoryRepo
                  .findById(subCategoryId).orElse(null);
     if (existingquiz != null) {
+      logger.info("Quiz with id found");
       existingquiz.setSubCategoryId(subCategory.getSubCategoryId());
       existingquiz.setSubCategoryName(subCategory.getSubCategoryName());
       existingquiz.setSubCategoryDescription(subCategory
@@ -125,12 +139,15 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
       existingquiz.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
       if (existingquiz.getSubCategoryName().isEmpty()
        || existingquiz.getTimeLimitInMinutes().isEmpty()) {
+        logger.error("Input fields are empty");
         throw new InputEmptyException();
       } else {
+          logger.info("Quiz Updated");
           subCategoryRepo.save(existingquiz);
           return subCategory;
       }
     } else {
+       logger.error("Quiz Id not found");
        throw new NoSuchElementException();
     }
   }
@@ -139,8 +156,10 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     SubCategory existingquiz = subCategoryRepo
             .findById(subCategoryId).orElse(null);
     if (existingquiz == null) {
+      logger.error("Quiz id not found! Not deleted");
       throw new NoSuchElementException();
     } else {
+      logger.info("Quiz Deleted");
       subCategoryRepo.deleteById(subCategoryId);
     }
   }
@@ -149,10 +168,12 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                    Long categoryId) {
     Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
     if (existingCategory == null) {
+      logger.error("Category with id not found");
       throw new NoSuchElementException();
     } else {
       List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
+      logger.info("Retrieved quizes with category id");
         return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());

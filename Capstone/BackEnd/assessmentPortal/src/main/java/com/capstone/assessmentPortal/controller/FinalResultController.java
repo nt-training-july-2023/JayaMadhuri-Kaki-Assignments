@@ -31,7 +31,7 @@ public class FinalResultController {
   /**
    *logger instance.
   */
-  Logger logger = LoggerFactory.getLogger(FinalResultController.class);
+  private Logger logger = LoggerFactory.getLogger(FinalResultController.class);
   /**
    * get all final results.
    * @return finalResult

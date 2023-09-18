@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,11 @@ public class UsersServiceImplementation implements UsersService {
   @Autowired
   private UsersRepo usersRepo;
   /**
+   *logger instance.
+  */
+  private Logger logger = LoggerFactory.getLogger(
+          UsersServiceImplementation.class);
+  /**
    * users service implementation class.
    * @param usersRepo2 usersRepo2
   */
@@ -43,8 +50,10 @@ public class UsersServiceImplementation implements UsersService {
           .findUserByEmailId(signUpRequest.getEmailId());
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
     if (existingUser != null) {
+      logger.error("Email already exists");
       throw new EmailAlreadyExistsException();
     } else {
+      logger.info("User successfully registered");
       Users users = new Users();
       users.setFirstName(signUpRequest.getFirstName());
       users.setLastName(signUpRequest.getLastName());
@@ -64,6 +73,7 @@ public class UsersServiceImplementation implements UsersService {
              .getEmailId());
     Map<String, String> userDetails = new HashMap<String, String>();
     if (existingUser != null) {
+      logger.info("Login successful");
       String existingUserPassword = existingUser.getPassword();
       if (loginRequest.getPassword().equals(existingUserPassword)) {
         userDetails.put("UserType", existingUser.getUserType());
@@ -72,9 +82,11 @@ public class UsersServiceImplementation implements UsersService {
         userDetails.put("EmailId", existingUser.getEmailId());
         return userDetails;
       } else {
+        logger.error("Incorrect Password");
         throw new UserNotFoundException();
       }
     } else {
+      logger.error("User not found in database");
       throw new UserNotFoundException();
     }
   }
@@ -82,8 +94,10 @@ public class UsersServiceImplementation implements UsersService {
   public final void deleteStudent(final Long studentId) {
     Optional<Users> existingUser = usersRepo.findById(studentId);
     if (existingUser.isPresent()) {
+      logger.info("User deleted");
       usersRepo.deleteById(studentId);
     } else {
+      logger.error("User not found! not deleted");
       throw new NoSuchElementException();
     }
   }
@@ -100,8 +114,10 @@ public class UsersServiceImplementation implements UsersService {
        || existinguser.getLastName().isEmpty()
        || existinguser.getDateOfBirth().isEmpty()
        || existinguser.getGender().isEmpty()) {
+      logger.error("Input fields are empty");
       throw new InputEmptyException();
     }
+    logger.info("User updated");
     Users updatedUser = usersRepo.save(existinguser);
     UserDetailsForUpdate updatedDetails = new UserDetailsForUpdate();
     updatedDetails.setFirstName(updatedUser.getFirstName());
@@ -115,6 +131,7 @@ public class UsersServiceImplementation implements UsersService {
     Users userDetails = usersRepo.findById(studentId).orElseThrow(
             () -> new NoSuchElementException(
             "Cannot find User with id: " + studentId));
+    logger.info("Retrieved student details by id");
     UserDetails userDetailsDto = new UserDetails();
     userDetailsDto.setFirstName(userDetails.getFirstName());
     userDetailsDto.setLastName(userDetails.getLastName());
@@ -128,6 +145,7 @@ public class UsersServiceImplementation implements UsersService {
     public final UserDetails getStudentDetailsByEmail(final String emailId) {
         Users userDetails = usersRepo.findUserByEmailId(emailId);
         if (userDetails != null) {
+            logger.info("Retrieved student details by EmailId");
             UserDetails userDetailsDto = new UserDetails();
             userDetailsDto.setUserId(userDetails.getUserId());
             userDetailsDto.setFirstName(userDetails.getFirstName());
@@ -138,6 +156,7 @@ public class UsersServiceImplementation implements UsersService {
             userDetailsDto.setUserType(userDetails.getUserType());
             return userDetailsDto;
         } else {
+            logger.error("Student email not found");
             throw new NoSuchElementException();
         }
     }

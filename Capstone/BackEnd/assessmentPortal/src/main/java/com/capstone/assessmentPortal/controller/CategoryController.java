@@ -33,7 +33,7 @@ public class CategoryController {
   /**
    *logger instance.
   */
-  Logger logger = LoggerFactory.getLogger(CategoryController.class);
+  private Logger logger = LoggerFactory.getLogger(CategoryController.class);
   /**
    *get all categories in category table.
    *@return categories

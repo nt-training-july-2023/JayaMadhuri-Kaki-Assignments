@@ -30,7 +30,7 @@ public class ResultsController {
   /**
    *logger instance.
   */
-  Logger logger = LoggerFactory.getLogger(ResultsController.class);
+  private Logger logger = LoggerFactory.getLogger(ResultsController.class);
   /**
    *add result to result table.
    *@return newResult

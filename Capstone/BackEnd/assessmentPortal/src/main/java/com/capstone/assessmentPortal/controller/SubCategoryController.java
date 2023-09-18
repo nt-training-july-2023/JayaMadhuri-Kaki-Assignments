@@ -34,7 +34,7 @@ public class SubCategoryController {
   /**
    *logger instance.
   */
-  Logger logger = LoggerFactory.getLogger(SubCategoryController.class);
+  private Logger logger = LoggerFactory.getLogger(SubCategoryController.class);
   /**
    *get all subcategories.
    *@return subCategories

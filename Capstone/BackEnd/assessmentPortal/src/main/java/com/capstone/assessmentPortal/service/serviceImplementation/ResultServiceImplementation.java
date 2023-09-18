@@ -3,6 +3,8 @@ package com.capstone.assessmentPortal.service.serviceImplementation;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +55,11 @@ public class ResultServiceImplementation implements ResultService {
   @Autowired
   private SubCategoryRepo subCategoryRepo;
   /**
+   *logger instance.
+  */
+  private Logger logger = LoggerFactory.getLogger(
+          ResultServiceImplementation.class);
+  /**
    * parameter constructor.
    * @param subCategoryRepo2 subCategoryRepo2
    * @param usersRepo2 usersRepo2
@@ -74,20 +81,24 @@ public class ResultServiceImplementation implements ResultService {
   public final ResultsDto addTemporaryResult(final ResultsDto results) {
     if (results.getStudentId() == null || results.getCategoryId() == null
             || results.getSubCategoryId() == null) {
+       logger.error("Input fields are emtpy");
        throw new InputEmptyException();
     } else {
         if (resultRepo.findResultsByStudentsAndSubCategory(results
                 .getStudentId(), results.getSubCategoryId()) != null) {
+            logger.error("Results with same student id and quiz id exists");
             throw new AlreadyExistsException();
         }
         Users existinguser = usersRepo.findById(results
                 .getStudentId()).orElse(null);
        if (existinguser == null) {
+           logger.error("Student id not exists");
          throw new NoSuchElementException();
        } else {
          SubCategory existingquiz = subCategoryRepo.findById(
          results.getSubCategoryId()).orElse(null);
          if (existingquiz != null) {
+               logger.info("Result Added");
                FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
                finalResults.setStudentId(results.getStudentId());
                Optional<Users> users = usersRepo.findById(results
@@ -120,6 +131,7 @@ public class ResultServiceImplementation implements ResultService {
              resultRepo.save(res);
              return results;
            } else {
+             logger.error("Quiz id not exists");
              throw new NoSuchElementException();
            }
          }
@@ -129,13 +141,16 @@ public class ResultServiceImplementation implements ResultService {
   public final boolean findResultsByUserAndSubCategory(final Long userId,
            final Long subCategoryId) {
     if (userId == null || subCategoryId == null) {
+      logger.error("Input fields are emtpy");
       throw new InputEmptyException();
     }
     Results result = resultRepo
         .findResultsByStudentsAndSubCategory(userId, subCategoryId);
     if (result == null) {
+      logger.info("Student not attempted the test");
       return false;
     }
+    logger.info("Student already attempted the test");
     return true;
   }
 }
