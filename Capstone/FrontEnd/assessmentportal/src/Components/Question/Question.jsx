@@ -5,7 +5,7 @@ import AddUpdateQuestion from './AddUpdateQuestion'
 import QuestionUrl from '../../Services/Url'
 
 const Question = (props) => {
-    const { selectedQuizId, setShowQuestion } = props
+    const { selectedQuizId, setShowQuestion, selectedQuizName,selectedName } = props
     const [question, setQuestion] = useState([])
     const [titleQuestion, setTitleQuestion] = useState("Add Question")
     const [popUp, setPopUp] = useState(false)
@@ -59,6 +59,9 @@ const Question = (props) => {
                 <h1 className='category-title'>Questions</h1>
                 <hr />
             </div>
+            <div>
+                <h2 className='sub-title'>{selectedName}/{selectedQuizName}</h2>
+            </div>
             {question.length > 0 ? (
                 <div className="question-container">
                     <table class="table table-responsive">
@@ -98,35 +101,45 @@ const Question = (props) => {
                                         <button onMouseDown={event => event.stopPropagation()}
                                             onClick={(event) => {
                                                 event.stopPropagation()
-                                                QuestionUrl.deleteQuestion(item.questionId)
-                                                    .then(response => {
-                                                        if (response?.data?.statusCode == 200) {
-                                                            Swal.fire({
-                                                                title: 'Delete',
-                                                                text: 'Successfully Deleted',
-                                                                timer: 1000,
-                                                                showConfirmButton: false,
-                                                                showCancelButton: false,
-                                                                icon: "success",
-                                                                background: "#15172b",
-                                                                color: "white",
-                                                            })
-                                                            fetchData()
-                                                        }
-                                                    }).catch(error => {
-                                                        if (error?.response?.status == "404") {
-                                                            Swal.fire({
-                                                                title: 'Delete',
-                                                                text: 'ID Not Found',
-                                                                timer: 1000,
-                                                                showConfirmButton: false,
-                                                                showCancelButton: false,
-                                                                icon: "warning",
-                                                                background: "#15172b",
-                                                                color: "white",
-                                                            })
-                                                        }
-                                                    })
+                                                Swal.fire({
+                                                    text: 'do you really want to delete?',
+                                                    icon: "warning",
+                                                    background: "#15172b",
+                                                    color: "white",
+                                                    showCancelButton:true
+                                                }).then(function (result) {
+                                                    if (result.value === true) {
+                                                        QuestionUrl.deleteQuestion(item.questionId)
+                                                        .then(response => {
+                                                            if (response?.data?.statusCode == 200) {
+                                                                Swal.fire({
+                                                                    title: 'Delete',
+                                                                    text: 'Successfully Deleted',
+                                                                    timer: 1000,
+                                                                    showConfirmButton: false,
+                                                                    showCancelButton: false,
+                                                                    icon: "success",
+                                                                    background: "#15172b",
+                                                                    color: "white",
+                                                                })
+                                                                fetchData()
+                                                            }
+                                                        }).catch(error => {
+                                                            if (error?.response?.status == "404") {
+                                                                Swal.fire({
+                                                                    title: 'Delete',
+                                                                    text: 'ID Not Found',
+                                                                    timer: 1000,
+                                                                    showConfirmButton: false,
+                                                                    showCancelButton: false,
+                                                                    icon: "warning",
+                                                                    background: "#15172b",
+                                                                    color: "white",
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
                                             }} className='category-btn'>Delete</button>
                                     </td>
                                 </tr>

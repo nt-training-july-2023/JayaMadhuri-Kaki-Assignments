@@ -7,11 +7,12 @@ import QuestionForStudent from '../Question/QuestionForStudent';
 import Url from '../../Services/Url';
 
 const Quiz = (props) => {
-    const { userDetails, setShowQuiz, selectedId, setEnable } = props;
+    const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
     const [quiz, setQuiz] = useState([]);
     const [details, setDetails] = useState({})
     const [title, setTitle] = useState("Add Quiz");
     const [selectedQuizId, setSelectedQuizId] = useState(null)
+    const [selectedQuizName, setSelectedQuizName] = useState("")
     const [popUp, setPopUp] = useState(false);
     const [time, setTime] = useState(null)
     const [showQuestion, setShowQuestion] = useState(false);
@@ -98,17 +99,22 @@ const Quiz = (props) => {
     return (
         <div>
             {!showQuestion &&
+            <>
                 <div>
                     {userDetails?.UserType === "Admin" && <button className='addcategory-btn' onClick={handleAdd}>Add Quiz</button>}
                     <button className={userDetails?.UserType === "Admin" ? ('backquiz-btn') : ('addcategory-btn')} onClick={() => { setShowQuiz(false) }}>Back</button>
                     <h1 className='category-title'>Quiz</h1>
                     <hr />
-                </div>}
+                </div>
+                <div>
+                    <h2 className='sub-title'>{selectedName}/</h2>
+                </div>
+            </>}
             {!showQuestion ? (<>
                 {quiz.length > 0 ? (
                     <div className="category-container">
                         {quiz.map((item) => (
-                            <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && setShowQuestion(true); setSelectedQuizId(item.subCategoryId); } }}>
+                            <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && setShowQuestion(true); setSelectedQuizId(item.subCategoryId); setSelectedQuizName(item.subCategoryName); } }}>
                                 <p className='p'>Name: {item.subCategoryName}</p>
                                 <p className='p'>Description: {item.subCategoryDescription}</p>
                                 <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
@@ -126,35 +132,45 @@ const Quiz = (props) => {
                                     }} className='category-btn'>Update</button>
                                     <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                         event.stopPropagation();
-                                        Url.deleteQuiz(item.subCategoryId)
-                                            .then(response => {
-                                                if (response?.data?.statusCode == 200) {
-                                                    Swal.fire({
-                                                        title: 'Delete',
-                                                        text: 'Successfully Deleted',
-                                                        timer: 1000,
-                                                        showConfirmButton: false,
-                                                        showCancelButton: false,
-                                                        icon: "success",
-                                                        background: "#15172b",
-                                                        color: "white",
-                                                    });
-                                                    fetchData()
-                                                }
-                                            }).catch(error => {
-                                                if (error?.response?.status == "404") {
-                                                    Swal.fire({
-                                                        title: 'Delete',
-                                                        text: 'ID Not Found',
-                                                        timer: 1000,
-                                                        showConfirmButton: false,
-                                                        showCancelButton: false,
-                                                        icon: "warning",
-                                                        background: "#15172b",
-                                                        color: "white",
-                                                    });
-                                                }
-                                            })
+                                        Swal.fire({
+                                            text: 'do you really want to delete?',
+                                            icon: "warning",
+                                            background: "#15172b",
+                                            color: "white",
+                                            showCancelButton:true
+                                        }).then(function (result) {
+                                            if (result.value === true) {
+                                                Url.deleteQuiz(item.subCategoryId)
+                                                .then(response => {
+                                                    if (response?.data?.statusCode == 200) {
+                                                        Swal.fire({
+                                                            title: 'Delete',
+                                                            text: 'Successfully Deleted',
+                                                            timer: 1000,
+                                                            showConfirmButton: false,
+                                                            showCancelButton: false,
+                                                            icon: "success",
+                                                            background: "#15172b",
+                                                            color: "white",
+                                                        });
+                                                        fetchData()
+                                                    }
+                                                }).catch(error => {
+                                                    if (error?.response?.status == "404") {
+                                                        Swal.fire({
+                                                            title: 'Delete',
+                                                            text: 'ID Not Found',
+                                                            timer: 1000,
+                                                            showConfirmButton: false,
+                                                            showCancelButton: false,
+                                                            icon: "warning",
+                                                            background: "#15172b",
+                                                            color: "white",
+                                                        });
+                                                    }
+                                                })
+                                            }
+                                        })
                                     }} className='category-btn'>Delete</button>
                                 </div>}
                                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
@@ -191,7 +207,7 @@ const Quiz = (props) => {
                 )}
             </>
             ) : (
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId} setEnable={setEnable} />)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName}/>) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId} setEnable={setEnable}/>)}</>
             )}
         </div>
     )

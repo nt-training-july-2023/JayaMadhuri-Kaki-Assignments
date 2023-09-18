@@ -11,6 +11,7 @@ const Category = ({ userDetails, setEnable }) => {
     const [popUp, setPopUp] = useState(false)
     const [showQuiz, setShowQuiz] = useState(false)
     const [selectedId, setSelectedId] = useState(null)
+    const [selectedName, setSelectedName] = useState(null)
     const [initialValues, setInitialValues] = useState({
         categoryName: "",
         categoryDescription: ""
@@ -51,13 +52,13 @@ const Category = ({ userDetails, setEnable }) => {
                 <hr />
             </div>}
             {showQuiz ? (
-                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable} />
+                <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable} selectedName={selectedName}/>
             ) : (
                 <div>
                     {category?.length > 0 ? (<>
                         <div className="category-container">
                             {category.map((item) => (
-                                <div key={item.categoryId} className="category-card" onClick={() => { setShowQuiz(true); setSelectedId(item.categoryId) }}>
+                                <div key={item.categoryId} className="category-card" onClick={() => { setShowQuiz(true); setSelectedId(item.categoryId); setSelectedName(item.categoryName)}}>
                                     <p>Name: {item.categoryName}</p>
                                     <p>Description: {item.categoryDescription}</p>
                                     {userDetails?.UserType === "Admin" && <div>
@@ -70,35 +71,45 @@ const Category = ({ userDetails, setEnable }) => {
                                         }} className='category-btn'>Update</button>
                                         <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                             event.stopPropagation()
-                                            CategoryUrl.deleteCategory(item.categoryId)
-                                                .then(response => {
-                                                    if (response?.data?.statusCode == 200) {
-                                                        Swal.fire({
-                                                            title: 'Delete',
-                                                            text: 'Successfully Deleted',
-                                                            timer: 1000,
-                                                            showConfirmButton: false,
-                                                            showCancelButton: false,
-                                                            icon: "success",
-                                                            background: "#15172b",
-                                                            color: "white",
-                                                        })
-                                                        fetchData();
-                                                    }
-                                                }).catch(error => {
-                                                    if (error?.response?.status == "404") {
-                                                        Swal.fire({
-                                                            title: 'Delete',
-                                                            text: 'ID Not Found',
-                                                            timer: 1000,
-                                                            showConfirmButton: false,
-                                                            showCancelButton: false,
-                                                            icon: "warning",
-                                                            background: "#15172b",
-                                                            color: "white",
-                                                        })
-                                                    }
-                                                })
+                                            Swal.fire({
+                                                text: 'do you really want to delete?',
+                                                icon: "warning",
+                                                background: "#15172b",
+                                                color: "white",
+                                                showCancelButton:true
+                                            }).then(function (result) {
+                                                if (result.value === true) {
+                                                    CategoryUrl.deleteCategory(item.categoryId)
+                                                    .then(response => {
+                                                        if (response?.data?.statusCode == 200) {
+                                                            Swal.fire({
+                                                                title: 'Delete',
+                                                                text: 'Successfully Deleted',
+                                                                timer: 1000,
+                                                                showConfirmButton: false,
+                                                                showCancelButton: false,
+                                                                icon: "success",
+                                                                background: "#15172b",
+                                                                color: "white",
+                                                            })
+                                                            fetchData();
+                                                        }
+                                                    }).catch(error => {
+                                                        if (error?.response?.status == "404") {
+                                                            Swal.fire({
+                                                                title: 'Delete',
+                                                                text: 'ID Not Found',
+                                                                timer: 1000,
+                                                                showConfirmButton: false,
+                                                                showCancelButton: false,
+                                                                icon: "warning",
+                                                                background: "#15172b",
+                                                                color: "white",
+                                                            })
+                                                        }
+                                                    })
+                                                } 
+                                            })
                                         }} className='category-btn'>Delete</button>
                                     </div>}
                                 </div>

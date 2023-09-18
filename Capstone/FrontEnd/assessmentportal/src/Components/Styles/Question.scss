@@ -121,6 +121,7 @@
 }
 .timer {
     text-align: end;
+    color:#15172b;
 }
 .question-body {
     display: flex;
@@ -145,6 +146,11 @@
         }
 
         .student-question-container {
+            h4{
+                color:#15172b;
+                text-align: right;
+            }
+
             h3 {
                 color: #15172b;
                 font-size: 20px;

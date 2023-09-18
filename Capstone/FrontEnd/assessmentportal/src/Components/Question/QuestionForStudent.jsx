@@ -129,6 +129,7 @@ const QuestionForStudent = (props) => {
                     <div className='question-body'>
                         <div className='card'>
                             <div className='student-question-container'>
+                            <h4>Attempted Questions:- {attemptedQuestions+" / "+question.length}</h4>
                                 {question.map((item) => (<>
                                     <div key={item.questionId}>
                                         <h3>{count++}{". "}{item.questionContent}</h3>
