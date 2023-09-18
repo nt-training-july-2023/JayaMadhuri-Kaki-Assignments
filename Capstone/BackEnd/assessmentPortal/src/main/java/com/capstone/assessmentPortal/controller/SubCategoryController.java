@@ -2,6 +2,8 @@ package com.capstone.assessmentPortal.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,10 @@ public class SubCategoryController {
   @Autowired
   private SubCategoryService subCategoryService;
   /**
+   *logger instance.
+  */
+  Logger logger = LoggerFactory.getLogger(SubCategoryController.class);
+  /**
    *get all subcategories.
    *@return subCategories
   */
@@ -37,6 +43,7 @@ public class SubCategoryController {
   public final ResponseEntity<Object> getAllSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getAllSubCategories();
+    logger.info("Retrieved all quizes");
     return ResponseHandler.generateResponse(
           "Successfully Retrieved All SubCategories",
           HttpStatus.OK, "ListOfSubCategories", subCategories);
@@ -51,6 +58,7 @@ public class SubCategoryController {
                    Long subCategoryId) {
     SubCategoryDetailsDto subCategory = subCategoryService
                    .getSubCategoryById(subCategoryId);
+    logger.info("Retrieved quiz by id");
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Id",
          HttpStatus.OK, "SubCategory", subCategory);
@@ -65,6 +73,7 @@ public class SubCategoryController {
          @PathVariable final Long categoryId) {
     List<SubCategoryDetailsDto> subCategory = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
+    logger.info("Retrieved quizes by category id");
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Category Id",
           HttpStatus.OK, "SubCategoryByCategoryId", subCategory);
@@ -79,6 +88,7 @@ public class SubCategoryController {
             @RequestBody final SubCategoryDetailsDto subCategory) {
     SubCategoryDetailsDto newSubCategory = subCategoryService
             .addSubCategory(subCategory);
+    logger.info("Quiz Added");
     return ResponseHandler.generateResponse("Successfully Added",
             HttpStatus.OK, "SubCategory", newSubCategory);
   }
@@ -94,6 +104,7 @@ public class SubCategoryController {
           @RequestBody final SubCategoryDetailsDto subCategory) {
     SubCategoryDetailsDto updatedSubCategory = subCategoryService
           .updateSubCategory(subCategory, subCategoryId);
+    logger.info("Quiz Updated");
     return ResponseHandler.generateResponse("Successfully Updated",
           HttpStatus.OK, "SubCategory", updatedSubCategory);
   }
@@ -106,6 +117,7 @@ public class SubCategoryController {
   public final ResponseEntity<Object> deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);
+    logger.info("Quiz Deleted");
     return ResponseHandler.generateResponse("Successfully Deleted",
           HttpStatus.OK, "SubCategory", null);
   }

@@ -83,7 +83,7 @@ const Category = ({ userDetails, setEnable }) => {
                                                             background: "#15172b",
                                                             color: "white",
                                                         })
-                                                        fetchData()
+                                                        fetchData();
                                                     }
                                                 }).catch(error => {
                                                     if (error?.response?.status == "404") {

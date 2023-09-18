@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,10 @@ public class ResultsController {
   @Autowired
   private ResultService resultService;
   /**
+   *logger instance.
+  */
+  Logger logger = LoggerFactory.getLogger(ResultsController.class);
+  /**
    *add result to result table.
    *@return newResult
    *@param results results
@@ -34,6 +40,7 @@ public class ResultsController {
   public final ResponseEntity<Object> addResult(@RequestBody final
                 ResultsDto results) {
     ResultsDto newResult = resultService.addTemporaryResult(results);
+    logger.info("Result Added");
     return ResponseHandler.generateResponse("Successfully Added",
                HttpStatus.OK, "Result", newResult);
   }
@@ -48,6 +55,7 @@ public class ResultsController {
                           Long userId, @PathVariable final Long subCategoryId) {
     boolean result = resultService
          .findResultsByUserAndSubCategory(userId, subCategoryId);
+    logger.info("Retrieved status of student whether quiz is attempted or not");
     return ResponseHandler.generateResponse("Retrieved Status",
             HttpStatus.OK, "status", result);
   }

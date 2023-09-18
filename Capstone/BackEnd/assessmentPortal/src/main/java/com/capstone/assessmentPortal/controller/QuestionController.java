@@ -2,6 +2,8 @@ package com.capstone.assessmentPortal.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,10 @@ public class QuestionController {
   @Autowired
   private QuestionService questionService;
   /**
+   *logger instance.
+  */
+  Logger logger = LoggerFactory.getLogger(QuestionController.class);
+  /**
    * get all questions by sub category id.
    * @return question
    * @param subCategoryId subCategoryId
@@ -39,6 +45,7 @@ public class QuestionController {
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> question = questionService
           .getQuestionsBySubCategoryId(subCategoryId);
+    logger.info("Retrieved all questions by quiz id");
     return ResponseHandler.generateResponse(
            "Successfully Retrieved Questions By SubCategory Id",
            HttpStatus.OK, "QuestionBySubCategoryId", question);
@@ -52,6 +59,7 @@ public class QuestionController {
   public final ResponseEntity<Object> addQuestion(
             @RequestBody final QuestionDto question) {
     QuestionDto newQuestion = questionService.addQuestion(question);
+    logger.info("Question Added");
     return ResponseHandler.generateResponse("Successfully Added",
             HttpStatus.OK, "Question", newQuestion);
   }
@@ -67,6 +75,7 @@ public class QuestionController {
           @RequestBody final QuestionDto question) {
     QuestionDto updatedQuestion = questionService.updateQuestion(questionId,
                        question);
+    logger.info("Question Updated");
     return ResponseHandler.generateResponse("Successfully Updated",
           HttpStatus.OK, "Question", updatedQuestion);
   }
@@ -79,6 +88,7 @@ public class QuestionController {
   public final ResponseEntity<Object> deleteQuestion(
          @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);
+    logger.info("Question Deleted");
     return ResponseHandler.generateResponse("Successfully Deleted",
          HttpStatus.OK, "Question", null);
   }

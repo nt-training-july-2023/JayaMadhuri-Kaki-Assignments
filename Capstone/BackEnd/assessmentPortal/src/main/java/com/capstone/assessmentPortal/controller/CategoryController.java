@@ -2,6 +2,8 @@ package com.capstone.assessmentPortal.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +31,17 @@ public class CategoryController {
   @Autowired
   private CategoryService categoryService;
   /**
+   *logger instance.
+  */
+  Logger logger = LoggerFactory.getLogger(CategoryController.class);
+  /**
    *get all categories in category table.
    *@return categories
   */
   @GetMapping("/category/all")
   public final ResponseEntity<Object> getAllCategories() {
     List<CategoryDetailsDto> categories = categoryService.getAllCategories();
+    logger.info("Retrieved all categories");
     return ResponseHandler.generateResponse("Successfully Retrieved"
                   + " All Categories",
                   HttpStatus.OK, "listOfCategories", categories);
@@ -48,6 +55,7 @@ public class CategoryController {
   public final ResponseEntity<Object> getCategoryById(@PathVariable
                    final Long categoryId) {
     CategoryDetailsDto category = categoryService.getCategoryById(categoryId);
+    logger.info("Retrieved category by id");
     return ResponseHandler.generateResponse("Successfully "
              + "Retrieved Category By Id",
                 HttpStatus.OK, "CategoryDetails", category);
@@ -61,6 +69,7 @@ public class CategoryController {
   public final ResponseEntity<Object> addCategory(
             @RequestBody final CategoryDetailsDto category) {
     CategoryDetailsDto newCategory = categoryService.addCategory(category);
+    logger.info("Category added");
     return ResponseHandler.generateResponse("Successfully Added",
           HttpStatus.OK, "CategoryDetails", newCategory);
   }
@@ -76,6 +85,7 @@ public class CategoryController {
            @RequestBody final CategoryDetailsDto category) {
     CategoryDetailsDto updatedCategory = categoryService.updateCategory(
                    categoryId, category);
+    logger.info("Category updated");
     return ResponseHandler.generateResponse("Successfully Updated",
           HttpStatus.OK, "CategoryDetails", updatedCategory);
   }
@@ -88,6 +98,7 @@ public class CategoryController {
   public final ResponseEntity<Object> deleteCategory(
            @PathVariable final Long categoryId) {
     categoryService.deleteCategory(categoryId);
+    logger.info("Category deleted");
     return ResponseHandler.generateResponse("Successfully Deleted",
     HttpStatus.OK, "CategoryDetails", null);
   }

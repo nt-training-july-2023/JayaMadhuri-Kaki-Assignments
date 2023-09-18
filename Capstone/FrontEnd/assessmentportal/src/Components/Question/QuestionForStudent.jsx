@@ -10,6 +10,7 @@ const QuestionForStudent = (props) => {
     const [question, setQuestion] = useState([]);
     const [prevSelectedOption, setPrevSelectedOption] = useState({});
     const [attemptedQuestions, setAttemptedQuestions] = useState(0)
+    let count = 1;
     const fetchData = async () => {
         Url.getAllQuestionsByQuizId(selectedQuizId)
             .then(response => {
@@ -128,9 +129,9 @@ const QuestionForStudent = (props) => {
                     <div className='question-body'>
                         <div className='card'>
                             <div className='student-question-container'>
-                                {question.map((item) => (
+                                {question.map((item) => (<>
                                     <div key={item.questionId}>
-                                        <h3>{item.questionContent}</h3>
+                                        <h3>{count++}{". "}{item.questionContent}</h3>
                                         <div className='answer-options'>
                                             <button
                                                 className={`answer-button ${selectedOption[item.questionId] === 'optionA' ? 'selected' : ''
@@ -162,7 +163,7 @@ const QuestionForStudent = (props) => {
                                             </button>
                                         </div>
                                     </div>
-                                ))}
+                                </>))}
                             </div>
                             <div className="submit-btn">
                                 <button className="submit-quiz" onClick={checkAnswers}>

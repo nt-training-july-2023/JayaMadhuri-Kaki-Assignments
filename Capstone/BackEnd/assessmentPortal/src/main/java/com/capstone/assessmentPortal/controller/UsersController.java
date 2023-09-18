@@ -1,6 +1,9 @@
 package com.capstone.assessmentPortal.controller;
 
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,10 @@ public class UsersController {
   @Autowired
   private UsersService usersService;
   /**
+   *logger instance.
+  */
+  Logger logger = LoggerFactory.getLogger(UsersController.class);
+  /**
    *registeration of students.
    *@return response
    *@param signUpRequest signUpRequest
@@ -42,6 +49,7 @@ public class UsersController {
   public final ResponseEntity<Object> studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     String response = usersService.studentRegistration(signUpRequest);
+    logger.info("User successfully registered");
     return ResponseHandler.generateResponse("Successfully Registered",
             HttpStatus.OK, "UserDetails", response);
   }
@@ -55,6 +63,7 @@ public class UsersController {
                   @RequestBody final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
+    logger.info("User successfully logged in");
     return ResponseHandler.generateResponse("Login Successfull",
                   HttpStatus.OK, "UserDetails", userDetails);
   }
@@ -67,6 +76,7 @@ public class UsersController {
   public final ResponseEntity<Object> getStudentById(
                  @PathVariable final Long studentId) {
     UserDetails studentDetails = usersService.getStudentById(studentId);
+    logger.info("Retrieved student details by Id");
     return ResponseHandler.generateResponse("Successfully Retrieved",
                  HttpStatus.OK, "StudentDetails", studentDetails);
   }
@@ -79,6 +89,7 @@ public class UsersController {
   public final ResponseEntity<Object> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails studentDetails = usersService.getStudentDetailsByEmail(emailId);
+    logger.info("Retrieved student details by EmailId");
     return ResponseHandler.generateResponse("Successfully Retrieved",
                  HttpStatus.OK, "StudentDetails", studentDetails);
   }
@@ -94,6 +105,7 @@ public class UsersController {
            @RequestBody final UserDetailsForUpdate users) {
     UserDetailsForUpdate studentDetails = usersService
             .updateStudentDetails(studentId, users);
+    logger.info("User details successfully updated");
     return ResponseHandler.generateResponse("Successfully Updated",
            HttpStatus.OK, "StudentDetails", studentDetails);
   }
@@ -106,6 +118,7 @@ public class UsersController {
   public final ResponseEntity<Object> deleteStudent(
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
+    logger.info("Student deleted successfully");
     return ResponseHandler.generateResponse("Successfully Deleted",
            HttpStatus.OK, "StudentDetails", null);
   }

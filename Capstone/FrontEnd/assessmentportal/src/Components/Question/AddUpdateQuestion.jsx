@@ -22,7 +22,7 @@ const AddUpdateQuestion = (props) => {
                         background: "#15172b",
                         color: "white",
                     })
-                    fetchData()
+                    fetchData();
                     setPopUp(false)
                 }
             }).catch(error => {
@@ -54,7 +54,7 @@ const AddUpdateQuestion = (props) => {
                         background: "#15172b",
                         color: "white",
                     })
-                    fetchData()
+                    fetchData();
                     setPopUp(false)
                 }
             }).catch(error => {

@@ -3,6 +3,8 @@ package com.capstone.assessmentPortal.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,10 @@ public class FinalResultController {
   @Autowired
   private FinalResultService finalResultService;
   /**
+   *logger instance.
+  */
+  Logger logger = LoggerFactory.getLogger(FinalResultController.class);
+  /**
    * get all final results.
    * @return finalResult
   */
@@ -34,6 +40,7 @@ public class FinalResultController {
   public final ResponseEntity<Object> getAllFinalResults() {
     List<FinalResultsDto> finalResult = finalResultService
                      .getAllFinalResults();
+    logger.info("Retrieved all final results");
     return ResponseHandler.generateResponse("Successfully Retrieved",
         HttpStatus.OK, "FinalResults", finalResult);
   }
@@ -49,6 +56,7 @@ public class FinalResultController {
           @PathVariable final Long studentId) {
     Optional<FinalResultsDto> finalResult = finalResultService
            .getFinalResultsByStudentIdQuizName(studentId, quizName);
+    logger.info("Retrieved final results by student id and quiz name");
     return ResponseHandler.generateResponse("Successfully Retrieved",
          HttpStatus.OK, "FinalResults", finalResult);
   }
@@ -62,6 +70,7 @@ public class FinalResultController {
           @PathVariable final String emailId) {
     List<FinalResultsDto> finalResult = finalResultService
                 .getFinalResultByStudentEmail(emailId);
+    logger.info("Retrieved all final results by student EmailId");
     return ResponseHandler.generateResponse("Successfully Retrieved",
           HttpStatus.OK, "FinalResults", finalResult);
   }
