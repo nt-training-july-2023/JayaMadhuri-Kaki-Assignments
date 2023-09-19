@@ -2,8 +2,6 @@ package com.capstone.assessmentPortal.service;
 
 import java.util.List;
 
-import java.util.Optional;
-
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
 /**
  * Final result of quiz service interface.
@@ -21,13 +19,4 @@ public interface FinalResultService {
    * @param emailId emailId
   */
   List<FinalResultsDto> getFinalResultByStudentEmail(String emailId);
-  /**
-   * get final result by student id and quiz .
-   * @return finalresult
-   * @param studentId studentId
-   * @param subCategoryName subCategoryName
-  */
-  Optional<FinalResultsDto> getFinalResultsByStudentIdQuizName(
-          Long studentId,
-          String subCategoryName);
 }

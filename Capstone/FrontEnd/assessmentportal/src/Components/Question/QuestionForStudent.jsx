@@ -63,8 +63,7 @@ const QuestionForStudent = (props) => {
                 numOfAttemptedQuestions: attemptedQuestions
             }
             Swal.fire({
-                title: 'Quiz Result',
-                text: `Your Score: ${score} out of ${question.length}`,
+                title: 'Submitted Successfully',
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,

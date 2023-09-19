@@ -1,7 +1,6 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -73,31 +72,6 @@ public class FinalResultServiceImplementation implements FinalResultService {
     finalDto.setTotalQuestions(finalResults.getTotalQuestions());
     finalDto.setDateAndTime(finalResults.getDateAndTime());
     return finalDto;
-  }
-  @Override
-  public final Optional<FinalResultsDto> getFinalResultsByStudentIdQuizName(
-               final Long studentId, final String subCategoryName) {
-    Optional<FinalResultsOfQuiz> finalResults = finalResultRepo
-             .getFinalResultsByStudentIdQuizName(studentId, subCategoryName);
-      logger.info("Retrieved final results by student id and quiz name");
-      FinalResultsOfQuiz results = finalResults.get();
-      FinalResultsDto finalDto = new FinalResultsDto();
-      finalDto.setFinalResultId(results.getFinalResultId());
-      finalDto.setStudentId(studentId);
-      finalDto.setStudentEmailId(results.getStudentEmailId());
-      finalDto.setStudentName(results.getStudentName());
-      finalDto.setQuizName(results
-                .getQuizName());
-      finalDto.setCategoryName(results
-              .getCategoryName());
-      finalDto.setMarksObtained(results
-              .getMarksObtained());
-      finalDto.setNumOfAttemptedQuestions(results
-              .getNumOfAttemptedQuestions());
-      finalDto.setTotalMarks(results.getTotalMarks());
-      finalDto.setTotalQuestions(results.getTotalQuestions());
-      finalDto.setDateAndTime(results.getDateAndTime());
-      return Optional.of(finalDto);
   }
   @Override
   public final List<FinalResultsDto> getFinalResultByStudentEmail(final

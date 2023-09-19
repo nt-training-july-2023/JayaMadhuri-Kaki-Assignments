@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.assessmentPortal.dto.ResultsDto;
-import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
@@ -84,11 +83,6 @@ public class ResultServiceImplementation implements ResultService {
        logger.error("Input fields are emtpy");
        throw new InputEmptyException();
     } else {
-        if (resultRepo.findResultsByStudentsAndSubCategory(results
-                .getStudentId(), results.getSubCategoryId()) != null) {
-            logger.error("Results with same student id and quiz id exists");
-            throw new AlreadyExistsException();
-        }
         Users existinguser = usersRepo.findById(results
                 .getStudentId()).orElse(null);
        if (existinguser == null) {
@@ -136,21 +130,5 @@ public class ResultServiceImplementation implements ResultService {
            }
          }
     }
-  }
-  @Override
-  public final boolean findResultsByUserAndSubCategory(final Long userId,
-           final Long subCategoryId) {
-    if (userId == null || subCategoryId == null) {
-      logger.error("Input fields are emtpy");
-      throw new InputEmptyException();
-    }
-    Results result = resultRepo
-        .findResultsByStudentsAndSubCategory(userId, subCategoryId);
-    if (result == null) {
-      logger.info("Student not attempted the test");
-      return false;
-    }
-    logger.info("Student already attempted the test");
-    return true;
   }
 }

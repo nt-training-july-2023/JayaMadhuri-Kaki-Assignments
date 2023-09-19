@@ -18,6 +18,9 @@
   color: white; 
   font-size: 24px; 
 }
+.close-icon {
+  display: none; 
+}
 .navigation-menu ul {
   list-style: none;
   padding: 0;
@@ -43,10 +46,20 @@
   .menu-icon {
     display: block; 
   }
+  .close-icon{
+    display: block;
+    color:#23263d;
+    cursor: pointer;
+    background-color: white;
+    font-size: 24px;
+    position: absolute;
+    left:10px;
+    top:10px;
+  }
   .navigation-menu {
     display: none; 
     position: absolute;
-    top: 50px; 
+    top: 0; 
     right: 0; 
     background: #23263d;
     padding:30px;
@@ -54,6 +67,7 @@
     align-items: center;
     height: auto;
     width:30%;
+    height: 100%;
     z-index: 1;
   }
   .navigation-menu.expanded {
@@ -61,7 +75,7 @@
   }
   .navigation-menu ul {
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
   }
 
   .navigation-menu li {
@@ -71,8 +85,9 @@
     background-color: transparent;
     border: none;
     color: white; 
-    font-size: 16px; 
+    font-size: 20px; 
     cursor: pointer;
-    margin-bottom: 40px;
+    margin-top: 50px;
+    margin-bottom: 30px;
   }
 }

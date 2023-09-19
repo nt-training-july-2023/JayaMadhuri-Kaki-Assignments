@@ -1,8 +1,6 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -142,37 +140,5 @@ class ResultServiceImplementationTest {
         ResultsDto resultsdto = resultsService.addTemporaryResult(resultsDto);
         assertNotNull(resultsdto);
         assertEquals(resultsDto, resultsdto);
-    }
-
-    @Test
-    void testFindResultsByUserAndSubCategoryIfEmptyFieldUserID() {
-        Long userId = null;
-        Long subCategoryId = 1L;
-        assertThrows(InputEmptyException.class, () -> resultsService.findResultsByUserAndSubCategory(userId,subCategoryId));
-    }
-    @Test
-    void testFindResultsByUserAndSubCategoryIfEmptyField() {
-        Long userId = 1L;
-        Long subCategoryId = null;
-        assertThrows(InputEmptyException.class, () -> resultsService.findResultsByUserAndSubCategory(userId,subCategoryId));
-    }
-    
-    @Test
-    void testFindResultsByUserAndSubCategoryIfFalse() {
-        Long userId = 1L;
-        Long subCategoryId = 2L;
-        when(resultRepo.findResultsByStudentsAndSubCategory(userId, subCategoryId)).thenReturn(null);
-        boolean result = resultsService.findResultsByUserAndSubCategory(userId, subCategoryId);
-        assertFalse(result);
-    }
-    
-    @Test
-    void testFindResultsByUserAndSubCategoryIfTrue() {
-        Long userId = 1L;
-        Long subCategoryId = 2L;
-        Results results = new Results();
-        when(resultRepo.findResultsByStudentsAndSubCategory(userId, subCategoryId)).thenReturn(results);
-        boolean result = resultsService.findResultsByUserAndSubCategory(userId, subCategoryId);
-        assertTrue(result);
     }
 }

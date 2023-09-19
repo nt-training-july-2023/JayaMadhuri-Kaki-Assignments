@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,20 +41,5 @@ public class ResultsController {
     logger.info("Result Added");
     return ResponseHandler.generateResponse("Successfully Added",
                HttpStatus.OK, "Result", newResult);
-  }
-  /**
-   *check status of user whether he attempted quiz or not.
-   *@return true or false
-   *@param userId userId
-   *@param subCategoryId subCategoryId
-  */
-  @GetMapping("/results/{userId}/{subCategoryId}")
-  public final ResponseEntity<Object> checkAttemptOrNot(@PathVariable final
-                          Long userId, @PathVariable final Long subCategoryId) {
-    boolean result = resultService
-         .findResultsByUserAndSubCategory(userId, subCategoryId);
-    logger.info("Retrieved status of student whether quiz is attempted or not");
-    return ResponseHandler.generateResponse("Retrieved Status",
-            HttpStatus.OK, "status", result);
   }
 }

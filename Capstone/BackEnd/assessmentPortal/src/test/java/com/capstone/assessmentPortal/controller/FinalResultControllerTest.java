@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,16 +49,6 @@ class FinalResultControllerTest {
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getAllFinalResults()).thenReturn(list);
         ResponseEntity<Object> response = finalResultController.getAllFinalResults();
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-    }
-    @Test
-    void testGetAllFinalResultByStudentIdAndQuiz() {
-        Long studentId = 1L;
-        String quizName = "Java";
-        FinalResultsDto finalRes= new FinalResultsDto();
-        when(finalResults.getFinalResultsByStudentIdQuizName(studentId, quizName))
-        .thenReturn(Optional.of(finalRes));
-        ResponseEntity<Object> response = finalResultController.getAllFinalResultByStudentIdAndQuiz(quizName,studentId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
     @Test

@@ -6,7 +6,7 @@ import QuestionUrl from '../../Services/Url'
 const AddUpdateQuestion = (props) => {
     const { titleQuestion, setPopUp, initialValues, fetchData } = props
     const [questionDetails, setQuestionDetails] = useState(initialValues)
-    const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
+    const [selectedOptionIndex, setSelectedOptionIndex] = useState(-1);
     const options = ["optionA", "optionB", "optionC", "optionD"];
     const handleAdd = () => {
         QuestionUrl.addQuestion(questionDetails)
@@ -114,7 +114,7 @@ const AddUpdateQuestion = (props) => {
                 <input
                     type="text"
                     className='question-input'
-                    placeholder='Click arrow to enter value'
+                    placeholder='Click arrow to enter correct answer'
                     value={questionDetails?.correctAnswer || ""}
                     readOnly
                 />

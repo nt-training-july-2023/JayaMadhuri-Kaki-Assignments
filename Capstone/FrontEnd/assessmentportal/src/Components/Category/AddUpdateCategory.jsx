@@ -115,7 +115,7 @@ const AddUpdateCategory = (props) => {
             <h1 className="category-title1">{title}</h1>
             <input className='name' type="text" name="categoryName" value={categoryDetails?.categoryName} placeholder='Enter Category Name' onChange={handleChange} />
             <p className='err'>{error}</p>
-            <textarea className='description' type="text" name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange} />
+            <input className='name' type="text" name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange} />
             <button className='btn' onClick={handleClick}>{title == "Add Category" ? "Add" : "Update"}</button>
             <button className='btn' onClick={() => { setPopUp(false) }}>Close</button>
         </div>

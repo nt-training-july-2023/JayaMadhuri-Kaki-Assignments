@@ -32,14 +32,4 @@ class ResultsControllerTest {
         ResponseEntity<Object> response = resultsController.addResult(resultsDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
-
-    @Test
-    void testCheckAttemptOrNot() {
-        Long userId = 1L;
-        Long subCategoryId = 2L;
-        when(resultService.findResultsByUserAndSubCategory(userId,subCategoryId)).thenReturn(true);
-        ResponseEntity<Object> response = resultsController.checkAttemptOrNot(userId,subCategoryId);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-    }
-
 }

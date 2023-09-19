@@ -94,6 +94,9 @@ const Navbar = (props) => {
                 <div className={
                     isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
                 }>
+                    <button onClick={toggleMenu} className='close-icon'>
+                       X
+                    </button>
                     <ul>
                         <li>
                             <button onClick={() => {

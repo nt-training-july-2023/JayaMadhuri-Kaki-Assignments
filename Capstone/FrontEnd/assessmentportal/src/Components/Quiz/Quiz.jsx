@@ -51,25 +51,6 @@ const Quiz = (props) => {
                 }
             })
     };
-    const isAttempted = async (QuizId) => {
-        Url.checkIsAttempted(details.userId, QuizId)
-            .then(response => {
-                if (response?.data?.status === true) {
-                    Swal.fire({
-                        title: 'Already Attempted',
-                        text: 'User can attempt quiz only once',
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: "warning",
-                        background: "#15172b",
-                        color: "white",
-                    })
-                }
-            }).catch(error => {
-                console.log(error)
-            })
-    }
     const getUserDetails = async () => {
         Url.getUserByEmail(userDetails.EmailId)
             .then(response => {
@@ -175,7 +156,6 @@ const Quiz = (props) => {
                                 </div>}
                                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
                                     className='category-btn' onClick={(event) => {
-                                        isAttempted(item.subCategoryId);
                                         Swal.fire({
                                             title: 'Instructions:',
                                             html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',

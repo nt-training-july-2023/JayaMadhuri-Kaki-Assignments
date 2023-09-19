@@ -92,11 +92,7 @@ class Url {
     addResults(Results) {
         return axios.post(RESULT_URL + "/add", Results);
     }
-
-    checkIsAttempted(UserId, QuizId) {
-        return axios.get(RESULT_URL + '/' + UserId + "/" + QuizId);
-    }
-
+    
     getAllResults() {
         return axios.get(FINALRESULT_URL);
     }

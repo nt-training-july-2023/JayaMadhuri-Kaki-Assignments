@@ -6,8 +6,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,17 +68,4 @@ class FinalResultServiceImplementationTest {
         List<FinalResultsDto> finalResultsDto = finalResultsService.getFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(listoffinalresults.get(0).getCategoryName(), finalResultsDto.get(0).getCategoryName());
     }
-
-    @Test
-    void testGetFinalResultsByStudentIdQuizName() {
-       Long studentId = 1L;
-       String quizName = "Java";
-       FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
-       when(finalResultsRepo.getFinalResultsByStudentIdQuizName(studentId, quizName))
-       .thenReturn(Optional.of(finalResults));
-       Optional<FinalResultsDto> finalResultsDto = finalResultsService
-               .getFinalResultsByStudentIdQuizName(studentId, quizName);
-       assertEquals(finalResults.getCategoryName(), finalResultsDto.get().getCategoryName());
-    }
-
 }

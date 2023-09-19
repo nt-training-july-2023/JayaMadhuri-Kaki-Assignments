@@ -76,7 +76,7 @@ const Results = ({ userDetails }) => {
                             <th>Date & Time</th>
                         </tr>
                         <tbody>
-                            {results.map((result) => (
+                            {results.reverse().map((result) => (
                                 <tr key={result.finalResultId}>
                                     <td>{result.studentId}</td>
                                     <td>{result.studentEmailId}</td>

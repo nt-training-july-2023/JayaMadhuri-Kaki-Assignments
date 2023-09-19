@@ -13,12 +13,4 @@ public interface ResultService {
    * @param results results
   */
   ResultsDto addTemporaryResult(ResultsDto results);
-  /**
-   * adding temporary result.
-   * @return results
-   * @param userId userId
-   * @param subCategoryId subCategoryId
-  */
-  boolean findResultsByUserAndSubCategory(Long userId,
-             Long subCategoryId);
 }

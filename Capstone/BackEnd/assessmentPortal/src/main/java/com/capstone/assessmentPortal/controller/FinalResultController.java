@@ -1,8 +1,6 @@
 package com.capstone.assessmentPortal.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,22 +41,6 @@ public class FinalResultController {
     logger.info("Retrieved all final results");
     return ResponseHandler.generateResponse("Successfully Retrieved",
         HttpStatus.OK, "FinalResults", finalResult);
-  }
-  /**
-   * get all final results by student id and quiz name.
-   * @return finalResult
-   * @param studentId studentId
-   * @param quizName quizName
-  */
-  @GetMapping("/finalResults/{studentId}/{quizName}")
-  public final ResponseEntity<Object> getAllFinalResultByStudentIdAndQuiz(
-          @PathVariable final String quizName,
-          @PathVariable final Long studentId) {
-    Optional<FinalResultsDto> finalResult = finalResultService
-           .getFinalResultsByStudentIdQuizName(studentId, quizName);
-    logger.info("Retrieved final results by student id and quiz name");
-    return ResponseHandler.generateResponse("Successfully Retrieved",
-         HttpStatus.OK, "FinalResults", finalResult);
   }
   /**
    * get all final results by student id.

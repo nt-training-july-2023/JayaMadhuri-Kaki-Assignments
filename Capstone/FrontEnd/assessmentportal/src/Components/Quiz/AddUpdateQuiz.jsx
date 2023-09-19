@@ -137,7 +137,7 @@ const AddUpdateQuiz = (props) => {
             <p className='err'>{error}</p>
             <input className='name' type="number" name="timeLimitInMinutes" value={quizDetails?.timeLimitInMinutes} placeholder='Enter Time Limit(In Minutes)' onChange={handleChange} />
             <p className='err'>{timeError}</p>
-            <textarea className='description' type="text" name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
+            <input className='name' type="text" name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
             <button className='btn' onClick={handleClick}>{title == "Add Quiz" ? "Add" : "Update"}</button>
             <button className='btn' onClick={() => { setPopUp(false) }}>Close</button>
         </div>
