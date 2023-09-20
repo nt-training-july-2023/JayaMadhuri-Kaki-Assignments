@@ -68,7 +68,7 @@ const Category = ({ userDetails, setEnable }) => {
                                             let updateInitialValues = { categoryId: item?.categoryId, categoryName: item?.categoryName, categoryDescription: item?.categoryDescription }
                                             setInitialValues(updateInitialValues)
                                             setTitle("Update Category")
-                                        }} className='category-btn'>Update</button>
+                                        }} className='category-btn category-btn1'>Update</button>
                                         <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                             event.stopPropagation()
                                             Swal.fire({
@@ -110,7 +110,7 @@ const Category = ({ userDetails, setEnable }) => {
                                                     })
                                                 } 
                                             })
-                                        }} className='category-btn2'>Delete</button>
+                                        }} className='category-btn category-btn2'>Delete</button>
                                     </div>}
                                 </div>
                             ))}

@@ -110,7 +110,7 @@ const Quiz = (props) => {
                                             categoryId: item?.categoryId };
                                         setInitialValues(updateInitialValues);
                                         setTitle("Update Quiz");
-                                    }} className='category-btn'>Update</button>
+                                    }} className='category-btn category-btn1'>Update</button>
                                     <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                         event.stopPropagation();
                                         Swal.fire({
@@ -152,10 +152,10 @@ const Quiz = (props) => {
                                                 })
                                             }
                                         })
-                                    }} className='category-btn2'>Delete</button>
+                                    }} className='category-btn category-btn2'>Delete</button>
                                 </div>}
                                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
-                                    className='category-btn' onClick={(event) => {
+                                    className='category-btn start-test-btn' onClick={(event) => {
                                         Swal.fire({
                                             title: 'Instructions:',
                                             html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',

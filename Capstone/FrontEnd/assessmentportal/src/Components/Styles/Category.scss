@@ -73,16 +73,19 @@
         font-size: 5vw;
     }
 }
-.category-btn{
+.category-btn {
     background-color: white;
     color: #31334e;
     border-radius: 12px;
-    height:40px;
     font-size: 18px;
     padding-left:40px;
     padding-right: 40px;
     margin-right: 10px;
     cursor: pointer;
+}
+.category-btn1{
+    height:40px;
+    margin-right: 10px;
     @media screen and (max-width:378px){
         width:100%;
     }
@@ -91,14 +94,7 @@
     }
 }
 .category-btn2{
-    background-color: white;
-    color: #31334e;
-    border-radius: 12px;
     height:40px;
-    font-size: 18px;
-    padding-left:40px;
-    padding-right: 40px;
-    cursor: pointer;
     @media screen and (max-width:378px){
         width:100%;
         margin-top: 5px;
@@ -106,6 +102,11 @@
     @media screen and (max-width:330px){
         margin-left: auto;
     }
+}
+.start-test-btn{
+    height:45px;
+    margin-right: 10px;
+    width:100%;
 }
 .cat-container{
     position: fixed;
