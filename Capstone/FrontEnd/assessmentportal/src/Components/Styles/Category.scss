@@ -49,7 +49,7 @@
 }
 .addcategory-btn{
     position: absolute;
-    right:0;
+    right:10px;
     top:auto;
     background-color: #31334e;
     border-radius: 12px;
@@ -62,7 +62,7 @@
     padding-right: 30px;
     text-align: center;
     cursor: pointer;
-    @media screen and (max-width:268px){
+    @media screen and (max-width:285px){
         padding:5px;
     }
 }
@@ -81,7 +81,28 @@
     font-size: 18px;
     padding-left:40px;
     padding-right: 40px;
+    margin-right: 10px;
     cursor: pointer;
+    @media screen and (max-width:378px){
+        width:100%;
+    }
+    @media screen and (max-width:330px){
+        margin-left: auto;
+    }
+}
+.category-btn2{
+    background-color: white;
+    color: #31334e;
+    border-radius: 12px;
+    height:40px;
+    font-size: 18px;
+    padding-left:40px;
+    padding-right: 40px;
+    cursor: pointer;
+    @media screen and (max-width:378px){
+        width:100%;
+        margin-top: 5px;
+    }
     @media screen and (max-width:330px){
         margin-left: auto;
     }
@@ -98,7 +119,7 @@
     box-shadow: 10 10px 16px rgba(20, 14, 14, 0.1);
     z-index: 999; 
     height: auto;
-    max-width: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     .overlay {
         position: fixed;
         top: 0;
@@ -123,6 +144,23 @@
         outline: 0;
         padding: 4px 20px 0;
         width: 100%;
+    }
+    .description{
+        background-color: #15172b;
+        border-radius: 12px;
+        border: 0;
+        box-sizing: border-box;
+        color:white;
+        font-size: 18px;
+        height: 40px;
+        outline: 0;
+        padding: 4px 20px 0;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .description::placeholder{
+        font-family: Arial, Helvetica, sans-serif;
+        padding-top: 5px;
     }
     .btn{
         background-color: #15172b;
@@ -161,8 +199,8 @@
         padding:10px;
         right:160px;
     }
-    @media screen and (max-width:268px){
+    @media screen and (max-width:285px){
         padding:10px;
-        right:90px;
+        right:110px;
     }
 }

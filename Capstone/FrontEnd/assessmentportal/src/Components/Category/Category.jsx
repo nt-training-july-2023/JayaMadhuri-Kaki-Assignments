@@ -110,7 +110,7 @@ const Category = ({ userDetails, setEnable }) => {
                                                     })
                                                 } 
                                             })
-                                        }} className='category-btn'>Delete</button>
+                                        }} className='category-btn2'>Delete</button>
                                     </div>}
                                 </div>
                             ))}

@@ -33,13 +33,13 @@ const Navbar = (props) => {
     const handleLogOut = () => {
         setIsNavExpanded(false)
         Swal.fire({
-            text: "Are You Really Want To LogOut?",
+            text: "Are You Really Want To Logout?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: 'white',
             cancelButtonColor: 'white',
             cancelButtonText: '<span style="color:#15172b"> Stay </span>',
-            confirmButtonText: '<span style="color: #15172b">LogOut</span>',
+            confirmButtonText: '<span style="color: #15172b">Logout</span>',
             background: "#15172b",
             color: "white",
             customClass: {
@@ -126,7 +126,7 @@ const Navbar = (props) => {
                         </li>
                         <li>
                             <button onClick={handleLogOut} className="nav-button" disabled={enable}>
-                                LogOut
+                                Logout
                             </button>
                         </li>
                     </ul>

@@ -32,7 +32,7 @@
 }
 .addquestion-btn {
     position: absolute;
-    right: 0;
+    right: 10px;
     top: auto;
     background-color: #31334e;
     border-radius: 12px;
@@ -48,10 +48,10 @@
     @media screen and (max-width:450px) {
         padding: 10px;
     }
-    @media screen and (max-width:320px){
+    @media screen and (max-width:332px){
         padding:5px;
     }
-    @media screen and (max-width:280px){
+    @media screen and (max-width:310px){
         padding:0px;
         width:90px;
     }
@@ -75,7 +75,7 @@
 
     @media screen and (max-width:530px) {
         padding: 10px;
-        right: 170px;
+        right: 180px;
     }
 
     @media screen and (max-width:450px) {
@@ -83,15 +83,50 @@
         right: 140px;
     }
 
-    @media screen and (max-width:330px){
-        padding:5px;
-        right:120px;
+    @media screen and (max-width:332px){
+        padding:4px;
+        right:130px;
     }
-    @media screen and (max-width:280px){
-        padding:3px;
-        right:95px;
+    @media screen and (max-width:310px){
+        padding:5px;
+        right:110px;
     }
 }
+.question-btn{
+    background-color: white;
+    color: #31334e;
+    border-radius: 12px;
+    height:40px;
+    font-size: 18px;
+    padding-left:40px;
+    padding-right: 40px;
+    margin-right: 10px;
+    cursor: pointer;
+    @media screen and (max-width:881px){
+        width:100%;
+    }
+    @media screen and (max-width:330px){
+        margin-left: auto;
+    }
+}
+.question-btn2{
+    background-color: white;
+    color: #31334e;
+    border-radius: 12px;
+    height:40px;
+    font-size: 18px;
+    padding-left:40px;
+    padding-right: 40px;
+    cursor: pointer;
+    @media screen and (max-width:881px){
+        width:100%;
+        margin-top: 5px;
+    }
+    @media screen and (max-width:330px){
+        margin-left: auto;
+    }
+}
+
 .que-container{
     position: fixed;
     top: 60%;
@@ -103,6 +138,7 @@
     border: 1px solid #15172b;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     max-width: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     @media screen and (max-width:280px){
         top:55%;
     }

@@ -52,7 +52,6 @@ const Login = (props) => {
                         if (response?.data?.UserDetails?.UserType === "Admin") {
                             Swal.fire({
                                 title: 'Login Successfully',
-                                text: 'Redirecting to Admin Dashboard.....',
                                 timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false,
@@ -67,7 +66,6 @@ const Login = (props) => {
                         } else if (response?.data?.UserDetails?.UserType === "Student") {
                             Swal.fire({
                                 title: 'Login Successfully',
-                                text: 'Redirecting to Student Dashboard.....',
                                 timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false,

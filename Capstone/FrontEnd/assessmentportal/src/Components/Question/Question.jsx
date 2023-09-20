@@ -97,7 +97,7 @@ const Question = (props) => {
                                             setInitialValues(updateInitialValues)
                                             setTitleQuestion("Update Question")
                                             event.stopPropagation()
-                                        }} className='category-btn'>Update</button>
+                                        }} className='question-btn'>Update</button>
                                         <button onMouseDown={event => event.stopPropagation()}
                                             onClick={(event) => {
                                                 event.stopPropagation()
@@ -140,7 +140,7 @@ const Question = (props) => {
                                                         })
                                                     }
                                                 })
-                                            }} className='category-btn'>Delete</button>
+                                            }} className='question-btn2'>Delete</button>
                                     </td>
                                 </tr>
                             ))}

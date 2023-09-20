@@ -152,7 +152,7 @@ const Quiz = (props) => {
                                                 })
                                             }
                                         })
-                                    }} className='category-btn'>Delete</button>
+                                    }} className='category-btn2'>Delete</button>
                                 </div>}
                                 {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
                                     className='category-btn' onClick={(event) => {

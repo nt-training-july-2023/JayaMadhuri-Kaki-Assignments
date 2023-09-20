@@ -3,8 +3,8 @@
     height: fit-content;
     border-radius: 20px;
     padding: 10px;
-    text-align: center;
     background-color: #31334e;
+    text-align: center;
 }
 .image{
     height: auto;
@@ -17,17 +17,24 @@
 }
 table{
     flex-wrap: wrap;
-    padding-left: 60px;
-    @media screen and (max-width:366px) {
-        padding-left:0px;
+    padding-left: 70px;
+    @media screen and (max-width:385px){
+        padding-left: 30px;
     }
 }
 tr{
     color:white;
 }
+td {
+    text-align: left;
+    padding-bottom: 5px;
+}
+.second-td{
+    text-align: center;
+    word-break: break-all;
+}
 .profile-container{
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-top: 50px;
 }
