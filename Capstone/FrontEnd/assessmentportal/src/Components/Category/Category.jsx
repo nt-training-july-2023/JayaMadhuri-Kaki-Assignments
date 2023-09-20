@@ -12,6 +12,7 @@ const Category = ({ userDetails, setEnable }) => {
     const [showQuiz, setShowQuiz] = useState(false)
     const [selectedId, setSelectedId] = useState(null)
     const [selectedName, setSelectedName] = useState(null)
+    const [loading, setLoading] = useState(false);
     const [initialValues, setInitialValues] = useState({
         categoryName: "",
         categoryDescription: ""
@@ -28,7 +29,9 @@ const Category = ({ userDetails, setEnable }) => {
         CategoryUrl.getAllCategories()
             .then(response => {
                 setCategory(response?.data?.listOfCategories)
+                setLoading(true);
             }).catch(error => {
+                setLoading(true);
                 Swal.fire({
                     title: 'Error',
                     text: 'Error In Getting Category List',
@@ -55,6 +58,7 @@ const Category = ({ userDetails, setEnable }) => {
                 <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable} selectedName={selectedName}/>
             ) : (
                 <div>
+                    {loading && <>
                     {category?.length > 0 ? (<>
                         <div className="category-container">
                             {category.map((item) => (
@@ -122,6 +126,7 @@ const Category = ({ userDetails, setEnable }) => {
                     {popUp && (
                         <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />
                     )}
+                    </>}
                 </div>
             )}
         </div>
