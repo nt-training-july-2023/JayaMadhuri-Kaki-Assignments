@@ -103,6 +103,9 @@
     border: 1px solid #15172b;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     max-width: 400px;
+    @media screen and (max-width:280px){
+        top:55%;
+    }
     .overlay {
         position: fixed;
         top: 0;
@@ -115,6 +118,10 @@
     .question-title1{
         text-align: center;
         color:#15172b;
+        @media screen and (max-width:375px){
+            margin-top: auto;
+            margin-bottom: auto;
+        }
     }
     .btn{
         background-color: #15172b;

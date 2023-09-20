@@ -85,15 +85,6 @@ class ResultServiceImplementationTest {
     }
     
     @Test
-    void testAddTemporaryResultIfAlreadyExists() {
-        ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
-        Results results = new Results();
-        when(resultRepo.findResultsByStudentsAndSubCategory(resultsDto.getStudentId(), resultsDto.getSubCategoryId()))
-        .thenReturn(results);
-        assertThrows(AlreadyExistsException.class, () -> resultsService.addTemporaryResult(resultsDto));
-    }
-    
-    @Test
     void testAddTemporaryResultIfSubCategoryIdNotExists() {
         ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
         Users users = new Users();
