@@ -66,7 +66,7 @@ const Question = (props) => {
                 <h2 className='sub-title'>{selectedName}/{selectedQuizName}</h2>
             </div>
             {loading &&
-                <>
+                <div className={popUp && 'display-none'}>
                     {question.length > 0 ? (
                         <div className="question-container">
                             <table class="table table-responsive">
@@ -157,7 +157,7 @@ const Question = (props) => {
                     ) : (
                         <h2 style={{ textAlign: "center", color: "#31334e", marginTop: "200px" }}>No Questions</h2>
                     )}
-                </>
+                </div>
             }
             <>
                 {popUp && (

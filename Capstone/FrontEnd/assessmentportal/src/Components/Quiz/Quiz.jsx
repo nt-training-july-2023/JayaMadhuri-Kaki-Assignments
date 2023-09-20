@@ -96,9 +96,9 @@ const Quiz = (props) => {
                 </>}
             {!showQuestion ? (<>
                 {loading &&
-                    <>
+                    <div>
                         {quiz.length > 0 ? (
-                            <div className="category-container">
+                            <div  className={popUp ? 'display-none' : 'category-container'}>
                                 {quiz.map((item) => (
                                     <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && setShowQuestion(true); setSelectedQuizId(item.subCategoryId); setSelectedQuizName(item.subCategoryName); } }}>
                                         <p className='p'>Name: {item.subCategoryName}</p>
@@ -192,7 +192,7 @@ const Quiz = (props) => {
                         {popUp && (
                             <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />
                         )}
-                    </>}
+                    </div>}
             </>
             ) : (
                 <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId} setEnable={setEnable} />)}</>

@@ -59,7 +59,8 @@ const Category = ({ userDetails, setEnable }) => {
             ) : (
                 <div>
                     {loading && <>
-                    {category?.length > 0 ? (<>
+                    {category?.length > 0 ? (
+                    <div className={popUp && 'display-none'}>
                         <div className="category-container">
                             {category.map((item) => (
                                 <div key={item.categoryId} className="category-card" onClick={() => { setShowQuiz(true); setSelectedId(item.categoryId); setSelectedName(item.categoryName)}}>
@@ -119,7 +120,7 @@ const Category = ({ userDetails, setEnable }) => {
                                 </div>
                             ))}
                         </div>
-                    </>) :
+                    </div>) :
                         (
                             <h2 style={{ textAlign: "center", color: "#31334e", marginTop:"200px" }}>No Categories</h2>
                         )}
