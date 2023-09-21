@@ -103,6 +103,7 @@ const AddUpdateQuestion = (props) => {
         setQuestionDetails({ ...questionDetails, correctAnswer: options[newIndex] });
     }
     return (
+        <div className='que-container-wrapper'>
         <div className="que-container">
             <h1 className="question-title1">{titleQuestion}</h1>
             <input className='question-input' type="text" name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
@@ -110,10 +111,10 @@ const AddUpdateQuestion = (props) => {
             <input className='question-input' type="text" name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
             <input className='question-input' type="text" name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
             <input className='question-input' type="text" name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
-            <div className="custom-input">
+            <div className="custom-input question-input">
                 <input
                     type="text"
-                    className='question-input'
+                    className='options-input'
                     placeholder='Click arrow to enter correct answer'
                     value={questionDetails?.correctAnswer || ""}
                     readOnly
@@ -122,6 +123,7 @@ const AddUpdateQuestion = (props) => {
             </div>
             <button className='btn' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</button>
             <button className='btn' onClick={() => { setPopUp(false) }}>Close</button>
+        </div>
         </div>
     )
 }
