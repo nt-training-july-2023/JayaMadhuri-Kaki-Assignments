@@ -43,40 +43,10 @@ const QuestionForStudent = (props) => {
         }
         setPrevSelectedOption(optionValue);
     };
-    const checkAnswers = () => {
+    const handleSubmit = () =>{
         if (attemptedQuestions > 0) {
-            const score = question.reduce((acc, item) => {
-                const questionId = item.questionId;
-                const selectedOptionValue = selectedOption[questionId];
-                if (selectedOptionValue === item.correctAnswer) {
-                    return acc + 1;
-                }
-                return acc;
-            }, 0);
-            const payload = {
-                studentId: details.userId,
-                subCategoryId: selectedQuizId,
-                categoryId: selectedId,
-                marksObtained: score,
-                totalMarks: question.length,
-                totalQuestions: question.length,
-                numOfAttemptedQuestions: attemptedQuestions
-            }
-            Swal.fire({
-                title: 'Submitted Successfully',
-                timer: 2000,
-                showConfirmButton: false,
-                showCancelButton: false,
-                icon: 'info',
-                background: '#15172b',
-                color: 'white',
-            })
-            handleResults(payload);
-            setTimeout(function () {
-                setEnable(false)
-                setShowQuestion(false)
-            }, 2000);
-        } else {
+            checkAnswers();
+        }else{
             Swal.fire({
                 title: 'Please Attempt Quiz',
                 timer: 2000,
@@ -87,27 +57,60 @@ const QuestionForStudent = (props) => {
                 color: 'white',
             })
         }
-    };
-    const handleResults = (results) => {
-        Url.addResults(results)
-            .then(response => {
-                console.log(response)
-            }).catch(error => {
-                Swal.fire({
-                    title: 'Error In Submission',
-                    text: 'Please do attempt quiz again',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    icon: 'error',
-                    background: '#15172b',
-                    color: 'white',
-                })
-                setTimeout(function () {
-                    setEnable(false)
-                    setShowQuestion(false)
-                }, 2000);
+    }
+    const checkAnswers = () => {
+        const score = question.reduce((acc, item) => {
+            const questionId = item.questionId;
+            const selectedOptionValue = selectedOption[questionId];
+            if (selectedOptionValue === item.correctAnswer) {
+                return acc + 1;
+            }
+            return acc;
+        }, 0);
+        const payload = {
+            studentId: details.userId,
+            subCategoryId: selectedQuizId,
+            categoryId: selectedId,
+            marksObtained: score,
+            totalMarks: question.length,
+            totalQuestions: question.length,
+            numOfAttemptedQuestions: attemptedQuestions
+        }
+        Swal.fire({
+            title: 'Submitted Successfully',
+            timer: 2000,
+            showConfirmButton: false,
+            showCancelButton: false,
+            icon: 'info',
+            background: '#15172b',
+            color: 'white',
+        })
+        handleResults(payload);
+        setTimeout(function () {
+            setEnable(false)
+            setShowQuestion(false)
+        }, 2000);
+};
+const handleResults = (results) => {
+    Url.addResults(results)
+        .then(response => {
+            console.log(response)
+        }).catch(error => {
+            Swal.fire({
+                title: 'Error In Submission',
+                text: 'Please do attempt quiz again',
+                timer: 2000,
+                showConfirmButton: false,
+                showCancelButton: false,
+                icon: 'error',
+                background: '#15172b',
+                color: 'white',
             })
+            setTimeout(function () {
+                setEnable(false)
+                setShowQuestion(false)
+            }, 1500);
+        })
     }
     useEffect(() => {
         fetchData();
@@ -128,7 +131,7 @@ const QuestionForStudent = (props) => {
                     <div className='question-body'>
                         <div className='card'>
                             <div className='student-question-container'>
-                            <h4>Attempted Questions:- {attemptedQuestions+" / "+question.length}</h4>
+                            <h5>Attempted Questions:-{attemptedQuestions+"/"+question.length}</h5>
                                 {question.map((item) => (<>
                                     <div key={item.questionId}>
                                         <h3>{count++}{". "}{item.questionContent}</h3>
@@ -166,7 +169,7 @@ const QuestionForStudent = (props) => {
                                 </>))}
                             </div>
                             <div className="submit-btn">
-                                <button className="submit-quiz" onClick={checkAnswers}>
+                                <button className="submit-quiz" onClick={handleSubmit}>
                                     Submit Quiz
                                 </button>
                             </div>
