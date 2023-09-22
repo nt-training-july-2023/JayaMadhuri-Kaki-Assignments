@@ -114,6 +114,10 @@ const handleResults = (results) => {
     }
     useEffect(() => {
         fetchData();
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
     }, []);
     return (
         <div>
