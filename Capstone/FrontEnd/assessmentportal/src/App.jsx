@@ -12,7 +12,7 @@ function App() {
         return <Login setRenderComponent={setRenderComponent} setUserDetails={setUserDetails}/>;
       case 'register':
         return <Register setRenderComponent={setRenderComponent}/>;
-        case 'navbar':
+      case 'navbar':
         return <Navbar setRenderComponent={setRenderComponent} userDetails={userDetails}/>;
       default:
         return null;

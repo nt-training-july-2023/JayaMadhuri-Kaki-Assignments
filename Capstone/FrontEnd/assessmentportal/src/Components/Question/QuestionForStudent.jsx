@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import Url from '../../Services/Url';
 
 const QuestionForStudent = (props) => {
-    const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable } = props;
+    const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
     const [selectedOption, setSelectedOption] = useState({});
     const [question, setQuestion] = useState([]);
     const [prevSelectedOption, setPrevSelectedOption] = useState({});
@@ -62,11 +62,16 @@ const QuestionForStudent = (props) => {
         const score = question.reduce((acc, item) => {
             const questionId = item.questionId;
             const selectedOptionValue = selectedOption[questionId];
+            console.log(selectedOptionValue)
             if (selectedOptionValue === item.correctAnswer) {
                 return acc + 1;
             }
             return acc;
         }, 0);
+        localStorage.setItem("marksObtained",score);
+        localStorage.setItem("totalMarks",question.length)
+        localStorage.setItem("totalQuestions",question.length)
+        localStorage.setItem("numOfAttemptedQuestions",attemptedQuestions)
         const payload = {
             studentId: details.userId,
             subCategoryId: selectedQuizId,
@@ -94,7 +99,6 @@ const QuestionForStudent = (props) => {
 const handleResults = (results) => {
     Url.addResults(results)
         .then(response => {
-            console.log(response)
         }).catch(error => {
             Swal.fire({
                 title: 'Error In Submission',
@@ -114,9 +118,12 @@ const handleResults = (results) => {
     }
     useEffect(() => {
         fetchData();
-        window.addEventListener('beforeunload', function (e) {
+        window.addEventListener("beforeunload", (e) => {
             e.preventDefault();
             e.returnValue = '';
+        });
+        window.addEventListener("unload", (e) => {
+            checkAnswers();
         });
     }, []);
     return (

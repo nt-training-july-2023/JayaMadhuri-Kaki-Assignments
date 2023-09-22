@@ -7,7 +7,7 @@ import Profile from '../Profile/Profile'
 import Results from '../Results/Results'
 
 const Navbar = (props) => {
-    const { setRenderComponent, userDetails } = props
+    const { setRenderComponent, userDetails} = props
     const role = userDetails.UserType
     const [activeButton, setActiveButton] = useState("")
     const [isNavExpanded, setIsNavExpanded] = useState(false)
@@ -20,7 +20,7 @@ const Navbar = (props) => {
     }
     const render = () => {
         if (activeButton === "category") {
-            return <Category userDetails={userDetails} setEnable={setEnable} />
+            return <Category userDetails={userDetails} setEnable={setEnable}/>
         } else if (activeButton === "profile") {
             return <Profile userDetails={userDetails} />
         } else if (activeButton === "results") {

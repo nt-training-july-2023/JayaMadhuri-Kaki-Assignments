@@ -263,8 +263,6 @@ const Register = (props) => {
           setErrors({ ...errors, password: "Password Required", confirmPassword: "Confirm your password" });
         }
       }
-    } else {
-      console.log(flags)
     }
   }
   const handleCommonButtonClick = () => {
@@ -281,9 +279,6 @@ const Register = (props) => {
       setFlags({ ...flags, emailIdFlag: true, passwordFlag: false, detailsFlag: false })
     } else if (flags?.detailsFlag) {
       setFlags({ ...flags, emailIdFlag: false, passwordFlag: true, detailsFlag: false })
-    }
-    else {
-      console.log(flags)
     }
     setButtonName("Next")
   }

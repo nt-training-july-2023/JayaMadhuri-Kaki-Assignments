@@ -5,7 +5,8 @@ import Swal from 'sweetalert2'
 import Quiz from '../Quiz/Quiz'
 import CategoryUrl from '../../Services/Url'
 
-const Category = ({ userDetails, setEnable }) => {
+const Category = (props) => {
+    const {userDetails, setEnable} = props
     const [category, setCategory] = useState([])
     const [title, setTitle] = useState("Add Category")
     const [popUp, setPopUp] = useState(false)
