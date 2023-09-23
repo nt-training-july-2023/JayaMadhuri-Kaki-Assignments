@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.assessmentPortal.dto.QuestionDto;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
-import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.QuestionRepo;
@@ -52,50 +50,33 @@ public class QuestionServiceImplementation implements QuestionService {
     this.questionRepo = questionRepo2;
 }
 @Override
-  public final QuestionDto addQuestion(final QuestionDto question) {
-    if (question.getQuestionContent().isEmpty()
-            || question.getSubCategoryId() == null
-            || question.getOptionA().isEmpty()
-            || question.getOptionB().isEmpty()
-            || question.getOptionC().isEmpty()
-            || question.getOptionD().isEmpty()
-            || question.getCorrectAnswer().isEmpty()) {
-      logger.error("Input fields are empty");
-      throw new InputEmptyException();
-    } else {
-      SubCategory existingSubCategory = subCategoryRepo.findById(
-               question.getSubCategoryId()).orElseThrow(() ->
-               new NotFoundException());
+  public final QuestionDto addQuestion(final QuestionDto questionDto) {
+      SubCategory subCategory = subCategoryRepo.findById(
+              questionDto.getSubCategoryId()).orElseThrow(() ->
+               new NoSuchElementException());
       logger.info("Question Added");
-      Question que = new Question();
-      que.setQuestionContent(question.getQuestionContent());
-      que.setOptionA(question.getOptionA());
-      que.setOptionB(question.getOptionB());
-      que.setOptionC(question.getOptionC());
-      que.setOptionD(question.getOptionD());
-      que.setCorrectAnswer(question.getCorrectAnswer());
-      que.setSubCategory(existingSubCategory);
-      System.out.println(existingSubCategory.getSubCategoryName());
-      questionRepo.save(que);
-      return question;
-    }
+      Question question = new Question();
+      question.setQuestionContent(questionDto.getQuestionContent());
+      question.setOptionA(questionDto.getOptionA());
+      question.setOptionB(questionDto.getOptionB());
+      question.setOptionC(questionDto.getOptionC());
+      question.setOptionD(questionDto.getOptionD());
+      question.setCorrectAnswer(questionDto.getCorrectAnswer());
+      question.setSubCategory(subCategory);
+      questionRepo.save(question);
+      return questionDto;
   }
   @Override
   public final List<QuestionDto> getQuestionsBySubCategoryId(final
                    Long subCategoryId) {
-    SubCategory existingSubCategory = subCategoryRepo
-              .findById(subCategoryId).orElse(null);
-    if (existingSubCategory == null) {
-      logger.error("Quiz with id not found!");
-      throw new NoSuchElementException();
-    } else {
-      List<Question> listOfQuestions =
+    subCategoryRepo.findById(subCategoryId).orElseThrow(
+                      () -> new NoSuchElementException());
+    List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
-      logger.info("Retrieved Question by Quiz id");
-      return listOfQuestions.stream()
+    logger.info("Retrieved Question by Quiz id");
+    return listOfQuestions.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
-    }
   }
   /**
    * converting entity to dto for get all method.
@@ -122,44 +103,26 @@ public class QuestionServiceImplementation implements QuestionService {
   }
   @Override
   public final QuestionDto updateQuestion(final Long questionId, final
-          QuestionDto question) {
-    Question existingQuestion = questionRepo
-                .findById(questionId).orElse(null);
-    if (existingQuestion != null) {
+          QuestionDto questionDto) {
+    Question question = questionRepo
+                .findById(questionId).orElseThrow(
+                        () -> new NoSuchElementException());
       logger.info("Question with id exists");
-      existingQuestion.setQuestionContent(question.getQuestionContent());
-      existingQuestion.setOptionA(question.getOptionA());
-      existingQuestion.setOptionB(question.getOptionB());
-      existingQuestion.setOptionC(question.getOptionC());
-      existingQuestion.setOptionD(question.getOptionD());
-      existingQuestion.setCorrectAnswer(question.getCorrectAnswer());
-      if (existingQuestion.getQuestionContent().isEmpty()
-          || existingQuestion.getOptionA().isEmpty()
-          || existingQuestion.getOptionB().isEmpty()
-          || existingQuestion.getOptionC().isEmpty()
-          || existingQuestion.getOptionD().isEmpty()
-          || existingQuestion.getCorrectAnswer().isEmpty()) {
-        logger.error("Input fields are empty");
-        throw new InputEmptyException();
-      } else {
-        logger.info("Question Updated");
-        questionRepo.save(existingQuestion);
-        return question;
-      }
-    } else {
-      logger.error("Question with id not exists");
-      throw new NoSuchElementException();
-    }
+      question.setQuestionContent(questionDto.getQuestionContent());
+      question.setOptionA(questionDto.getOptionA());
+      question.setOptionB(questionDto.getOptionB());
+      question.setOptionC(questionDto.getOptionC());
+      question.setOptionD(questionDto.getOptionD());
+      question.setCorrectAnswer(questionDto.getCorrectAnswer());
+      logger.info("Question Updated");
+      questionRepo.save(question);
+      return questionDto;
   }
   @Override
   public final void deleteQuestion(final Long questionId) {
-    Question existingQuestion = questionRepo.findById(questionId).orElse(null);
-    if (existingQuestion == null) {
-      logger.error("Question with id not exists");
-      throw new NoSuchElementException();
-    } else {
-      logger.info("Question Deleted");
-      questionRepo.deleteById(questionId);
-    }
+    questionRepo.findById(questionId).orElseThrow(
+            () -> new NoSuchElementException());
+    logger.info("Question Deleted");
+    questionRepo.deleteById(questionId);
   }
 }

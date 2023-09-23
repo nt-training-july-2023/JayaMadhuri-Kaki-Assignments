@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmptyListException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 
@@ -72,17 +71,6 @@ public class GlobalExceptionHandler {
             final EmailAlreadyExistsException exception) {
     return new ResponseEntity<String>("An account is already registered "
             + "with this Email", HttpStatus.CONFLICT);
-  }
-  /**
-   *Exception handles when input fields are empty.
-   *@return responseEntity
-   *@param exception inputEmptyException
-  */
-  @ExceptionHandler(InputEmptyException.class)
-  public final ResponseEntity<String> handleInputEmptyException(final
-            InputEmptyException exception) {
-    return new ResponseEntity<String>("Input fields are empty!"
-            + " Fill the mandatory fields", HttpStatus.CONFLICT);
   }
   /**
    *Exception handles when when data is already exists in db.

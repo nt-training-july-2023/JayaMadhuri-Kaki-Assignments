@@ -120,7 +120,7 @@ const handleResults = (results) => {
         fetchData();
         window.addEventListener("beforeunload", (e) => {
             e.preventDefault();
-            e.returnValue = '';
+            e.returnValue = "";
         });
         window.addEventListener("unload", (e) => {
             checkAnswers();

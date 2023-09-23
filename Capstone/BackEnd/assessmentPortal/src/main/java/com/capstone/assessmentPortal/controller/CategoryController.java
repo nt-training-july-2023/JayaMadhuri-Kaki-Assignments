@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.CategoryService;
+
+import jakarta.validation.Valid;
 /**
  * Category Controller class.
  */
@@ -54,11 +56,11 @@ public class CategoryController {
   @GetMapping("/category/{categoryId}")
   public final ResponseEntity<Object> getCategoryById(@PathVariable
                    final Long categoryId) {
-    CategoryDetailsDto category = categoryService.getCategoryById(categoryId);
+    CategoryDetailsDto categoryDto = categoryService.getCategoryById(categoryId);
     logger.info("Retrieved category by id");
     return ResponseHandler.generateResponse("Successfully "
              + "Retrieved Category By Id",
-                HttpStatus.OK, "CategoryDetails", category);
+                HttpStatus.OK, "CategoryDetails", categoryDto);
   }
   /**
    *add category to category table.
@@ -67,11 +69,11 @@ public class CategoryController {
   */
   @PostMapping("/category/add")
   public final ResponseEntity<Object> addCategory(
-            @RequestBody final CategoryDetailsDto category) {
-    CategoryDetailsDto newCategory = categoryService.addCategory(category);
+            @RequestBody @Valid final CategoryDetailsDto category) {
+    CategoryDetailsDto categoryDto = categoryService.addCategory(category);
     logger.info("Category added");
     return ResponseHandler.generateResponse("Successfully Added",
-          HttpStatus.OK, "CategoryDetails", newCategory);
+          HttpStatus.OK, "CategoryDetails", categoryDto);
   }
   /**
    * update category details by id.
@@ -82,12 +84,12 @@ public class CategoryController {
   @PutMapping("/category/update/{categoryId}")
   public final ResponseEntity<Object> updateCategory(@PathVariable
            final Long categoryId,
-           @RequestBody final CategoryDetailsDto category) {
-    CategoryDetailsDto updatedCategory = categoryService.updateCategory(
+           @RequestBody @Valid final CategoryDetailsDto category) {
+    CategoryDetailsDto categoryDto = categoryService.updateCategory(
                    categoryId, category);
     logger.info("Category updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, "CategoryDetails", updatedCategory);
+          HttpStatus.OK, "CategoryDetails", categoryDto);
   }
   /**
    * delete category by id.

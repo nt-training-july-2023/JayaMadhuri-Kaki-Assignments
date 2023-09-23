@@ -20,6 +20,8 @@ import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.QuestionService;
 
+import jakarta.validation.Valid;
+
 /**
  *Question controller class.
 */
@@ -43,12 +45,12 @@ public class QuestionController {
   @GetMapping("/questions/{subCategoryId}")
   public final ResponseEntity<Object> getAllQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
-    List<QuestionDto> question = questionService
+    List<QuestionDto> questions = questionService
           .getQuestionsBySubCategoryId(subCategoryId);
     logger.info("Retrieved all questions by quiz id");
     return ResponseHandler.generateResponse(
            "Successfully Retrieved Questions By SubCategory Id",
-           HttpStatus.OK, "QuestionBySubCategoryId", question);
+           HttpStatus.OK, "QuestionBySubCategoryId", questions);
   }
   /**
    *add questions to questions table.
@@ -57,11 +59,11 @@ public class QuestionController {
   */
   @PostMapping("/questions/add")
   public final ResponseEntity<Object> addQuestion(
-            @RequestBody final QuestionDto question) {
-    QuestionDto newQuestion = questionService.addQuestion(question);
+            @RequestBody @Valid final QuestionDto question) {
+    QuestionDto questionDto = questionService.addQuestion(question);
     logger.info("Question Added");
     return ResponseHandler.generateResponse("Successfully Added",
-            HttpStatus.OK, "Question", newQuestion);
+            HttpStatus.OK, "Question", questionDto);
   }
   /**
    *update questions by question id and given details.
@@ -72,12 +74,12 @@ public class QuestionController {
   @PutMapping("/questions/update/{questionId}")
   public final ResponseEntity<Object> updateQuestion(
           @PathVariable final Long questionId,
-          @RequestBody final QuestionDto question) {
-    QuestionDto updatedQuestion = questionService.updateQuestion(questionId,
+          @RequestBody @Valid final QuestionDto question) {
+    QuestionDto questionDto = questionService.updateQuestion(questionId,
                        question);
     logger.info("Question Updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, "Question", updatedQuestion);
+          HttpStatus.OK, "Question", questionDto);
   }
   /**
    *delete questions by question id.

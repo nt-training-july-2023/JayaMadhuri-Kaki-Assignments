@@ -8,8 +8,11 @@ import Results from '../Results/Results'
 
 const Navbar = (props) => {
     const { setRenderComponent, userDetails} = props
-    const role = userDetails.UserType
-    const [activeButton, setActiveButton] = useState("")
+    let userDetails_AfterReload = JSON.parse(localStorage.getItem("UserDetails"));
+    const userInfo = Object.keys(userDetails).length > 0 ? userDetails : userDetails_AfterReload
+    const role = userInfo?.UserType;
+    const Current_SubWindow = localStorage.getItem("Current_SubWindow")
+    const [activeButton, setActiveButton] = useState(Current_SubWindow)
     const [isNavExpanded, setIsNavExpanded] = useState(false)
     const [enable, setEnable] = useState(false)
     const toggleMenu = () => {
@@ -19,15 +22,13 @@ const Navbar = (props) => {
         setActiveButton(page)
     }
     const render = () => {
-        if (activeButton === "category") {
-            return <Category userDetails={userDetails} setEnable={setEnable}/>
-        } else if (activeButton === "profile") {
-            return <Profile userDetails={userDetails} />
+        if (activeButton === "profile") {
+            return <Profile userDetails={userInfo} />
         } else if (activeButton === "results") {
-            return <Results userDetails={userDetails} />
+            return <Results userDetails={userInfo} />
         }
         else {
-            return null
+            return <Category userDetails={userInfo} setEnable={setEnable}/>
         }
     }
     const handleLogOut = () => {
@@ -56,6 +57,12 @@ const Navbar = (props) => {
                     background: '#15172b'
                 })
                 setTimeout(function () {
+                    localStorage.setItem("UserDetails","");
+                    localStorage.setItem("Current_Window","");
+                    localStorage.setItem("Current_SubWindow","")
+                    localStorage.setItem("LastVisited_Window","");
+                    localStorage.setItem("Current_Category_SubWindow","")
+                    localStorage.setItem("CategoryId","")
                     setRenderComponent("login")
                 }, 2000)
             } else {
@@ -65,7 +72,6 @@ const Navbar = (props) => {
     }
     useEffect(() => {
         if (role === "Admin") {
-            setActiveButton("category")
             Swal.fire({
                 text: 'WELCOME TO ADMIN DASHBOARD!',
                 timer: 1900,
@@ -74,9 +80,8 @@ const Navbar = (props) => {
                 background: '#15172b'
             })
         } else {
-            setActiveButton("category")
             Swal.fire({
-                text: `WELCOME ${userDetails?.Name} TO STUDENT DASHBOARD!`,
+                text: `WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`,
                 timer: 1900,
                 showConfirmButton: false,
                 color: 'white',
@@ -101,6 +106,7 @@ const Navbar = (props) => {
                         <li>
                             <button onClick={() => {
                                 handleButtonClick('category')
+                                localStorage.setItem("Current_SubWindow","category")
                                 setIsNavExpanded(false)
                             }}
                                 className={`nav-button ${activeButton === "category"
@@ -111,14 +117,22 @@ const Navbar = (props) => {
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => { handleButtonClick('results'); setIsNavExpanded(false) }}
+                            <button onClick={() => { 
+                                handleButtonClick('results'); 
+                                setIsNavExpanded(false)
+                                localStorage.setItem("Current_SubWindow","results")
+                             }}
                                 className={`nav-button ${activeButton === "results" ? 'active' : ''
                                     }`} disabled={enable}>
                                 Results
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => { handleButtonClick('profile'); setIsNavExpanded(false) }}
+                            <button onClick={() => { 
+                                handleButtonClick('profile'); 
+                                setIsNavExpanded(false)
+                                localStorage.setItem("Current_SubWindow","profile")
+                             }}
                                 className={`nav-button ${activeButton === "profile" ? 'active' : ''
                                     }`} disabled={enable}>
                                 Profile

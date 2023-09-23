@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,37 +31,44 @@ public class Question {
      * question title attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "Question is required")
     private String questionContent;
     /**
      * question option 1 attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "OptionA is required")
     private String optionA;
     /**
      * question option 2 attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "OptionB is required")
     private String optionB;
     /**
      * question option 3 attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "OptionC is required")
     private String optionC;
     /**
      * question option 4 attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "OptionD is required")
     private String optionD;
     /**
      * question answer attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "Correct Answer is required")
     private String correctAnswer;
     /**
      * foreign key attribute of subcategory.
      */
     @ManyToOne
     @JoinColumn(name = "subCategoryId")
+    @NotBlank(message = "SubCategory is required")
     private SubCategory subCategory;
     /**
      * get subcategory.

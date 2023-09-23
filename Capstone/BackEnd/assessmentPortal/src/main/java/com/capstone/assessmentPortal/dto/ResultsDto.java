@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,38 +30,49 @@ public class ResultsDto {
     /**
      * student id from users table.
      */
+    @Column(nullable = false)
+    @NotNull(message = "Student Id is required")
     private Long studentId;
     /**
      * subcategory Id from subCategory table.
      */
+    @Column(nullable = false)
+    @NotNull(message = "Quiz Id is required")
     private Long subCategoryId;
     /**
      * category Id from category table.
      */
+    @Column(nullable = false)
+    @NotNull(message = "Category Id is required")
     private Long categoryId;
     /**
      * marks obtained in quiz attribute.
      */
     @Column(nullable = false)
+    @NotNull(message = "Marks obtained is required")
     private int marksObtained;
     /**
      * total marks of quiz attribute.
      */
     @Column(nullable = false)
+    @NotNull(message = "Total marks is required")
     private int totalMarks;
     /**
      * number of questions attempted attribute.
      */
     @Column(nullable = false)
+    @NotNull(message = "Number of attempted questions is required")
     private int numOfAttemptedQuestions;
     /**
      * total questions in quiz attribute.
      */
     @Column(nullable = false)
+    @NotNull(message = "Total questions is required")
     private int totalQuestions;
     /**
      * date and time of quiz attempted attribute.
      */
+    @Column(nullable = false)
     private String dateAndTime;
     /**
      * set date and time.

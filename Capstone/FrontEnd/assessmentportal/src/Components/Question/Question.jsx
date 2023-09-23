@@ -6,6 +6,9 @@ import QuestionUrl from '../../Services/Url'
 
 const Question = (props) => {
     const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName } = props
+    const categoryName = localStorage.getItem("CategoryName")
+    const QuizName = localStorage.getItem("QuizName")
+    const QuizId = localStorage.getItem("QuizId")
     const [question, setQuestion] = useState([])
     const [titleQuestion, setTitleQuestion] = useState("Add Question")
     const [popUp, setPopUp] = useState(false)
@@ -28,12 +31,12 @@ const Question = (props) => {
             optionC: "",
             optionD: "",
             correctAnswer: "",
-            subCategoryId: selectedQuizId
+            subCategoryId: selectedQuizId ? selectedQuizId : QuizId
         })
         setPopUp(true)
     }
     const fetchData = async () => {
-        QuestionUrl.getAllQuestionsByQuizId(selectedQuizId)
+        QuestionUrl.getAllQuestionsByQuizId(selectedQuizId ? selectedQuizId : QuizId)
             .then(response => {
                 setQuestion(response?.data?.QuestionBySubCategoryId)
                 setLoading(true)
@@ -58,12 +61,14 @@ const Question = (props) => {
         <div>
             <div>
                 <button className='addquestion-btn' onClick={handleAdd}>Add Question</button>
-                <button className='backquestion-btn' onClick={() => { setShowQuestion(false) }}>Back</button>
+                <button className='backquestion-btn' onClick={() => { 
+                    localStorage.setItem("Current_Category_SubWindow","quiz")
+                    setShowQuestion(false) }}>Back</button>
                 <h1 className='category-title'>Questions</h1>
                 <hr />
             </div>
             <div>
-                <h2 className='sub-title'>{selectedName}/{selectedQuizName}</h2>
+                <h2 className='sub-title'>{selectedName ? selectedName : categoryName}/{selectedQuizName ? selectedQuizName : QuizName}</h2>
             </div>
             {loading &&
                 <div className={popUp && 'display-none'}>

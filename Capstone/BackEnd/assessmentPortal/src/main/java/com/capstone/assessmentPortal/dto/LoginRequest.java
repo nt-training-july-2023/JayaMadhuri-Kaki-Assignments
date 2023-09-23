@@ -16,7 +16,7 @@ public class LoginRequest {
   /**
    *user email attribute.
  */
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   @NotBlank(message = "Email is required")
   @Pattern(regexp = "^[A-Z0-9a-z+_-]+@nucleusteq[.]com$",
           message = "Email is not Valid")
@@ -24,7 +24,7 @@ public class LoginRequest {
   /**
    *user password attribute.
  */
-  @Column
+  @Column(nullable = false)
   @NotBlank(message = "Password is required")
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
                     + "(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",

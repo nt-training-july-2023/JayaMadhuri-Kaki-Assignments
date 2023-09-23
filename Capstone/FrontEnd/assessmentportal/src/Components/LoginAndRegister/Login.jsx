@@ -49,6 +49,10 @@ const Login = (props) => {
             UsersUrl.userLogin(finalValues)
                 .then(response => {
                     if (response?.data?.statusCode == 200) {
+                        localStorage.setItem("UserDetails",JSON.stringify(response?.data?.UserDetails));
+                        localStorage.setItem("Current_Window","navbar");
+                        localStorage.setItem("Current_SubWindow","category")
+                        localStorage.setItem("LastVisited_Window","login");
                         if (response?.data?.UserDetails?.UserType === "Admin") {
                             Swal.fire({
                                 title: 'Login Successfully',

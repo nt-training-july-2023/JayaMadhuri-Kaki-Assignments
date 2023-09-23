@@ -61,6 +61,7 @@ public class Results {
     /**
      * date and time of quiz attempted attribute.
      */
+    @Column(nullable = false)
     private String dateAndTime;
     /**
      * get students.

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.assessmentPortal.dto.ResultsDto;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
 import com.capstone.assessmentPortal.model.Results;
@@ -77,58 +76,44 @@ public class ResultServiceImplementation implements ResultService {
    this.finalResultsRepo = finalResultRepo;
 }
 @Override
-  public final ResultsDto addTemporaryResult(final ResultsDto results) {
-    if (results.getStudentId() == null || results.getCategoryId() == null
-            || results.getSubCategoryId() == null) {
-       logger.error("Input fields are emtpy");
-       throw new InputEmptyException();
-    } else {
-        Users existinguser = usersRepo.findById(results
-                .getStudentId()).orElse(null);
-       if (existinguser == null) {
-           logger.error("Student id not exists");
-         throw new NoSuchElementException();
-       } else {
-         SubCategory existingquiz = subCategoryRepo.findById(
-         results.getSubCategoryId()).orElse(null);
-         if (existingquiz != null) {
-               logger.info("Result Added");
-               FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
-               finalResults.setStudentId(results.getStudentId());
-               Optional<Users> users = usersRepo.findById(results
-                       .getStudentId());
-               finalResults.setStudentEmailId(users.get().getEmailId());
-               finalResults.setStudentName(users.get().getFirstName()
-                       + users.get().getLastName());
-               Optional<SubCategory> subCategory = subCategoryRepo
-                       .findById(results.getSubCategoryId());
-               Optional<Category> category = categoryRepo.findById(results
-                       .getCategoryId());
-               finalResults.setCategoryName(category.get().getCategoryName());
-               finalResults.setQuizName(subCategory.get().getSubCategoryName());
-               finalResults.setMarksObtained(results.getMarksObtained());
-               finalResults.setTotalMarks(results.getTotalMarks());
-               finalResults.setNumOfAttemptedQuestions(results
-                        .getNumOfAttemptedQuestions());
-               finalResults.setTotalQuestions(results.getTotalQuestions());
-               finalResults.setDateAndTime(results.setDateAndTimeMethod());
-             finalResultsRepo.save(finalResults);
-             Results res = new Results();
-             res.setStudents(existinguser);
-             res.setSubCategory(existingquiz);
-             res.setTotalMarks(results.getTotalMarks());
-             res.setMarksObtained(results.getMarksObtained());
-             res.setNumOfAttemptedQuestions(results
-                     .getNumOfAttemptedQuestions());
-             res.setTotalQuestions(results.getTotalQuestions());
-             res.setDateAndTime(results.setDateAndTimeMethod());
-             resultRepo.save(res);
-             return results;
-           } else {
-             logger.error("Quiz id not exists");
-             throw new NoSuchElementException();
-           }
-         }
-    }
+  public final ResultsDto addTemporaryResult(final ResultsDto resultsDto) {
+    Users user = usersRepo.findById(resultsDto
+            .getStudentId()).orElseThrow(
+                    () -> new NoSuchElementException());
+    SubCategory quiz = subCategoryRepo.findById(
+             resultsDto.getSubCategoryId()).orElseThrow(
+                     () -> new NoSuchElementException());
+    logger.info("Result Added");
+    FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
+    finalResults.setStudentId(resultsDto.getStudentId());
+    Optional<Users> users = usersRepo.findById(resultsDto
+           .getStudentId());
+    finalResults.setStudentEmailId(users.get().getEmailId());
+    finalResults.setStudentName(users.get().getFirstName()
+           + users.get().getLastName());
+    Optional<SubCategory> subCategory = subCategoryRepo
+           .findById(resultsDto.getSubCategoryId());
+    Optional<Category> category = categoryRepo.findById(resultsDto
+           .getCategoryId());
+    finalResults.setCategoryName(category.get().getCategoryName());
+    finalResults.setQuizName(subCategory.get().getSubCategoryName());
+    finalResults.setMarksObtained(resultsDto.getMarksObtained());
+    finalResults.setTotalMarks(resultsDto.getTotalMarks());
+    finalResults.setNumOfAttemptedQuestions(resultsDto
+            .getNumOfAttemptedQuestions());
+    finalResults.setTotalQuestions(resultsDto.getTotalQuestions());
+    finalResults.setDateAndTime(resultsDto.setDateAndTimeMethod());
+    finalResultsRepo.save(finalResults);
+    Results results = new Results();
+    results.setStudents(user);
+    results.setSubCategory(quiz);
+    results.setTotalMarks(resultsDto.getTotalMarks());
+    results.setMarksObtained(resultsDto.getMarksObtained());
+    results.setNumOfAttemptedQuestions(resultsDto
+             .getNumOfAttemptedQuestions());
+    results.setTotalQuestions(resultsDto.getTotalQuestions());
+    results.setDateAndTime(resultsDto.setDateAndTimeMethod());
+    resultRepo.save(results);
+    return resultsDto;
   }
 }

@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class SubCategory {
      * subcategory name attribute.
      */
     @Column(nullable = false)
+    @NotBlank(message = "Quiz Name is required")
     private String subCategoryName;
     /**
      * subcategory description attribute.
@@ -55,6 +57,7 @@ public class SubCategory {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
+    @NotBlank(message = "Category is required")
     private Category category;
     /**
      * list of questions in a quiz attribute.

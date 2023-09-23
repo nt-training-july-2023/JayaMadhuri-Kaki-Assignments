@@ -7,10 +7,11 @@ import CategoryUrl from '../../Services/Url'
 
 const Category = (props) => {
     const {userDetails, setEnable} = props
+    const showQuiz_AfterRefresh =  localStorage.getItem("Current_Category_SubWindow")
     const [category, setCategory] = useState([])
     const [title, setTitle] = useState("Add Category")
     const [popUp, setPopUp] = useState(false)
-    const [showQuiz, setShowQuiz] = useState(false)
+    const [showQuiz, setShowQuiz] = useState(showQuiz_AfterRefresh === "quiz")
     const [selectedId, setSelectedId] = useState(null)
     const [selectedName, setSelectedName] = useState(null)
     const [loading, setLoading] = useState(false);
@@ -62,9 +63,16 @@ const Category = (props) => {
                     {loading && <>
                     {category?.length > 0 ? (
                     <div className={popUp && 'display-none'}>
-                        <div className="category-container">
+                        <div className="category-container"> 
                             {category.map((item) => (
-                                <div key={item.categoryId} className="category-card" onClick={() => { setShowQuiz(true); setSelectedId(item.categoryId); setSelectedName(item.categoryName)}}>
+                                <div key={item.categoryId} className="category-card" onClick={() => {
+                                    setShowQuiz(true);
+                                    localStorage.setItem("Current_Category_SubWindow","quiz")
+                                    localStorage.setItem("CategoryId",item.categoryId)
+                                    localStorage.setItem("CategoryName",item.categoryName)
+                                    setSelectedId(item.categoryId); 
+                                    setSelectedName(item.categoryName)
+                                 }}>
                                     <p>Name: {item.categoryName}</p>
                                     <p>Description: {item.categoryDescription}</p>
                                     {userDetails?.UserType === "Admin" && <div>

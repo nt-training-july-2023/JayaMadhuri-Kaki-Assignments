@@ -24,7 +24,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmptyListException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 @SpringBootTest
@@ -75,13 +74,6 @@ class GlobalExceptionHandlerTest {
     void testHandleAlreadyExistsExceptionEmailAlreadyExistsException() {
         AlreadyExistsException noSuch = new AlreadyExistsException("Element already exists");
         ResponseEntity<String> response = globalhandler.handleAlreadyExistsException(noSuch);
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
-    }
-
-    @Test
-    void testHandleInputEmptyException() {
-        InputEmptyException noSuch = new InputEmptyException("Input fields are empty");
-        ResponseEntity<String> response = globalhandler.handleInputEmptyException(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
 

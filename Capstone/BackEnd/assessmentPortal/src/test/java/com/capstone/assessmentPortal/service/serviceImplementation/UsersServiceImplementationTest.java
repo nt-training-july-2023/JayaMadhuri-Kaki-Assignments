@@ -20,7 +20,6 @@ import com.capstone.assessmentPortal.dto.SignUpRequest;
 import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 import com.capstone.assessmentPortal.model.Results;
 import com.capstone.assessmentPortal.model.Users;
@@ -38,6 +37,7 @@ class UsersServiceImplementationTest {
       usersRepo = mock(UsersRepo.class);
       usersServiceImpl = new UsersServiceImplementation(usersRepo);
     }
+    
     @Test
     void testStudentRegistration() {
         SignUpRequest users = new SignUpRequest();
@@ -62,6 +62,7 @@ class UsersServiceImplementationTest {
         assertEquals(userDetails.getFirstName()+userDetails.getLastName(),
                 signUpRequest);
     }
+    
     @Test
     void testStudentRegistrationIfFails() {
         SignUpRequest users = new SignUpRequest();
@@ -149,16 +150,6 @@ class UsersServiceImplementationTest {
         when(usersRepo.existsById(userId)).thenReturn(false);
         assertThrows(NoSuchElementException.class, () -> usersServiceImpl.updateStudentDetails(userId,users));
     }
-    @Test
-    void testUpdateWhenEmptyFields() {
-        Long userId = 1L;
-        UserDetailsForUpdate users = new UserDetailsForUpdate();
-        users.setFirstName("");
-        Users user = new Users();
-        user.setFirstName(users.getFirstName());
-        when(usersRepo.findById(userId)).thenReturn(Optional.of(user));
-        assertThrows(InputEmptyException.class, () -> usersServiceImpl.updateStudentDetails(userId,users));
-    }  
     
     @Test
     void updateDetails() {
@@ -189,6 +180,7 @@ class UsersServiceImplementationTest {
         assertNotNull(updatedDetails);
         assertEquals(updateduser.getFirstName(),updatedDetails.getFirstName());
     }
+    
     @Test
     void testGetStudentById() {
        Long userId = 13L;
@@ -262,5 +254,4 @@ class UsersServiceImplementationTest {
        assertEquals(userDetails.getGender(),result.getGender());
        assertEquals(userDetails.getUserType(),result.getUserType());
     }
-
 }

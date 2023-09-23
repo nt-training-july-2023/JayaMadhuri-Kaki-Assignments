@@ -36,11 +36,11 @@ public class FinalResultController {
   */
   @GetMapping("/finalResults")
   public final ResponseEntity<Object> getAllFinalResults() {
-    List<FinalResultsDto> finalResult = finalResultService
+    List<FinalResultsDto> finalResultDto = finalResultService
                      .getAllFinalResults();
     logger.info("Retrieved all final results");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-        HttpStatus.OK, "FinalResults", finalResult);
+        HttpStatus.OK, "FinalResults", finalResultDto);
   }
   /**
    * get all final results by student id.
@@ -50,10 +50,10 @@ public class FinalResultController {
   @GetMapping("/finalResults/{emailId}")
   public final ResponseEntity<Object> getAllFinalResultByStudentEmail(
           @PathVariable final String emailId) {
-    List<FinalResultsDto> finalResult = finalResultService
+    List<FinalResultsDto> finalResults = finalResultService
                 .getFinalResultByStudentEmail(emailId);
     logger.info("Retrieved all final results by student EmailId");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-          HttpStatus.OK, "FinalResults", finalResult);
+          HttpStatus.OK, "FinalResults", finalResults);
   }
 }

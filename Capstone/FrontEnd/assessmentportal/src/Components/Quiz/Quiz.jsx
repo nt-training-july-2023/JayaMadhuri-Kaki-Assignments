@@ -8,6 +8,9 @@ import Url from '../../Services/Url';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
+    const showQuestion_AfterRefresh =  localStorage.getItem("Current_Category_SubWindow")
+    const categoryId = localStorage.getItem("CategoryId")
+    const categoryName = localStorage.getItem("CategoryName")
     const [quiz, setQuiz] = useState([]);
     const [details, setDetails] = useState({})
     const [title, setTitle] = useState("Add Quiz");
@@ -16,7 +19,7 @@ const Quiz = (props) => {
     const [popUp, setPopUp] = useState(false);
     const [loading, setLoading] = useState(false);
     const [time, setTime] = useState(null)
-    const [showQuestion, setShowQuestion] = useState(false);
+    const [showQuestion, setShowQuestion] = useState(showQuestion_AfterRefresh === 'question');
     const [initialValues, setInitialValues] = useState({
         subCategoryName: "",
         subCategoryDescription: "",
@@ -29,12 +32,12 @@ const Quiz = (props) => {
             subCategoryName: "",
             subCategoryDescription: "",
             timeLimitInMinutes: "",
-            categoryId: selectedId
+            categoryId: selectedId ? selectedId : categoryId
         })
         setPopUp(true);
     }
     const fetchData = async () => {
-        Url.getQuizByCategoryId(selectedId)
+        Url.getQuizByCategoryId(selectedId ? selectedId : categoryId)
             .then(response => {
                 setQuiz(response?.data?.SubCategoryByCategoryId);
                 setLoading(true)
@@ -64,7 +67,7 @@ const Quiz = (props) => {
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
                     Swal.fire({
-                        title: 'Erro',
+                        title: 'Error',
                         text: 'NetWork Error',
                         timer: 2000,
                         showConfirmButton: false,
@@ -86,12 +89,15 @@ const Quiz = (props) => {
                 <>
                     <div>
                         {userDetails?.UserType === "Admin" && <button className='addcategory-btn' onClick={handleAdd}>Add Quiz</button>}
-                        <button className={userDetails?.UserType === "Admin" ? ('backquiz-btn') : ('addcategory-btn')} onClick={() => { setShowQuiz(false) }}>Back</button>
+                        <button className={userDetails?.UserType === "Admin" ? ('backquiz-btn') : ('addcategory-btn')} onClick={() => { 
+                            setShowQuiz(false)
+                            localStorage.setItem("Current_Category_SubWindow","category")
+                             }}>Back</button>
                         <h1 className='category-title'>Quiz</h1>
                         <hr />
                     </div>
                     {userDetails?.UserType === "Admin" && <div>
-                        <h2 className='sub-title'>{selectedName}/</h2>
+                        <h2 className='sub-title'>{selectedName ? selectedName : categoryName}/</h2>
                     </div>}
                 </>}
             {!showQuestion ? (<>
@@ -100,7 +106,14 @@ const Quiz = (props) => {
                         {quiz.length > 0 ? (
                             <div  className={popUp ? 'display-none' : 'category-container'}>
                                 {quiz.map((item) => (
-                                    <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && setShowQuestion(true); setSelectedQuizId(item.subCategoryId); setSelectedQuizName(item.subCategoryName); } }}>
+                                    <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && 
+                                    setShowQuestion(true); 
+                                    localStorage.setItem("Current_Category_SubWindow","question")
+                                    localStorage.setItem("QuizId",item.subCategoryId)
+                                    localStorage.setItem("QuizName",item.subCategoryName)
+                                    setSelectedQuizId(item.subCategoryId); 
+                                    setSelectedQuizName(item.subCategoryName);
+                                     } }}>
                                         <p className='p'>Name: {item.subCategoryName}</p>
                                         <p className='p'>Description: {item.subCategoryDescription}</p>
                                         <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
@@ -195,7 +208,7 @@ const Quiz = (props) => {
                     </div>}
             </>
             ) : (
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={selectedId} setEnable={setEnable} />)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={categoryId} setEnable={setEnable} />)}</>
             )}
         </div>
     )

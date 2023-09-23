@@ -28,12 +28,12 @@ public class CategoryDetailsDto {
   /**
    *category name attribute.
   */
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   @NotBlank(message = "Category Name is required")
   private String categoryName;
   /**
    *category description attribute.
   */
-  @Column(nullable = true)
+  @Column
   private String categoryDescription;
 }

@@ -15,11 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
-import com.capstone.assessmentPortal.model.Question;
-import com.capstone.assessmentPortal.model.Results;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
@@ -72,22 +69,6 @@ class SubCategoryServiceImplementationTest {
         assertEquals(subCategory.getSubCategoryName(),subCategoryDetailsDto.getSubCategoryName());
     }
     
-    @Test
-    void testAddIfInputEmpty() {
-        Long subCategoryId = 1L;
-        SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
-        subCategoryDto.setSubCategoryName("");
-        subCategoryDto.setSubCategoryId(subCategoryId);
-        SubCategory subCategory = new SubCategory();
-        subCategory.setSubCategoryId(subCategoryDto.getSubCategoryId());
-        subCategory.setSubCategoryName(subCategoryDto.getSubCategoryName());
-        List<Results> listOfResults = new ArrayList<>();
-        subCategory.setResults(listOfResults);
-        List<Question> listOfQuestions = new ArrayList<>();
-        subCategory.setQuestion(listOfQuestions);
-        when(subCategoryRepo.findById(subCategoryId)).thenReturn(Optional.of(subCategory));
-        assertThrows(InputEmptyException.class, () -> subCategoryServiceImpl.addSubCategory(subCategoryDto));
-    }
     @Test
     void testAddIfSameNameExists() {
         Long subCategoryId = 1L;
@@ -206,18 +187,6 @@ class SubCategoryServiceImplementationTest {
         assertThrows(NoSuchElementException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto,subCategoryDto.getSubCategoryId()));
     }
     
-    @Test
-    void testUpdateSubCategoryIfEmptyInputs() {
-        Long subCategoryId = 1L;
-        SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
-        subCategoryDto.setSubCategoryId(subCategoryId);
-        subCategoryDto.setSubCategoryName("");
-        SubCategory subCategory = new SubCategory();
-        subCategory.setSubCategoryId(subCategoryId);
-        subCategory.setSubCategoryName(subCategoryDto.getSubCategoryName());
-        when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
-        assertThrows(InputEmptyException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto,subCategoryId));
-    }
     @Test
     void testUpdateSubCategory() {
         Long subCategoryId = 1L;

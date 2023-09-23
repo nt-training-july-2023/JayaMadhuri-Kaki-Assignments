@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.capstone.assessmentPortal.dto.ResultsDto;
-import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
 import com.capstone.assessmentPortal.model.Results;
@@ -64,24 +62,6 @@ class ResultServiceImplementationTest {
         resultsDto.setDateAndTime("23-10-23");
         when(usersRepo.findById(10L)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
-    }
-    
-    @Test
-    void testAddTemporaryResultIfStudentIdNull() {
-        ResultsDto resultsDto = new ResultsDto(1L,null,10L,11L,10,9,9,9,"23-10-23");
-        assertThrows(InputEmptyException.class,() -> resultsService.addTemporaryResult(resultsDto));
-    }
-    
-    @Test
-    void testAddTemporaryResultIfQuizIdNull() {
-        ResultsDto resultsDto = new ResultsDto(1L,10L,null,11L,10,9,9,9,"23-10-23");
-        assertThrows(InputEmptyException.class,() -> resultsService.addTemporaryResult(resultsDto));
-    }
-    
-    @Test
-    void testAddTemporaryResultIfCategoryIdNull() {
-        ResultsDto resultsDto = new ResultsDto(1L,10L,11L,null,10,9,9,9,"23-10-23");
-        assertThrows(InputEmptyException.class,() -> resultsService.addTemporaryResult(resultsDto));
     }
     
     @Test

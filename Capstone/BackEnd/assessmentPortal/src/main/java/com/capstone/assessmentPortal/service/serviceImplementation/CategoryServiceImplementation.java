@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.service.CategoryService;
@@ -40,34 +39,29 @@ public class CategoryServiceImplementation implements CategoryService {
   */
   public CategoryServiceImplementation(final CategoryRepo categoryRepo2) {
     this.categoryRepo = categoryRepo2;
-}
-@Override
+  }
+  @Override
   public final CategoryDetailsDto addCategory(final
-           CategoryDetailsDto category) {
-      if (category.getCategoryName().isEmpty()) {
-        logger.error("Category name is empty");
-        throw new InputEmptyException();
-      } else {
-     Optional<Category> existingCategory = categoryRepo
-             .getCategoryByName(category.getCategoryName());
-     if (existingCategory.isPresent()) {
-         logger.error("Category with same name already exists");
-         throw new AlreadyExistsException();
-       }
-      logger.info("Category Added");
-      Category newCategory = new Category();
-      newCategory.setCategoryId(category.getCategoryId());
-      newCategory.setCategoryName(category.getCategoryName());
-      newCategory.setCategoryDescription(category.getCategoryDescription());
-      categoryRepo.save(newCategory);
-      return category;
+           CategoryDetailsDto categoryDto) {
+    Optional<Category> category = categoryRepo
+             .getCategoryByName(categoryDto.getCategoryName());
+    if (category.isPresent()) {
+       logger.error("Category with same name already exists");
+       throw new AlreadyExistsException();
     }
+    logger.info("Category Added");
+    Category categoryObj = new Category();
+    categoryObj.setCategoryId(categoryDto.getCategoryId());
+    categoryObj.setCategoryName(categoryDto.getCategoryName());
+    categoryObj.setCategoryDescription(categoryDto.getCategoryDescription());
+    categoryRepo.save(categoryObj);
+    return categoryDto;
   }
   @Override
   public final List<CategoryDetailsDto> getAllCategories() {
     List<Category> listOfCategories = categoryRepo.findAll();
     logger.info("Retrieved all the categories");
-      return listOfCategories.stream()
+    return listOfCategories.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
   }
@@ -98,41 +92,28 @@ public class CategoryServiceImplementation implements CategoryService {
   }
   @Override
   public final void deleteCategory(final Long categoryId) {
-    Category existingCategory = categoryRepo
-              .findById(categoryId).orElse(null);
-    if (existingCategory == null) {
-      logger.error("Category with id does not found! Not deleted");
-      throw new NoSuchElementException();
-    } else {
-      logger.info("Category Deleted");
-      categoryRepo.deleteById(categoryId);
-    }
+    categoryRepo.findById(categoryId).orElseThrow(
+                      () -> new NoSuchElementException());
+    logger.info("Category Deleted");
+    categoryRepo.deleteById(categoryId);
   }
   @Override
   public final CategoryDetailsDto updateCategory(final Long categoryId,
-                     final CategoryDetailsDto category) {
-    Category existingCategory = categoryRepo
-               .findById(categoryId).orElse(null);
-    if (existingCategory != null) {
-      logger.info("Category found with id");
-      existingCategory.setCategoryId(category.getCategoryId());
-      existingCategory.setCategoryName(category.getCategoryName());
-      existingCategory.setCategoryDescription(category
-                .getCategoryDescription());
-      if (existingCategory.getCategoryName().isEmpty()) {
-        logger.error("Input fields are empty");
-        throw new InputEmptyException();
-      }
-      logger.info("Category Updated");
-      Category updatedCategory = categoryRepo.save(existingCategory);
-      CategoryDetailsDto updatedCategoryDto = new CategoryDetailsDto();
-      updatedCategoryDto.setCategoryName(updatedCategory.getCategoryName());
-      updatedCategoryDto.setCategoryDescription(updatedCategory
-                 .getCategoryDescription());
-      return updatedCategoryDto;
-      } else {
-       logger.error("Category Not found with id! Not Updated");
-       throw new NoSuchElementException();
-     }
+                     final CategoryDetailsDto categoryDto) {
+    Category category = categoryRepo
+               .findById(categoryId).orElseThrow(
+                       () -> new NoSuchElementException());
+    logger.info("Category found with id");
+    category.setCategoryId(categoryDto.getCategoryId());
+    category.setCategoryName(categoryDto.getCategoryName());
+    category.setCategoryDescription(categoryDto
+            .getCategoryDescription());
+    logger.info("Category Updated");
+    Category categoryObj = categoryRepo.save(category);
+    CategoryDetailsDto categoryDtoObj = new CategoryDetailsDto();
+    categoryDtoObj.setCategoryName(categoryObj.getCategoryName());
+    categoryDtoObj.setCategoryDescription(categoryObj
+             .getCategoryDescription());
+    return categoryDtoObj;
   }
 }

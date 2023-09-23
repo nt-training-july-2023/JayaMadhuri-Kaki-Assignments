@@ -3,7 +3,6 @@ package com.capstone.assessmentPortal.service.serviceImplementation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import com.capstone.assessmentPortal.dto.SignUpRequest;
 import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 import com.capstone.assessmentPortal.model.Users;
 import com.capstone.assessmentPortal.repository.UsersRepo;
@@ -46,118 +44,101 @@ public class UsersServiceImplementation implements UsersService {
   }
 @Override
   public final String studentRegistration(final SignUpRequest signUpRequest) {
-    Users existingUser = usersRepo
+    Users user = usersRepo
           .findUserByEmailId(signUpRequest.getEmailId());
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
-    if (existingUser != null) {
+    if (user != null) {
       logger.error("Email already exists");
       throw new EmailAlreadyExistsException();
-    } else {
-      logger.info("User successfully registered");
-      Users users = new Users();
-      users.setFirstName(signUpRequest.getFirstName());
-      users.setLastName(signUpRequest.getLastName());
-      users.setDateOfBirth(signUpRequest.getDateOfBirth());
-      users.setGender(signUpRequest.getGender());
-      users.setEmailId(signUpRequest.getEmailId());
-      users.setPassword(signUpRequest.getPassword());
-      users.setUserType(signUpRequest.getUserType());
-      usersRepo.save(users);
     }
+    logger.info("User successfully registered");
+    Users users = new Users();
+    users.setFirstName(signUpRequest.getFirstName());
+    users.setLastName(signUpRequest.getLastName());
+    users.setDateOfBirth(signUpRequest.getDateOfBirth());
+    users.setGender(signUpRequest.getGender());
+    users.setEmailId(signUpRequest.getEmailId());
+    users.setPassword(signUpRequest.getPassword());
+    users.setUserType(signUpRequest.getUserType());
+    usersRepo.save(users);
     return name;
   }
   @Override
   public final Map<String, String> authenticateUser(final
           LoginRequest loginRequest) {
-    Users existingUser = usersRepo.findUserByEmailId(loginRequest
+    Users user = usersRepo.findUserByEmailId(loginRequest
              .getEmailId());
     Map<String, String> userDetails = new HashMap<String, String>();
-    if (existingUser != null) {
+    if (user != null) {
       logger.info("Login successful");
-      String existingUserPassword = existingUser.getPassword();
-      if (loginRequest.getPassword().equals(existingUserPassword)) {
-        userDetails.put("UserType", existingUser.getUserType());
-        userDetails.put("Name", existingUser.getFirstName()
-              + " " + existingUser.getLastName());
-        userDetails.put("EmailId", existingUser.getEmailId());
+      String userPassword = user.getPassword();
+      if (loginRequest.getPassword().equals(userPassword)) {
+        userDetails.put("UserType", user.getUserType());
+        userDetails.put("Name", user.getFirstName()
+              + " " + user.getLastName());
+        userDetails.put("EmailId", user.getEmailId());
         return userDetails;
-      } else {
-        logger.error("Incorrect Password");
-        throw new UserNotFoundException();
       }
-    } else {
-      logger.error("User not found in database");
-      throw new UserNotFoundException();
     }
+    logger.error("User not found in database");
+    throw new UserNotFoundException();
   }
   @Override
   public final void deleteStudent(final Long studentId) {
-    Optional<Users> existingUser = usersRepo.findById(studentId);
-    if (existingUser.isPresent()) {
-      logger.info("User deleted");
-      usersRepo.deleteById(studentId);
-    } else {
-      logger.error("User not found! not deleted");
-      throw new NoSuchElementException();
-    }
+    usersRepo.findById(studentId).orElseThrow(
+            () -> new NoSuchElementException());
+    logger.info("User deleted");
+    usersRepo.deleteById(studentId);
   }
   @Override
   public final UserDetailsForUpdate updateStudentDetails(final Long studentId,
                  final UserDetailsForUpdate users) {
-    Users existinguser = usersRepo.findById(studentId).orElseThrow(() ->
-    new NoSuchElementException());
-    existinguser.setFirstName(users.getFirstName());
-    existinguser.setLastName(users.getLastName());
-    existinguser.setDateOfBirth(users.getDateOfBirth());
-    existinguser.setGender(users.getGender());
-    if (existinguser.getFirstName().isEmpty()
-       || existinguser.getLastName().isEmpty()
-       || existinguser.getDateOfBirth().isEmpty()
-       || existinguser.getGender().isEmpty()) {
-      logger.error("Input fields are empty");
-      throw new InputEmptyException();
-    }
+    Users user = usersRepo.findById(studentId).orElseThrow(() ->
+                 new NoSuchElementException());
+    user.setFirstName(users.getFirstName());
+    user.setLastName(users.getLastName());
+    user.setDateOfBirth(users.getDateOfBirth());
+    user.setGender(users.getGender());
+    Users usersObj = usersRepo.save(user);
+    UserDetailsForUpdate usersDetails = new UserDetailsForUpdate();
+    usersDetails.setFirstName(usersObj.getFirstName());
+    usersDetails.setLastName(usersObj.getLastName());
+    usersDetails.setDateOfBirth(usersObj.getDateOfBirth());
+    usersDetails.setGender(usersObj.getGender());
     logger.info("User updated");
-    Users updatedUser = usersRepo.save(existinguser);
-    UserDetailsForUpdate updatedDetails = new UserDetailsForUpdate();
-    updatedDetails.setFirstName(updatedUser.getFirstName());
-    updatedDetails.setLastName(updatedUser.getLastName());
-    updatedDetails.setDateOfBirth(updatedUser.getDateOfBirth());
-    updatedDetails.setGender(updatedUser.getGender());
-    return updatedDetails;
+    return usersDetails;
   }
   @Override
   public final UserDetails getStudentById(final Long studentId) {
-    Users userDetails = usersRepo.findById(studentId).orElseThrow(
+    Users user = usersRepo.findById(studentId).orElseThrow(
             () -> new NoSuchElementException(
             "Cannot find User with id: " + studentId));
+    UserDetails userDetails = new UserDetails();
+    userDetails.setFirstName(user.getFirstName());
+    userDetails.setLastName(user.getLastName());
+    userDetails.setDateOfBirth(user.getDateOfBirth());
+    userDetails.setGender(user.getGender());
+    userDetails.setEmailId(user.getEmailId());
+    userDetails.setUserType(user.getUserType());
     logger.info("Retrieved student details by id");
-    UserDetails userDetailsDto = new UserDetails();
-    userDetailsDto.setFirstName(userDetails.getFirstName());
-    userDetailsDto.setLastName(userDetails.getLastName());
-    userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());
-    userDetailsDto.setGender(userDetails.getGender());
-    userDetailsDto.setEmailId(userDetails.getEmailId());
-    userDetailsDto.setUserType(userDetails.getUserType());
-    return userDetailsDto;
+    return userDetails;
   }
     @Override
     public final UserDetails getStudentDetailsByEmail(final String emailId) {
-        Users userDetails = usersRepo.findUserByEmailId(emailId);
-        if (userDetails != null) {
+        Users user = usersRepo.findUserByEmailId(emailId);
+        if (user != null) {
             logger.info("Retrieved student details by EmailId");
-            UserDetails userDetailsDto = new UserDetails();
-            userDetailsDto.setUserId(userDetails.getUserId());
-            userDetailsDto.setFirstName(userDetails.getFirstName());
-            userDetailsDto.setLastName(userDetails.getLastName());
-            userDetailsDto.setDateOfBirth(userDetails.getDateOfBirth());
-            userDetailsDto.setGender(userDetails.getGender());
-            userDetailsDto.setEmailId(userDetails.getEmailId());
-            userDetailsDto.setUserType(userDetails.getUserType());
-            return userDetailsDto;
-        } else {
-            logger.error("Student email not found");
-            throw new NoSuchElementException();
+            UserDetails userDetails = new UserDetails();
+            userDetails.setUserId(user.getUserId());
+            userDetails.setFirstName(user.getFirstName());
+            userDetails.setLastName(user.getLastName());
+            userDetails.setDateOfBirth(user.getDateOfBirth());
+            userDetails.setGender(user.getGender());
+            userDetails.setEmailId(user.getEmailId());
+            userDetails.setUserType(user.getUserType());
+            return userDetails;
         }
+        logger.error("Student email not found");
+        throw new NoSuchElementException();
     }
 }

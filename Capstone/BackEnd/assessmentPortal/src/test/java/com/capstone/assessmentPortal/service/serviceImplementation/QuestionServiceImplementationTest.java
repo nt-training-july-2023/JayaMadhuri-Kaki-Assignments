@@ -15,8 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
-import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.QuestionRepo;
@@ -37,18 +35,6 @@ class QuestionServiceImplementationTest {
         subCategoryRepo = mock(SubCategoryRepo.class);
         questionRepo = mock(QuestionRepo.class);
         questionService = new QuestionServiceImplementation(subCategoryRepo,questionRepo);
-    }
-    @Test
-    void testAddQuestionIfFieldsEmpty() {
-       Long questionId = 1L;
-       QuestionDto questionDto = new QuestionDto();
-       questionDto.setQuestionId(questionId);
-       questionDto.setQuestionContent("");
-       Question question = new Question();
-       question.setQuestionId(questionId);
-       question.setQuestionContent(questionDto.getQuestionContent());
-       when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
-       assertThrows(InputEmptyException.class, () -> questionService.addQuestion(questionDto));
     }
     
     @Test
@@ -72,7 +58,7 @@ class QuestionServiceImplementationTest {
         question.setOptionD(questionDto.getOptionD());
         question.setCorrectAnswer(question.getCorrectAnswer());
         when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> questionService.addQuestion(questionDto));
+        assertThrows(NoSuchElementException.class, () -> questionService.addQuestion(questionDto));
     }
     
     @Test
@@ -154,19 +140,6 @@ class QuestionServiceImplementationTest {
         questionDto.setQuestionId(questionId);
         when(questionRepo.findById(questionId)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> questionService.updateQuestion(questionId,questionDto)); 
-    }
-    
-    @Test
-    void updateQuestionIfEmptyFields() {
-        Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto();
-        questionDto.setQuestionId(questionId);
-        questionDto.setQuestionContent("");
-        Question question = new Question();
-        question.setQuestionId(questionId);
-        question.setQuestionContent(questionDto.getQuestionContent());
-        when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
-        assertThrows(InputEmptyException.class, () -> questionService.updateQuestion(questionId,questionDto));
     }
 
     @Test

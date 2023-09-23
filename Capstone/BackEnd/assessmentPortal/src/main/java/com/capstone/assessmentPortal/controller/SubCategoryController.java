@@ -20,6 +20,8 @@ import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
+import jakarta.validation.Valid;
+
 /**
  *SubCategory controller class.
 */
@@ -56,12 +58,12 @@ public class SubCategoryController {
   @GetMapping("/subCategory/{subCategoryId}")
   public final ResponseEntity<Object> getSubCategoryById(@PathVariable final
                    Long subCategoryId) {
-    SubCategoryDetailsDto subCategory = subCategoryService
+    SubCategoryDetailsDto subCategoryDto = subCategoryService
                    .getSubCategoryById(subCategoryId);
     logger.info("Retrieved quiz by id");
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Id",
-         HttpStatus.OK, "SubCategory", subCategory);
+         HttpStatus.OK, "SubCategory", subCategoryDto);
   }
   /**
    *get subcategory by category id.
@@ -71,12 +73,12 @@ public class SubCategoryController {
   @GetMapping("/subCategory/subCategoryByCategory/{categoryId}")
   public final ResponseEntity<Object> getSubCategoryByCategoryId(
          @PathVariable final Long categoryId) {
-    List<SubCategoryDetailsDto> subCategory = subCategoryService
+    List<SubCategoryDetailsDto> subCategories = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
     logger.info("Retrieved quizes by category id");
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Category Id",
-          HttpStatus.OK, "SubCategoryByCategoryId", subCategory);
+          HttpStatus.OK, "SubCategoryByCategoryId", subCategories);
   }
   /**
    *add subcategory to subcategory table.
@@ -85,12 +87,12 @@ public class SubCategoryController {
   */
   @PostMapping("/subCategory/add")
   public final ResponseEntity<Object> addSubCategory(
-            @RequestBody final SubCategoryDetailsDto subCategory) {
-    SubCategoryDetailsDto newSubCategory = subCategoryService
+            @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
+    SubCategoryDetailsDto subCategoryDto = subCategoryService
             .addSubCategory(subCategory);
     logger.info("Quiz Added");
     return ResponseHandler.generateResponse("Successfully Added",
-            HttpStatus.OK, "SubCategory", newSubCategory);
+            HttpStatus.OK, "SubCategory", subCategoryDto);
   }
   /**
    *update subcategory by id and given new details.
@@ -101,12 +103,12 @@ public class SubCategoryController {
   @PutMapping("/subCategory/update/{subCategoryId}")
   public final ResponseEntity<Object> updateSubCategory(
           @PathVariable final Long subCategoryId,
-          @RequestBody final SubCategoryDetailsDto subCategory) {
-    SubCategoryDetailsDto updatedSubCategory = subCategoryService
+          @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
+    SubCategoryDetailsDto subCategoryDto = subCategoryService
           .updateSubCategory(subCategory, subCategoryId);
     logger.info("Quiz Updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, "SubCategory", updatedSubCategory);
+          HttpStatus.OK, "SubCategory", subCategoryDto);
   }
   /**
    *delete subcategory by id.

@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 
@@ -42,15 +41,6 @@ class CategoryServiceImplementationTest {
        category.setCategoryName(categoryDetailsDto.getCategoryName());
        when(categoryRepo.getCategoryByName(categoryDetailsDto.getCategoryName())).thenReturn(Optional.of(category));
        assertThrows(AlreadyExistsException.class, () -> categoryServiceImpl.addCategory(categoryDetailsDto));
-    }
-    
-    @Test
-    void testAddCategoryWhenEmptyField() {
-        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto(1L,"","");
-        Category category = new Category(categoryDetailsDto.getCategoryId(),categoryDetailsDto.getCategoryName(),
-                categoryDetailsDto.getCategoryDescription());
-        when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
-        assertThrows(InputEmptyException.class, () -> categoryServiceImpl.addCategory(categoryDetailsDto));
     }
     
     @Test
@@ -134,19 +124,6 @@ class CategoryServiceImplementationTest {
         categoryDetailsDto.setCategoryName("Java");
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> categoryServiceImpl.updateCategory(categoryId,categoryDetailsDto));
-    }
-    
-    @Test
-    void testUpdateIfCategoryNameEmpty() {
-        Long categoryId = 1L;
-        CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
-        categoryDetailsDto.setCategoryId(categoryId);
-        categoryDetailsDto.setCategoryName("");
-        Category category = new Category();
-        category.setCategoryId(categoryDetailsDto.getCategoryId());
-        category.setCategoryName(categoryDetailsDto.getCategoryName());
-        when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
-        assertThrows(InputEmptyException.class, () -> categoryServiceImpl.updateCategory(categoryId,categoryDetailsDto));
     }
     
     @Test

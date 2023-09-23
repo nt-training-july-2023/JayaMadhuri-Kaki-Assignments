@@ -17,19 +17,19 @@ public class SignUpRequest {
   /**
    *first name of user attribute.
  */
-  @Column
+  @Column(nullable = false)
   @NotBlank(message = "First Name is required")
   private String firstName;
   /**
    *last name of user attribute.
  */
-  @Column
+  @Column(nullable = false)
   @NotBlank(message = "Last Name is required")
   private String lastName;
   /**
    *date of birth(dd-mm-yyyy) attribute.
  */
-  @Column
+  @Column(nullable = false)
   @AdultAge(message = "User must be at least 18 years old")
   @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
          message = "Date of birth pattern should be yyyy-mm-dd")
@@ -38,13 +38,13 @@ public class SignUpRequest {
   /**
    *user gender attribute.
  */
-  @Column
+  @Column(nullable = false)
   @NotBlank(message = "Gender is required")
   private String gender;
   /**
    *user email attribute.
  */
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   @NotBlank(message = "Email is required")
   @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
           message = "Email is not Valid")
@@ -52,7 +52,7 @@ public class SignUpRequest {
   /**
    *user password attribute.
  */
-  @Column
+  @Column(nullable = false)
   @NotBlank(message = "Password is required")
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
                     + "(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",

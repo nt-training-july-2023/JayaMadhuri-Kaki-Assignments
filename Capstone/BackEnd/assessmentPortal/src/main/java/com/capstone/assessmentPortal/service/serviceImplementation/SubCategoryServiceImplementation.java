@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.InputEmptyException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.SubCategory;
@@ -53,35 +52,27 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
 }
 @Override
   public final SubCategoryDetailsDto addSubCategory(final
-               SubCategoryDetailsDto subCategory) {
-      if (subCategory.getSubCategoryName().isEmpty()
-              || subCategory.getCategoryId() == null
-              || subCategory.getTimeLimitInMinutes().isEmpty()) {
-           logger.error("Input fields are empty");
-           throw new InputEmptyException();
-         } else {
-         Optional<SubCategory> existingSubCategory = subCategoryRepo
-                 .getSubCategoryByName(subCategory.getSubCategoryName());
-         if (existingSubCategory.isPresent()) {
+               SubCategoryDetailsDto subCategoryDto) {
+         Optional<SubCategory> subCategory = subCategoryRepo
+                 .getSubCategoryByName(subCategoryDto.getSubCategoryName());
+         if (subCategory.isPresent()) {
              logger.error("A Quiz is already exists with the same name");
              throw new AlreadyExistsException();
-         } else {
+         }
           logger.info("Quiz Added");
-          SubCategory newSubCategory = new SubCategory();
-          newSubCategory.setSubCategoryId(subCategory.getSubCategoryId());
-          newSubCategory.setSubCategoryName(subCategory.getSubCategoryName());
-          newSubCategory.setSubCategoryDescription(subCategory
+          SubCategory subCategoryObj = new SubCategory();
+          subCategoryObj.setSubCategoryId(subCategoryDto.getSubCategoryId());
+          subCategoryObj.setSubCategoryName(subCategoryDto.getSubCategoryName());
+          subCategoryObj.setSubCategoryDescription(subCategoryDto
                         .getSubCategoryDescription());
-          newSubCategory.setTimeLimitInMinutes(subCategory
+          subCategoryObj.setTimeLimitInMinutes(subCategoryDto
                         .getTimeLimitInMinutes());
-          Category existingCategory = categoryRepo.findById(
-                   subCategory.getCategoryId()).orElseThrow(() ->
+          Category category = categoryRepo.findById(
+                  subCategoryDto.getCategoryId()).orElseThrow(() ->
                    new NotFoundException("Category not found"));
-          newSubCategory.setCategory(existingCategory);
-          subCategoryRepo.save(newSubCategory);
-          return subCategory;
-      }
-    }
+          subCategoryObj.setCategory(category);
+          subCategoryRepo.save(subCategoryObj);
+          return subCategoryDto;
   }
   @Override
   public final List<SubCategoryDetailsDto> getAllSubCategories() {
@@ -126,57 +117,39 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   }
   @Override
   public final SubCategoryDetailsDto updateSubCategory(final
-                    SubCategoryDetailsDto subCategory,
+                    SubCategoryDetailsDto subCategoryDto,
                     final Long subCategoryId) {
-    SubCategory existingquiz = subCategoryRepo
-                 .findById(subCategoryId).orElse(null);
-    if (existingquiz != null) {
-      logger.info("Quiz with id found");
-      existingquiz.setSubCategoryId(subCategory.getSubCategoryId());
-      existingquiz.setSubCategoryName(subCategory.getSubCategoryName());
-      existingquiz.setSubCategoryDescription(subCategory
-               .getSubCategoryDescription());
-      existingquiz.setTimeLimitInMinutes(subCategory.getTimeLimitInMinutes());
-      if (existingquiz.getSubCategoryName().isEmpty()
-       || existingquiz.getTimeLimitInMinutes().isEmpty()) {
-        logger.error("Input fields are empty");
-        throw new InputEmptyException();
-      } else {
-          logger.info("Quiz Updated");
-          subCategoryRepo.save(existingquiz);
-          return subCategory;
-      }
-    } else {
-       logger.error("Quiz Id not found");
-       throw new NoSuchElementException();
-    }
+    SubCategory quiz = subCategoryRepo
+                 .findById(subCategoryId).orElseThrow(
+                         () -> new NoSuchElementException());
+    logger.info("Quiz with id found");
+    quiz.setSubCategoryId(subCategoryDto.getSubCategoryId());
+    quiz.setSubCategoryName(subCategoryDto.getSubCategoryName());
+    quiz.setSubCategoryDescription(subCategoryDto
+           .getSubCategoryDescription());
+    quiz.setTimeLimitInMinutes(subCategoryDto.getTimeLimitInMinutes());
+    logger.info("Quiz Updated");
+    subCategoryRepo.save(quiz);
+    return subCategoryDto;
   }
   @Override
   public final void deleteSubCategory(final Long subCategoryId) {
-    SubCategory existingquiz = subCategoryRepo
-            .findById(subCategoryId).orElse(null);
-    if (existingquiz == null) {
-      logger.error("Quiz id not found! Not deleted");
-      throw new NoSuchElementException();
-    } else {
-      logger.info("Quiz Deleted");
-      subCategoryRepo.deleteById(subCategoryId);
-    }
+    subCategoryRepo
+            .findById(subCategoryId).orElseThrow(
+                    () -> new NoSuchElementException());
+    logger.info("Quiz Deleted");
+    subCategoryRepo.deleteById(subCategoryId);
   }
   @Override
   public final List<SubCategoryDetailsDto> getSubCategoryByCategoryId(final
                    Long categoryId) {
-    Category existingCategory = categoryRepo.findById(categoryId).orElse(null);
-    if (existingCategory == null) {
-      logger.error("Category with id not found");
-      throw new NoSuchElementException();
-    } else {
-      List<SubCategory> listOfSubCategories = subCategoryRepo
+    categoryRepo.findById(categoryId).orElseThrow(
+            () -> new NoSuchElementException());
+    List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
-      logger.info("Retrieved quizes with category id");
-        return listOfSubCategories.stream()
+    logger.info("Retrieved quizes with category id");
+    return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
-    }
   }
 }

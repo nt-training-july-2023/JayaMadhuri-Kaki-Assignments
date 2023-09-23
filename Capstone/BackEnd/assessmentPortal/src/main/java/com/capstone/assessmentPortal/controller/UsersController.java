@@ -60,7 +60,7 @@ public class UsersController {
   */
   @PostMapping("/users/login")
   public final ResponseEntity<Object> userLogin(
-                  @RequestBody final LoginRequest loginRequest) {
+                  @RequestBody @Valid final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
     logger.info("User successfully logged in");
@@ -75,10 +75,10 @@ public class UsersController {
   @GetMapping("/users/{studentId}")
   public final ResponseEntity<Object> getStudentById(
                  @PathVariable final Long studentId) {
-    UserDetails studentDetails = usersService.getStudentById(studentId);
+    UserDetails userDetails = usersService.getStudentById(studentId);
     logger.info("Retrieved student details by Id");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, "StudentDetails", studentDetails);
+                 HttpStatus.OK, "StudentDetails", userDetails);
   }
   /**
    *get student details by email Id.
@@ -88,10 +88,10 @@ public class UsersController {
   @GetMapping("/users/email/{emailId}")
   public final ResponseEntity<Object> getStudentByEmailId(
                  @PathVariable final String emailId) {
-    UserDetails studentDetails = usersService.getStudentDetailsByEmail(emailId);
+    UserDetails userDetails = usersService.getStudentDetailsByEmail(emailId);
     logger.info("Retrieved student details by EmailId");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, "StudentDetails", studentDetails);
+                 HttpStatus.OK, "StudentDetails", userDetails);
   }
   /**
    * update student details by id.
@@ -102,12 +102,12 @@ public class UsersController {
   @PutMapping("/users/update/{studentId}")
   public final ResponseEntity<Object> updateStudentDetails(
            @PathVariable final Long studentId,
-           @RequestBody final UserDetailsForUpdate users) {
-    UserDetailsForUpdate studentDetails = usersService
+           @RequestBody @Valid final UserDetailsForUpdate users) {
+    UserDetailsForUpdate userDetails = usersService
             .updateStudentDetails(studentId, users);
     logger.info("User details successfully updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-           HttpStatus.OK, "StudentDetails", studentDetails);
+           HttpStatus.OK, "StudentDetails", userDetails);
   }
   /**
    * delete student details by id.
