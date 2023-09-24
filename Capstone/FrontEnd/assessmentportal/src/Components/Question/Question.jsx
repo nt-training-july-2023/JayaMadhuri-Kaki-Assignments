@@ -62,7 +62,7 @@ const Question = (props) => {
             <div>
                 <button className='addquestion-btn' onClick={handleAdd}>Add Question</button>
                 <button className='backquestion-btn' onClick={() => { 
-                    localStorage.setItem("Current_Category_SubWindow","quiz")
+                    localStorage.setItem("Current_Quiz_SubWindow","")
                     setShowQuestion(false) }}>Back</button>
                 <h1 className='category-title'>Questions</h1>
                 <hr />

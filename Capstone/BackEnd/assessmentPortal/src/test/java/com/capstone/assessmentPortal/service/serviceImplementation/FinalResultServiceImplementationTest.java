@@ -1,28 +1,28 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
 import com.capstone.assessmentPortal.repository.FinalResultOfQuizRepo;
 
 class FinalResultServiceImplementationTest {
-    @Autowired
+    @InjectMocks
     FinalResultServiceImplementation finalResultsService;
-    @Autowired
+    @Mock
     FinalResultOfQuizRepo finalResultsRepo;
     @BeforeEach
     void setUp() {
-        finalResultsRepo = mock(FinalResultOfQuizRepo.class);
-        finalResultsService = new FinalResultServiceImplementation(finalResultsRepo);
+        MockitoAnnotations.openMocks(this);
     }
     @Test
     void testGetAllFinalResults() {

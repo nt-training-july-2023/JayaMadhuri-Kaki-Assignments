@@ -63,6 +63,10 @@ const Navbar = (props) => {
                     localStorage.setItem("LastVisited_Window","");
                     localStorage.setItem("Current_Category_SubWindow","")
                     localStorage.setItem("CategoryId","")
+                    localStorage.setItem("CategoryName","")
+                    localStorage.setItem("QuizName","")
+                    localStorage.setItem("QuizId","")
+                    localStorage.setItem("Current_Quiz_SubWindow","")
                     setRenderComponent("login")
                 }, 2000)
             } else {
@@ -71,22 +75,24 @@ const Navbar = (props) => {
         })
     }
     useEffect(() => {
-        if (role === "Admin") {
-            Swal.fire({
-                text: 'WELCOME TO ADMIN DASHBOARD!',
-                timer: 1900,
-                showConfirmButton: false,
-                color: 'white',
-                background: '#15172b'
-            })
-        } else {
-            Swal.fire({
-                text: `WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`,
-                timer: 1900,
-                showConfirmButton: false,
-                color: 'white',
-                background: '#15172b'
-            })
+        if( Object.keys(userDetails).length > 0){
+            if (role === "Admin") {
+                Swal.fire({
+                    text: 'WELCOME TO ADMIN DASHBOARD!',
+                    timer: 1900,
+                    showConfirmButton: false,
+                    color: 'white',
+                    background: '#15172b'
+                })
+            } else {
+                Swal.fire({
+                    text: `WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`,
+                    timer: 1900,
+                    showConfirmButton: false,
+                    color: 'white',
+                    background: '#15172b'
+                })
+            }
         }
     }, [])
     return (

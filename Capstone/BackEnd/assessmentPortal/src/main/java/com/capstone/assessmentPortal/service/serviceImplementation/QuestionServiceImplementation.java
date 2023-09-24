@@ -39,16 +39,6 @@ public class QuestionServiceImplementation implements QuestionService {
   */
   private Logger logger = LoggerFactory.getLogger(
           QuestionServiceImplementation.class);
-  /**
-   * parameter constructor.
-   * @param subCategoryRepo2 subCategoryRepo2
-   * @param questionRepo2 questionRepo2
-  */
-  public QuestionServiceImplementation(final SubCategoryRepo subCategoryRepo2,
-          final QuestionRepo questionRepo2) {
-    this.subCategoryRepo = subCategoryRepo2;
-    this.questionRepo = questionRepo2;
-}
 @Override
   public final QuestionDto addQuestion(final QuestionDto questionDto) {
       SubCategory subCategory = subCategoryRepo.findById(

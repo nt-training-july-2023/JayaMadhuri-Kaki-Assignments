@@ -39,17 +39,6 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   */
   private Logger logger = LoggerFactory.getLogger(
           SubCategoryServiceImplementation.class);
-  /**
-   * parameter constructor.
-   * @param subCategoryRepo2 subCategoryRepo2
-   * @param categoryRepo2 categoryRepo2
-  */
-  public SubCategoryServiceImplementation(final
-          SubCategoryRepo subCategoryRepo2,
-          final CategoryRepo categoryRepo2) {
-    this.subCategoryRepo = subCategoryRepo2;
-    this.categoryRepo = categoryRepo2;
-}
 @Override
   public final SubCategoryDetailsDto addSubCategory(final
                SubCategoryDetailsDto subCategoryDto) {

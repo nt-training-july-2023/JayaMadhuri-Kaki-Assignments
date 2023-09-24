@@ -3,7 +3,6 @@ package com.capstone.assessmentPortal.service.serviceImplementation;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.NoSuchElementException;
@@ -11,7 +10,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.capstone.assessmentPortal.dto.ResultsDto;
 import com.capstone.assessmentPortal.model.Category;
@@ -26,27 +27,21 @@ import com.capstone.assessmentPortal.repository.SubCategoryRepo;
 import com.capstone.assessmentPortal.repository.UsersRepo;
 
 class ResultServiceImplementationTest {
-    @Autowired
+    @InjectMocks
     ResultServiceImplementation resultsService;
-    @Autowired
+    @Mock
     ResultRepo resultRepo;
-    @Autowired
+    @Mock
     UsersRepo usersRepo;
-    @Autowired
+    @Mock
     SubCategoryRepo subCategoryRepo;
-    @Autowired
+    @Mock
     CategoryRepo categoryRepo;
-    @Autowired
+    @Mock
     FinalResultOfQuizRepo finalResultRepo;
     @BeforeEach
     void setUp() {
-        subCategoryRepo = mock(SubCategoryRepo.class);
-        usersRepo = mock(UsersRepo.class);
-        resultRepo = mock(ResultRepo.class);
-        categoryRepo = mock(CategoryRepo.class);
-        finalResultRepo = mock(FinalResultOfQuizRepo.class);
-        resultsService = new ResultServiceImplementation(subCategoryRepo,
-                usersRepo,resultRepo,categoryRepo,finalResultRepo);
+        MockitoAnnotations.openMocks(this);
     }
     @Test
     void testAddTemporaryResultIfUserIdNotExists() {

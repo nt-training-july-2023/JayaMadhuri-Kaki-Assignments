@@ -1,7 +1,6 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -10,7 +9,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.QuestionDto;
@@ -24,17 +25,15 @@ import java.util.List;
 
 @SpringBootTest
 class QuestionServiceImplementationTest {
-    @Autowired
+    @Mock
     QuestionRepo questionRepo;
-    @Autowired
+    @InjectMocks
     QuestionServiceImplementation questionService;
-    @Autowired
+    @Mock
     SubCategoryRepo subCategoryRepo;
     @BeforeEach
     void setUp() {
-        subCategoryRepo = mock(SubCategoryRepo.class);
-        questionRepo = mock(QuestionRepo.class);
-        questionService = new QuestionServiceImplementation(subCategoryRepo,questionRepo);
+        MockitoAnnotations.openMocks(this);
     }
     
     @Test

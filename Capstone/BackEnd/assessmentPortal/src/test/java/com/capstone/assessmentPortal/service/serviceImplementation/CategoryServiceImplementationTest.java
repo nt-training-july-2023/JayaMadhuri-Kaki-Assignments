@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -12,7 +11,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
@@ -24,14 +25,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 @SpringBootTest
 class CategoryServiceImplementationTest {
-    @Autowired
+    @Mock
     CategoryRepo categoryRepo;
-    @Autowired
+    @InjectMocks
     CategoryServiceImplementation categoryServiceImpl;
     @BeforeEach
     void setUp() {
-      categoryRepo = mock(CategoryRepo.class);
-      categoryServiceImpl = new CategoryServiceImplementation(categoryRepo);
+        MockitoAnnotations.openMocks(this);
     }
     @Test
     void testAddCategoryWithSameName() {

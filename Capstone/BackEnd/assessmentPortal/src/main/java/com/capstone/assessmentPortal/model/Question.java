@@ -68,7 +68,6 @@ public class Question {
      */
     @ManyToOne
     @JoinColumn(name = "subCategoryId")
-    @NotBlank(message = "SubCategory is required")
     private SubCategory subCategory;
     /**
      * get subcategory.

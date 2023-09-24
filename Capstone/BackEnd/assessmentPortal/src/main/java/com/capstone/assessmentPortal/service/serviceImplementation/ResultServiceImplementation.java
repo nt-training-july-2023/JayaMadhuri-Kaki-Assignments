@@ -57,24 +57,6 @@ public class ResultServiceImplementation implements ResultService {
   */
   private Logger logger = LoggerFactory.getLogger(
           ResultServiceImplementation.class);
-  /**
-   * parameter constructor.
-   * @param subCategoryRepo2 subCategoryRepo2
-   * @param usersRepo2 usersRepo2
-   * @param resultRepo2 resultRepo2
-   * @param categoryRepo2 categoryRepo2
-   * @param finalResultRepo finalResultRepo
-  */
-  public ResultServiceImplementation(final SubCategoryRepo subCategoryRepo2,
-          final UsersRepo usersRepo2, final ResultRepo resultRepo2,
-          final CategoryRepo categoryRepo2,
-          final FinalResultOfQuizRepo finalResultRepo) {
-   this.subCategoryRepo = subCategoryRepo2;
-   this.usersRepo = usersRepo2;
-   this.resultRepo = resultRepo2;
-   this.categoryRepo = categoryRepo2;
-   this.finalResultsRepo = finalResultRepo;
-}
 @Override
   public final ResultsDto addTemporaryResult(final ResultsDto resultsDto) {
     Users user = usersRepo.findById(resultsDto

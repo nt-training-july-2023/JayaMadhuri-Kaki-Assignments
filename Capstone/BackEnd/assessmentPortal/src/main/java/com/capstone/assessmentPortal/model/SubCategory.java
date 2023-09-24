@@ -57,7 +57,6 @@ public class SubCategory {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
-    @NotBlank(message = "Category is required")
     private Category category;
     /**
      * list of questions in a quiz attribute.

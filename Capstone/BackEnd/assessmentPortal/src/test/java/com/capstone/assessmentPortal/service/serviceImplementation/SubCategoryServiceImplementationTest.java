@@ -1,7 +1,6 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -9,7 +8,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
@@ -26,17 +27,15 @@ import java.util.NoSuchElementException;
 
 @SpringBootTest
 class SubCategoryServiceImplementationTest {
-    @Autowired
+    @Mock
     SubCategoryRepo subCategoryRepo;
-    @Autowired
+    @Mock
     CategoryRepo categoryRepo;
-    @Autowired
+    @InjectMocks
     SubCategoryServiceImplementation subCategoryServiceImpl;
     @BeforeEach
     void setUp() {
-        subCategoryRepo = mock(SubCategoryRepo.class);
-        categoryRepo = mock(CategoryRepo.class);
-        subCategoryServiceImpl = new SubCategoryServiceImplementation(subCategoryRepo,categoryRepo);
+        MockitoAnnotations.openMocks(this);
     }
     @Test
     void testAddSubCategory() {

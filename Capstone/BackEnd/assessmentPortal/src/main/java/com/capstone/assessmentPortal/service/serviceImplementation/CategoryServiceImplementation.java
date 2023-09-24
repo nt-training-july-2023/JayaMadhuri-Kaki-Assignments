@@ -33,13 +33,6 @@ public class CategoryServiceImplementation implements CategoryService {
   */
   private Logger logger = LoggerFactory.getLogger(
           CategoryServiceImplementation.class);
-  /**
-   * parameter constructor.
-   * @param categoryRepo2 categoryRepo2
-  */
-  public CategoryServiceImplementation(final CategoryRepo categoryRepo2) {
-    this.categoryRepo = categoryRepo2;
-  }
   @Override
   public final CategoryDetailsDto addCategory(final
            CategoryDetailsDto categoryDto) {

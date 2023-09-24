@@ -8,7 +8,7 @@ import Url from '../../Services/Url';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
-    const showQuestion_AfterRefresh =  localStorage.getItem("Current_Category_SubWindow")
+    const showQuestion_AfterRefresh =  localStorage.getItem("Current_Quiz_SubWindow")
     const categoryId = localStorage.getItem("CategoryId")
     const categoryName = localStorage.getItem("CategoryName")
     const [quiz, setQuiz] = useState([]);
@@ -79,6 +79,14 @@ const Quiz = (props) => {
                 }
             })
     }
+    function convertMinutesToTime(minutes) {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
+        const formattedSeconds = '00'; 
+        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    }      
     useEffect(() => {
         fetchData();
         getUserDetails();
@@ -108,7 +116,7 @@ const Quiz = (props) => {
                                 {quiz.map((item) => (
                                     <div key={item.subCategoryId} className="category-card" onClick={() => { { userDetails?.UserType === "Admin" && 
                                     setShowQuestion(true); 
-                                    localStorage.setItem("Current_Category_SubWindow","question")
+                                    localStorage.setItem("Current_Quiz_SubWindow","question")
                                     localStorage.setItem("QuizId",item.subCategoryId)
                                     localStorage.setItem("QuizName",item.subCategoryName)
                                     setSelectedQuizId(item.subCategoryId); 
@@ -176,6 +184,9 @@ const Quiz = (props) => {
                                         </div>}
                                         {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
                                             className='category-btn start-test-btn' onClick={(event) => {
+                                                localStorage.setItem("selectedOption","{}");
+                                                localStorage.setItem("attemptedQuestions",0);
+                                                localStorage.setItem("prevSelectedOption","");
                                                 Swal.fire({
                                                     title: 'Instructions:',
                                                     html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',
@@ -189,10 +200,9 @@ const Quiz = (props) => {
                                                         event.stopPropagation();
                                                         setShowQuestion(true);
                                                         setSelectedQuizId(item.subCategoryId);
-                                                        let timer = new Date();
-                                                        const time_min = item.timeLimitInMinutes * 1;
-                                                        timer.setMinutes(timer.getMinutes() + time_min);
-                                                        setTime(timer)
+                                                        const formattedTime = convertMinutesToTime(item.timeLimitInMinutes)
+                                                        setTime(formattedTime)
+                                                        localStorage.setItem("details",JSON.stringify(details))
                                                     }
                                                 })
                                             }} >Start Test</button>}
@@ -208,7 +218,7 @@ const Quiz = (props) => {
                     </div>}
             </>
             ) : (
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={categoryId} setEnable={setEnable} />)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={categoryId} setEnable={setEnable}/>)}</>
             )}
         </div>
     )

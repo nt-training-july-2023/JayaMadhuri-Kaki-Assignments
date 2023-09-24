@@ -6,15 +6,23 @@ import Url from '../../Services/Url';
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
-    const [selectedOption, setSelectedOption] = useState({});
-    const [question, setQuestion] = useState([]);
-    const [prevSelectedOption, setPrevSelectedOption] = useState({});
-    const [attemptedQuestions, setAttemptedQuestions] = useState(0)
+    const quizId = localStorage.getItem("QuizId")
+    const details_AfterRefresh = JSON.parse(localStorage.getItem("details"))
+    const attemptedQuestions_AfterRefresh = localStorage.getItem("attemptedQuestions")
+    const prevSelectedOption_AfterRefresh = localStorage.getItem("prevSelectedOption")
+    const selectedOption_AfterRefresh = JSON.parse(localStorage.getItem("selectedOption"))
+    const question_AfterRefresh = localStorage.getItem("question") ? JSON.parse(atob(localStorage.getItem("question"))) : []
+    const [selectedOption, setSelectedOption] = useState(selectedOption_AfterRefresh);
+    const [question, setQuestion] = useState(question_AfterRefresh);
+    const [prevSelectedOption, setPrevSelectedOption] = useState(prevSelectedOption_AfterRefresh);
+    const [attemptedQuestions, setAttemptedQuestions] = useState(Number(attemptedQuestions_AfterRefresh))
+    const [isRunning, setIsRunning] = useState(true);
     let count = 1;
     const fetchData = async () => {
-        Url.getAllQuestionsByQuizId(selectedQuizId)
+        Url.getAllQuestionsByQuizId(selectedQuizId ? selectedQuizId : quizId)
             .then(response => {
                 setQuestion(response?.data?.QuestionBySubCategoryId);
+                localStorage.setItem('question', btoa(JSON.stringify(response?.data?.QuestionBySubCategoryId)));
             }).catch(error => {
                 Swal.fire({
                     title: 'Error',
@@ -33,12 +41,6 @@ const QuestionForStudent = (props) => {
             setSelectedOption({
                 ...selectedOption,
                 [questionId]: optionValue,
-            });
-            setAttemptedQuestions((prevCount) => {
-                if (prevCount === 0 || selectedOption[questionId] !== prevSelectedOption) {
-                    return prevCount + 1;
-                }
-                return prevCount;
             });
         }
         setPrevSelectedOption(optionValue);
@@ -62,23 +64,18 @@ const QuestionForStudent = (props) => {
         const score = question.reduce((acc, item) => {
             const questionId = item.questionId;
             const selectedOptionValue = selectedOption[questionId];
-            console.log(selectedOptionValue)
             if (selectedOptionValue === item.correctAnswer) {
                 return acc + 1;
             }
             return acc;
         }, 0);
-        localStorage.setItem("marksObtained",score);
-        localStorage.setItem("totalMarks",question.length)
-        localStorage.setItem("totalQuestions",question.length)
-        localStorage.setItem("numOfAttemptedQuestions",attemptedQuestions)
         const payload = {
-            studentId: details.userId,
-            subCategoryId: selectedQuizId,
+            studentId: details?.userId ? details?.userId : details_AfterRefresh?.userId,
+            subCategoryId: selectedQuizId ? selectedQuizId : quizId,
             categoryId: selectedId,
             marksObtained: score,
-            totalMarks: question.length,
-            totalQuestions: question.length,
+            totalMarks: question?.length,
+            totalQuestions: question?.length,
             numOfAttemptedQuestions: attemptedQuestions
         }
         Swal.fire({
@@ -94,9 +91,11 @@ const QuestionForStudent = (props) => {
         setTimeout(function () {
             setEnable(false)
             setShowQuestion(false)
+            localStorage.setItem('reloadCount', '');
+            localStorage.setItem("Current_Quiz_SubWindow","")
         }, 2000);
-};
-const handleResults = (results) => {
+    };
+    const handleResults = (results) => {
     Url.addResults(results)
         .then(response => {
         }).catch(error => {
@@ -113,19 +112,53 @@ const handleResults = (results) => {
             setTimeout(function () {
                 setEnable(false)
                 setShowQuestion(false)
+                localStorage.setItem('reloadCount', '');
+                localStorage.setItem("Current_Quiz_SubWindow","")
             }, 1500);
         })
     }
+    const incrementReloadCount = () => {
+        const currentReloadCount = localStorage.getItem('reloadCount');
+        const newReloadCount = currentReloadCount ? parseInt(currentReloadCount, 10) + 1 : 1;
+        localStorage.setItem('reloadCount', newReloadCount.toString());
+    };
     useEffect(() => {
         fetchData();
-        window.addEventListener("beforeunload", (e) => {
-            e.preventDefault();
-            e.returnValue = "";
-        });
-        window.addEventListener("unload", (e) => {
-            checkAnswers();
-        });
+        const reloadCount = localStorage.getItem('reloadCount');
+        if (!reloadCount) {
+        localStorage.setItem('reloadCount', '1');
+        }
+        if (reloadCount) {
+        incrementReloadCount();
+        setIsRunning(false)
+        Swal.fire({
+            text: 'Do you want to reload?',
+            showConfirmButton: true,
+            showCancelButton: true,
+            icon: 'info',
+            background: '#15172b',
+            color: 'white',
+        }).then(function (result) {
+            if (result.value === true) {
+                setShowQuestion(false)
+                setEnable(false)
+                localStorage.setItem("Current_Quiz_SubWindow","")
+                localStorage.setItem('reloadCount', '');
+                checkAnswers();
+            }else{
+                setIsRunning(true)
+            }
+        })
+        }
     }, []);
+    useEffect(()=>{
+        if(Object.keys(selectedOption).length > 0){
+            localStorage.setItem("selectedOption",JSON.stringify(selectedOption));
+            localStorage.setItem("attemptedQuestions",attemptedQuestions);
+            localStorage.setItem("prevSelectedOption",prevSelectedOption);
+            setAttemptedQuestions(Object.keys(selectedOption).length);
+        }
+    },[selectedOption])
     return (
         <div>
             <div>
@@ -137,7 +170,7 @@ const handleResults = (results) => {
                 <>
                     {setEnable(true)}
                     <div className='timer'>
-                        <Timer expiryTimestamp={time} setShowQuestion={setShowQuestion} checkAnswers={checkAnswers} setEnable={setEnable} />
+                        <Timer expiryTimestamp={time ? time : localStorage.getItem("time")} checkAnswers={checkAnswers} setEnable={setEnable} isRunning={isRunning}/>
                     </div>
                     <div className='question-body'>
                         <div className='card'>

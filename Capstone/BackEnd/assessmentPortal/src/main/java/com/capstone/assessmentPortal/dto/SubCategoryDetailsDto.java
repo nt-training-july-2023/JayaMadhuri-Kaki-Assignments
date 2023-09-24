@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,12 +37,12 @@ public class SubCategoryDetailsDto {
    *subcategory time limit in minutes for quiz attribute.
   */
   @Column(nullable = false)
-  @NotBlank(message = "Time Limit is required")
+  @NotEmpty(message = "Time Limit is required")
   private String timeLimitInMinutes;
   /**
    *category Id attribute.
   */
   @Column(nullable = false)
-  @NotBlank(message = "Category Id is required")
+  @NotNull(message = "Category Id is required")
   private Long categoryId;
 }

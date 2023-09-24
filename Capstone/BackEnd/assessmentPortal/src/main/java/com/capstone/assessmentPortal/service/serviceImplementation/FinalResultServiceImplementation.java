@@ -31,14 +31,6 @@ public class FinalResultServiceImplementation implements FinalResultService {
   */
   private Logger logger = LoggerFactory.getLogger(
           FinalResultServiceImplementation.class);
-  /**
-   * parameter constructor.
-   * @param finalResultsRepo2 finalResultsRepo2
-  */
-  public FinalResultServiceImplementation(final
-          FinalResultOfQuizRepo finalResultsRepo2) {
-    this.finalResultRepo = finalResultsRepo2;
-}
 @Override
   public final List<FinalResultsDto> getAllFinalResults() {
     List<FinalResultsOfQuiz> listOfFinalResults = finalResultRepo.findAll();
