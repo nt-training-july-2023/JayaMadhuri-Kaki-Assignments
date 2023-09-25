@@ -203,6 +203,8 @@ const Quiz = (props) => {
                                                         const formattedTime = convertMinutesToTime(item.timeLimitInMinutes)
                                                         setTime(formattedTime)
                                                         localStorage.setItem("details",JSON.stringify(details))
+                                                    }else{
+                                                        localStorage.setItem("Current_Quiz_SubWindow","")
                                                     }
                                                 })
                                             }} >Start Test</button>}

@@ -3,6 +3,7 @@ package com.capstone.assessmentPortal.service.serviceImplementation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +38,10 @@ public class UsersServiceImplementation implements UsersService {
           UsersServiceImplementation.class);
 @Override
   public final String studentRegistration(final SignUpRequest signUpRequest) {
-    Users user = usersRepo
+    Optional<Users> user = usersRepo
           .findUserByEmailId(signUpRequest.getEmailId());
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
-    if (user != null) {
+    if (user.isPresent()) {
       logger.error("Email already exists");
       throw new EmailAlreadyExistsException("User with same "
               + "email already exists");
@@ -60,17 +61,17 @@ public class UsersServiceImplementation implements UsersService {
   @Override
   public final Map<String, String> authenticateUser(final
           LoginRequest loginRequest) {
-    Users user = usersRepo.findUserByEmailId(loginRequest
+    Optional<Users> user = usersRepo.findUserByEmailId(loginRequest
              .getEmailId());
     Map<String, String> userDetails = new HashMap<String, String>();
-    if (user != null) {
+    if (user.isPresent()) {
       logger.info("Login successful");
-      String userPassword = user.getPassword();
+      String userPassword = user.get().getPassword();
       if (loginRequest.getPassword().equals(userPassword)) {
-        userDetails.put("UserType", user.getUserType());
-        userDetails.put("Name", user.getFirstName()
-              + " " + user.getLastName());
-        userDetails.put("EmailId", user.getEmailId());
+        userDetails.put("UserType", user.get().getUserType());
+        userDetails.put("Name", user.get().getFirstName()
+              + " " + user.get().getLastName());
+        userDetails.put("EmailId", user.get().getEmailId());
         return userDetails;
       }
     }
@@ -121,17 +122,17 @@ public class UsersServiceImplementation implements UsersService {
   }
     @Override
     public final UserDetails getStudentDetailsByEmail(final String emailId) {
-        Users user = usersRepo.findUserByEmailId(emailId);
+        Optional<Users> user = usersRepo.findUserByEmailId(emailId);
         if (user != null) {
             logger.info("Retrieved student details by EmailId");
             UserDetails userDetails = new UserDetails();
-            userDetails.setUserId(user.getUserId());
-            userDetails.setFirstName(user.getFirstName());
-            userDetails.setLastName(user.getLastName());
-            userDetails.setDateOfBirth(user.getDateOfBirth());
-            userDetails.setGender(user.getGender());
-            userDetails.setEmailId(user.getEmailId());
-            userDetails.setUserType(user.getUserType());
+            userDetails.setUserId(user.get().getUserId());
+            userDetails.setFirstName(user.get().getFirstName());
+            userDetails.setLastName(user.get().getLastName());
+            userDetails.setDateOfBirth(user.get().getDateOfBirth());
+            userDetails.setGender(user.get().getGender());
+            userDetails.setEmailId(user.get().getEmailId());
+            userDetails.setUserType(user.get().getUserType());
             return userDetails;
         }
         logger.error("Student email not found");

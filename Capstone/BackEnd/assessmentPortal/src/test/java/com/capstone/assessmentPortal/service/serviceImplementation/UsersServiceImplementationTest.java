@@ -81,7 +81,7 @@ class UsersServiceImplementationTest {
         userDetails.setEmailId(users.getEmailId());
         userDetails.setPassword(users.getPassword());
         userDetails.setUserType(users.getUserType());
-        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(new Users());
+        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
         assertThrows(EmailAlreadyExistsException.class, () -> usersServiceImpl.studentRegistration(users));
     }
 
@@ -93,7 +93,7 @@ class UsersServiceImplementationTest {
         Users users = new Users();
         users.setEmailId(login.getEmailId());
         users.setPassword(login.getPassword());
-        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(users);
+        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
         Map<String,String> map = usersServiceImpl.authenticateUser(login);
         assertNotNull(map);
         assertEquals("Student", map.get("UserType"));
@@ -109,7 +109,7 @@ class UsersServiceImplementationTest {
         Users users = new Users();
         users.setEmailId(login.getEmailId());
         users.setPassword("Madhu");
-        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(users);
+        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
         assertNotEquals(users.getPassword(),login.getPassword());
         assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
     }
@@ -244,7 +244,7 @@ class UsersServiceImplementationTest {
        userDetails.setEmailId(users.getEmailId());
        userDetails.setPassword(users.getPassword());
        userDetails.setUserType(users.getUserType());
-       when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(userDetails);
+       when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentDetailsByEmail(users.getEmailId());
        assertEquals(userDetails.getUserId(), result.getUserId());
        assertEquals(userDetails.getEmailId(), result.getEmailId());

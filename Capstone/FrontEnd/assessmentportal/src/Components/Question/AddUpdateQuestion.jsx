@@ -26,7 +26,7 @@ const AddUpdateQuestion = (props) => {
                     setPopUp(false)
                 }
             }).catch(error => {
-                if (error?.response?.status === 409) {
+                if (error?.response?.status === 400) {
                     Swal.fire({
                         title: 'Error',
                         text: 'All Fields are Mandatory',
@@ -58,7 +58,7 @@ const AddUpdateQuestion = (props) => {
                     setPopUp(false)
                 }
             }).catch(error => {
-                if (error?.response?.status === 409) {
+                if (error?.response?.status === 400) {
                     Swal.fire({
                         title: 'Error',
                         text: 'All Fields are Mandatory',

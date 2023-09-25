@@ -92,7 +92,11 @@ const QuestionForStudent = (props) => {
             setEnable(false)
             setShowQuestion(false)
             localStorage.setItem('reloadCount', '');
+            localStorage.setItem("time","")
+            localStorage.setItem("attemptedQuestions",0);
             localStorage.setItem("Current_Quiz_SubWindow","")
+            localStorage.setItem("selectedOption","{}");
+            localStorage.setItem("prevSelectedOption","");
         }, 2000);
     };
     const handleResults = (results) => {
@@ -113,7 +117,11 @@ const QuestionForStudent = (props) => {
                 setEnable(false)
                 setShowQuestion(false)
                 localStorage.setItem('reloadCount', '');
+                localStorage.setItem("time","")
+                localStorage.setItem("attemptedQuestions",0);
                 localStorage.setItem("Current_Quiz_SubWindow","")
+                localStorage.setItem("selectedOption","{}");
+                localStorage.setItem("prevSelectedOption","");
             }, 1500);
         })
     }
@@ -144,6 +152,9 @@ const QuestionForStudent = (props) => {
                 setEnable(false)
                 localStorage.setItem("Current_Quiz_SubWindow","")
                 localStorage.setItem('reloadCount', '');
+                localStorage.setItem("attemptedQuestions",0);
+                localStorage.setItem("time","")
+                localStorage.setItem("prevSelectedOption","");
                 checkAnswers();
             }else{
                 setIsRunning(true)

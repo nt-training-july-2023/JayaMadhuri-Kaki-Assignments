@@ -95,7 +95,7 @@ const Login = (props) => {
                         }
                     }
                 }).catch(error => {
-                    if (error?.response?.status == 404) {
+                    if (error?.response?.status == 401) {
                         Swal.fire({
                             title: 'Error',
                             text: 'InCorrect Credentials',

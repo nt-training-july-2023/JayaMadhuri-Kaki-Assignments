@@ -67,6 +67,7 @@ const Navbar = (props) => {
                     localStorage.setItem("QuizName","")
                     localStorage.setItem("QuizId","")
                     localStorage.setItem("Current_Quiz_SubWindow","")
+                    localStorage.setItem("details","")
                     setRenderComponent("login")
                 }, 2000)
             } else {
