@@ -19,7 +19,7 @@ public interface CategoryService {
    *get all categories in category table.
    *@return list of categories
   */
-  List<CategoryDetailsDto> getAllCategories();
+  List<CategoryDetailsDto> getCategories();
   /**
    *get category by category id.
    *@return category

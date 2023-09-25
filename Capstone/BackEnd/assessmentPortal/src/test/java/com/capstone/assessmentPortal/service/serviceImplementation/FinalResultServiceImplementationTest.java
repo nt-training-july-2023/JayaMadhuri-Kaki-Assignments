@@ -46,7 +46,7 @@ class FinalResultServiceImplementationTest {
         listoffinalresults.add(finalResults);
         finalResultsRepo.save(finalResults);
         when(finalResultsRepo.findAll()).thenReturn(listoffinalresults);
-        List<FinalResultsDto> finalResultsDto = finalResultsService.getAllFinalResults();
+        List<FinalResultsDto> finalResultsDto = finalResultsService.getFinalResults();
         assertEquals(listoffinalresults.get(0).getCategoryName(), finalResultsDto.get(0).getCategoryName());
     }
 

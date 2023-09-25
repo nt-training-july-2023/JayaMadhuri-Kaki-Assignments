@@ -19,7 +19,7 @@ const QuestionForStudent = (props) => {
     const [isRunning, setIsRunning] = useState(true);
     let count = 1;
     const fetchData = async () => {
-        Url.getAllQuestionsByQuizId(selectedQuizId ? selectedQuizId : quizId)
+        Url.getQuestionsByQuizId(selectedQuizId ? selectedQuizId : quizId)
             .then(response => {
                 setQuestion(response?.data?.QuestionBySubCategoryId);
                 localStorage.setItem('question', btoa(JSON.stringify(response?.data?.QuestionBySubCategoryId)));

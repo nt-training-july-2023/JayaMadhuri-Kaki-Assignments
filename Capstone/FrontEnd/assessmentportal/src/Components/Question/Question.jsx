@@ -36,7 +36,7 @@ const Question = (props) => {
         setPopUp(true)
     }
     const fetchData = async () => {
-        QuestionUrl.getAllQuestionsByQuizId(selectedQuizId ? selectedQuizId : QuizId)
+        QuestionUrl.getQuestionsByQuizId(selectedQuizId ? selectedQuizId : QuizId)
             .then(response => {
                 setQuestion(response?.data?.QuestionBySubCategoryId)
                 setLoading(true)

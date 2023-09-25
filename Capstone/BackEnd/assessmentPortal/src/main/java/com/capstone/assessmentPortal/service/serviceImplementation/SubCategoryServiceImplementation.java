@@ -46,7 +46,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                  .getSubCategoryByName(subCategoryDto.getSubCategoryName());
          if (subCategory.isPresent()) {
              logger.error("A Quiz is already exists with the same name");
-             throw new AlreadyExistsException();
+             throw new AlreadyExistsException("A Quiz is already "
+                     + "exists with the same name");
          }
           logger.info("Quiz Added");
           SubCategory subCategoryObj = new SubCategory();
@@ -64,7 +65,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
           return subCategoryDto;
   }
   @Override
-  public final List<SubCategoryDetailsDto> getAllSubCategories() {
+  public final List<SubCategoryDetailsDto> getSubCategories() {
     List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
       logger.info("Retrieved all the quizes");
       return listOfSubCategories.stream()
@@ -93,7 +94,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                      Long subCategoryId) {
     SubCategory subCategory = subCategoryRepo.findById(subCategoryId)
          .orElseThrow(() -> new NoSuchElementException("Cannot "
-         + "find Subcategory with id: " + subCategoryId));
+         + "find quiz with id: " + subCategoryId));
     logger.info("Retrieved quiz details by id");
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
     subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
@@ -110,7 +111,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                     final Long subCategoryId) {
     SubCategory quiz = subCategoryRepo
                  .findById(subCategoryId).orElseThrow(
-                         () -> new NoSuchElementException());
+                         () -> new NoSuchElementException("Cannot "
+                         + "find quiz with id: " + subCategoryId));
     logger.info("Quiz with id found");
     quiz.setSubCategoryId(subCategoryDto.getSubCategoryId());
     quiz.setSubCategoryName(subCategoryDto.getSubCategoryName());
@@ -125,7 +127,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   public final void deleteSubCategory(final Long subCategoryId) {
     subCategoryRepo
             .findById(subCategoryId).orElseThrow(
-                    () -> new NoSuchElementException());
+                    () -> new NoSuchElementException("Cannot "
+                           + "find quiz with id: " + subCategoryId));
     logger.info("Quiz Deleted");
     subCategoryRepo.deleteById(subCategoryId);
   }
@@ -133,7 +136,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   public final List<SubCategoryDetailsDto> getSubCategoryByCategoryId(final
                    Long categoryId) {
     categoryRepo.findById(categoryId).orElseThrow(
-            () -> new NoSuchElementException());
+            () -> new NoSuchElementException("Cannot "
+                    + "find category with id: " + categoryId));
     List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
     logger.info("Retrieved quizes with category id");

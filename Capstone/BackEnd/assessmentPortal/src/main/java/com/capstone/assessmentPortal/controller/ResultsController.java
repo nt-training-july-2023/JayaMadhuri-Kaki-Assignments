@@ -37,7 +37,7 @@ public class ResultsController {
    *@return newResult
    *@param results results
   */
-  @PostMapping("/results/add")
+  @PostMapping("/results")
   public final ResponseEntity<Object> addResult(@RequestBody @Valid final
                 ResultsDto results) {
     ResultsDto resultsDto = resultService.addTemporaryResult(results);

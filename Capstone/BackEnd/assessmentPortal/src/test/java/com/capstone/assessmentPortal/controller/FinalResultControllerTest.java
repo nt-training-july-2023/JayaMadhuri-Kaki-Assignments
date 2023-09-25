@@ -47,8 +47,8 @@ class FinalResultControllerTest {
         finalDto.setTotalQuestions(10);
         finalDto.setDateAndTime("23-01-23");
         List<FinalResultsDto> list = new ArrayList<>();
-        when(finalResults.getAllFinalResults()).thenReturn(list);
-        ResponseEntity<Object> response = finalResultController.getAllFinalResults();
+        when(finalResults.getFinalResults()).thenReturn(list);
+        ResponseEntity<Object> response = finalResultController.getFinalResults();
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
     @Test
@@ -66,7 +66,7 @@ class FinalResultControllerTest {
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResultByStudentEmail(finalDto.getStudentEmailId())).thenReturn(list);
         ResponseEntity<Object> response = finalResultController
-                .getAllFinalResultByStudentEmail(finalDto.getStudentEmailId());
+                .getFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 }

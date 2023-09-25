@@ -43,8 +43,8 @@ class CategoryControllerTest {
         CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
         List<CategoryDetailsDto> listofCategories = new ArrayList<>();
         listofCategories.add(categoryDetailsDto);
-        when(categoryService.getAllCategories()).thenReturn(listofCategories);
-        ResponseEntity<Object> response = categoryController.getAllCategories();
+        when(categoryService.getCategories()).thenReturn(listofCategories);
+        ResponseEntity<Object> response = categoryController.getCategories();
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 

@@ -135,7 +135,7 @@ class SubCategoryServiceImplementationTest {
         List<SubCategory> listOfSubCategories = new ArrayList<>();
         listOfSubCategories.add(subCategory);
         when(subCategoryRepo.findAll()).thenReturn(listOfSubCategories);
-        List<SubCategoryDetailsDto> subCategoryList = subCategoryServiceImpl.getAllSubCategories();
+        List<SubCategoryDetailsDto> subCategoryList = subCategoryServiceImpl.getSubCategories();
         assertEquals("Array", subCategoryList.get(0).getSubCategoryName());
     }
 

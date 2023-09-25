@@ -42,7 +42,8 @@ public class UsersServiceImplementation implements UsersService {
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
     if (user != null) {
       logger.error("Email already exists");
-      throw new EmailAlreadyExistsException();
+      throw new EmailAlreadyExistsException("User with same "
+              + "email already exists");
     }
     logger.info("User successfully registered");
     Users users = new Users();
@@ -74,12 +75,13 @@ public class UsersServiceImplementation implements UsersService {
       }
     }
     logger.error("User not found in database");
-    throw new UserNotFoundException();
+    throw new UserNotFoundException("Incorrect Credentials");
   }
   @Override
   public final void deleteStudent(final Long studentId) {
     usersRepo.findById(studentId).orElseThrow(
-            () -> new NoSuchElementException());
+            () -> new NoSuchElementException("Cannot "
+                    + "find user with id: " + studentId));
     logger.info("User deleted");
     usersRepo.deleteById(studentId);
   }
@@ -87,7 +89,8 @@ public class UsersServiceImplementation implements UsersService {
   public final UserDetailsForUpdate updateStudentDetails(final Long studentId,
                  final UserDetailsForUpdate users) {
     Users user = usersRepo.findById(studentId).orElseThrow(() ->
-                 new NoSuchElementException());
+                 new NoSuchElementException("Cannot "
+                         + "find user with id: " + studentId));
     user.setFirstName(users.getFirstName());
     user.setLastName(users.getLastName());
     user.setDateOfBirth(users.getDateOfBirth());
@@ -105,7 +108,7 @@ public class UsersServiceImplementation implements UsersService {
   public final UserDetails getStudentById(final Long studentId) {
     Users user = usersRepo.findById(studentId).orElseThrow(
             () -> new NoSuchElementException(
-            "Cannot find User with id: " + studentId));
+            "Cannot find user with id: " + studentId));
     UserDetails userDetails = new UserDetails();
     userDetails.setFirstName(user.getFirstName());
     userDetails.setLastName(user.getLastName());
@@ -132,6 +135,7 @@ public class UsersServiceImplementation implements UsersService {
             return userDetails;
         }
         logger.error("Student email not found");
-        throw new NoSuchElementException();
+        throw new NoSuchElementException("Cannot "
+                + "find student with email: " + emailId);
     }
 }

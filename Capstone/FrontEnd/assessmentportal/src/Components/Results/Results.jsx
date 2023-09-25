@@ -6,7 +6,7 @@ import FinalResultsUrl from '../../Services/Url';
 const Results = ({ userDetails }) => {
     const [results, setResults] = useState([]);
     const handleResutlts = async () => {
-        FinalResultsUrl.getAllResults()
+        FinalResultsUrl.getResults()
             .then(response => {
                 if (response?.data?.statusCode == 200) {
                     setResults(response?.data?.FinalResults)
@@ -27,7 +27,7 @@ const Results = ({ userDetails }) => {
             })
     }
     const handleResutltsOfStudents = async () => {
-        FinalResultsUrl.getAllResultsByStudentEmail(userDetails.EmailId)
+        FinalResultsUrl.getResultsByStudentEmail(userDetails.EmailId)
             .then(response => {
                 if (response?.data?.statusCode == 200) {
                     setResults(response?.data?.FinalResults)

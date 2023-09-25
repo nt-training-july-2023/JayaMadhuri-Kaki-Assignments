@@ -71,7 +71,7 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.getCategoryByName(category.getCategoryName())).thenReturn(Optional.empty());
         categoryRepo.save(category);
         when(categoryRepo.findAll()).thenReturn(listofcategories);
-        List<CategoryDetailsDto> categoryList = categoryServiceImpl.getAllCategories();
+        List<CategoryDetailsDto> categoryList = categoryServiceImpl.getCategories();
         assertEquals("Java", categoryList.get(0).getCategoryName());
     }
 

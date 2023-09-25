@@ -34,7 +34,7 @@ class QuestionControllerTest {
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
         List<QuestionDto> questionlist = new ArrayList<>();
         when(questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionlist);
-        ResponseEntity<Object> response = questionController.getAllQuestionsBySubCategoryId(questionDto.getSubCategoryId());
+        ResponseEntity<Object> response = questionController.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 

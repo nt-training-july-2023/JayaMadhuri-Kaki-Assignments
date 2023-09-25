@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
-import com.capstone.assessmentPortal.exception.EmptyListException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 
@@ -47,8 +46,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(NoSuchElementException.class)
   public final ResponseEntity<String> handleNoSuchElement(
               final NoSuchElementException exception) {
-    return new ResponseEntity<String>("No value is present in Db with this ID,"
-            + " please change your request", HttpStatus.NOT_FOUND);
+    return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
   }
   /**
    *Exception handles when user credentials are not valid.
@@ -58,8 +56,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(UserNotFoundException.class)
   public final ResponseEntity<String> handleUserNotFound(final
                  UserNotFoundException exception) {
-    return new ResponseEntity<String>("Invalid user credentials",
-                 HttpStatus.NOT_FOUND);
+    return new ResponseEntity<String>(exception.getMessage(),
+                 HttpStatus.UNAUTHORIZED);
   }
   /**
    * Exception handles when Existed email again to register.
@@ -69,7 +67,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(EmailAlreadyExistsException.class)
   public final ResponseEntity<String> handleEmailAlreadyExistsException(
             final EmailAlreadyExistsException exception) {
-    return new ResponseEntity<String>("An account is already registered "
+    return new ResponseEntity<String>(exception.getMessage()
             + "with this Email", HttpStatus.CONFLICT);
   }
   /**
@@ -80,18 +78,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(AlreadyExistsException.class)
   public final ResponseEntity<String> handleAlreadyExistsException(final
            AlreadyExistsException exception) {
-    return new ResponseEntity<String>("Data already exists",
+    return new ResponseEntity<String>(exception.getMessage(),
            HttpStatus.CONFLICT);
-  }
-  /**
-   *Exception handles when list is empty.
-   *@return responseEntity
-   *@param exception emptyListxception
-  */
-  @ExceptionHandler(EmptyListException.class)
-  public final ResponseEntity<String> handleEmptyListException(final
-          EmptyListException exception) {
-    return new ResponseEntity<String>("List is Empty", HttpStatus.OK);
   }
   /**
    *Exception handles when data with given id is not found.
@@ -101,7 +89,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(NotFoundException.class)
   public final ResponseEntity<String> handleNotFoundException(final
            NotFoundException exception) {
-    return new ResponseEntity<String>("Super class Id Not exists",
+    return new ResponseEntity<String>(exception.getMessage(),
            HttpStatus.NOT_FOUND);
   }
 }

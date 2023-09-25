@@ -23,7 +23,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
-import com.capstone.assessmentPortal.exception.EmptyListException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 @SpringBootTest
@@ -83,14 +82,7 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<String> response = globalhandler.handleAlreadyExistsException(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
-
-    @Test
-    void testHandleEmptyListException() {
-        EmptyListException noSuch = new EmptyListException("List is empty");
-        ResponseEntity<String> response = globalhandler.handleEmptyListException(noSuch);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-    }
-
+    
     @Test
     void testHandleNotFoundException() {
         NotFoundException noSuch = new NotFoundException("Element Not found");

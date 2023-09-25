@@ -19,7 +19,7 @@ public interface SubCategoryService {
    * get list of all subcategories in table.
    * @return list of subcategories
   */
-  List<SubCategoryDetailsDto> getAllSubCategories();
+  List<SubCategoryDetailsDto> getSubCategories();
   /**
    * get subcategory by id.
    * @return subCategory

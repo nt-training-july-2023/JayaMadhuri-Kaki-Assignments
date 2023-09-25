@@ -32,8 +32,8 @@ class SubCategoryControllerTest {
     @Test
     void testGetAllSubCategories() {
         List<SubCategoryDetailsDto> subCategorylist = new ArrayList<>();
-        when(subCategoryService.getAllSubCategories()).thenReturn(subCategorylist);
-        ResponseEntity<Object> response = subcategoryController.getAllSubCategories();
+        when(subCategoryService.getSubCategories()).thenReturn(subCategorylist);
+        ResponseEntity<Object> response = subcategoryController.getSubCategories();
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 

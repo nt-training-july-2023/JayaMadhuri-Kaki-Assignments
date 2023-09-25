@@ -43,7 +43,8 @@ public class QuestionServiceImplementation implements QuestionService {
   public final QuestionDto addQuestion(final QuestionDto questionDto) {
       SubCategory subCategory = subCategoryRepo.findById(
               questionDto.getSubCategoryId()).orElseThrow(() ->
-               new NoSuchElementException());
+               new NoSuchElementException("Cannot find quiz"
+                       + " with id: "+questionDto.getSubCategoryId()));
       logger.info("Question Added");
       Question question = new Question();
       question.setQuestionContent(questionDto.getQuestionContent());
@@ -60,7 +61,8 @@ public class QuestionServiceImplementation implements QuestionService {
   public final List<QuestionDto> getQuestionsBySubCategoryId(final
                    Long subCategoryId) {
     subCategoryRepo.findById(subCategoryId).orElseThrow(
-                      () -> new NoSuchElementException());
+                      () -> new NoSuchElementException("Cannot find"
+                              + " quiz with id: "+subCategoryId));
     List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
     logger.info("Retrieved Question by Quiz id");
@@ -96,7 +98,8 @@ public class QuestionServiceImplementation implements QuestionService {
           QuestionDto questionDto) {
     Question question = questionRepo
                 .findById(questionId).orElseThrow(
-                        () -> new NoSuchElementException());
+                        () -> new NoSuchElementException(
+                                "Cannot find question with id: "+questionId));
       logger.info("Question with id exists");
       question.setQuestionContent(questionDto.getQuestionContent());
       question.setOptionA(questionDto.getOptionA());
@@ -111,7 +114,8 @@ public class QuestionServiceImplementation implements QuestionService {
   @Override
   public final void deleteQuestion(final Long questionId) {
     questionRepo.findById(questionId).orElseThrow(
-            () -> new NoSuchElementException());
+            () -> new NoSuchElementException(
+                    "Cannot find question with id: "+questionId));
     logger.info("Question Deleted");
     questionRepo.deleteById(questionId);
   }

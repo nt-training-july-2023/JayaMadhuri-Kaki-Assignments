@@ -28,7 +28,7 @@ const Category = (props) => {
         setPopUp(true)
     }
     const fetchData = async () => {
-        CategoryUrl.getAllCategories()
+        CategoryUrl.getCategories()
             .then(response => {
                 setCategory(response?.data?.listOfCategories)
                 setLoading(true);

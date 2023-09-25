@@ -43,11 +43,11 @@ public class QuestionController {
    * @param subCategoryId subCategoryId
   */
   @GetMapping("/questions/{subCategoryId}")
-  public final ResponseEntity<Object> getAllQuestionsBySubCategoryId(
+  public final ResponseEntity<Object> getQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> questions = questionService
           .getQuestionsBySubCategoryId(subCategoryId);
-    logger.info("Retrieved all questions by quiz id");
+    logger.info("Retrieved questions by quiz id");
     return ResponseHandler.generateResponse(
            "Successfully Retrieved Questions By SubCategory Id",
            HttpStatus.OK, "QuestionBySubCategoryId", questions);
@@ -57,7 +57,7 @@ public class QuestionController {
    *@return newQuestion
    *@param question question
   */
-  @PostMapping("/questions/add")
+  @PostMapping("/questions")
   public final ResponseEntity<Object> addQuestion(
             @RequestBody @Valid final QuestionDto question) {
     QuestionDto questionDto = questionService.addQuestion(question);
@@ -71,7 +71,7 @@ public class QuestionController {
    *@param questionId questionId
    *@param question question
   */
-  @PutMapping("/questions/update/{questionId}")
+  @PutMapping("/questions/{questionId}")
   public final ResponseEntity<Object> updateQuestion(
           @PathVariable final Long questionId,
           @RequestBody @Valid final QuestionDto question) {
@@ -86,7 +86,7 @@ public class QuestionController {
    *@return deletedQuestion
    *@param questionId questionId
   */
-  @DeleteMapping("/questions/delete/{questionId}")
+  @DeleteMapping("/questions/{questionId}")
   public final ResponseEntity<Object> deleteQuestion(
          @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);

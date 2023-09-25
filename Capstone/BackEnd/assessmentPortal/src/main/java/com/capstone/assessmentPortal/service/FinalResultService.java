@@ -12,7 +12,7 @@ public interface FinalResultService {
    * get all final results from final result table.
    * @return list of finalresults
   */
-  List<FinalResultsDto> getAllFinalResults();
+  List<FinalResultsDto> getFinalResults();
   /**
    * get final result by student emailId.
    * @return list of final results

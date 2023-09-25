@@ -41,13 +41,13 @@ public class SubCategoryController {
    *get all subcategories.
    *@return subCategories
   */
-  @GetMapping("/subCategory/all")
-  public final ResponseEntity<Object> getAllSubCategories() {
+  @GetMapping("/subCategory")
+  public final ResponseEntity<Object> getSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
-              .getAllSubCategories();
-    logger.info("Retrieved all quizes");
+              .getSubCategories();
+    logger.info("Retrieved quizes");
     return ResponseHandler.generateResponse(
-          "Successfully Retrieved All SubCategories",
+          "Successfully Retrieved SubCategories",
           HttpStatus.OK, "ListOfSubCategories", subCategories);
   }
   /**
@@ -85,7 +85,7 @@ public class SubCategoryController {
    *@return newSubCategoy
    *@param subCategory subCategory
   */
-  @PostMapping("/subCategory/add")
+  @PostMapping("/subCategory")
   public final ResponseEntity<Object> addSubCategory(
             @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
     SubCategoryDetailsDto subCategoryDto = subCategoryService
@@ -100,7 +100,7 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
    *@param subCategory subCategory
   */
-  @PutMapping("/subCategory/update/{subCategoryId}")
+  @PutMapping("/subCategory/{subCategoryId}")
   public final ResponseEntity<Object> updateSubCategory(
           @PathVariable final Long subCategoryId,
           @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
@@ -115,7 +115,7 @@ public class SubCategoryController {
    *@return deletedSubCategory
    *@param subCategoryId subCategoryId
   */
-  @DeleteMapping("/subCategory/delete/{subCategoryId}")
+  @DeleteMapping("/subCategory/{subCategoryId}")
   public final ResponseEntity<Object> deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);

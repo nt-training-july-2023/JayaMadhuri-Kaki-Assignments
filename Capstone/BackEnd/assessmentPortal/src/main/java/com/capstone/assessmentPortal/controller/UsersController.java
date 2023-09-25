@@ -45,7 +45,7 @@ public class UsersController {
    *@return response
    *@param signUpRequest signUpRequest
   */
-  @PostMapping("/users/register")
+  @PostMapping("/register")
   public final ResponseEntity<Object> studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     String response = usersService.studentRegistration(signUpRequest);
@@ -58,7 +58,7 @@ public class UsersController {
    *@return userDetails
    *@param loginRequest loginRequest
   */
-  @PostMapping("/users/login")
+  @PostMapping("/login")
   public final ResponseEntity<Object> userLogin(
                   @RequestBody @Valid final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
@@ -72,7 +72,7 @@ public class UsersController {
    *@return studentDetails
    *@param studentId studentId
   */
-  @GetMapping("/users/{studentId}")
+  @GetMapping("/{studentId}")
   public final ResponseEntity<Object> getStudentById(
                  @PathVariable final Long studentId) {
     UserDetails userDetails = usersService.getStudentById(studentId);
@@ -85,7 +85,7 @@ public class UsersController {
    *@return studentDetails
    *@param emailId emailId
   */
-  @GetMapping("/users/email/{emailId}")
+  @GetMapping("/email/{emailId}")
   public final ResponseEntity<Object> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails userDetails = usersService.getStudentDetailsByEmail(emailId);
@@ -99,7 +99,7 @@ public class UsersController {
    * @param studentId studentId
    * @param users users
   */
-  @PutMapping("/users/update/{studentId}")
+  @PutMapping("/{studentId}")
   public final ResponseEntity<Object> updateStudentDetails(
            @PathVariable final Long studentId,
            @RequestBody @Valid final UserDetailsForUpdate users) {
@@ -114,7 +114,7 @@ public class UsersController {
    * @return deletedStudent
    * @param studentId studentId
   */
-  @DeleteMapping("/users/delete/{studentId}")
+  @DeleteMapping("/{studentId}")
   public final ResponseEntity<Object> deleteStudent(
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);

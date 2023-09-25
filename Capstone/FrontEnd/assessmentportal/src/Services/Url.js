@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const USER_URL = 'http://localhost:6060/users';
+const USER_URL = 'http://localhost:6060';
 const CATEGORY_URL = 'http://localhost:6060/category';
 const QUIZ_URL = 'http://localhost:6060/subCategory';
 const QUESTION_URL = 'http://localhost:6060/questions';
@@ -26,19 +26,19 @@ class Url {
     }
 
     updateUser(userId, User) {
-        return axios.put(USER_URL + '/update/' + userId, User);
+        return axios.put(USER_URL + '/' + userId, User);
     }
 
     deleteUser(userId) {
-        return axios.delete(USER_URL + '/delete/' + userId);
+        return axios.delete(USER_URL + '/' + userId);
     }
 
     addCategory(Category) {
-        return axios.post(CATEGORY_URL + "/add", Category);
+        return axios.post(CATEGORY_URL, Category);
     }
 
-    getAllCategories() {
-        return axios.get(CATEGORY_URL + "/all");
+    getCategories() {
+        return axios.get(CATEGORY_URL);
     }
 
     getCategoryByCategoryId(CategoryId) {
@@ -46,15 +46,15 @@ class Url {
     }
 
     updateCategory(CategoryId, Category) {
-        return axios.put(CATEGORY_URL + '/update/' + CategoryId, Category);
+        return axios.put(CATEGORY_URL + '/' + CategoryId, Category);
     }
 
     deleteCategory(CategoryId) {
-        return axios.delete(CATEGORY_URL + '/delete/' + CategoryId);
+        return axios.delete(CATEGORY_URL + '/' + CategoryId);
     }
 
     addQuiz(Quiz) {
-        return axios.post(QUIZ_URL + "/add", Quiz);
+        return axios.post(QUIZ_URL, Quiz);
     }
 
     getQuizByCategoryId(CategoryId) {
@@ -66,38 +66,38 @@ class Url {
     }
 
     updateQuiz(QuizId, Quiz) {
-        return axios.put(QUIZ_URL + '/update/' + QuizId, Quiz);
+        return axios.put(QUIZ_URL + '/' + QuizId, Quiz);
     }
 
     deleteQuiz(QuizId) {
-        return axios.delete(QUIZ_URL + '/delete/' + QuizId);
+        return axios.delete(QUIZ_URL + '/' + QuizId);
     }
 
     addQuestion(Question) {
-        return axios.post(QUESTION_URL + "/add", Question);
+        return axios.post(QUESTION_URL, Question);
     }
 
-    getAllQuestionsByQuizId(QuizId) {
+    getQuestionsByQuizId(QuizId) {
         return axios.get(QUESTION_URL + "/" + QuizId);
     }
 
     updateQuestion(QuestionId, Question) {
-        return axios.put(QUESTION_URL + '/update/' + QuestionId, Question);
+        return axios.put(QUESTION_URL + '/' + QuestionId, Question);
     }
 
     deleteQuestion(QuestionId) {
-        return axios.delete(QUESTION_URL + '/delete/' + QuestionId);
+        return axios.delete(QUESTION_URL + '/' + QuestionId);
     }
 
     addResults(Results) {
-        return axios.post(RESULT_URL + "/add", Results);
+        return axios.post(RESULT_URL, Results);
     }
     
-    getAllResults() {
+    getResults() {
         return axios.get(FINALRESULT_URL);
     }
     
-    getAllResultsByStudentEmail(Email) {
+    getResultsByStudentEmail(Email) {
         return axios.get(FINALRESULT_URL + "/" + Email);
     }
 }

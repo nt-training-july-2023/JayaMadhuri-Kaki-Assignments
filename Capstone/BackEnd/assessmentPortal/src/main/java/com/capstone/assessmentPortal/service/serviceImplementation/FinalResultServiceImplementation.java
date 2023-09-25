@@ -32,7 +32,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
   private Logger logger = LoggerFactory.getLogger(
           FinalResultServiceImplementation.class);
 @Override
-  public final List<FinalResultsDto> getAllFinalResults() {
+  public final List<FinalResultsDto> getFinalResults() {
     List<FinalResultsOfQuiz> listOfFinalResults = finalResultRepo.findAll();
     logger.info("Retrieved all the final results");
       return listOfFinalResults.stream()
