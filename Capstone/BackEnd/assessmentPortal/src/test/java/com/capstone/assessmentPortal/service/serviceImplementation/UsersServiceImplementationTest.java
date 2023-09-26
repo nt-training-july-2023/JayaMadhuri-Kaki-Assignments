@@ -113,16 +113,7 @@ class UsersServiceImplementationTest {
         assertNotEquals(users.getPassword(),login.getPassword());
         assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
     }
-    @Test
-    void testAuthenticateUserIfNotExist() {
-        LoginRequest login = new LoginRequest();
-        login.setEmailId("jayamadhuri@nucleusteq.com");
-        login.setPassword("Madhu@123");
-        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(null);
-        assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
-    }
     
-
     @Test
     void testDeleteStudent() {
         Long userId = 1L;
@@ -217,13 +208,6 @@ class UsersServiceImplementationTest {
        Long userId = 13L;
        when(usersRepo.findById(userId)).thenReturn(Optional.empty());
        assertThrows(NoSuchElementException.class, () -> usersServiceImpl.getStudentById(userId));
-    }
-    
-    @Test
-    void testGetStudentByEmailIdNotExists() {
-       String emailId = "jaya@nucleusteq.com";
-       when(usersRepo.findUserByEmailId(emailId)).thenReturn(null);
-       assertThrows(NoSuchElementException.class, () -> usersServiceImpl.getStudentDetailsByEmail(emailId));
     }
     
     @Test

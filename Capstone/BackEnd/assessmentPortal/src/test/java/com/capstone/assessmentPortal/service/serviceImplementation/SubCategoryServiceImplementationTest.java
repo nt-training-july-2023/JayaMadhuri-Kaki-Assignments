@@ -189,11 +189,13 @@ class SubCategoryServiceImplementationTest {
     @Test
     void testUpdateSubCategory() {
         Long subCategoryId = 1L;
+        Long categoryId = 1L;
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(subCategoryId);
         subCategoryDto.setSubCategoryName("Java");
         subCategoryDto.setSubCategoryDescription("programming language");
         subCategoryDto.setTimeLimitInMinutes("100");
+        subCategoryDto.setCategoryId(categoryId);
         SubCategory subCategory = new SubCategory(subCategoryId,subCategoryDto.getSubCategoryName(),
                 subCategoryDto.getSubCategoryDescription(),subCategoryDto.getTimeLimitInMinutes());
         SubCategoryDetailsDto subCategoryDto1 = new SubCategoryDetailsDto();
@@ -201,6 +203,9 @@ class SubCategoryServiceImplementationTest {
         subCategoryDto1.setSubCategoryName("Java");
         subCategoryDto1.setSubCategoryDescription("programming language");
         subCategoryDto1.setTimeLimitInMinutes("100");
+        Category category = new Category();
+        when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
+        subCategoryDto1.setCategoryId(categoryId);
         SubCategory subCategory1 = new SubCategory(subCategoryId,subCategoryDto1.getSubCategoryName(),
                 subCategoryDto1.getSubCategoryDescription(),subCategoryDto1.getTimeLimitInMinutes());
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));

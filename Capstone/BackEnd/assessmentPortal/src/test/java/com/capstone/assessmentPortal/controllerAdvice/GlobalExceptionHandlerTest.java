@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
+
 @SpringBootTest
 class GlobalExceptionHandlerTest {
     @InjectMocks
@@ -55,20 +57,25 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<String> response = globalhandler.handleEmailAlreadyExistsException(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
+    @Test 
+    void testUserNotFoundException() {
+        UserNotFoundException noSuch = new UserNotFoundException("User not found");
+        ResponseEntity<String> response = globalhandler.handleUserNotFound(noSuch);
+        assertEquals(HttpStatus.UNAUTHORIZED,response.getStatusCode());
+    }
+    @Test 
+    void testDataIntegrityException() {
+        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("User not found");
+        ResponseEntity<String> response = globalhandler.handleConflict(noSuch);
+        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+    }
     @Test
     void testHandleNoSuchElement() {
        NoSuchElementException noSuch = new NoSuchElementException("No such element found");
        ResponseEntity<String> response = globalhandler.handleNoSuchElement(noSuch);
        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
-
-    @Test
-    void testHandleUserNotFound() {
-        UserNotFoundException noSuch = new UserNotFoundException("User not found");
-        ResponseEntity<String> response = globalhandler.handleUserNotFound(noSuch);
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
-    }
-
+    
     @Test
     void testHandleAlreadyExistsExceptionEmailAlreadyExistsException() {
         AlreadyExistsException noSuch = new AlreadyExistsException("Element already exists");

@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
    *@param exception DataIntegrityViolationException
   */
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public final ResponseEntity<String> conflict(
+  public final ResponseEntity<String> handleConflict(
               final DataIntegrityViolationException exception) {
       return new ResponseEntity<>("Name already exists", HttpStatus.CONFLICT);
   }
