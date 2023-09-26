@@ -42,7 +42,8 @@ public class CategoryController {
    *@return categories
   */
   @GetMapping("/category")
-  public final ResponseEntity<CustomResponse<List<CategoryDetailsDto>>> getCategories() {
+  public final ResponseEntity<CustomResponse<List<CategoryDetailsDto>>>
+                                  getCategories() {
     List<CategoryDetailsDto> categories = categoryService.getCategories();
     logger.info("Retrieved categories");
     return ResponseHandler.generateResponse("Successfully Retrieved"
@@ -55,9 +56,11 @@ public class CategoryController {
    * @param categoryId categoryId
    */
   @GetMapping("/category/{categoryId}")
-  public final ResponseEntity<CustomResponse<CategoryDetailsDto>> getCategoryById(@PathVariable
+  public final ResponseEntity<CustomResponse<CategoryDetailsDto>>
+                              getCategoryById(@PathVariable
                    final Long categoryId) {
-    CategoryDetailsDto categoryDto = categoryService.getCategoryById(categoryId);
+    CategoryDetailsDto categoryDto = categoryService
+                                .getCategoryById(categoryId);
     logger.info("Retrieved category by id");
     return ResponseHandler.generateResponse("Successfully "
              + "Retrieved Category By Id",
@@ -69,7 +72,8 @@ public class CategoryController {
    *@param category category
   */
   @PostMapping("/category")
-  public final ResponseEntity<CustomResponse<CategoryDetailsDto>> addCategory(
+  public final ResponseEntity<CustomResponse<CategoryDetailsDto>>
+                                          addCategory(
             @RequestBody @Valid final CategoryDetailsDto category) {
     categoryService.addCategory(category);
     logger.info("Category added");
@@ -83,7 +87,8 @@ public class CategoryController {
    * @param category category
    */
   @PutMapping("/category/{categoryId}")
-  public final ResponseEntity<CustomResponse<CategoryDetailsDto>> updateCategory(@PathVariable
+  public final ResponseEntity<CustomResponse<CategoryDetailsDto>>
+                                         updateCategory(@PathVariable
            final Long categoryId,
            @RequestBody @Valid final CategoryDetailsDto category) {
     categoryService.updateCategory(
@@ -98,7 +103,8 @@ public class CategoryController {
    * @param categoryId categoryId
   */
   @DeleteMapping("/category/{categoryId}")
-  public final ResponseEntity<CustomResponse<CategoryDetailsDto>> deleteCategory(
+  public final ResponseEntity<CustomResponse<CategoryDetailsDto>>
+                                                  deleteCategory(
            @PathVariable final Long categoryId) {
     categoryService.deleteCategory(categoryId);
     logger.info("Category deleted");

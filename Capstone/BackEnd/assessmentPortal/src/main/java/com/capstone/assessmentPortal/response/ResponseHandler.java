@@ -19,8 +19,9 @@ public final class ResponseHandler {
    *@param message message
    *@param code code
    *@param responseObj responseObj
+   *@param <T> <T>
   */
-  public static<T> ResponseEntity<CustomResponse<T>> generateResponse(
+  public static <T> ResponseEntity<CustomResponse<T>> generateResponse(
           final String message, final HttpStatus code,
           final T responseObj) {
     CustomResponse<T> customResponse = new CustomResponse<>(

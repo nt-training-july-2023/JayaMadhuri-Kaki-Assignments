@@ -37,7 +37,7 @@ public class Category {
      * category name attribute.
      */
     @Column(unique = true, nullable = false)
-    @NotBlank(message = ValidationMessage.categoryNameNotblank)
+    @NotBlank(message = ValidationMessage.CATEGORY_NOTBLANK)
     private String categoryName;
     /**
      * category description attribute.

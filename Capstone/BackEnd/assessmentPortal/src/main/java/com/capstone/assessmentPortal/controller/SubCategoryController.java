@@ -43,7 +43,8 @@ public class SubCategoryController {
    *@return subCategories
   */
   @GetMapping("/subCategory")
-  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> getSubCategories() {
+  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>>
+                                                  getSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getSubCategories();
     logger.info("Retrieved quizes");
@@ -57,7 +58,8 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
   */
   @GetMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> getSubCategoryById(@PathVariable final
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+                                  getSubCategoryById(@PathVariable final
                    Long subCategoryId) {
     SubCategoryDetailsDto subCategoryDto = subCategoryService
                    .getSubCategoryById(subCategoryId);
@@ -72,7 +74,8 @@ public class SubCategoryController {
    *@param categoryId categoryId
   */
   @GetMapping("/subCategory/subCategoryByCategory/{categoryId}")
-  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> getSubCategoryByCategoryId(
+  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>>
+                                          getSubCategoryByCategoryId(
          @PathVariable final Long categoryId) {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
@@ -87,7 +90,8 @@ public class SubCategoryController {
    *@param subCategory subCategory
   */
   @PostMapping("/subCategory")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> addSubCategory(
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+                                                  addSubCategory(
             @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
     subCategoryService
             .addSubCategory(subCategory);
@@ -102,7 +106,8 @@ public class SubCategoryController {
    *@param subCategory subCategory
   */
   @PutMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> updateSubCategory(
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+                                              updateSubCategory(
           @PathVariable final Long subCategoryId,
           @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
     subCategoryService
@@ -117,7 +122,8 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
   */
   @DeleteMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> deleteSubCategory(
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+                                          deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);
     logger.info("Quiz Deleted");

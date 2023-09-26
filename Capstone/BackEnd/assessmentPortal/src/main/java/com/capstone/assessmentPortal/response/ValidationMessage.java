@@ -1,33 +1,126 @@
 package com.capstone.assessmentPortal.response;
 
-public class ValidationMessage {
-    public static final String emailNotblank = "Email Id is required";
-    public static final String emailPattern = "Not a valid email";
-    public static final String passwordNotblank = "Password is required";
-    public static final String passwordPattern="Password must be at least 8 characters long and "
+/**
+ *validation message class.
+*/
+public final class ValidationMessage {
+    /**
+     *default constructor.
+    */
+    private ValidationMessage() {
+    }
+    /**
+     * message when email blank.
+    */
+    public static final String EMAIL_NOTBLANK = "Email Id is required";
+    /**
+     *message when email pattern wrong.
+    */
+    public static final String EMAIL_PATTERN = "Not a valid email";
+    /**
+     *message when password blank.
+    */
+    public static final String PASSWORD_NOTBLANK = "Password is required";
+    /**
+     *message when password pattern wrong.
+    */
+    public static final String PASSWORD_PATTERN = "Password must be at least 8 "
+                 + "characters long and "
                  + "contain at least one digit, one lowercase letter,"
                  + " one uppercase letter, "
                  + "one special character, and no whitespace";
-    public static final String categoryIdNotnull = "Category Id is required";
-    public static final String categoryNameNotblank = "Category name is required";
-    public static final String quizIdNotnull = "Quiz Id is required";
-    public static final String quizNameNotblank = "Quiz Name is required";
-    public static final String timeLimitNotblank = "Time Limit is required";
-    public static final String questionNotblank = "Question is required";
-    public static final String optionANotblank = "OptionA is required";
-    public static final String optionBNotblank = "OptionB is required";
-    public static final String optionCNotblank = "OptionC is required";
-    public static final String optionDNotblank = "OptionD is required";
-    public static final String correctAnswerNotblank = "Correct Answer is required";
-    public static final String studentIdNotnull = "Student Id is required";
-    public static final String marksObtainedNotnull = "Marks Obtained is required";
-    public static final String totalQuestionsNotnull = "Total Questions is required";
-    public static final String totalMarksNotnull = "Total Marks is required";
-    public static final String attemptedQuestionsNotnull = "Attempted Questions is required";
-    public static final String firstNameNotblank = "First Name is required";
-    public static final String lastNameNotblank = "Last Name is required";
-    public static final String dobNotblank = "Date of Birth is required";
-    public static final String dobPattern = "Date of birth should be in yyyy-mm-dd format";
-    public static final String ageValidation = "Age should be above 18 years old";
-    public static final String genderNotblank = "Gender is required";
+    /**
+     *when category id null.
+    */
+    public static final String CATEGORY_NOTNULL = "Category Id is required";
+    /**
+     *category name is blank.
+    */
+    public static final String CATEGORY_NOTBLANK = "Category name is required";
+    /**
+     *quiz id is null.
+    */
+    public static final String QUIZID_NOTNULL = "Quiz Id is required";
+    /**
+     *quiz name is blank.
+    */
+    public static final String QUIZNAME_NOTBLANK = "Quiz Name is required";
+    /**
+     *time limit is blank.
+    */
+    public static final String TIMELIMIT_NOTBLANK = "Time Limit is required";
+    /**
+     *question is blank.
+    */
+    public static final String QUESTION_NOTBLANK = "Question is required";
+    /**
+     *optionA is blank.
+    */
+    public static final String OPTIONA_NOTBLANK = "OptionA is required";
+    /**
+     *optionB is blank.
+    */
+    public static final String OPTIONB_NOTBLANK = "OptionB is required";
+    /**
+     *optionC is blank.
+    */
+    public static final String OPTIONC_NOTBLANK = "OptionC is required";
+    /**
+     *optionD is blank.
+    */
+    public static final String OPTIOND_NOTBLANK = "OptionD is required";
+    /**
+     *correct answer is blank.
+    */
+    public static final String CORRECTANSWER_NOTBLANK = "Correct "
+            + "Answer is required";
+    /**
+     *student id is null.
+    */
+    public static final String STUDENTID_NOTNULL = "Student Id is required";
+    /**
+     *marks obtained is null.
+    */
+    public static final String MARKSOBTAINED_NOTNULL = "Marks Obtained "
+            + "is required";
+    /**
+     *total questions is null.
+    */
+    public static final String TOTALQUESTIONS_NOTNULL = "Total Questions "
+            + "is required";
+    /**
+     *total marks is null.
+    */
+    public static final String TOTALMARKS_NOTNULL = "Total Marks is required";
+    /**
+     *attempted questions is null.
+    */
+    public static final String ATTEMPTEDQUESTIONS_NOTNULL = "Attempted "
+            + "Questions is required";
+    /**
+     *first name is blank.
+    */
+    public static final String FIRSTNAME_NOTBLANK = "First Name is required";
+    /**
+     *last name is blank.
+    */
+    public static final String LASTNAME_NOTBLANK = "Last Name is required";
+    /**
+     *date of birth is blank.
+    */
+    public static final String DOB_NOTBLANK = "Date of Birth is required";
+    /**
+     *date of birth pattern wrong.
+    */
+    public static final String DOB_PATTERN = "Date of birth should be in "
+            + "yyyy-mm-dd format";
+    /**
+     *age below 18 years.
+    */
+    public static final String AGE_VALIDATION = "Age should be above"
+            + " 18 years old";
+    /**
+     *gender is blank.
+    */
+    public static final String GENDER_NOTBLANK = "Gender is required";
 }

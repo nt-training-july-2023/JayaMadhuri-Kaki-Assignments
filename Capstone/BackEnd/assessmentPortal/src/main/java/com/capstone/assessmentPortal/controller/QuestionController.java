@@ -44,7 +44,8 @@ public class QuestionController {
    * @param subCategoryId subCategoryId
   */
   @GetMapping("/questions/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<List<QuestionDto>>> getQuestionsBySubCategoryId(
+  public final ResponseEntity<CustomResponse<List<QuestionDto>>>
+                                      getQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> questions = questionService
           .getQuestionsBySubCategoryId(subCategoryId);

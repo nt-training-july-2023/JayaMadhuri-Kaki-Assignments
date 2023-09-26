@@ -40,7 +40,7 @@ public class SubCategory {
      * subcategory name attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.quizNameNotblank)
+    @NotBlank(message = ValidationMessage.QUIZNAME_NOTBLANK)
     private String subCategoryName;
     /**
      * subcategory description attribute.
@@ -51,7 +51,7 @@ public class SubCategory {
      * subcategory time limit in minutes for quiz attribute.
      */
     @Column
-    @NotEmpty(message = ValidationMessage.timeLimitNotblank)
+    @NotEmpty(message = ValidationMessage.TIMELIMIT_NOTBLANK)
     private String timeLimitInMinutes;
     /**
      * category entity class reference variable attribute.

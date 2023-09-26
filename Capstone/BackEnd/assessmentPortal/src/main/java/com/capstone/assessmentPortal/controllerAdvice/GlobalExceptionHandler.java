@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
   */
   @ExceptionHandler(DataIntegrityViolationException.class)
   public final ResponseEntity<String> conflict(
-          DataIntegrityViolationException exception) {
+              final DataIntegrityViolationException exception) {
       return new ResponseEntity<>("Name already exists", HttpStatus.CONFLICT);
   }
   /**
@@ -56,7 +56,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(NoSuchElementException.class)
   public final ResponseEntity<String> handleNoSuchElement(
               final NoSuchElementException exception) {
-    return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    return new ResponseEntity<String>(exception.getMessage(),
+                                    HttpStatus.NOT_FOUND);
   }
   /**
    *Exception handles when user credentials are not valid.
@@ -77,8 +78,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(EmailAlreadyExistsException.class)
   public final ResponseEntity<String> handleEmailAlreadyExistsException(
             final EmailAlreadyExistsException exception) {
-    return new ResponseEntity<String>(exception.getMessage()
-            , HttpStatus.CONFLICT);
+    return new ResponseEntity<String>(exception.getMessage(),
+            HttpStatus.CONFLICT);
   }
   /**
    *Exception handles when when data is already exists in db.

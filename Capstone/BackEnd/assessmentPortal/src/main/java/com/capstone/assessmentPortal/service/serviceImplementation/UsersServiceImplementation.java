@@ -140,13 +140,13 @@ public class UsersServiceImplementation implements UsersService {
                 + "find student with email: " + emailId);
     }
     @Override
-    public String getUsersDetailsByEmail(String emailId) {
+    public final String getUsersDetailsByEmail(final String emailId) {
         Optional<Users> user = usersRepo.findUserByEmailId(emailId);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             logger.error("User with Email exists");
             throw new EmailAlreadyExistsException("User "
                     + "with email: " + emailId + " exists");
-        }else {
+        } else {
             logger.info("User not exists with email");
             return "User Not exists with Email";
         }

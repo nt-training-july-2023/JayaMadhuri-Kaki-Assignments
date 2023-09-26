@@ -33,43 +33,43 @@ public class ResultsDto {
      * student id from users table.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.studentIdNotnull)
+    @NotNull(message = ValidationMessage.STUDENTID_NOTNULL)
     private Long studentId;
     /**
      * subcategory Id from subCategory table.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.quizIdNotnull)
+    @NotNull(message = ValidationMessage.QUIZID_NOTNULL)
     private Long subCategoryId;
     /**
      * category Id from category table.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.categoryIdNotnull)
+    @NotNull(message = ValidationMessage.CATEGORY_NOTNULL)
     private Long categoryId;
     /**
      * marks obtained in quiz attribute.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.marksObtainedNotnull)
+    @NotNull(message = ValidationMessage.MARKSOBTAINED_NOTNULL)
     private int marksObtained;
     /**
      * total marks of quiz attribute.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.totalMarksNotnull)
+    @NotNull(message = ValidationMessage.TOTALMARKS_NOTNULL)
     private int totalMarks;
     /**
      * number of questions attempted attribute.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.attemptedQuestionsNotnull)
+    @NotNull(message = ValidationMessage.ATTEMPTEDQUESTIONS_NOTNULL)
     private int numOfAttemptedQuestions;
     /**
      * total questions in quiz attribute.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.totalQuestionsNotnull)
+    @NotNull(message = ValidationMessage.TOTALMARKS_NOTNULL)
     private int totalQuestions;
     /**
      * date and time of quiz attempted attribute.

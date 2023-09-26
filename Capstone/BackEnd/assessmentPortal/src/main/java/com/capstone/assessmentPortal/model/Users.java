@@ -37,44 +37,44 @@ public class Users {
      * first name of user attribute.
      */
     @Column
-    @NotBlank(message = ValidationMessage.firstNameNotblank)
+    @NotBlank(message = ValidationMessage.FIRSTNAME_NOTBLANK)
     private String firstName;
     /**
      * last name of user attribute.
      */
     @Column
-    @NotBlank(message = ValidationMessage.lastNameNotblank)
+    @NotBlank(message = ValidationMessage.LASTNAME_NOTBLANK)
     private String lastName;
     /**
      * date of birth(dd-mm-yyyy) attribute.
      */
     @Column
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
-          message = ValidationMessage.dobPattern)
-    @NotBlank(message = ValidationMessage.dobNotblank)
+          message = ValidationMessage.DOB_PATTERN)
+    @NotBlank(message = ValidationMessage.DOB_NOTBLANK)
     private String dateOfBirth;
     /**
      * user gender attribute.
      */
     @Column
-    @NotBlank(message = ValidationMessage.genderNotblank)
+    @NotBlank(message = ValidationMessage.GENDER_NOTBLANK)
     private String gender;
     /**
      * user email attribute.
      */
     @Column(unique = true)
-    @NotBlank(message = ValidationMessage.emailNotblank)
+    @NotBlank(message = ValidationMessage.EMAIL_NOTBLANK)
     @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
-    message = ValidationMessage.emailPattern)
+    message = ValidationMessage.EMAIL_PATTERN)
     private String emailId;
     /**
      * user password attribute.
      */
     @Column
-    @NotBlank(message = ValidationMessage.passwordNotblank)
+    @NotBlank(message = ValidationMessage.PASSWORD_NOTBLANK)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
             + "(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-            message = ValidationMessage.passwordPattern)
+            message = ValidationMessage.PASSWORD_PATTERN)
     private String password;
     /**
      * role of user attribute.

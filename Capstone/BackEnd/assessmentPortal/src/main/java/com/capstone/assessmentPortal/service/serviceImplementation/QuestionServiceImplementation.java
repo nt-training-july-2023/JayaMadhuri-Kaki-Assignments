@@ -47,13 +47,14 @@ public class QuestionServiceImplementation implements QuestionService {
       SubCategory subCategory = subCategoryRepo.findById(
               questionDto.getSubCategoryId()).orElseThrow(() ->
                new NoSuchElementException("Cannot find quiz"
-                       + " with id: "+questionDto.getSubCategoryId()));
+                       + " with id: " + questionDto.getSubCategoryId()));
       Set<String> options = new HashSet<>();
       options.add(questionDto.getOptionA());
       options.add(questionDto.getOptionB());
       options.add(questionDto.getOptionC());
       options.add(questionDto.getOptionD());
-      if (options.size() < 4) {
+      final int number = 4;
+      if (options.size() < number) {
           throw new AlreadyExistsException("Options must be "
                   + "different from each other");
       }
@@ -74,7 +75,7 @@ public class QuestionServiceImplementation implements QuestionService {
                    Long subCategoryId) {
     subCategoryRepo.findById(subCategoryId).orElseThrow(
                       () -> new NoSuchElementException("Cannot find"
-                              + " quiz with id: "+subCategoryId));
+                              + " quiz with id: " + subCategoryId));
     List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
     logger.info("Retrieved Question by Quiz id");
@@ -111,7 +112,7 @@ public class QuestionServiceImplementation implements QuestionService {
     Question question = questionRepo
                 .findById(questionId).orElseThrow(
                         () -> new NoSuchElementException(
-                                "Cannot find question with id: "+questionId));
+                                "Cannot find question with id: " + questionId));
       logger.info("Question with id exists");
       question.setQuestionContent(questionDto.getQuestionContent());
       Set<String> options = new HashSet<>();
@@ -119,7 +120,8 @@ public class QuestionServiceImplementation implements QuestionService {
       options.add(questionDto.getOptionB());
       options.add(questionDto.getOptionC());
       options.add(questionDto.getOptionD());
-      if (options.size() < 4) {
+      final int number = 4;
+      if (options.size() < number) {
           throw new AlreadyExistsException("Options must be "
                   + "different from each other");
       }
@@ -136,7 +138,7 @@ public class QuestionServiceImplementation implements QuestionService {
   public final void deleteQuestion(final Long questionId) {
     questionRepo.findById(questionId).orElseThrow(
             () -> new NoSuchElementException(
-                    "Cannot find question with id: "+questionId));
+                    "Cannot find question with id: " + questionId));
     logger.info("Question Deleted");
     questionRepo.deleteById(questionId);
   }

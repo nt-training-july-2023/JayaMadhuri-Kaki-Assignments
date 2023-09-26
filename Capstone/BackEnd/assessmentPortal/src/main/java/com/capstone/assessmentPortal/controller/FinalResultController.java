@@ -36,7 +36,8 @@ public class FinalResultController {
    * @return finalResult
   */
   @GetMapping("/finalResults")
-  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>> getFinalResults() {
+  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>>
+                                                      getFinalResults() {
     List<FinalResultsDto> finalResultDto = finalResultService
                      .getFinalResults();
     logger.info("Retrieved final results");
@@ -49,7 +50,8 @@ public class FinalResultController {
    * @param emailId emailId
   */
   @GetMapping("/finalResults/{emailId}")
-  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>> getFinalResultByStudentEmail(
+  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>>
+                                              getFinalResultByStudentEmail(
           @PathVariable final String emailId) {
     List<FinalResultsDto> finalResults = finalResultService
                 .getFinalResultByStudentEmail(emailId);

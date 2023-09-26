@@ -47,7 +47,8 @@ public class UsersController {
    *@param signUpRequest signUpRequest
   */
   @PostMapping("/register")
-  public final ResponseEntity<CustomResponse<SignUpRequest>> studentRegistration(
+  public final ResponseEntity<CustomResponse<SignUpRequest>>
+                                              studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     usersService.studentRegistration(signUpRequest);
     logger.info("User successfully registered");
@@ -115,7 +116,8 @@ public class UsersController {
    * @param users users
   */
   @PutMapping("/{studentId}")
-  public final ResponseEntity<CustomResponse<UserDetailsForUpdate>> updateStudentDetails(
+  public final ResponseEntity<CustomResponse<UserDetailsForUpdate>>
+                                                 updateStudentDetails(
            @PathVariable final Long studentId,
            @RequestBody @Valid final UserDetailsForUpdate users) {
     usersService

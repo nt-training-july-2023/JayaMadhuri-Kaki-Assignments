@@ -19,26 +19,26 @@ public class UserDetailsForUpdate {
    *first name of user attribute.
  */
   @Column
-  @NotBlank(message = ValidationMessage.firstNameNotblank)
+  @NotBlank(message = ValidationMessage.FIRSTNAME_NOTBLANK)
   private String firstName;
   /**
    *last name of user attribute.
  */
   @Column
-  @NotBlank(message = ValidationMessage.lastNameNotblank)
+  @NotBlank(message = ValidationMessage.LASTNAME_NOTBLANK)
   private String lastName;
   /**
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column
   @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}",
-         message = ValidationMessage.dobPattern)
-  @NotBlank(message = ValidationMessage.dobNotblank)
+         message = ValidationMessage.DOB_PATTERN)
+  @NotBlank(message = ValidationMessage.DOB_NOTBLANK)
   private String dateOfBirth;
   /**
    *user gender attribute.
  */
   @Column
-  @NotBlank(message = ValidationMessage.genderNotblank)
+  @NotBlank(message = ValidationMessage.GENDER_NOTBLANK)
   private String gender;
 }

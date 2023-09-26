@@ -18,12 +18,12 @@ public class LoginRequest {
    *user email attribute.
  */
   @Column(unique = true, nullable = false)
-  @NotBlank(message = ValidationMessage.emailNotblank)
+  @NotBlank(message = ValidationMessage.EMAIL_NOTBLANK)
   private String emailId;
   /**
    *user password attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.passwordNotblank)
+  @NotBlank(message = ValidationMessage.PASSWORD_NOTBLANK)
   private String password;
 }

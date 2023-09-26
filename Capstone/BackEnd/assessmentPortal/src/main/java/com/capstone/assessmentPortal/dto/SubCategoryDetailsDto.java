@@ -29,7 +29,7 @@ public class SubCategoryDetailsDto {
    *subcategory name attribute.
   */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.quizNameNotblank)
+  @NotBlank(message = ValidationMessage.QUIZNAME_NOTBLANK)
   private String subCategoryName;
   /**
    *subcategory description attribute.
@@ -39,12 +39,12 @@ public class SubCategoryDetailsDto {
    *subcategory time limit in minutes for quiz attribute.
   */
   @Column(nullable = false)
-  @NotEmpty(message = ValidationMessage.timeLimitNotblank)
+  @NotEmpty(message = ValidationMessage.TIMELIMIT_NOTBLANK)
   private String timeLimitInMinutes;
   /**
    *category Id attribute.
   */
   @Column(nullable = false)
-  @NotNull(message = ValidationMessage.categoryIdNotnull)
+  @NotNull(message = ValidationMessage.CATEGORY_NOTNULL)
   private Long categoryId;
 }

@@ -39,8 +39,9 @@ public class ResultsController {
    *@param results results
   */
   @PostMapping("/results")
-  public final ResponseEntity<CustomResponse<ResultsDto>> addResult(@RequestBody @Valid final
-                ResultsDto results) {
+  public final ResponseEntity<CustomResponse<ResultsDto>>
+                              addResult(@RequestBody @Valid final
+                              ResultsDto results) {
     resultService.addTemporaryResult(results);
     logger.info("Result Added");
     return ResponseHandler.generateResponse("Successfully Added",

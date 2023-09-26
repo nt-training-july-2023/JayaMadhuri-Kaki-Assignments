@@ -30,42 +30,42 @@ public class QuestionDto {
      * question title attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.questionNotblank)
+    @NotBlank(message = ValidationMessage.QUESTION_NOTBLANK)
     private String questionContent;
     /**
      * question option 1 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.optionANotblank)
+    @NotBlank(message = ValidationMessage.OPTIONA_NOTBLANK)
     private String optionA;
     /**
      * question option 2 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.optionBNotblank)
+    @NotBlank(message = ValidationMessage.OPTIONB_NOTBLANK)
     private String optionB;
     /**
      * question option 3 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.optionCNotblank)
+    @NotBlank(message = ValidationMessage.OPTIONC_NOTBLANK)
     private String optionC;
     /**
      * question option 4 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.optionDNotblank)
+    @NotBlank(message = ValidationMessage.OPTIOND_NOTBLANK)
     private String optionD;
     /**
      * question answer attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.correctAnswerNotblank)
+    @NotBlank(message = ValidationMessage.CORRECTANSWER_NOTBLANK)
     private String correctAnswer;
     /**
      * subCategory id attribute.
      */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.quizIdNotnull)
+    @NotNull(message = ValidationMessage.QUIZID_NOTNULL)
     private Long subCategoryId;
 }

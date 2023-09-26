@@ -62,12 +62,12 @@ public class ResultServiceImplementation implements ResultService {
     Users user = usersRepo.findById(resultsDto
             .getStudentId()).orElseThrow(
                     () -> new NoSuchElementException(
-                            "Cannot find student with id: "+resultsDto
+                            "Cannot find student with id: " + resultsDto
                             .getStudentId()));
     SubCategory quiz = subCategoryRepo.findById(
              resultsDto.getSubCategoryId()).orElseThrow(
                      () -> new NoSuchElementException(
-                             "Cannot find quiz with id: "+resultsDto
+                             "Cannot find quiz with id: " + resultsDto
                              .getSubCategoryId()));
     logger.info("Result Added");
     FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();

@@ -52,7 +52,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
           logger.info("Quiz Added");
           SubCategory subCategoryObj = new SubCategory();
           subCategoryObj.setSubCategoryId(subCategoryDto.getSubCategoryId());
-          subCategoryObj.setSubCategoryName(subCategoryDto.getSubCategoryName());
+          subCategoryObj.setSubCategoryName(subCategoryDto
+                  .getSubCategoryName());
           subCategoryObj.setSubCategoryDescription(subCategoryDto
                         .getSubCategoryDescription());
           subCategoryObj.setTimeLimitInMinutes(subCategoryDto
@@ -115,14 +116,14 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                          + "find quiz with id: " + subCategoryId));
     logger.info("Quiz with id found");
     categoryRepo.findById(
-            subCategoryDto.getCategoryId()).orElseThrow(() ->   
+            subCategoryDto.getCategoryId()).orElseThrow(() ->
              new NotFoundException("Category Id not found"));
     logger.info("Category with id found");
     Optional<SubCategory> subCategory = subCategoryRepo
             .getSubCategoryByName(subCategoryDto.getSubCategoryName());
     boolean isSubCategoryPresent = subCategory.isPresent();
-    if ((!quiz.getSubCategoryName().equals(subCategoryDto.getSubCategoryName())) && 
-            isSubCategoryPresent) {
+    if (!quiz.getSubCategoryName().equals(subCategoryDto
+            .getSubCategoryName()) && isSubCategoryPresent) {
         logger.error("A Quiz is already exists with the same name");
         throw new AlreadyExistsException("A Quiz is already "
                 + "exists with the same name");

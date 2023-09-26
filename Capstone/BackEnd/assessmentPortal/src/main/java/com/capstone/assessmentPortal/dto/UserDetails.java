@@ -28,35 +28,35 @@ public class UserDetails {
    *first name of user attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.firstNameNotblank)
+  @NotBlank(message = ValidationMessage.FIRSTNAME_NOTBLANK)
   private String firstName;
   /**
    *last name of user attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.lastNameNotblank)
+  @NotBlank(message = ValidationMessage.LASTNAME_NOTBLANK)
   private String lastName;
   /**
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column(nullable = false)
   @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}",
-         message = ValidationMessage.dobPattern)
-  @NotBlank(message = ValidationMessage.dobNotblank)
+         message = ValidationMessage.DOB_PATTERN)
+  @NotBlank(message = ValidationMessage.DOB_NOTBLANK)
   private String dateOfBirth;
   /**
    *user gender attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.genderNotblank)
+  @NotBlank(message = ValidationMessage.GENDER_NOTBLANK)
   private String gender;
   /**
    *user email attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.emailNotblank)
+  @NotBlank(message = ValidationMessage.EMAIL_NOTBLANK)
   @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
-          message = ValidationMessage.emailPattern)
+          message = ValidationMessage.EMAIL_PATTERN)
   private String emailId;
   /**
    *role of user attribute.

@@ -40,7 +40,8 @@ public class CategoryServiceImplementation implements CategoryService {
              .getCategoryByName(categoryDto.getCategoryName());
     if (category.isPresent()) {
        logger.error("Category with same name already exists");
-       throw new AlreadyExistsException("Category with same name already exists");
+       throw new AlreadyExistsException("Category with same "
+               + "name already exists");
     }
     logger.info("Category Added");
     Category categoryObj = new Category();
@@ -87,7 +88,7 @@ public class CategoryServiceImplementation implements CategoryService {
   public final void deleteCategory(final Long categoryId) {
     categoryRepo.findById(categoryId).orElseThrow(
                       () -> new NoSuchElementException(
-                              "Cannot find category with id: "+categoryId));
+                              "Cannot find category with id: " + categoryId));
     logger.info("Category Deleted");
     categoryRepo.deleteById(categoryId);
   }
@@ -97,7 +98,7 @@ public class CategoryServiceImplementation implements CategoryService {
     Category category = categoryRepo
                .findById(categoryId).orElseThrow(
                        () -> new NoSuchElementException(
-                               "Cannot find category with id: "+categoryId));
+                               "Cannot find category with id: " + categoryId));
     logger.info("Category found with id");
     category.setCategoryName(categoryDto.getCategoryName());
     category.setCategoryDescription(categoryDto
