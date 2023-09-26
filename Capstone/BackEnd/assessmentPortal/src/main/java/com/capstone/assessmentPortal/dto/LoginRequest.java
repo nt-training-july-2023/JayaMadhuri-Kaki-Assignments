@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -16,12 +18,12 @@ public class LoginRequest {
    *user email attribute.
  */
   @Column(unique = true, nullable = false)
-  @NotBlank(message = "Email is required")
+  @NotBlank(message = ValidationMessage.emailNotblank)
   private String emailId;
   /**
    *user password attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = "Password is required")
+  @NotBlank(message = ValidationMessage.passwordNotblank)
   private String password;
 }

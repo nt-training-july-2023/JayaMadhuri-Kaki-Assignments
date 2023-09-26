@@ -123,7 +123,7 @@ public class UsersServiceImplementation implements UsersService {
     @Override
     public final UserDetails getStudentDetailsByEmail(final String emailId) {
         Optional<Users> user = usersRepo.findUserByEmailId(emailId);
-        if (user != null) {
+        if (user.isPresent()) {
             logger.info("Retrieved student details by EmailId");
             UserDetails userDetails = new UserDetails();
             userDetails.setUserId(user.get().getUserId());
@@ -138,5 +138,17 @@ public class UsersServiceImplementation implements UsersService {
         logger.error("Student email not found");
         throw new NoSuchElementException("Cannot "
                 + "find student with email: " + emailId);
+    }
+    @Override
+    public String getUsersDetailsByEmail(String emailId) {
+        Optional<Users> user = usersRepo.findUserByEmailId(emailId);
+        if(user.isPresent()) {
+            logger.error("User with Email exists");
+            throw new EmailAlreadyExistsException("User "
+                    + "with email: " + emailId + " exists");
+        }else {
+            logger.info("User not exists with email");
+            return "User Not exists with Email";
+        }
     }
 }

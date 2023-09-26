@@ -39,7 +39,7 @@ const Quiz = (props) => {
     const fetchData = async () => {
         Url.getQuizByCategoryId(selectedId ? selectedId : categoryId)
             .then(response => {
-                setQuiz(response?.data?.SubCategoryByCategoryId);
+                setQuiz(response?.data?.responseData);
                 setLoading(true)
             }).catch(error => {
                 if (error?.response?.statusCode == 400) {
@@ -61,7 +61,7 @@ const Quiz = (props) => {
         Url.getUserByEmail(userDetails.EmailId)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
-                    const user = response?.data?.StudentDetails;
+                    const user = response?.data?.responseData;
                     setDetails(user);
                 }
             }).catch(error => {
@@ -124,7 +124,7 @@ const Quiz = (props) => {
                                      } }}>
                                         <p className='p'>Name: {item.subCategoryName}</p>
                                         <p className='p'>Description: {item.subCategoryDescription}</p>
-                                        <p className='p'>Time(In Minutes): {item.timeLimitInMinutes}</p>
+                                        <p className='p'>Time: {item.timeLimitInMinutes} minutes</p>
                                         {userDetails?.UserType === "Admin" && <div>
                                             <button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                                 event.stopPropagation();

@@ -143,32 +143,31 @@ const Register = (props) => {
   const emailValidation = () => {
     if (errors.emailId == "") {
       if (registerRequestBody?.emailId.length > 0) {
-        UsersUrl.getUserByEmail(registerRequestBody.emailId)
+        UsersUrl.CheckUserByEmail(registerRequestBody.emailId)
           .then(response => {
             if (response?.data?.statusCode == 200) {
               Swal.fire({
-                title: 'Error.....',
-                text: 'An Account already exists with this Email',
+                text: 'Validation Successful........',
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,
-                icon: "warning",
+                icon: "info",
                 background: "#15172b",
                 color: "white",
-              });
+              })
+              setEmail(registerRequestBody.emailId)
+              setButtonName("Next")
             }
           }).catch(error => {
-            if (error?.response?.status == 404) {
+            if (error?.response?.status == 409) {
               Swal.fire({
-                text: 'Validated Successfully.......',
-                icon: "success",
+                text: 'An Account already exists with this Email',
+                icon: "warning",
                 timer: 1000,
                 showConfirmButton: false,
                 color: 'white',
                 background: '#15172b'
               })
-              setEmail(registerRequestBody.emailId)
-              setButtonName("Next")
             }
           })
       } else {

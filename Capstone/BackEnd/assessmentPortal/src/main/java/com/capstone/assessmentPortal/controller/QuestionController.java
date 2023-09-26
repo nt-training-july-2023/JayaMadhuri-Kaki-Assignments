@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.assessmentPortal.dto.QuestionDto;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.QuestionService;
 
@@ -43,14 +44,14 @@ public class QuestionController {
    * @param subCategoryId subCategoryId
   */
   @GetMapping("/questions/{subCategoryId}")
-  public final ResponseEntity<Object> getQuestionsBySubCategoryId(
+  public final ResponseEntity<CustomResponse<List<QuestionDto>>> getQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> questions = questionService
           .getQuestionsBySubCategoryId(subCategoryId);
     logger.info("Retrieved questions by quiz id");
     return ResponseHandler.generateResponse(
            "Successfully Retrieved Questions By SubCategory Id",
-           HttpStatus.OK, "QuestionBySubCategoryId", questions);
+           HttpStatus.OK, questions);
   }
   /**
    *add questions to questions table.
@@ -58,12 +59,12 @@ public class QuestionController {
    *@param question question
   */
   @PostMapping("/questions")
-  public final ResponseEntity<Object> addQuestion(
+  public final ResponseEntity<CustomResponse<QuestionDto>> addQuestion(
             @RequestBody @Valid final QuestionDto question) {
     QuestionDto questionDto = questionService.addQuestion(question);
     logger.info("Question Added");
     return ResponseHandler.generateResponse("Successfully Added",
-            HttpStatus.OK, "Question", questionDto);
+            HttpStatus.OK, questionDto);
   }
   /**
    *update questions by question id and given details.
@@ -72,14 +73,14 @@ public class QuestionController {
    *@param question question
   */
   @PutMapping("/questions/{questionId}")
-  public final ResponseEntity<Object> updateQuestion(
+  public final ResponseEntity<CustomResponse<QuestionDto>> updateQuestion(
           @PathVariable final Long questionId,
           @RequestBody @Valid final QuestionDto question) {
     QuestionDto questionDto = questionService.updateQuestion(questionId,
                        question);
     logger.info("Question Updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, "Question", questionDto);
+          HttpStatus.OK, questionDto);
   }
   /**
    *delete questions by question id.
@@ -87,11 +88,11 @@ public class QuestionController {
    *@param questionId questionId
   */
   @DeleteMapping("/questions/{questionId}")
-  public final ResponseEntity<Object> deleteQuestion(
+  public final ResponseEntity<CustomResponse<QuestionDto>> deleteQuestion(
          @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);
     logger.info("Question Deleted");
     return ResponseHandler.generateResponse("Successfully Deleted",
-         HttpStatus.OK, "Question", null);
+         HttpStatus.OK, null);
   }
 }

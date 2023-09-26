@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.SubCategoryServiceImplementation;
 
 @SpringBootTest
@@ -33,7 +34,7 @@ class SubCategoryControllerTest {
     void testGetAllSubCategories() {
         List<SubCategoryDetailsDto> subCategorylist = new ArrayList<>();
         when(subCategoryService.getSubCategories()).thenReturn(subCategorylist);
-        ResponseEntity<Object> response = subcategoryController.getSubCategories();
+        ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> response = subcategoryController.getSubCategories();
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
@@ -46,7 +47,7 @@ class SubCategoryControllerTest {
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryId(1L);
         when(subCategoryService.getSubCategoryById(subCategoryId)).thenReturn(subCategoryDto);
-        ResponseEntity<Object> response = subcategoryController.getSubCategoryById(subCategoryId);
+        ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.getSubCategoryById(subCategoryId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
@@ -61,7 +62,7 @@ class SubCategoryControllerTest {
         List<SubCategoryDetailsDto> list = new ArrayList<>();
         when(subCategoryService.getSubCategoryByCategoryId(subCategoryDto.getCategoryId()))
         .thenReturn(list);
-        ResponseEntity<Object> response = subcategoryController
+        ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> response = subcategoryController
                 .getSubCategoryByCategoryId(subCategoryDto.getCategoryId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
@@ -76,7 +77,7 @@ class SubCategoryControllerTest {
         subCategoryDto.setSubCategoryDescription("Topic in Java");
         subCategoryDto.setSubCategoryId(subCategoryId);
         when(subCategoryService.addSubCategory(subCategoryDto)).thenReturn(subCategoryDto);
-        ResponseEntity<Object> response = subcategoryController.addSubCategory(subCategoryDto);
+        ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.addSubCategory(subCategoryDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
@@ -89,14 +90,14 @@ class SubCategoryControllerTest {
         subCategoryDto1.setSubCategoryDescription("programming language");
         subCategoryDto1.setTimeLimitInMinutes("100");
         when(subCategoryService.updateSubCategory(subCategoryDto1, subCategoryId)).thenReturn(subCategoryDto1);
-        ResponseEntity<Object> response = subcategoryController.updateSubCategory(subCategoryId,subCategoryDto1);
+        ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.updateSubCategory(subCategoryId,subCategoryDto1);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
     @Test
     void testDeleteSubCategory() {
         Long subCategoryId = 1L;
-        ResponseEntity<Object> response = subcategoryController.deleteSubCategory(subCategoryId);
+        ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.deleteSubCategory(subCategoryId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 

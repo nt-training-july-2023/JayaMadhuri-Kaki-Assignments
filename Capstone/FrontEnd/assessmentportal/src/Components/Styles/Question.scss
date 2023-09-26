@@ -100,9 +100,9 @@
     font-size: 18px;
     padding-left:40px;
     padding-right: 40px;
-    margin-right: 10px;
+    width:60%;
     cursor: pointer;
-    @media screen and (max-width:881px){
+    @media screen and (max-width:1075px){
         width:100%;
     }
     @media screen and (max-width:330px){
@@ -118,7 +118,8 @@
     padding-left:40px;
     padding-right: 40px;
     cursor: pointer;
-    @media screen and (max-width:881px){
+    width:60%;
+    @media screen and (max-width:1075px){
         width:100%;
         margin-top: 5px;
     }

@@ -9,7 +9,7 @@ const Results = ({ userDetails }) => {
         FinalResultsUrl.getResults()
             .then(response => {
                 if (response?.data?.statusCode == 200) {
-                    setResults(response?.data?.FinalResults)
+                    setResults(response?.data?.responseData)
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
@@ -30,7 +30,7 @@ const Results = ({ userDetails }) => {
         FinalResultsUrl.getResultsByStudentEmail(userDetails.EmailId)
             .then(response => {
                 if (response?.data?.statusCode == 200) {
-                    setResults(response?.data?.FinalResults)
+                    setResults(response?.data?.responseData)
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {

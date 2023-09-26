@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +31,7 @@ public class CategoryDetailsDto {
    *category name attribute.
   */
   @Column(unique = true, nullable = false)
-  @NotBlank(message = "Category Name is required")
+  @NotBlank(message = ValidationMessage.categoryNameNotblank)
   private String categoryName;
   /**
    *category description attribute.

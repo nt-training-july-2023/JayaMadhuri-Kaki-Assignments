@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.capstone.assessmentPortal.dto.ResultsDto;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.ResultServiceImplementation;
 
 @SpringBootTest
@@ -29,7 +30,7 @@ class ResultsControllerTest {
     void testAddResult() {
         ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
         when(resultService.addTemporaryResult(resultsDto)).thenReturn(resultsDto);
-        ResponseEntity<Object> response = resultsController.addResult(resultsDto);
+        ResponseEntity<CustomResponse<ResultsDto>> response = resultsController.addResult(resultsDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 }

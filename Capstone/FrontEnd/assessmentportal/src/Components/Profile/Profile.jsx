@@ -9,7 +9,7 @@ const Profile = ({ userDetails }) => {
         UsersUrl.getUserByEmail(userDetails.EmailId)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
-                    const user = response?.data?.StudentDetails;
+                    const user = response?.data?.responseData;
                     setDetails(user);
                 }
             }).catch(error => {

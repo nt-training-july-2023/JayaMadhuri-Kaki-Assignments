@@ -30,7 +30,7 @@ const Category = (props) => {
     const fetchData = async () => {
         CategoryUrl.getCategories()
             .then(response => {
-                setCategory(response?.data?.listOfCategories)
+                setCategory(response?.data?.responseData)
                 setLoading(true);
             }).catch(error => {
                 setLoading(true);

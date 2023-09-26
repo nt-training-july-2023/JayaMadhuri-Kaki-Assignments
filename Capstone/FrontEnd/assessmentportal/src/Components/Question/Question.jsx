@@ -38,7 +38,7 @@ const Question = (props) => {
     const fetchData = async () => {
         QuestionUrl.getQuestionsByQuizId(selectedQuizId ? selectedQuizId : QuizId)
             .then(response => {
-                setQuestion(response?.data?.QuestionBySubCategoryId)
+                setQuestion(response?.data?.responseData)
                 setLoading(true)
             }).catch(error => {
                 setLoading(true)

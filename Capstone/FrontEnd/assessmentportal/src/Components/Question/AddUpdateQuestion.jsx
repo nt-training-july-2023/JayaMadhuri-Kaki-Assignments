@@ -37,6 +37,17 @@ const AddUpdateQuestion = (props) => {
                         background: "#15172b",
                         color: "white",
                     })
+                }else if (error?.response?.status === 409) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Options should be different',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        showCancelButton: false,
+                        icon: "warning",
+                        background: "#15172b",
+                        color: "white",
+                    })
                 }
             })
     }
@@ -69,10 +80,10 @@ const AddUpdateQuestion = (props) => {
                         background: "#15172b",
                         color: "white",
                     })
-                } else {
+                } else  if (error?.response?.status === 409) {
                     Swal.fire({
                         title: 'Error',
-                        text: 'Internal Server Error',
+                        text: 'Options should be different',
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,

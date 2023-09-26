@@ -49,11 +49,11 @@ const Login = (props) => {
             UsersUrl.userLogin(finalValues)
                 .then(response => {
                     if (response?.data?.statusCode == 200) {
-                        localStorage.setItem("UserDetails",JSON.stringify(response?.data?.UserDetails));
+                        localStorage.setItem("UserDetails",JSON.stringify(response?.data?.responseData));
                         localStorage.setItem("Current_Window","navbar");
                         localStorage.setItem("Current_SubWindow","category")
                         localStorage.setItem("LastVisited_Window","login");
-                        if (response?.data?.UserDetails?.UserType === "Admin") {
+                        if (response?.data?.responseData?.UserType === "Admin") {
                             Swal.fire({
                                 title: 'Login Successfully',
                                 timer: 2000,
@@ -66,8 +66,8 @@ const Login = (props) => {
                             setTimeout(function () {
                                 setRenderComponent("navbar")
                             }, 2000);
-                            setUserDetails(response?.data?.UserDetails);
-                        } else if (response?.data?.UserDetails?.UserType === "Student") {
+                            setUserDetails(response?.data?.responseData);
+                        } else if (response?.data?.responseData?.UserType === "Student") {
                             Swal.fire({
                                 title: 'Login Successfully',
                                 timer: 2000,
@@ -80,7 +80,7 @@ const Login = (props) => {
                             setTimeout(function () {
                                 setRenderComponent("navbar")
                             }, 2000);
-                            setUserDetails(response?.data?.UserDetails);
+                            setUserDetails(response?.data?.responseData);
                         } else {
                             Swal.fire({
                                 title: 'Login Successfully',

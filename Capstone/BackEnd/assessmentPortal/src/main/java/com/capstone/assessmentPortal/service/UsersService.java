@@ -49,4 +49,10 @@ public interface UsersService {
    * @param emailId emailId
   */
   UserDetails getStudentDetailsByEmail(String emailId);
+  /**
+   * get users by email id.
+   * @return string
+   * @param emailId emailId
+  */
+  String getUsersDetailsByEmail(String emailId);
 }

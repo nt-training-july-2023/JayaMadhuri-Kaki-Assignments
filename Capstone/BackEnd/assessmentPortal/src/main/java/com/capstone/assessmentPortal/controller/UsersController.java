@@ -20,6 +20,7 @@ import com.capstone.assessmentPortal.dto.LoginRequest;
 import com.capstone.assessmentPortal.dto.SignUpRequest;
 import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.UsersService;
 
@@ -46,12 +47,12 @@ public class UsersController {
    *@param signUpRequest signUpRequest
   */
   @PostMapping("/register")
-  public final ResponseEntity<Object> studentRegistration(
+  public final ResponseEntity<CustomResponse<SignUpRequest>> studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
-    String response = usersService.studentRegistration(signUpRequest);
+    usersService.studentRegistration(signUpRequest);
     logger.info("User successfully registered");
     return ResponseHandler.generateResponse("Successfully Registered",
-            HttpStatus.OK, "UserDetails", response);
+            HttpStatus.OK, null);
   }
   /**
    *user login.
@@ -59,13 +60,13 @@ public class UsersController {
    *@param loginRequest loginRequest
   */
   @PostMapping("/login")
-  public final ResponseEntity<Object> userLogin(
+  public final ResponseEntity<CustomResponse<Map<String, String>>> userLogin(
                   @RequestBody @Valid final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
     logger.info("User successfully logged in");
     return ResponseHandler.generateResponse("Login Successfull",
-                  HttpStatus.OK, "UserDetails", userDetails);
+                  HttpStatus.OK, userDetails);
   }
   /**
    *get student details by id.
@@ -73,12 +74,12 @@ public class UsersController {
    *@param studentId studentId
   */
   @GetMapping("/{studentId}")
-  public final ResponseEntity<Object> getStudentById(
+  public final ResponseEntity<CustomResponse<UserDetails>> getStudentById(
                  @PathVariable final Long studentId) {
     UserDetails userDetails = usersService.getStudentById(studentId);
     logger.info("Retrieved student details by Id");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, "StudentDetails", userDetails);
+                 HttpStatus.OK, userDetails);
   }
   /**
    *get student details by email Id.
@@ -86,13 +87,27 @@ public class UsersController {
    *@param emailId emailId
   */
   @GetMapping("/email/{emailId}")
-  public final ResponseEntity<Object> getStudentByEmailId(
+  public final ResponseEntity<CustomResponse<UserDetails>> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails userDetails = usersService.getStudentDetailsByEmail(emailId);
     logger.info("Retrieved student details by EmailId");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, "StudentDetails", userDetails);
+                 HttpStatus.OK, userDetails);
   }
+  /**
+   *get users by email Id.
+   *@return string
+   *@param emailId emailId
+  */
+  @GetMapping("/register/{emailId}")
+  public final ResponseEntity<CustomResponse<UserDetails>> getUserByEmailId(
+                 @PathVariable final String emailId) {
+    usersService.getUsersDetailsByEmail(emailId);
+    logger.info("User with email exists");
+    return ResponseHandler.generateResponse("Successfully Checked",
+                 HttpStatus.OK, null);
+  }
+
   /**
    * update student details by id.
    * @return studentDetails
@@ -100,14 +115,14 @@ public class UsersController {
    * @param users users
   */
   @PutMapping("/{studentId}")
-  public final ResponseEntity<Object> updateStudentDetails(
+  public final ResponseEntity<CustomResponse<UserDetailsForUpdate>> updateStudentDetails(
            @PathVariable final Long studentId,
            @RequestBody @Valid final UserDetailsForUpdate users) {
-    UserDetailsForUpdate userDetails = usersService
+    usersService
             .updateStudentDetails(studentId, users);
     logger.info("User details successfully updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-           HttpStatus.OK, "StudentDetails", userDetails);
+           HttpStatus.OK, null);
   }
   /**
    * delete student details by id.
@@ -115,11 +130,11 @@ public class UsersController {
    * @param studentId studentId
   */
   @DeleteMapping("/{studentId}")
-  public final ResponseEntity<Object> deleteStudent(
+  public final ResponseEntity<CustomResponse<UserDetails>> deleteStudent(
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
     logger.info("Student deleted successfully");
     return ResponseHandler.generateResponse("Successfully Deleted",
-           HttpStatus.OK, "StudentDetails", null);
+           HttpStatus.OK, null);
   }
 }

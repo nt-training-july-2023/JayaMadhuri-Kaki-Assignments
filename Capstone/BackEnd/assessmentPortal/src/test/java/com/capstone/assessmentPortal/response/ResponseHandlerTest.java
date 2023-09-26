@@ -18,9 +18,8 @@ class ResponseHandlerTest {
         Users users = new Users();
         String message = "Success";
         HttpStatus code = HttpStatus.OK;
-        String objName = "Jaya";
         Object responseObj = users;
-        ResponseEntity<Object> response = ResponseHandler.generateResponse(message, code, objName, responseObj);
+        ResponseEntity<CustomResponse<Object>> response = ResponseHandler.generateResponse(message, code, responseObj);
         assertNotNull(response);
         assertEquals(code, response.getStatusCode());
     }

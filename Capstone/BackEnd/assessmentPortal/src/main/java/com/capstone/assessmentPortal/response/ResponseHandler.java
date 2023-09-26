@@ -1,8 +1,5 @@
 package com.capstone.assessmentPortal.response;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,16 +18,13 @@ public final class ResponseHandler {
    *@return response
    *@param message message
    *@param code code
-   *@param objName objName
    *@param responseObj responseObj
   */
-  public static ResponseEntity<Object> generateResponse(
+  public static<T> ResponseEntity<CustomResponse<T>> generateResponse(
           final String message, final HttpStatus code,
-          final String objName, final Object responseObj) {
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put(objName, responseObj);
-    map.put("message", message);
-    map.put("statusCode", code.value());
-    return new ResponseEntity<Object>(map, code);
+          final T responseObj) {
+    CustomResponse<T> customResponse = new CustomResponse<>(
+            message, code.value(), responseObj);
+    return new ResponseEntity<>(customResponse, code);
   }
 }

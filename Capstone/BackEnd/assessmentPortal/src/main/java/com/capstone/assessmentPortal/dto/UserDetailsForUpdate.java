@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -17,26 +19,26 @@ public class UserDetailsForUpdate {
    *first name of user attribute.
  */
   @Column
-  @NotBlank(message = "First Name is required")
+  @NotBlank(message = ValidationMessage.firstNameNotblank)
   private String firstName;
   /**
    *last name of user attribute.
  */
   @Column
-  @NotBlank(message = "Last Name is required")
+  @NotBlank(message = ValidationMessage.lastNameNotblank)
   private String lastName;
   /**
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column
   @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}",
-         message = "Date of birth pattern should be yyyy-mm-dd")
-  @NotBlank(message = "Date of birth is required")
+         message = ValidationMessage.dobPattern)
+  @NotBlank(message = ValidationMessage.dobNotblank)
   private String dateOfBirth;
   /**
    *user gender attribute.
  */
   @Column
-  @NotBlank(message = "Gender is required")
+  @NotBlank(message = ValidationMessage.genderNotblank)
   private String gender;
 }

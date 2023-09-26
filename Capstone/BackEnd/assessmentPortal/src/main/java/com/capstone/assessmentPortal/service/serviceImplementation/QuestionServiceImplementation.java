@@ -1,7 +1,9 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capstone.assessmentPortal.dto.QuestionDto;
+import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.QuestionRepo;
@@ -45,7 +48,15 @@ public class QuestionServiceImplementation implements QuestionService {
               questionDto.getSubCategoryId()).orElseThrow(() ->
                new NoSuchElementException("Cannot find quiz"
                        + " with id: "+questionDto.getSubCategoryId()));
-      logger.info("Question Added");
+      Set<String> options = new HashSet<>();
+      options.add(questionDto.getOptionA());
+      options.add(questionDto.getOptionB());
+      options.add(questionDto.getOptionC());
+      options.add(questionDto.getOptionD());
+      if (options.size() < 4) {
+          throw new AlreadyExistsException("Options must be "
+                  + "different from each other");
+      }
       Question question = new Question();
       question.setQuestionContent(questionDto.getQuestionContent());
       question.setOptionA(questionDto.getOptionA());
@@ -54,6 +65,7 @@ public class QuestionServiceImplementation implements QuestionService {
       question.setOptionD(questionDto.getOptionD());
       question.setCorrectAnswer(questionDto.getCorrectAnswer());
       question.setSubCategory(subCategory);
+      logger.info("Question Added");
       questionRepo.save(question);
       return questionDto;
   }
@@ -102,6 +114,15 @@ public class QuestionServiceImplementation implements QuestionService {
                                 "Cannot find question with id: "+questionId));
       logger.info("Question with id exists");
       question.setQuestionContent(questionDto.getQuestionContent());
+      Set<String> options = new HashSet<>();
+      options.add(questionDto.getOptionA());
+      options.add(questionDto.getOptionB());
+      options.add(questionDto.getOptionC());
+      options.add(questionDto.getOptionD());
+      if (options.size() < 4) {
+          throw new AlreadyExistsException("Options must be "
+                  + "different from each other");
+      }
       question.setOptionA(questionDto.getOptionA());
       question.setOptionB(questionDto.getOptionB());
       question.setOptionC(questionDto.getOptionC());

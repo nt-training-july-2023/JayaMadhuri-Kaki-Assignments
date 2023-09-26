@@ -3,6 +3,7 @@ package com.capstone.assessmentPortal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Category {
      * category name attribute.
      */
     @Column(unique = true, nullable = false)
-    @NotBlank(message = "Category Name is required")
+    @NotBlank(message = ValidationMessage.categoryNameNotblank)
     private String categoryName;
     /**
      * category description attribute.

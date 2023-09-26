@@ -19,6 +19,7 @@ import com.capstone.assessmentPortal.dto.LoginRequest;
 import com.capstone.assessmentPortal.dto.SignUpRequest;
 import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.UsersServiceImplementation;
 
 @SpringBootTest
@@ -43,7 +44,7 @@ class UsersControllerTest {
         users.setUserType("Student");
         String name = users.getFirstName() + users.getLastName();
         when(usersService.studentRegistration(users)).thenReturn(name);
-        ResponseEntity<Object> response = usersController.studentRegistration(users);
+        ResponseEntity<CustomResponse<SignUpRequest>> response = usersController.studentRegistration(users);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
@@ -54,7 +55,7 @@ class UsersControllerTest {
         login.setPassword("Madhu@123");
         Map<String,String> userDetails = new HashMap<>();
         when(usersService.authenticateUser(login)).thenReturn(userDetails);
-        ResponseEntity<Object> response = usersController.userLogin(login);
+        ResponseEntity<CustomResponse<Map<String, String>>> response = usersController.userLogin(login);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
@@ -63,7 +64,7 @@ class UsersControllerTest {
         Long studentId = 1L;
         UserDetails users = new UserDetails();
         when(usersService.getStudentById(studentId)).thenReturn(users);
-        ResponseEntity<Object> response = usersController.getStudentById(studentId);
+        ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentById(studentId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
     
@@ -72,7 +73,7 @@ class UsersControllerTest {
         String studentEmail = "jaya@nucleusteq.com";
         UserDetails users = new UserDetails();
         when(usersService.getStudentDetailsByEmail(studentEmail)).thenReturn(users);
-        ResponseEntity<Object> response = usersController.getStudentByEmailId(studentEmail);
+        ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentByEmailId(studentEmail);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
@@ -85,14 +86,14 @@ class UsersControllerTest {
         users.setDateOfBirth("23-01-2001");
         users.setGender("female");
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
-        ResponseEntity<Object> response = usersController.updateStudentDetails(userId,users);
+        ResponseEntity<CustomResponse<UserDetailsForUpdate>> response = usersController.updateStudentDetails(userId,users);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
     @Test
     void testDeleteStudent() {
         Long userId = 1L;
-        ResponseEntity<Object> response = usersController.deleteStudent(userId);
+        ResponseEntity<CustomResponse<UserDetails>> response = usersController.deleteStudent(userId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 

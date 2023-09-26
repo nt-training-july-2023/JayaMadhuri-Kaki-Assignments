@@ -67,17 +67,6 @@ const AddUpdateCategory = (props) => {
                     if (error?.response?.status === 409) {
                         Swal.fire({
                             title: 'Error',
-                            text: 'Something Wrong',
-                            timer: 1500,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: "warning",
-                            background: "#15172b",
-                            color: "white",
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
                             text: 'A Category is Already Exists With Same Name',
                             timer: 1500,
                             showConfirmButton: false,

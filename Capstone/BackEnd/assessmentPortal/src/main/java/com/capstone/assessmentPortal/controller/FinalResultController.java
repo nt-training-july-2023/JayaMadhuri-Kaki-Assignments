@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.FinalResultService;
 
@@ -35,12 +36,12 @@ public class FinalResultController {
    * @return finalResult
   */
   @GetMapping("/finalResults")
-  public final ResponseEntity<Object> getFinalResults() {
+  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>> getFinalResults() {
     List<FinalResultsDto> finalResultDto = finalResultService
                      .getFinalResults();
     logger.info("Retrieved final results");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-        HttpStatus.OK, "FinalResults", finalResultDto);
+        HttpStatus.OK, finalResultDto);
   }
   /**
    * get all final results by student id.
@@ -48,12 +49,12 @@ public class FinalResultController {
    * @param emailId emailId
   */
   @GetMapping("/finalResults/{emailId}")
-  public final ResponseEntity<Object> getFinalResultByStudentEmail(
+  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>> getFinalResultByStudentEmail(
           @PathVariable final String emailId) {
     List<FinalResultsDto> finalResults = finalResultService
                 .getFinalResultByStudentEmail(emailId);
     logger.info("Retrieved all final results by student EmailId");
     return ResponseHandler.generateResponse("Successfully Retrieved",
-          HttpStatus.OK, "FinalResults", finalResults);
+          HttpStatus.OK, finalResults);
   }
 }

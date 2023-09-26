@@ -3,7 +3,7 @@ package com.capstone.assessmentPortal.controllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,6 +39,16 @@ public class GlobalExceptionHandler {
       return errorMap;
   }
   /**
+   *Exception handles when name already exists.
+   *@return responseEntity
+   *@param exception DataIntegrityViolationException
+  */
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public final ResponseEntity<String> conflict(
+          DataIntegrityViolationException exception) {
+      return new ResponseEntity<>("Name already exists", HttpStatus.CONFLICT);
+  }
+  /**
    *Exception handles when no element is present with id.
    *@return responseEntity
    *@param exception noSuchElementException
@@ -68,7 +78,7 @@ public class GlobalExceptionHandler {
   public final ResponseEntity<String> handleEmailAlreadyExistsException(
             final EmailAlreadyExistsException exception) {
     return new ResponseEntity<String>(exception.getMessage()
-            + "with this Email", HttpStatus.CONFLICT);
+            , HttpStatus.CONFLICT);
   }
   /**
    *Exception handles when when data is already exists in db.

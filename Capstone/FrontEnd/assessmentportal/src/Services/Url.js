@@ -25,6 +25,10 @@ class Url {
         return axios.get(USER_URL + '/email/' + Email);
     }
 
+    CheckUserByEmail(Email) {
+        return axios.get(USER_URL + '/register/' + Email);
+    }
+
     updateUser(userId, User) {
         return axios.put(USER_URL + '/' + userId, User);
     }

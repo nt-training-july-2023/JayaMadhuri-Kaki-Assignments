@@ -2,6 +2,8 @@ package com.capstone.assessmentPortal.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -35,47 +37,44 @@ public class Users {
      * first name of user attribute.
      */
     @Column
-    @NotBlank(message = "First Name is required")
+    @NotBlank(message = ValidationMessage.firstNameNotblank)
     private String firstName;
     /**
      * last name of user attribute.
      */
     @Column
-    @NotBlank(message = "Last Name is required")
+    @NotBlank(message = ValidationMessage.lastNameNotblank)
     private String lastName;
     /**
      * date of birth(dd-mm-yyyy) attribute.
      */
     @Column
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
-          message = "Date of birth pattern should be yyyy-mm-dd")
-    @NotBlank(message = "Date of birth is required")
+          message = ValidationMessage.dobPattern)
+    @NotBlank(message = ValidationMessage.dobNotblank)
     private String dateOfBirth;
     /**
      * user gender attribute.
      */
     @Column
-    @NotBlank(message = "Gender is required")
+    @NotBlank(message = ValidationMessage.genderNotblank)
     private String gender;
     /**
      * user email attribute.
      */
     @Column(unique = true)
-    @NotBlank(message = "Email is required")
+    @NotBlank(message = ValidationMessage.emailNotblank)
     @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
-    message = "Email is not Valid")
+    message = ValidationMessage.emailPattern)
     private String emailId;
     /**
      * user password attribute.
      */
     @Column
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = ValidationMessage.passwordNotblank)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
             + "(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-            message = "Password must be at least 8 characters long and "
-            + "contain at least one digit, one lowercase letter,"
-            + " one uppercase letter, "
-            + "one special character, and no whitespace")
+            message = ValidationMessage.passwordPattern)
     private String password;
     /**
      * role of user attribute.

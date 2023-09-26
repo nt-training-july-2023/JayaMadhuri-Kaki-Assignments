@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,42 +30,42 @@ public class QuestionDto {
      * question title attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "Question is required")
+    @NotBlank(message = ValidationMessage.questionNotblank)
     private String questionContent;
     /**
      * question option 1 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionA is required")
+    @NotBlank(message = ValidationMessage.optionANotblank)
     private String optionA;
     /**
      * question option 2 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionB is required")
+    @NotBlank(message = ValidationMessage.optionBNotblank)
     private String optionB;
     /**
      * question option 3 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionC is required")
+    @NotBlank(message = ValidationMessage.optionCNotblank)
     private String optionC;
     /**
      * question option 4 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionD is required")
+    @NotBlank(message = ValidationMessage.optionDNotblank)
     private String optionD;
     /**
      * question answer attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "CorrectAnswer is required")
+    @NotBlank(message = ValidationMessage.correctAnswerNotblank)
     private String correctAnswer;
     /**
      * subCategory id attribute.
      */
     @Column(nullable = false)
-    @NotNull(message = "Quiz Id is required")
+    @NotNull(message = ValidationMessage.quizIdNotnull)
     private Long subCategoryId;
 }

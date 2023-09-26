@@ -99,7 +99,6 @@ public class CategoryServiceImplementation implements CategoryService {
                        () -> new NoSuchElementException(
                                "Cannot find category with id: "+categoryId));
     logger.info("Category found with id");
-    category.setCategoryId(categoryDto.getCategoryId());
     category.setCategoryName(categoryDto.getCategoryName());
     category.setCategoryDescription(categoryDto
             .getCategoryDescription());

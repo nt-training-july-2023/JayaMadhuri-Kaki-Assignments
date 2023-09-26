@@ -3,6 +3,7 @@ package com.capstone.assessmentPortal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -39,7 +40,7 @@ public class SubCategory {
      * subcategory name attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "Quiz Name is required")
+    @NotBlank(message = ValidationMessage.quizNameNotblank)
     private String subCategoryName;
     /**
      * subcategory description attribute.
@@ -50,7 +51,7 @@ public class SubCategory {
      * subcategory time limit in minutes for quiz attribute.
      */
     @Column
-    @NotEmpty(message = "Time limit should not be empty")
+    @NotEmpty(message = ValidationMessage.timeLimitNotblank)
     private String timeLimitInMinutes;
     /**
      * category entity class reference variable attribute.

@@ -21,8 +21,8 @@ const QuestionForStudent = (props) => {
     const fetchData = async () => {
         Url.getQuestionsByQuizId(selectedQuizId ? selectedQuizId : quizId)
             .then(response => {
-                setQuestion(response?.data?.QuestionBySubCategoryId);
-                localStorage.setItem('question', btoa(JSON.stringify(response?.data?.QuestionBySubCategoryId)));
+                setQuestion(response?.data?.responseData);
+                localStorage.setItem('question', btoa(JSON.stringify(response?.data?.responseData)));
             }).catch(error => {
                 Swal.fire({
                     title: 'Error',

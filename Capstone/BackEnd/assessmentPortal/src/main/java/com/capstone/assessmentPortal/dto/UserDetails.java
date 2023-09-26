@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,35 +28,35 @@ public class UserDetails {
    *first name of user attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = "First Name is required")
+  @NotBlank(message = ValidationMessage.firstNameNotblank)
   private String firstName;
   /**
    *last name of user attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = "Last Name is required")
+  @NotBlank(message = ValidationMessage.lastNameNotblank)
   private String lastName;
   /**
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column(nullable = false)
   @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}",
-         message = "Date of birth pattern should be yyyy-mm-dd")
-  @NotBlank(message = "Date of birth is required")
+         message = ValidationMessage.dobPattern)
+  @NotBlank(message = ValidationMessage.dobNotblank)
   private String dateOfBirth;
   /**
    *user gender attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = "Gender is required")
+  @NotBlank(message = ValidationMessage.genderNotblank)
   private String gender;
   /**
    *user email attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = "Email is required")
+  @NotBlank(message = ValidationMessage.emailNotblank)
   @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
-          message = "Email is not Valid")
+          message = ValidationMessage.emailPattern)
   private String emailId;
   /**
    *role of user attribute.

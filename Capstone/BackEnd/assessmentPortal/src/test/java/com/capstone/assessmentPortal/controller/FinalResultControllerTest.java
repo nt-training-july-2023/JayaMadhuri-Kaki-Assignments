@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.FinalResultServiceImplementation;
 
 /**
@@ -48,7 +49,7 @@ class FinalResultControllerTest {
         finalDto.setDateAndTime("23-01-23");
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResults()).thenReturn(list);
-        ResponseEntity<Object> response = finalResultController.getFinalResults();
+        ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController.getFinalResults();
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
     @Test
@@ -65,7 +66,7 @@ class FinalResultControllerTest {
         finalDto.setDateAndTime("23-01-23");
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResultByStudentEmail(finalDto.getStudentEmailId())).thenReturn(list);
-        ResponseEntity<Object> response = finalResultController
+        ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController
                 .getFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
+import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
@@ -42,13 +43,13 @@ public class SubCategoryController {
    *@return subCategories
   */
   @GetMapping("/subCategory")
-  public final ResponseEntity<Object> getSubCategories() {
+  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> getSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getSubCategories();
     logger.info("Retrieved quizes");
     return ResponseHandler.generateResponse(
           "Successfully Retrieved SubCategories",
-          HttpStatus.OK, "ListOfSubCategories", subCategories);
+          HttpStatus.OK, subCategories);
   }
   /**
    *get subcategory by subcategory id.
@@ -56,14 +57,14 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
   */
   @GetMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<Object> getSubCategoryById(@PathVariable final
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> getSubCategoryById(@PathVariable final
                    Long subCategoryId) {
     SubCategoryDetailsDto subCategoryDto = subCategoryService
                    .getSubCategoryById(subCategoryId);
     logger.info("Retrieved quiz by id");
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Id",
-         HttpStatus.OK, "SubCategory", subCategoryDto);
+         HttpStatus.OK, subCategoryDto);
   }
   /**
    *get subcategory by category id.
@@ -71,14 +72,14 @@ public class SubCategoryController {
    *@param categoryId categoryId
   */
   @GetMapping("/subCategory/subCategoryByCategory/{categoryId}")
-  public final ResponseEntity<Object> getSubCategoryByCategoryId(
+  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> getSubCategoryByCategoryId(
          @PathVariable final Long categoryId) {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
     logger.info("Retrieved quizes by category id");
     return ResponseHandler.generateResponse(
          "Successfully Retrieved SubCategory By Category Id",
-          HttpStatus.OK, "SubCategoryByCategoryId", subCategories);
+          HttpStatus.OK, subCategories);
   }
   /**
    *add subcategory to subcategory table.
@@ -86,13 +87,13 @@ public class SubCategoryController {
    *@param subCategory subCategory
   */
   @PostMapping("/subCategory")
-  public final ResponseEntity<Object> addSubCategory(
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> addSubCategory(
             @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
-    SubCategoryDetailsDto subCategoryDto = subCategoryService
+    subCategoryService
             .addSubCategory(subCategory);
     logger.info("Quiz Added");
     return ResponseHandler.generateResponse("Successfully Added",
-            HttpStatus.OK, "SubCategory", subCategoryDto);
+            HttpStatus.OK, null);
   }
   /**
    *update subcategory by id and given new details.
@@ -101,14 +102,14 @@ public class SubCategoryController {
    *@param subCategory subCategory
   */
   @PutMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<Object> updateSubCategory(
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> updateSubCategory(
           @PathVariable final Long subCategoryId,
           @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
-    SubCategoryDetailsDto subCategoryDto = subCategoryService
+    subCategoryService
           .updateSubCategory(subCategory, subCategoryId);
     logger.info("Quiz Updated");
     return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, "SubCategory", subCategoryDto);
+          HttpStatus.OK, null);
   }
   /**
    *delete subcategory by id.
@@ -116,11 +117,11 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
   */
   @DeleteMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<Object> deleteSubCategory(
+  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>> deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);
     logger.info("Quiz Deleted");
     return ResponseHandler.generateResponse("Successfully Deleted",
-          HttpStatus.OK, "SubCategory", null);
+          HttpStatus.OK, null);
   }
 }

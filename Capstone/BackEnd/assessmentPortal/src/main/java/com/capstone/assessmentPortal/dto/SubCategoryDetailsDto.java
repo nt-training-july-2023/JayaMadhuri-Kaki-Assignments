@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.dto;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +29,7 @@ public class SubCategoryDetailsDto {
    *subcategory name attribute.
   */
   @Column(nullable = false)
-  @NotBlank(message = "Quiz Name is required")
+  @NotBlank(message = ValidationMessage.quizNameNotblank)
   private String subCategoryName;
   /**
    *subcategory description attribute.
@@ -37,12 +39,12 @@ public class SubCategoryDetailsDto {
    *subcategory time limit in minutes for quiz attribute.
   */
   @Column(nullable = false)
-  @NotEmpty(message = "Time Limit is required")
+  @NotEmpty(message = ValidationMessage.timeLimitNotblank)
   private String timeLimitInMinutes;
   /**
    *category Id attribute.
   */
   @Column(nullable = false)
-  @NotNull(message = "Category Id is required")
+  @NotNull(message = ValidationMessage.categoryIdNotnull)
   private Long categoryId;
 }

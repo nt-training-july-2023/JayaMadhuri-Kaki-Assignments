@@ -1,5 +1,7 @@
 package com.capstone.assessmentPortal.model;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,37 +33,37 @@ public class Question {
      * question title attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "Question is required")
+    @NotBlank(message = ValidationMessage.questionNotblank)
     private String questionContent;
     /**
      * question option 1 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionA is required")
+    @NotBlank(message = ValidationMessage.optionANotblank)
     private String optionA;
     /**
      * question option 2 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionB is required")
+    @NotBlank(message = ValidationMessage.optionBNotblank)
     private String optionB;
     /**
      * question option 3 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionC is required")
+    @NotBlank(message = ValidationMessage.optionCNotblank)
     private String optionC;
     /**
      * question option 4 attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "OptionD is required")
+    @NotBlank(message = ValidationMessage.optionDNotblank)
     private String optionD;
     /**
      * question answer attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = "Correct Answer is required")
+    @NotBlank(message = ValidationMessage.correctAnswerNotblank)
     private String correctAnswer;
     /**
      * foreign key attribute of subcategory.
