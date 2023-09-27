@@ -19,6 +19,7 @@ import com.capstone.assessmentPortal.repository.FinalResultOfQuizRepo;
 import com.capstone.assessmentPortal.repository.ResultRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
 import com.capstone.assessmentPortal.repository.UsersRepo;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.ResultService;
 
 /**
@@ -61,14 +62,12 @@ public class ResultServiceImplementation implements ResultService {
   public final ResultsDto addTemporaryResult(final ResultsDto resultsDto) {
     Users user = usersRepo.findById(resultsDto
             .getStudentId()).orElseThrow(
-                    () -> new NoSuchElementException(
-                            "Cannot find student with id: " + resultsDto
-                            .getStudentId()));
+                    () -> new NoSuchElementException(ValidationMessage
+                            .USER_NOSUCHELEMENT));
     SubCategory quiz = subCategoryRepo.findById(
              resultsDto.getSubCategoryId()).orElseThrow(
-                     () -> new NoSuchElementException(
-                             "Cannot find quiz with id: " + resultsDto
-                             .getSubCategoryId()));
+                     () -> new NoSuchElementException(ValidationMessage
+                             .QUIZ_NOSUCHELEMENT));
     logger.info("Result Added");
     FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
     finalResults.setStudentId(resultsDto.getStudentId());

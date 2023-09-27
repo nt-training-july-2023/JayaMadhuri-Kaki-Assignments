@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
 /**
@@ -45,9 +45,10 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
          Optional<SubCategory> subCategory = subCategoryRepo
                  .getSubCategoryByName(subCategoryDto.getSubCategoryName());
          if (subCategory.isPresent()) {
-             logger.error("A Quiz is already exists with the same name");
-             throw new AlreadyExistsException("A Quiz is already "
-                     + "exists with the same name");
+             logger.error(ValidationMessage
+                     .QUIZ_ALREADYEXISTS);
+             throw new AlreadyExistsException(ValidationMessage
+                     .QUIZ_ALREADYEXISTS);
          }
           logger.info("Quiz Added");
           SubCategory subCategoryObj = new SubCategory();
@@ -60,7 +61,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                         .getTimeLimitInMinutes());
           Category category = categoryRepo.findById(
                   subCategoryDto.getCategoryId()).orElseThrow(() ->
-                   new NotFoundException("Category Id not found"));
+                   new NoSuchElementException(ValidationMessage
+                           .CATEGORY_NOSUCHELEMENT));
           subCategoryObj.setCategory(category);
           subCategoryRepo.save(subCategoryObj);
           return subCategoryDto;
@@ -94,8 +96,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   public final SubCategoryDetailsDto getSubCategoryById(final
                      Long subCategoryId) {
     SubCategory subCategory = subCategoryRepo.findById(subCategoryId)
-         .orElseThrow(() -> new NoSuchElementException("Cannot "
-         + "find quiz with id: " + subCategoryId));
+         .orElseThrow(() -> new NoSuchElementException(ValidationMessage
+                 .QUIZ_NOSUCHELEMENT));
     logger.info("Retrieved quiz details by id");
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
     subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
@@ -112,21 +114,22 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                     final Long subCategoryId) {
     SubCategory quiz = subCategoryRepo
                  .findById(subCategoryId).orElseThrow(
-                         () -> new NoSuchElementException("Cannot "
-                         + "find quiz with id: " + subCategoryId));
+                         () -> new NoSuchElementException(ValidationMessage
+                                 .QUIZ_NOSUCHELEMENT));
     logger.info("Quiz with id found");
     categoryRepo.findById(
             subCategoryDto.getCategoryId()).orElseThrow(() ->
-             new NotFoundException("Category Id not found"));
+             new NoSuchElementException(ValidationMessage
+                     .CATEGORY_NOSUCHELEMENT));
     logger.info("Category with id found");
     Optional<SubCategory> subCategory = subCategoryRepo
             .getSubCategoryByName(subCategoryDto.getSubCategoryName());
     boolean isSubCategoryPresent = subCategory.isPresent();
     if (!quiz.getSubCategoryName().equals(subCategoryDto
             .getSubCategoryName()) && isSubCategoryPresent) {
-        logger.error("A Quiz is already exists with the same name");
-        throw new AlreadyExistsException("A Quiz is already "
-                + "exists with the same name");
+        logger.error(ValidationMessage.QUIZ_ALREADYEXISTS);
+        throw new AlreadyExistsException(ValidationMessage
+                .QUIZ_ALREADYEXISTS);
     }
     quiz.setSubCategoryName(subCategoryDto.getSubCategoryName());
     quiz.setSubCategoryDescription(subCategoryDto
@@ -140,8 +143,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   public final void deleteSubCategory(final Long subCategoryId) {
     subCategoryRepo
             .findById(subCategoryId).orElseThrow(
-                    () -> new NoSuchElementException("Cannot "
-                           + "find quiz with id: " + subCategoryId));
+                    () -> new NoSuchElementException(ValidationMessage
+                            .QUIZ_ALREADYEXISTS));
     logger.info("Quiz Deleted");
     subCategoryRepo.deleteById(subCategoryId);
   }
@@ -149,8 +152,8 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   public final List<SubCategoryDetailsDto> getSubCategoryByCategoryId(final
                    Long categoryId) {
     categoryRepo.findById(categoryId).orElseThrow(
-            () -> new NoSuchElementException("Cannot "
-                    + "find category with id: " + categoryId));
+            () -> new NoSuchElementException(ValidationMessage
+                    .CATEGORY_ALREADYEXISTS));
     List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
     logger.info("Retrieved quizes with category id");

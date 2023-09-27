@@ -18,6 +18,7 @@ import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 import com.capstone.assessmentPortal.model.Users;
 import com.capstone.assessmentPortal.repository.UsersRepo;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.UsersService;
 
 /**
@@ -42,9 +43,9 @@ public class UsersServiceImplementation implements UsersService {
           .findUserByEmailId(signUpRequest.getEmailId());
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
     if (user.isPresent()) {
-      logger.error("Email already exists");
-      throw new EmailAlreadyExistsException("User with same "
-              + "email already exists");
+      logger.error(ValidationMessage.USER_EMAILALREADYEXISTS);
+      throw new EmailAlreadyExistsException(ValidationMessage
+              .USER_EMAILALREADYEXISTS);
     }
     logger.info("User successfully registered");
     Users users = new Users();
@@ -75,14 +76,14 @@ public class UsersServiceImplementation implements UsersService {
         return userDetails;
       }
     }
-    logger.error("User not found in database");
-    throw new UserNotFoundException("Incorrect Credentials");
+    logger.error(ValidationMessage.USER_NOTFOUND);
+    throw new UserNotFoundException(ValidationMessage.USER_NOTFOUND);
   }
   @Override
   public final void deleteStudent(final Long studentId) {
     usersRepo.findById(studentId).orElseThrow(
-            () -> new NoSuchElementException("Cannot "
-                    + "find user with id: " + studentId));
+            () -> new NoSuchElementException(ValidationMessage
+                    .USER_NOSUCHELEMENT));
     logger.info("User deleted");
     usersRepo.deleteById(studentId);
   }
@@ -90,8 +91,8 @@ public class UsersServiceImplementation implements UsersService {
   public final UserDetailsForUpdate updateStudentDetails(final Long studentId,
                  final UserDetailsForUpdate users) {
     Users user = usersRepo.findById(studentId).orElseThrow(() ->
-                 new NoSuchElementException("Cannot "
-                         + "find user with id: " + studentId));
+                 new NoSuchElementException(ValidationMessage
+                         .USER_NOSUCHELEMENT));
     user.setFirstName(users.getFirstName());
     user.setLastName(users.getLastName());
     user.setDateOfBirth(users.getDateOfBirth());
@@ -108,8 +109,8 @@ public class UsersServiceImplementation implements UsersService {
   @Override
   public final UserDetails getStudentById(final Long studentId) {
     Users user = usersRepo.findById(studentId).orElseThrow(
-            () -> new NoSuchElementException(
-            "Cannot find user with id: " + studentId));
+            () -> new NoSuchElementException(ValidationMessage
+                    .USER_NOSUCHELEMENT));
     UserDetails userDetails = new UserDetails();
     userDetails.setFirstName(user.getFirstName());
     userDetails.setLastName(user.getLastName());
@@ -135,20 +136,19 @@ public class UsersServiceImplementation implements UsersService {
             userDetails.setUserType(user.get().getUserType());
             return userDetails;
         }
-        logger.error("Student email not found");
-        throw new NoSuchElementException("Cannot "
-                + "find student with email: " + emailId);
+        logger.error(ValidationMessage.USER_NOSUCHELEMENTEMAIL);
+        throw new NoSuchElementException(ValidationMessage.USER_NOSUCHELEMENTEMAIL);
     }
     @Override
     public final String getUsersDetailsByEmail(final String emailId) {
         Optional<Users> user = usersRepo.findUserByEmailId(emailId);
         if (user.isPresent()) {
-            logger.error("User with Email exists");
-            throw new EmailAlreadyExistsException("User "
-                    + "with email: " + emailId + " exists");
+            logger.error(ValidationMessage.USER_EMAILALREADYEXISTS);
+            throw new EmailAlreadyExistsException(ValidationMessage
+                    .USER_EMAILALREADYEXISTS);
         } else {
-            logger.info("User not exists with email");
-            return "User Not exists with Email";
+            logger.info(ValidationMessage.USER_NOSUCHELEMENTEMAIL);
+            return ValidationMessage.USER_NOSUCHELEMENTEMAIL;
         }
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
-import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 
 /**
@@ -91,16 +90,5 @@ public class GlobalExceptionHandler {
            AlreadyExistsException exception) {
     return new ResponseEntity<String>(exception.getMessage(),
            HttpStatus.CONFLICT);
-  }
-  /**
-   *Exception handles when data with given id is not found.
-   *@return responseEntity
-   *@param exception notFoundException
-  */
-  @ExceptionHandler(NotFoundException.class)
-  public final ResponseEntity<String> handleNotFoundException(final
-           NotFoundException exception) {
-    return new ResponseEntity<String>(exception.getMessage(),
-           HttpStatus.NOT_FOUND);
   }
 }

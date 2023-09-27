@@ -15,6 +15,7 @@ import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.CategoryService;
 
 /**
@@ -39,9 +40,8 @@ public class CategoryServiceImplementation implements CategoryService {
     Optional<Category> category = categoryRepo
              .getCategoryByName(categoryDto.getCategoryName());
     if (category.isPresent()) {
-       logger.error("Category with same name already exists");
-       throw new AlreadyExistsException("Category with same "
-               + "name already exists");
+       logger.error(ValidationMessage.CATEGORY_ALREADYEXISTS);
+       throw new AlreadyExistsException(ValidationMessage.CATEGORY_ALREADYEXISTS);
     }
     logger.info("Category Added");
     Category categoryObj = new Category();
@@ -75,8 +75,7 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final CategoryDetailsDto getCategoryById(final Long categoryId) {
     Category category = categoryRepo.findById(categoryId).orElseThrow(
-            () -> new NoSuchElementException(
-                    "Cannot find category with id: " + categoryId));
+            () -> new NoSuchElementException(ValidationMessage.CATEGORY_NOSUCHELEMENT));
     logger.info("Retrieved Category By Id");
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
     categoryDto.setCategoryId(category.getCategoryId());
@@ -87,8 +86,7 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final void deleteCategory(final Long categoryId) {
     categoryRepo.findById(categoryId).orElseThrow(
-                      () -> new NoSuchElementException(
-                              "Cannot find category with id: " + categoryId));
+                      () -> new NoSuchElementException(ValidationMessage.CATEGORY_NOSUCHELEMENT));
     logger.info("Category Deleted");
     categoryRepo.deleteById(categoryId);
   }
@@ -97,8 +95,7 @@ public class CategoryServiceImplementation implements CategoryService {
                      final CategoryDetailsDto categoryDto) {
     Category category = categoryRepo
                .findById(categoryId).orElseThrow(
-                       () -> new NoSuchElementException(
-                               "Cannot find category with id: " + categoryId));
+                       () -> new NoSuchElementException(ValidationMessage.CATEGORY_NOSUCHELEMENT));
     logger.info("Category found with id");
     category.setCategoryName(categoryDto.getCategoryName());
     category.setCategoryDescription(categoryDto

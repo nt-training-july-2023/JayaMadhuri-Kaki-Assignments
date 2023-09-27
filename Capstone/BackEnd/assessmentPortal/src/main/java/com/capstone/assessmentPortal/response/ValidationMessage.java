@@ -123,4 +123,50 @@ public final class ValidationMessage {
      *gender is blank.
     */
     public static final String GENDER_NOTBLANK = "Gender is required";
+    /**
+     *exception when category name already exists.
+    */
+    public static final String CATEGORY_ALREADYEXISTS = "Category with"
+            + " same name already exists";
+    /**
+     *exception when category id not exists.
+    */
+    public static final String CATEGORY_NOSUCHELEMENT = "Cannot find "
+            + "category with id";
+    /**
+     *exception when quiz id not exists.
+    */
+    public static final String QUIZ_NOSUCHELEMENT = "Cannot find quiz with id";
+    /**
+     *exception when quiz name already exists.
+    */
+    public static final String QUIZ_ALREADYEXISTS = "Quiz with same name "
+            + "already exists";
+    /**
+     *exception when options are same.
+    */
+    public static final String QUESTION_ALREADYEXISTS = "Options must be"
+            + " different from each other";
+    /**
+     *exception when question id not exists.
+    */
+    public static final String QUESTION_NOSUCHELEMENT = "Cannot find "
+            + "question with id";
+    /**
+     *exception when user id not exists.
+    */
+    public static final String USER_NOSUCHELEMENT = "Cannot find user with id";
+    /**
+     *exception when user email not exists.
+    */
+    public static final String USER_NOSUCHELEMENTEMAIL = "Cannot find user with email id";
+    /**
+     *exception when user email already contains account.
+    */
+    public static final String USER_EMAILALREADYEXISTS = "An Account with same"
+                + " email already exists";
+    /**
+     *exception when incorrect credentials.
+    */
+    public static final String USER_NOTFOUND = "Incorrect Credentials";
 }

@@ -17,6 +17,7 @@ import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.QuestionRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.QuestionService;
 
 
@@ -46,8 +47,8 @@ public class QuestionServiceImplementation implements QuestionService {
   public final QuestionDto addQuestion(final QuestionDto questionDto) {
       SubCategory subCategory = subCategoryRepo.findById(
               questionDto.getSubCategoryId()).orElseThrow(() ->
-               new NoSuchElementException("Cannot find quiz"
-                       + " with id: " + questionDto.getSubCategoryId()));
+               new NoSuchElementException(ValidationMessage
+                       .QUIZ_NOSUCHELEMENT));
       Set<String> options = new HashSet<>();
       options.add(questionDto.getOptionA());
       options.add(questionDto.getOptionB());
@@ -55,8 +56,8 @@ public class QuestionServiceImplementation implements QuestionService {
       options.add(questionDto.getOptionD());
       final int number = 4;
       if (options.size() < number) {
-          throw new AlreadyExistsException("Options must be "
-                  + "different from each other");
+          throw new AlreadyExistsException(ValidationMessage
+                  .QUESTION_ALREADYEXISTS);
       }
       Question question = new Question();
       question.setQuestionContent(questionDto.getQuestionContent());
@@ -74,8 +75,8 @@ public class QuestionServiceImplementation implements QuestionService {
   public final List<QuestionDto> getQuestionsBySubCategoryId(final
                    Long subCategoryId) {
     subCategoryRepo.findById(subCategoryId).orElseThrow(
-                      () -> new NoSuchElementException("Cannot find"
-                              + " quiz with id: " + subCategoryId));
+                      () -> new NoSuchElementException(ValidationMessage
+                              .QUIZ_NOSUCHELEMENT));
     List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
     logger.info("Retrieved Question by Quiz id");
@@ -111,8 +112,8 @@ public class QuestionServiceImplementation implements QuestionService {
           QuestionDto questionDto) {
     Question question = questionRepo
                 .findById(questionId).orElseThrow(
-                        () -> new NoSuchElementException(
-                                "Cannot find question with id: " + questionId));
+                        () -> new NoSuchElementException(ValidationMessage
+                                .QUESTION_NOSUCHELEMENT));
       logger.info("Question with id exists");
       question.setQuestionContent(questionDto.getQuestionContent());
       Set<String> options = new HashSet<>();
@@ -122,8 +123,8 @@ public class QuestionServiceImplementation implements QuestionService {
       options.add(questionDto.getOptionD());
       final int number = 4;
       if (options.size() < number) {
-          throw new AlreadyExistsException("Options must be "
-                  + "different from each other");
+          throw new AlreadyExistsException(ValidationMessage
+                  .QUESTION_ALREADYEXISTS);
       }
       question.setOptionA(questionDto.getOptionA());
       question.setOptionB(questionDto.getOptionB());
@@ -137,8 +138,8 @@ public class QuestionServiceImplementation implements QuestionService {
   @Override
   public final void deleteQuestion(final Long questionId) {
     questionRepo.findById(questionId).orElseThrow(
-            () -> new NoSuchElementException(
-                    "Cannot find question with id: " + questionId));
+            () -> new NoSuchElementException(ValidationMessage
+                    .QUESTION_NOSUCHELEMENT));
     logger.info("Question Deleted");
     questionRepo.deleteById(questionId);
   }

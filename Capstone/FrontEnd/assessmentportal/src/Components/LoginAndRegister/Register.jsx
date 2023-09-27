@@ -168,6 +168,15 @@ const Register = (props) => {
                 color: 'white',
                 background: '#15172b'
               })
+            }else{
+              Swal.fire({
+                text: 'Network Error',
+                icon: "warning",
+                timer: 1000,
+                showConfirmButton: false,
+                color: 'white',
+                background: '#15172b'
+              })
             }
           })
       } else {

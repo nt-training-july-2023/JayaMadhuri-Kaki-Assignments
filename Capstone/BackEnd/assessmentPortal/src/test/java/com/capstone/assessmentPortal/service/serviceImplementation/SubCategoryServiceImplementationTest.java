@@ -16,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
 import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.Results;
@@ -107,7 +106,7 @@ class SubCategoryServiceImplementationTest {
         
         when(subCategoryRepo.getSubCategoryByName(subCategory.getSubCategoryName())).thenReturn(Optional.empty());
         when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> subCategoryServiceImpl.addSubCategory(subCategoryDto));
+        assertThrows(NoSuchElementException.class, () -> subCategoryServiceImpl.addSubCategory(subCategoryDto));
     }
 
     @Test
@@ -200,7 +199,7 @@ class SubCategoryServiceImplementationTest {
         subCategoryDto.setSubCategoryId(subCategoryId);
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto,subCategoryDto.getCategoryId()));
+        assertThrows(NoSuchElementException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto,subCategoryDto.getCategoryId()));
     }
     
     @Test
