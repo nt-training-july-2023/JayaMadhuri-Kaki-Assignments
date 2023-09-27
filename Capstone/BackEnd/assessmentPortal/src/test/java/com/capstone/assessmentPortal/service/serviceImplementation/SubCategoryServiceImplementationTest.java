@@ -18,6 +18,8 @@ import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.NotFoundException;
 import com.capstone.assessmentPortal.model.Category;
+import com.capstone.assessmentPortal.model.Question;
+import com.capstone.assessmentPortal.model.Results;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.CategoryRepo;
 import com.capstone.assessmentPortal.repository.SubCategoryRepo;
@@ -116,7 +118,6 @@ class SubCategoryServiceImplementationTest {
         subCategoryDto.setTimeLimitInMinutes("100");
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryId(subCategoryId);
-        
         CategoryDetailsDto categoryDto = new CategoryDetailsDto();
         categoryDto.setCategoryId(10L);  
         categoryDto.setCategoryName("java");
@@ -127,7 +128,10 @@ class SubCategoryServiceImplementationTest {
         category.setCategoryDescription(category.getCategoryDescription());
         SubCategory subCategory = new SubCategory(subCategoryDto.getSubCategoryId(),subCategoryDto.getSubCategoryName(),
                 subCategoryDto.getTimeLimitInMinutes(),subCategoryDto.getSubCategoryDescription());
-        
+        List<Results> listOfResults = new ArrayList<>();
+        subCategory.setResults(listOfResults);
+        List<Question> listOfQuestions = new ArrayList<>();
+        subCategory.setQuestion(listOfQuestions);
         when(subCategoryRepo.getSubCategoryByName(subCategory.getSubCategoryName())).thenReturn(Optional.empty());
         when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.of(category));
         subCategory.setCategory(category);
@@ -182,8 +186,21 @@ class SubCategoryServiceImplementationTest {
         Long subCategoryId = 1L;
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(subCategoryId);
-        when(categoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.empty());
+        when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto,subCategoryDto.getSubCategoryId()));
+    }
+    
+    @Test
+    void testUpdateCategoryIfIdNotExits() {
+        Long CategoryId = 1L;
+        Long subCategoryId = 1L;
+        SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+        SubCategory subCategory = new SubCategory();
+        subCategoryDto.setCategoryId(CategoryId);
+        subCategoryDto.setSubCategoryId(subCategoryId);
+        when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
+        when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.empty());
+        assertThrows(NotFoundException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto,subCategoryDto.getCategoryId()));
     }
     
     @Test
@@ -198,6 +215,8 @@ class SubCategoryServiceImplementationTest {
         subCategoryDto.setCategoryId(categoryId);
         SubCategory subCategory = new SubCategory(subCategoryId,subCategoryDto.getSubCategoryName(),
                 subCategoryDto.getSubCategoryDescription(),subCategoryDto.getTimeLimitInMinutes());
+        subCategory.getQuestion();
+        subCategory.getResults();
         SubCategoryDetailsDto subCategoryDto1 = new SubCategoryDetailsDto();
         subCategoryDto1.setSubCategoryId(subCategoryId);
         subCategoryDto1.setSubCategoryName("Java");
@@ -213,6 +232,30 @@ class SubCategoryServiceImplementationTest {
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.updateSubCategory(subCategoryDto1, subCategoryId);
         assertEquals(subCategory1.getSubCategoryDescription(), subCategoryDetailsDto.getSubCategoryDescription());
     }
+    
+    @Test
+    void testUpdateSubCategoryIfQuizNameAlreadyExists() {
+        Long subCategoryId = 1L;
+        Long categoryId = 1L;
+        String subCategoryName = "Java";
+        SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+        subCategoryDto.setSubCategoryId(subCategoryId);
+        subCategoryDto.setSubCategoryName(subCategoryName);
+        subCategoryDto.setSubCategoryDescription("programming language");
+        subCategoryDto.setTimeLimitInMinutes("100");
+        subCategoryDto.setCategoryId(categoryId);
+        SubCategory existingSubCategory = new SubCategory(2L, "Javaa", "Description", "200");
+        SubCategoryDetailsDto subCategoryDto1 = new SubCategoryDetailsDto();
+        subCategoryDto1.setSubCategoryId(subCategoryId);
+        Category category = new Category();
+        when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
+        subCategoryDto1.setCategoryId(categoryId);
+        when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(existingSubCategory));
+        when(subCategoryRepo.getSubCategoryByName(subCategoryName)).thenReturn(Optional.of(existingSubCategory));
+        assertTrue(!subCategoryDto.getSubCategoryName().equals(subCategoryDto1.getSubCategoryName()));
+        assertThrows(AlreadyExistsException.class, () -> subCategoryServiceImpl.updateSubCategory(subCategoryDto, subCategoryId));
+    }
+    
     @Test
     void testDeleteSubCategoryIfIdNotExists() {
         Long subCategoryId = 1L;

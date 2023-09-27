@@ -66,6 +66,7 @@ class CategoryServiceImplementationTest {
         Category category = new Category();
         category.setCategoryId(categoryDetailsDto.getCategoryId());
         category.setCategoryName(categoryDetailsDto.getCategoryName());
+        category.getSubCategory();
         List<Category> listofcategories = new ArrayList<>();
         listofcategories.add(category);
         when(categoryRepo.getCategoryByName(category.getCategoryName())).thenReturn(Optional.empty());

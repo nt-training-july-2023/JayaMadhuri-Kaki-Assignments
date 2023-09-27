@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
+import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.model.Question;
 import com.capstone.assessmentPortal.model.SubCategory;
 import com.capstone.assessmentPortal.repository.QuestionRepo;
@@ -78,6 +79,24 @@ class QuestionServiceImplementationTest {
         QuestionDto questionDto1 = questionService.addQuestion(questionDto);
         assertEquals(question.getCorrectAnswer(), questionDto1.getCorrectAnswer());
     }
+    
+    @Test
+    void testAddQuestionIfSameOption() {
+        Long questionId = 1L;
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","a","c","d","c",10L);
+        Question question = new Question(questionDto.getQuestionContent(),
+                questionDto.getOptionA(),questionDto.getOptionB(),
+                questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
+        subCategoryDto.setSubCategoryId(questionDto.getSubCategoryId());
+        SubCategory subCategory = new SubCategory();
+        subCategory.setSubCategoryId(subCategoryDto.getSubCategoryId());
+        when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
+        question.setSubCategory(subCategory);
+        questionRepo.save(question);
+        when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
+        assertThrows(AlreadyExistsException.class, () -> questionService.addQuestion(questionDto));
+    }
 
     @Test
     void testGetQuestionsBySubCategoryIdNotExists() {
@@ -130,6 +149,30 @@ class QuestionServiceImplementationTest {
         when(questionRepo.save(question)).thenReturn(question1);
         QuestionDto questiondto = questionService.updateQuestion(questionId, questionDto1);
         assertEquals(question1.getOptionA(),questiondto.getOptionA());
+    }
+    
+    @Test
+    void testUpdateQuestionIfSameOption() {
+        Long questionId = 1L;
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        Question question = new Question(questionDto.getQuestionContent(),
+                questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
+                questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        QuestionDto questionDto1 = new QuestionDto();
+        questionDto1.setQuestionId(questionId);
+        questionDto1.setQuestionContent("what is array");
+        questionDto1.setOptionA("d");
+        questionDto1.setOptionB("d");
+        questionDto1.setOptionC("c");
+        questionDto1.setOptionD("a");
+        questionDto1.setCorrectAnswer("c");
+        Question question1 = new Question(questionDto1.getQuestionContent(),
+                questionDto1.getOptionA(),questionDto1.getOptionB(),
+                questionDto1.getOptionC(),questionDto1.getOptionD(),questionDto1.getCorrectAnswer());
+        when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
+        when(questionRepo.save(question)).thenReturn(question1);
+        assertThrows(AlreadyExistsException.class, () -> questionService.updateQuestion(questionId, questionDto1));
+        
     }
     
     @Test

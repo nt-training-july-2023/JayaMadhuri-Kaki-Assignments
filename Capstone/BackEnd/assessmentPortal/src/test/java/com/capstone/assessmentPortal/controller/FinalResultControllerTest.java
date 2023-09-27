@@ -50,6 +50,10 @@ class FinalResultControllerTest {
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResults()).thenReturn(list);
         ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController.getFinalResults();
+        CustomResponse<List<FinalResultsDto>> res = new CustomResponse<List<FinalResultsDto>>(); 
+        res.setMessage("Successfully Retrieved");
+        res.setStatusCode(200);
+        res.setResponseData(list);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
     @Test

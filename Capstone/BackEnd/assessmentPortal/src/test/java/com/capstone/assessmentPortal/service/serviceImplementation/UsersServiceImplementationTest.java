@@ -155,6 +155,7 @@ class UsersServiceImplementationTest {
         user.setLastName(users.getLastName());
         user.setDateOfBirth(users.getDateOfBirth());
         user.setGender(users.getGender());
+        user.getResults();
         UserDetailsForUpdate updatedusers = new UserDetailsForUpdate();
         updatedusers.setFirstName("JayaMadhuri");
         updatedusers.setLastName("kaki");
@@ -211,6 +212,13 @@ class UsersServiceImplementationTest {
     }
     
     @Test
+    void testGetStudentByEmailNotExists() {
+       String email = "jaya@nucleusteq.com";
+       when(usersRepo.findUserByEmailId(email)).thenReturn(Optional.empty());
+       assertThrows(NoSuchElementException.class, () -> usersServiceImpl.getStudentDetailsByEmail(email));
+    }
+    
+    @Test
     void testGetStudentByEmailId() {
        SignUpRequest users = new SignUpRequest();;
        users.setFirstName("Jaya");
@@ -237,5 +245,22 @@ class UsersServiceImplementationTest {
        assertEquals(userDetails.getDateOfBirth(),result.getDateOfBirth());
        assertEquals(userDetails.getGender(),result.getGender());
        assertEquals(userDetails.getUserType(),result.getUserType());
+    }
+    
+    @Test
+    void testGetUserByEmailNotExists() {
+       String email = "jaya@nucleusteq.com";
+       when(usersRepo.findUserByEmailId(email)).thenReturn(Optional.empty());
+       String message = usersServiceImpl.getUsersDetailsByEmail(email);
+       assertEquals("User Not exists with Email",message);
+      
+    }
+    
+    @Test
+    void testGetUserByEmailId() {
+       String email = "jaya@nucleusteq.com";
+       Users users = new Users();
+       when(usersRepo.findUserByEmailId(email)).thenReturn(Optional.of(users));
+       assertThrows(EmailAlreadyExistsException.class, () -> usersServiceImpl.getUsersDetailsByEmail(email));
     }
 }

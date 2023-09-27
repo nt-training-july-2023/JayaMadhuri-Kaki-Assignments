@@ -37,6 +37,7 @@ class CategoryControllerTest {
         when(categoryService.addCategory(categoryDetailsDto)).thenReturn(categoryDetailsDto);
         ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.addCategory(categoryDetailsDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
     }
 
     @Test
@@ -46,7 +47,7 @@ class CategoryControllerTest {
         listofCategories.add(categoryDetailsDto);
         when(categoryService.getCategories()).thenReturn(listofCategories);
         ResponseEntity<CustomResponse<List<CategoryDetailsDto>>> response = categoryController.getCategories();
-        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(200,response.getBody().getStatusCode());
     }
 
     @Test
@@ -74,6 +75,7 @@ class CategoryControllerTest {
         .thenReturn(existingcategoryDetailsDto);
         ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.updateCategory(categoryId,existingcategoryDetailsDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals("Successfully Updated",response.getBody().getMessage());
     }
 
 }

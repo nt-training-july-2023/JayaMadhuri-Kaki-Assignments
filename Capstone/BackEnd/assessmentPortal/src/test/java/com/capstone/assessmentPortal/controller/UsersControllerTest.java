@@ -76,6 +76,14 @@ class UsersControllerTest {
         ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentByEmailId(studentEmail);
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
+    
+    @Test
+    void testGetUserByEmail() {
+        String email = "jaya@nucleusteq.com";
+        when(usersService.getUsersDetailsByEmail(email)).thenReturn("User Not exists with Email");
+        ResponseEntity<CustomResponse<UserDetails>> response = usersController.getUserByEmailId(email);
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
 
     @Test
     void testUpdateStudentDetails() {
