@@ -252,7 +252,7 @@ class UsersServiceImplementationTest {
        String email = "jaya@nucleusteq.com";
        when(usersRepo.findUserByEmailId(email)).thenReturn(Optional.empty());
        String message = usersServiceImpl.getUsersDetailsByEmail(email);
-       assertEquals("User Not exists with Email",message);
+       assertEquals("Cannot find user with email id",message);
       
     }
     
