@@ -41,7 +41,8 @@ public class CategoryServiceImplementation implements CategoryService {
              .getCategoryByName(categoryDto.getCategoryName());
     if (category.isPresent()) {
        logger.error(ValidationMessage.CATEGORY_ALREADYEXISTS);
-       throw new AlreadyExistsException(ValidationMessage.CATEGORY_ALREADYEXISTS);
+       throw new AlreadyExistsException(ValidationMessage
+               .CATEGORY_ALREADYEXISTS);
     }
     logger.info("Category Added");
     Category categoryObj = new Category();
@@ -75,7 +76,8 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final CategoryDetailsDto getCategoryById(final Long categoryId) {
     Category category = categoryRepo.findById(categoryId).orElseThrow(
-            () -> new NoSuchElementException(ValidationMessage.CATEGORY_NOSUCHELEMENT));
+            () -> new NoSuchElementException(ValidationMessage
+                    .CATEGORY_NOSUCHELEMENT));
     logger.info("Retrieved Category By Id");
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
     categoryDto.setCategoryId(category.getCategoryId());
@@ -86,7 +88,8 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final void deleteCategory(final Long categoryId) {
     categoryRepo.findById(categoryId).orElseThrow(
-                      () -> new NoSuchElementException(ValidationMessage.CATEGORY_NOSUCHELEMENT));
+                      () -> new NoSuchElementException(ValidationMessage
+                              .CATEGORY_NOSUCHELEMENT));
     logger.info("Category Deleted");
     categoryRepo.deleteById(categoryId);
   }
@@ -95,7 +98,8 @@ public class CategoryServiceImplementation implements CategoryService {
                      final CategoryDetailsDto categoryDto) {
     Category category = categoryRepo
                .findById(categoryId).orElseThrow(
-                       () -> new NoSuchElementException(ValidationMessage.CATEGORY_NOSUCHELEMENT));
+                       () -> new NoSuchElementException(ValidationMessage
+                               .CATEGORY_NOSUCHELEMENT));
     logger.info("Category found with id");
     category.setCategoryName(categoryDto.getCategoryName());
     category.setCategoryDescription(categoryDto

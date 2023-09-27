@@ -159,7 +159,8 @@ public final class ValidationMessage {
     /**
      *exception when user email not exists.
     */
-    public static final String USER_NOSUCHELEMENTEMAIL = "Cannot find user with email id";
+    public static final String USER_NOSUCHELEMENTEMAIL = "Cannot "
+            + "find user with email id";
     /**
      *exception when user email already contains account.
     */

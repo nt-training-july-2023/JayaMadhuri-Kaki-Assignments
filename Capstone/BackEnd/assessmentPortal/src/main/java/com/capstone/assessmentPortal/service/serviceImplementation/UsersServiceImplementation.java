@@ -137,7 +137,8 @@ public class UsersServiceImplementation implements UsersService {
             return userDetails;
         }
         logger.error(ValidationMessage.USER_NOSUCHELEMENTEMAIL);
-        throw new NoSuchElementException(ValidationMessage.USER_NOSUCHELEMENTEMAIL);
+        throw new NoSuchElementException(ValidationMessage
+                .USER_NOSUCHELEMENTEMAIL);
     }
     @Override
     public final String getUsersDetailsByEmail(final String emailId) {
