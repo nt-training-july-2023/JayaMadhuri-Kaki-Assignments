@@ -1,0 +1,17 @@
+export const sweetAlertMessages = {
+    SUCCESS_ADD_MSG: "Successfully Added",
+    SUCCESS: "success",
+    ADD_TITILE: "Add",
+    ERROR: "Error",
+    UPDATE_TITLE: "Update",
+    QUIZ_ALREADY_EXISTS: "Quiz Name Already Exists",
+    CATEGORY_ALREADY_EXISTS: "Category Name Already Exists",
+    WARNING: "warning",
+    TIME_LIMIT_REQUIRED: "Time Limit Required",
+    QUIZ_NAME_REQUIRED: "Quiz Name Required",
+    CATEGORY_NAME_REQUIRED: "Category Name Required",
+    SUCCESS_UPDATE_MSG: "Successfully Updated",
+    SOMETHING_WENT_WRONG: "Something went wrong",
+    ADD_QUIZ: "Add Quiz",
+    SUBCATEGORY_REQUIRED: "SubCategory name required",
+}

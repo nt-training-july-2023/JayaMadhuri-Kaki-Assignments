@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/Category.scss';
 import Swal from 'sweetalert2'
 import CategoryUrl from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const AddUpdateCategory = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -14,12 +15,12 @@ const AddUpdateCategory = (props) => {
                 .then(response => {
                     if (response?.data?.statusCode === 200) {
                         Swal.fire({
-                            title: 'Add',
-                            text: 'Successfully Added',
+                            title: sweetAlertMessages.ADD_TITILE,
+                            text: sweetAlertMessages.SUCCESS_ADD_MSG,
                             timer: 1500,
                             showConfirmButton: false,
                             showCancelButton: false,
-                            icon: "success",
+                            icon: sweetAlertMessages.SUCCESS,
                             background: "#15172b",
                             color: "white",
                         });
@@ -29,19 +30,19 @@ const AddUpdateCategory = (props) => {
                 }).catch(error => {
                     if (error?.response?.status === 409) {
                         Swal.fire({
-                            title: 'Error',
-                            text: 'Category Name Already Exists',
+                            title: sweetAlertMessages.ERROR,
+                            text: sweetAlertMessages.CATEGORY_ALREADY_EXISTS,
                             timer: 1500,
                             showConfirmButton: false,
                             showCancelButton: false,
-                            icon: "warning",
+                            icon: sweetAlertMessages.WARNING,
                             background: "#15172b",
                             color: "white",
                         });
                     }
                 })
         } else {
-            setError('Category Name Required')
+            setError(sweetAlertMessages.CATEGORY_NAME_REQUIRED)
         }
     }
     const handleUpdate = () => {
@@ -51,12 +52,12 @@ const AddUpdateCategory = (props) => {
                 .then(response => {
                     if (response?.data?.statusCode === 200) {
                         Swal.fire({
-                            title: 'Update',
-                            text: 'Successfully Updated',
+                            title: sweetAlertMessages.UPDATE_TITLE,
+                            text: sweetAlertMessages.SUCCESS_UPDATE_MSG,
                             timer: 1500,
                             showConfirmButton: false,
                             showCancelButton: false,
-                            icon: "success",
+                            icon: sweetAlertMessages.SUCCESS,
                             background: "#15172b",
                             color: "white",
                         });
@@ -66,8 +67,8 @@ const AddUpdateCategory = (props) => {
                 }).catch(error => {
                     if (error?.response?.status === 409) {
                         Swal.fire({
-                            title: 'Error',
-                            text: 'A Category is Already Exists With Same Name',
+                            title: sweetAlertMessages.ERROR,
+                            text: sweetAlertMessages.CATEGORY_ALREADY_EXISTS,
                             timer: 1500,
                             showConfirmButton: false,
                             showCancelButton: false,
@@ -78,7 +79,7 @@ const AddUpdateCategory = (props) => {
                     }
                 })
         } else {
-            setError('Category Name Required')
+            setError(sweetAlertMessages.CATEGORY_NAME_REQUIRED)
         }
     }
     const handleClick = () => {
@@ -92,7 +93,7 @@ const AddUpdateCategory = (props) => {
         const { name, value } = e.target;
         if (name == "categoryName") {
             if (!value) {
-                setError('category name required')
+                setError(sweetAlertMessages.CATEGORY_NAME_REQUIRED)
             } else {
                 setError('')
             }

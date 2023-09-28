@@ -48,10 +48,11 @@
   }
   .close-icon{
     display: block;
-    color:#23263d;
+    color:white;
+    border:0;
     cursor: pointer;
-    background-color: white;
-    font-size: 24px;
+    background: none;
+    font-size: 20px;
     position: absolute;
     left:10px;
     top:10px;
