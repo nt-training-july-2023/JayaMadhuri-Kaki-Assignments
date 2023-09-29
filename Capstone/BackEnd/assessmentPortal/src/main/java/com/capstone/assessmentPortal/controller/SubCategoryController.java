@@ -65,7 +65,7 @@ public class SubCategoryController {
                    .getSubCategoryById(subCategoryId);
     logger.info("Retrieved quiz by id");
     return ResponseHandler.generateResponse(
-         "Successfully Retrieved SubCategory By Id",
+         "Successfully Retrieved Quiz By Id",
          HttpStatus.OK, subCategoryDto);
   }
   /**

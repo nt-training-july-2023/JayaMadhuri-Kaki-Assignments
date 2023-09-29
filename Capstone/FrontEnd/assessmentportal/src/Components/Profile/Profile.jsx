@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import '../Styles/Profile.scss'
 import UsersUrl from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Profile = ({ userDetails }) => {
     const [details, setDetails] = useState({});
@@ -15,12 +16,12 @@ const Profile = ({ userDetails }) => {
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
                     Swal.fire({
-                        title: 'Erro',
-                        text: 'NetWork Error',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.NETWORK_ERROR,
                         timer: 2000,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     });

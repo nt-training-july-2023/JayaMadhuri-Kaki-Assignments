@@ -20,7 +20,7 @@ import com.capstone.assessmentPortal.dto.LoginRequest;
 import com.capstone.assessmentPortal.dto.SignUpRequest;
 import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
-import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
+import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 import com.capstone.assessmentPortal.model.Results;
 import com.capstone.assessmentPortal.model.Users;
@@ -48,6 +48,7 @@ class UsersServiceImplementationTest {
         users.setEmailId("jayamadhuri@nucleusteq.com");
         users.setPassword("Madhu@123");
         users.setUserType("Student");
+        
         Users userDetails = new Users();
         userDetails.setFirstName(users.getFirstName());
         userDetails.setLastName(users.getLastName());
@@ -82,7 +83,7 @@ class UsersServiceImplementationTest {
         userDetails.setPassword(users.getPassword());
         userDetails.setUserType(users.getUserType());
         when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
-        assertThrows(EmailAlreadyExistsException.class, () -> usersServiceImpl.studentRegistration(users));
+        assertThrows(AlreadyExistsException.class, () -> usersServiceImpl.studentRegistration(users));
     }
 
     @Test
@@ -261,6 +262,6 @@ class UsersServiceImplementationTest {
        String email = "jaya@nucleusteq.com";
        Users users = new Users();
        when(usersRepo.findUserByEmailId(email)).thenReturn(Optional.of(users));
-       assertThrows(EmailAlreadyExistsException.class, () -> usersServiceImpl.getUsersDetailsByEmail(email));
+       assertThrows(AlreadyExistsException.class, () -> usersServiceImpl.getUsersDetailsByEmail(email));
     }
 }

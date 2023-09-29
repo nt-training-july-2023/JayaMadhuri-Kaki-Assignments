@@ -5,6 +5,7 @@ import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../Question/Question';
 import QuestionForStudent from '../Question/QuestionForStudent';
 import Url from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
@@ -45,12 +46,12 @@ const Quiz = (props) => {
                 if (error?.response?.statusCode == 400) {
                     setLoading(true)
                     Swal.fire({
-                        title: 'Error',
-                        text: 'Error in getting Quiz List',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.ERROR_GETTING_LIST,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     });
@@ -67,12 +68,12 @@ const Quiz = (props) => {
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
                     Swal.fire({
-                        title: 'Error',
-                        text: 'NetWork Error',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.NETWORK_ERROR,
                         timer: 2000,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     });

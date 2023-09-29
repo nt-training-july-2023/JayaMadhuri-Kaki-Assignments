@@ -1,7 +1,5 @@
 package com.capstone.assessmentPortal.controllerAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -12,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
+import com.capstone.assessmentPortal.response.CustomResponse;
 
 /**
  *Global exception handler controller class.
@@ -23,19 +21,19 @@ import com.capstone.assessmentPortal.exception.UserNotFoundException;
 public class GlobalExceptionHandler {
   /**
    *Exception handles when arguments does not contain valid input.
-   *@return errorMap
+   *@return responseEntity
    *@param exception methodArgumentNotValidException
   */
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public final Map<String, String> handleEmptyInput(
-      final MethodArgumentNotValidException exception) {
-      Map<String, String> errorMap = new HashMap<>();
-      exception.getBindingResult().getFieldErrors().forEach(error -> {
-        errorMap.put(error.getField(), error.getDefaultMessage());
-      });
-      errorMap.put("StatusCode", "400");
-      return errorMap;
+  public final ResponseEntity<CustomResponse<MethodArgumentNotValidException>>
+  handleEmptyInput(final MethodArgumentNotValidException exception) {
+      final int status = 400;
+      CustomResponse<MethodArgumentNotValidException> customResponse =
+              new CustomResponse<MethodArgumentNotValidException>(status,
+                      exception.getBindingResult().getFieldErrors()
+                      .get(0).getDefaultMessage());
+      return new ResponseEntity<>(customResponse, HttpStatus.BAD_REQUEST);
   }
   /**
    *Exception handles when name already exists.
@@ -43,9 +41,13 @@ public class GlobalExceptionHandler {
    *@param exception DataIntegrityViolationException
   */
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public final ResponseEntity<String> handleConflict(
-              final DataIntegrityViolationException exception) {
-      return new ResponseEntity<>("Name already exists", HttpStatus.CONFLICT);
+  public final ResponseEntity<CustomResponse<DataIntegrityViolationException>>
+  handleConflict(final DataIntegrityViolationException exception) {
+      final int status = 409;
+      CustomResponse<DataIntegrityViolationException> customResponse =
+              new CustomResponse<DataIntegrityViolationException>(status,
+                      "Quiz with same name already exists");
+      return new ResponseEntity<>(customResponse, HttpStatus.CONFLICT);
   }
   /**
    *Exception handles when no element is present with id.
@@ -53,9 +55,12 @@ public class GlobalExceptionHandler {
    *@param exception noSuchElementException
   */
   @ExceptionHandler(NoSuchElementException.class)
-  public final ResponseEntity<String> handleNoSuchElement(
-              final NoSuchElementException exception) {
-    return new ResponseEntity<String>(exception.getMessage(),
+  public final ResponseEntity<CustomResponse<NoSuchElementException>>
+  handleNoSuchElement(final NoSuchElementException exception) {
+    final int status = 404;
+    CustomResponse<NoSuchElementException> customResponse = new
+        CustomResponse<NoSuchElementException>(status, exception.getMessage());
+    return new ResponseEntity<>(customResponse,
                                     HttpStatus.NOT_FOUND);
   }
   /**
@@ -64,21 +69,12 @@ public class GlobalExceptionHandler {
    *@param exception userNotFoundException
   */
   @ExceptionHandler(UserNotFoundException.class)
-  public final ResponseEntity<String> handleUserNotFound(final
-                 UserNotFoundException exception) {
-    return new ResponseEntity<String>(exception.getMessage(),
-                 HttpStatus.UNAUTHORIZED);
-  }
-  /**
-   * Exception handles when Existed email again to register.
-   * @return responseEntity
-   * @param exception emailAlreadyExistsException
-  */
-  @ExceptionHandler(EmailAlreadyExistsException.class)
-  public final ResponseEntity<String> handleEmailAlreadyExistsException(
-            final EmailAlreadyExistsException exception) {
-    return new ResponseEntity<String>(exception.getMessage(),
-            HttpStatus.CONFLICT);
+  public final ResponseEntity<CustomResponse<UserNotFoundException>>
+  handleUserNotFound(final UserNotFoundException exception) {
+      final int status = 401;
+      CustomResponse<UserNotFoundException> customResponse = new CustomResponse
+              <UserNotFoundException>(status, exception.getMessage());
+      return new ResponseEntity<>(customResponse, HttpStatus.UNAUTHORIZED);
   }
   /**
    *Exception handles when when data is already exists in db.
@@ -86,9 +82,12 @@ public class GlobalExceptionHandler {
    *@param exception alreadyExitsException
   */
   @ExceptionHandler(AlreadyExistsException.class)
-  public final ResponseEntity<String> handleAlreadyExistsException(final
-           AlreadyExistsException exception) {
-    return new ResponseEntity<String>(exception.getMessage(),
-           HttpStatus.CONFLICT);
+  public final ResponseEntity<CustomResponse<AlreadyExistsException>>
+  handleAlreadyExistsException(final AlreadyExistsException exception) {
+    final int status = 409;
+    CustomResponse<AlreadyExistsException> customResponse = new
+              CustomResponse<AlreadyExistsException>(status,
+                      exception.getMessage());
+    return new ResponseEntity<>(customResponse, HttpStatus.CONFLICT);
   }
 }

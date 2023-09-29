@@ -14,7 +14,7 @@ import com.capstone.assessmentPortal.dto.LoginRequest;
 import com.capstone.assessmentPortal.dto.SignUpRequest;
 import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
-import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
+import com.capstone.assessmentPortal.exception.AlreadyExistsException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
 import com.capstone.assessmentPortal.model.Users;
 import com.capstone.assessmentPortal.repository.UsersRepo;
@@ -44,7 +44,7 @@ public class UsersServiceImplementation implements UsersService {
     String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
     if (user.isPresent()) {
       logger.error(ValidationMessage.USER_EMAILALREADYEXISTS);
-      throw new EmailAlreadyExistsException(ValidationMessage
+      throw new AlreadyExistsException(ValidationMessage
               .USER_EMAILALREADYEXISTS);
     }
     logger.info("User successfully registered");
@@ -145,7 +145,7 @@ public class UsersServiceImplementation implements UsersService {
         Optional<Users> user = usersRepo.findUserByEmailId(emailId);
         if (user.isPresent()) {
             logger.error(ValidationMessage.USER_EMAILALREADYEXISTS);
-            throw new EmailAlreadyExistsException(ValidationMessage
+            throw new AlreadyExistsException(ValidationMessage
                     .USER_EMAILALREADYEXISTS);
         } else {
             logger.info(ValidationMessage.USER_NOSUCHELEMENTEMAIL);

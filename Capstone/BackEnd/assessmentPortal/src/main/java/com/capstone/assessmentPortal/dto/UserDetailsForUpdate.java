@@ -31,7 +31,7 @@ public class UserDetailsForUpdate {
    *date of birth(dd-mm-yyyy) attribute.
  */
   @Column
-  @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}",
+  @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
          message = ValidationMessage.DOB_PATTERN)
   @NotBlank(message = ValidationMessage.DOB_NOTBLANK)
   private String dateOfBirth;

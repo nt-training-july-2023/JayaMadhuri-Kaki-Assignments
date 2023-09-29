@@ -3,6 +3,7 @@ import '../Styles/Login.scss'
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Login = (props) => {
     const { setRenderComponent, setUserDetails } = props;
@@ -55,11 +56,11 @@ const Login = (props) => {
                         localStorage.setItem("LastVisited_Window","login");
                         if (response?.data?.responseData?.UserType === "Admin") {
                             Swal.fire({
-                                title: 'Login Successfully',
+                                title: sweetAlertMessages.LOGIN_SUCCESS,
                                 timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "success",
+                                icon: sweetAlertMessages.SUCCESS,
                                 background: "#15172b",
                                 color: "white",
                             });
@@ -69,11 +70,11 @@ const Login = (props) => {
                             setUserDetails(response?.data?.responseData);
                         } else if (response?.data?.responseData?.UserType === "Student") {
                             Swal.fire({
-                                title: 'Login Successfully',
+                                title: sweetAlertMessages.LOGIN_SUCCESS,
                                 timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "success",
+                                icon: sweetAlertMessages.SUCCESS,
                                 background: "#15172b",
                                 color: "white",
                             });
@@ -83,12 +84,12 @@ const Login = (props) => {
                             setUserDetails(response?.data?.responseData);
                         } else {
                             Swal.fire({
-                                title: 'Login Successfully',
-                                text: 'Something went wrong! Cannot found UserType',
+                                title: sweetAlertMessages.LOGIN_SUCCESS,
+                                text: sweetAlertMessages.SOMETHING_WENT_WRONG,
                                 timer: 2000,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "success",
+                                icon: sweetAlertMessages.WARNING,
                                 background: "#15172b",
                                 color: "white",
                             });
@@ -97,23 +98,23 @@ const Login = (props) => {
                 }).catch(error => {
                     if (error?.response?.status == 401) {
                         Swal.fire({
-                            title: 'Error',
-                            text: 'InCorrect Credentials',
+                            title:  sweetAlertMessages.ERROR,
+                            text: sweetAlertMessages.INCORRECT_CREDENTIALS,
                             timer: 2000,
                             showConfirmButton: false,
                             showCancelButton: false,
-                            icon: "warning",
+                            icon: sweetAlertMessages.WARNING,
                             background: "#15172b",
                             color: "white",
                         });
                     } else if (error?.message == "Network Error") {
                         Swal.fire({
-                            title: 'Error',
-                            text: 'NetWork Error',
+                            title:  sweetAlertMessages.ERROR,
+                            text: sweetAlertMessages.NETWORK_ERROR,
                             timer: 2000,
                             showConfirmButton: false,
                             showCancelButton: false,
-                            icon: "warning",
+                            icon: sweetAlertMessages.WARNING,
                             background: "#15172b",
                             color: "white",
                         });

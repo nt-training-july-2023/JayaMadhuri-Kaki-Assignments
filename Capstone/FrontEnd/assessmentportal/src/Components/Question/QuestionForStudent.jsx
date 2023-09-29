@@ -3,6 +3,7 @@ import Timer from '../Timer/Timer';
 import '../Styles/Question.scss'
 import Swal from 'sweetalert2'
 import Url from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
@@ -25,12 +26,12 @@ const QuestionForStudent = (props) => {
                 localStorage.setItem('question', btoa(JSON.stringify(response?.data?.responseData)));
             }).catch(error => {
                 Swal.fire({
-                    title: 'Error',
-                    text: 'Error in getting Questions List',
+                    title: sweetAlertMessages.ERROR,
+                    text: sweetAlertMessages.ERROR_GETTING_LIST,
                     timer: 1500,
                     showConfirmButton: false,
                     showCancelButton: false,
-                    icon: "warning",
+                    icon: sweetAlertMessages.WARNING,
                     background: "#15172b",
                     color: "white",
                 });
@@ -50,11 +51,11 @@ const QuestionForStudent = (props) => {
             checkAnswers();
         }else{
             Swal.fire({
-                title: 'Please Attempt Quiz',
+                title: sweetAlertMessages.ATTEMPT_QUIZ,
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,
-                icon: 'warning',
+                icon: sweetAlertMessages.WARNING,
                 background: '#15172b',
                 color: 'white',
             })
@@ -79,11 +80,11 @@ const QuestionForStudent = (props) => {
             numOfAttemptedQuestions: attemptedQuestions
         }
         Swal.fire({
-            title: 'Submitted Successfully',
+            title: sweetAlertMessages.SUBMITTED_SUCCESS,
             timer: 2000,
             showConfirmButton: false,
             showCancelButton: false,
-            icon: 'info',
+            icon: sweetAlertMessages.INFO,
             background: '#15172b',
             color: 'white',
         })
@@ -104,12 +105,12 @@ const QuestionForStudent = (props) => {
         .then(response => {
         }).catch(error => {
             Swal.fire({
-                title: 'Error In Submission',
-                text: 'Please do attempt quiz again',
+                title: sweetAlertMessages.ERROR_SUBMISSION,
+                text: sweetAlertMessages.PLEASE_ATTEMPT_QUIZ,
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,
-                icon: 'error',
+                icon: sweetAlertMessages.WARNING,
                 background: '#15172b',
                 color: 'white',
             })
@@ -140,10 +141,10 @@ const QuestionForStudent = (props) => {
         incrementReloadCount();
         setIsRunning(false)
         Swal.fire({
-            text: 'Do you want to reload?',
+            text: sweetAlertMessages.RELOAD,
             showConfirmButton: true,
             showCancelButton: true,
-            icon: 'info',
+            icon: sweetAlertMessages.INFO,
             background: '#15172b',
             color: 'white',
         }).then(function (result) {

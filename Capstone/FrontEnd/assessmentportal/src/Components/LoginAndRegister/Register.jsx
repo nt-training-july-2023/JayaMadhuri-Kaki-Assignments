@@ -3,6 +3,7 @@ import '../Styles/Register.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import UsersUrl from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Register = (props) => {
   const { setRenderComponent } = props;
@@ -147,11 +148,11 @@ const Register = (props) => {
           .then(response => {
             if (response?.data?.statusCode == 200) {
               Swal.fire({
-                text: 'Validation Successful........',
+                text: sweetAlertMessages.VALIDATION_SUCCESS,
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,
-                icon: "info",
+                icon: sweetAlertMessages.INFO,
                 background: "#15172b",
                 color: "white",
               })
@@ -161,8 +162,8 @@ const Register = (props) => {
           }).catch(error => {
             if (error?.response?.status == 409) {
               Swal.fire({
-                text: 'An Account already exists with this Email',
-                icon: "warning",
+                text: sweetAlertMessages.EMAIL_ALREADY_EXISTS,
+                icon: sweetAlertMessages.WARNING,
                 timer: 1000,
                 showConfirmButton: false,
                 color: 'white',
@@ -170,8 +171,8 @@ const Register = (props) => {
               })
             }else{
               Swal.fire({
-                text: 'Network Error',
-                icon: "warning",
+                text: sweetAlertMessages.NETWORK_ERROR,
+                icon: sweetAlertMessages.WARNING,
                 timer: 1000,
                 showConfirmButton: false,
                 color: 'white',
@@ -197,12 +198,12 @@ const Register = (props) => {
       .then(response => {
         if (response?.data?.statusCode == 200) {
           Swal.fire({
-            title: 'User Registered Successfully',
-            text: 'Redirecting to Login page.....',
+            title: sweetAlertMessages.USER_SUCCESS_REGISTER,
+            text: sweetAlertMessages.LOGIN_REDIRECT,
             timer: 2000,
             showConfirmButton: false,
             showCancelButton: false,
-            icon: "success",
+            icon: sweetAlertMessages.SUCCESS,
             background: "#15172b",
             color: "white",
           });
@@ -214,23 +215,23 @@ const Register = (props) => {
       .catch(error => {
         if (error?.message == "Network Error") {
           Swal.fire({
-            title: 'Error',
-            text: 'NetWork Error',
+            title: sweetAlertMessages.ERROR,
+            text: sweetAlertMessages.NETWORK_ERROR,
             timer: 2000,
             showConfirmButton: false,
             showCancelButton: false,
-            icon: "warning",
+            icon: sweetAlertMessages.WARNING,
             background: "#15172b",
             color: "white",
           });
         } else {
           Swal.fire({
-            title: 'Error',
-            text: 'Enter Valid Date! Age should be Minimum 18',
+            title:  sweetAlertMessages.ERROR,
+            text: sweetAlertMessages.AGE_VALIDATION,
             timer: 2000,
             showConfirmButton: false,
             showCancelButton: false,
-            icon: "warning",
+            icon: sweetAlertMessages.WARNING,
             background: "#15172b",
             color: "white",
           });

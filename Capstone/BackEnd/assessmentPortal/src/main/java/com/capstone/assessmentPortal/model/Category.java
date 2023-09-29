@@ -3,17 +3,14 @@ package com.capstone.assessmentPortal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,13 +33,10 @@ public class Category {
     /**
      * category name attribute.
      */
-    @Column(unique = true, nullable = false)
-    @NotBlank(message = ValidationMessage.CATEGORY_NOTBLANK)
     private String categoryName;
     /**
      * category description attribute.
      */
-    @Column
     private String categoryDescription;
     /**
      * list of subcategory.

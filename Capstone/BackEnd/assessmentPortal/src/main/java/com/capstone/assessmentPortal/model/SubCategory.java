@@ -3,11 +3,9 @@ package com.capstone.assessmentPortal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,8 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,19 +35,14 @@ public class SubCategory {
     /**
      * subcategory name attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.QUIZNAME_NOTBLANK)
     private String subCategoryName;
     /**
      * subcategory description attribute.
      */
-    @Column(nullable = true)
     private String subCategoryDescription;
     /**
      * subcategory time limit in minutes for quiz attribute.
      */
-    @Column
-    @NotEmpty(message = ValidationMessage.TIMELIMIT_NOTBLANK)
     private String timeLimitInMinutes;
     /**
      * category entity class reference variable attribute.

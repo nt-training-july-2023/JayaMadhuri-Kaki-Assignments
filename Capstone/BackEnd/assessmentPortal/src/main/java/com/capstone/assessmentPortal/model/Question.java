@@ -1,15 +1,11 @@
 package com.capstone.assessmentPortal.model;
 
-import com.capstone.assessmentPortal.response.ValidationMessage;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,38 +28,26 @@ public class Question {
     /**
      * question title attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.QUESTION_NOTBLANK)
     private String questionContent;
     /**
      * question option 1 attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.OPTIONA_NOTBLANK)
     private String optionA;
     /**
      * question option 2 attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.OPTIONB_NOTBLANK)
     private String optionB;
     /**
      * question option 3 attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.OPTIONC_NOTBLANK)
     private String optionC;
     /**
      * question option 4 attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.OPTIOND_NOTBLANK)
     private String optionD;
     /**
      * question answer attribute.
      */
-    @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.CORRECTANSWER_NOTBLANK)
     private String correctAnswer;
     /**
      * foreign key attribute of subcategory.

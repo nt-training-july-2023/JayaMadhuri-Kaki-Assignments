@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/Category.scss';
 import Swal from 'sweetalert2'
 import QuizUrl from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const AddUpdateQuiz = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -17,12 +18,12 @@ const AddUpdateQuiz = (props) => {
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
                             Swal.fire({
-                                title: 'Add',
-                                text: 'Successfully Added',
+                                title: sweetAlertMessages.ADD_TITILE,
+                                text: sweetAlertMessages.SUCCESS_ADD_MSG,
                                 timer: 1500,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "success",
+                                icon: sweetAlertMessages.SUCCESS,
                                 background: "#15172b",
                                 color: "white",
                             });
@@ -32,12 +33,12 @@ const AddUpdateQuiz = (props) => {
                     }).catch(error => {
                         if (error?.response?.status === 409) {
                             Swal.fire({
-                                title: 'Error',
-                                text: 'Quiz Name Already Exists',
+                                title: sweetAlertMessages.ERROR,
+                                text: sweetAlertMessages.QUIZ_ALREADY_EXISTS,
                                 timer: 1500,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "warning",
+                                icon: sweetAlertMessages.WARNING,
                                 background: "#15172b",
                                 color: "white",
                             });
@@ -61,12 +62,12 @@ const AddUpdateQuiz = (props) => {
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
                             Swal.fire({
-                                title: 'Update',
-                                text: 'Successfully Updated',
+                                title: sweetAlertMessages.UPDATE_TITLE,
+                                text: sweetAlertMessages.SUCCESS_UPDATE_MSG,
                                 timer: 1500,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "success",
+                                icon: sweetAlertMessages.SUCCESS,
                                 background: "#15172b",
                                 color: "white",
                             });
@@ -76,23 +77,23 @@ const AddUpdateQuiz = (props) => {
                     }).catch(error => {
                         if (error?.response?.status === 409) {
                             Swal.fire({
-                                title: 'Error',
-                                text: 'Quiz Name Already Exists',
+                                title: sweetAlertMessages.ERROR,
+                                text: sweetAlertMessages.QUIZ_ALREADY_EXISTS,
                                 timer: 1500,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "warning",
+                                icon: sweetAlertMessages.WARNING,
                                 background: "#15172b",
                                 color: "white",
                             });
                         } else {
                             Swal.fire({
-                                title: 'Error',
-                                text: 'Something went wrong',
+                                title: sweetAlertMessages.ERROR,
+                                text:  sweetAlertMessages.SOMETHING_WENT_WRONG,
                                 timer: 1500,
                                 showConfirmButton: false,
                                 showCancelButton: false,
-                                icon: "warning",
+                                icon: sweetAlertMessages.WARNING,
                                 background: "#15172b",
                                 color: "white",
                             });

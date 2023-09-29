@@ -105,7 +105,7 @@ public class UsersController {
                  @PathVariable final String emailId) {
     usersService.getUsersDetailsByEmail(emailId);
     logger.info("User with email exists");
-    return ResponseHandler.generateResponse("Successfully Checked",
+    return ResponseHandler.generateResponse("Successfully Validated",
                  HttpStatus.OK, null);
   }
 

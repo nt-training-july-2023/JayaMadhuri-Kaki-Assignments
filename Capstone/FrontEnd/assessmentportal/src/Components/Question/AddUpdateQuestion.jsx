@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../Styles/Question.scss'
 import Swal from 'sweetalert2'
 import QuestionUrl from '../../Services/Url'
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const AddUpdateQuestion = (props) => {
     const { titleQuestion, setPopUp, initialValues, fetchData } = props
@@ -13,12 +14,12 @@ const AddUpdateQuestion = (props) => {
             .then(response => {
                 if (response?.data?.statusCode === 200) {
                     Swal.fire({
-                        title: 'Add',
-                        text: 'Successfully Added',
+                        title: sweetAlertMessages.ADD_TITILE,
+                        text: sweetAlertMessages.SUCCESS_ADD_MSG,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "success",
+                        icon: sweetAlertMessages.SUCCESS,
                         background: "#15172b",
                         color: "white",
                     })
@@ -28,23 +29,23 @@ const AddUpdateQuestion = (props) => {
             }).catch(error => {
                 if (error?.response?.status === 400) {
                     Swal.fire({
-                        title: 'Error',
-                        text: 'All Fields are Mandatory',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.ALL_FIELDS_REQUIRED,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     })
                 }else if (error?.response?.status === 409) {
                     Swal.fire({
-                        title: 'Error',
-                        text: 'Options should be different',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.OPTIONS_DIFFERENT,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     })
@@ -56,12 +57,12 @@ const AddUpdateQuestion = (props) => {
             .then(response => {
                 if (response?.data?.statusCode === 200) {
                     Swal.fire({
-                        title: 'Update',
-                        text: 'Successfully Updated',
+                        title: sweetAlertMessages.UPDATE_TITLE,
+                        text: sweetAlertMessages.SUCCESS_UPDATE_MSG,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "success",
+                        icon: sweetAlertMessages.SUCCESS,
                         background: "#15172b",
                         color: "white",
                     })
@@ -71,23 +72,23 @@ const AddUpdateQuestion = (props) => {
             }).catch(error => {
                 if (error?.response?.status === 400) {
                     Swal.fire({
-                        title: 'Error',
-                        text: 'All Fields are Mandatory',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.ALL_FIELDS_REQUIRED,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     })
                 } else  if (error?.response?.status === 409) {
                     Swal.fire({
-                        title: 'Error',
-                        text: 'Options should be different',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.OPTIONS_DIFFERENT,
                         timer: 1500,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     })

@@ -72,7 +72,7 @@ const AddUpdateCategory = (props) => {
                             timer: 1500,
                             showConfirmButton: false,
                             showCancelButton: false,
-                            icon: "warning",
+                            icon: sweetAlertMessages.WARNING,
                             background: "#15172b",
                             color: "white",
                         });

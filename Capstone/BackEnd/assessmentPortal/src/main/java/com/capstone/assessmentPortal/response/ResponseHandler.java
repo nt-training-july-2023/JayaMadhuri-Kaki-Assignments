@@ -25,7 +25,7 @@ public final class ResponseHandler {
           final String message, final HttpStatus code,
           final T responseObj) {
     CustomResponse<T> customResponse = new CustomResponse<>(
-            message, code.value(), responseObj);
+            code.value(), message, responseObj);
     return new ResponseEntity<>(customResponse, code);
   }
 }

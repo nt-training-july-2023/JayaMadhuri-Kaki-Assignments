@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import Category from '../Category/Category'
 import Profile from '../Profile/Profile'
 import Results from '../Results/Results'
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Navbar = (props) => {
     const { setRenderComponent, userDetails} = props
@@ -34,8 +35,8 @@ const Navbar = (props) => {
     const handleLogOut = () => {
         setIsNavExpanded(false)
         Swal.fire({
-            text: "Are You Really Want To Logout?",
-            type: 'warning',
+            text: sweetAlertMessages.LOGOUT,
+            type: sweetAlertMessages.WARNING,
             showCancelButton: true,
             confirmButtonColor: 'white',
             cancelButtonColor: 'white',
@@ -50,7 +51,7 @@ const Navbar = (props) => {
         }).then(function (result) {
             if (result.value === true) {
                 Swal.fire({
-                    text: 'Logging Out! Redirecting to Login Page...',
+                    text: sweetAlertMessages.LOGOUT_REDIRECT,
                     timer: 1900,
                     showConfirmButton: false,
                     color: 'white',
@@ -79,7 +80,7 @@ const Navbar = (props) => {
         if( Object.keys(userDetails).length > 0){
             if (role === "Admin") {
                 Swal.fire({
-                    text: 'WELCOME TO ADMIN DASHBOARD!',
+                    text: sweetAlertMessages.WELCOME,
                     timer: 1900,
                     showConfirmButton: false,
                     color: 'white',

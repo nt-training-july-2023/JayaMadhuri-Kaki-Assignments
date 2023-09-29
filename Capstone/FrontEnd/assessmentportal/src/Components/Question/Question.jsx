@@ -3,6 +3,7 @@ import '../Styles/Question.scss'
 import Swal from 'sweetalert2'
 import AddUpdateQuestion from './AddUpdateQuestion'
 import QuestionUrl from '../../Services/Url'
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Question = (props) => {
     const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName } = props
@@ -43,12 +44,12 @@ const Question = (props) => {
             }).catch(error => {
                 setLoading(true)
                 Swal.fire({
-                    title: 'Error',
-                    text: 'Error in getting Questions List',
+                    title: sweetAlertMessages.ERROR,
+                    text: sweetAlertMessages.ERROR_GETTING_LIST,
                     timer: 1500,
                     showConfirmButton: false,
                     showCancelButton: false,
-                    icon: "warning",
+                    icon: sweetAlertMessages.WARNING,
                     background: "#15172b",
                     color: "white",
                 })

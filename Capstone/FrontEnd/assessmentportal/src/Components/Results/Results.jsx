@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Styles/Question.scss';
 import Swal from 'sweetalert2'
 import FinalResultsUrl from '../../Services/Url';
+import {sweetAlertMessages}  from "../../../src/constants/ValidationMessages"
 
 const Results = ({ userDetails }) => {
     const [results, setResults] = useState([]);
@@ -14,12 +15,12 @@ const Results = ({ userDetails }) => {
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
                     Swal.fire({
-                        title: 'Erro',
-                        text: 'NetWork Error',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.NETWORK_ERROR,
                         timer: 2000,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     });
@@ -35,12 +36,12 @@ const Results = ({ userDetails }) => {
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
                     Swal.fire({
-                        title: 'Erro',
-                        text: 'NetWork Error',
+                        title: sweetAlertMessages.ERROR,
+                        text: sweetAlertMessages.NETWORK_ERROR,
                         timer: 2000,
                         showConfirmButton: false,
                         showCancelButton: false,
-                        icon: "warning",
+                        icon: sweetAlertMessages.WARNING,
                         background: "#15172b",
                         color: "white",
                     });

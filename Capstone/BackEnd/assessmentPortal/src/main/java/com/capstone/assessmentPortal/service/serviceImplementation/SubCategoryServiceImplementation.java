@@ -144,7 +144,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     subCategoryRepo
             .findById(subCategoryId).orElseThrow(
                     () -> new NoSuchElementException(ValidationMessage
-                            .QUIZ_ALREADYEXISTS));
+                            .QUIZ_NOSUCHELEMENT));
     logger.info("Quiz Deleted");
     subCategoryRepo.deleteById(subCategoryId);
   }
@@ -153,7 +153,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                    Long categoryId) {
     categoryRepo.findById(categoryId).orElseThrow(
             () -> new NoSuchElementException(ValidationMessage
-                    .CATEGORY_ALREADYEXISTS));
+                    .CATEGORY_NOSUCHELEMENT));
     List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
     logger.info("Retrieved quizes with category id");

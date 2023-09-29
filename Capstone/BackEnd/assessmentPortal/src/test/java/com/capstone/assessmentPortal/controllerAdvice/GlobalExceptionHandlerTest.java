@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +22,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
-import com.capstone.assessmentPortal.exception.EmailAlreadyExistsException;
 import com.capstone.assessmentPortal.exception.UserNotFoundException;
+import com.capstone.assessmentPortal.response.CustomResponse;
 
 @SpringBootTest
 class GlobalExceptionHandlerTest {
@@ -40,9 +39,10 @@ class GlobalExceptionHandlerTest {
     void testHandleEmptyInput() {
         BindingResult bindingResult = mockBindingResult();
         when(methodArgumentNotValidException.getBindingResult()).thenReturn(bindingResult);
-        Map<String, String> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
-        assertEquals("400", errorMap.get("StatusCode"));
+        ResponseEntity<CustomResponse<MethodArgumentNotValidException>> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
+        assertEquals(400, errorMap.getBody().getStatusCode());
     }
+    
     private BindingResult mockBindingResult() {
         List<FieldError> fieldErrors = new ArrayList<>();
         fieldErrors.add(new FieldError("objectName", "field1", "Field1Error"));
@@ -50,42 +50,32 @@ class GlobalExceptionHandlerTest {
         when(bindingResult.getFieldErrors()).thenReturn(fieldErrors);
         return bindingResult;
     }
-    @Test 
-    void testEmailAlreadyExistsException() {
-        EmailAlreadyExistsException noSuch = new EmailAlreadyExistsException("email already exists in db");
-        ResponseEntity<String> response = globalhandler.handleEmailAlreadyExistsException(noSuch);
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
-    }
+    
     @Test 
     void testUserNotFoundException() {
         UserNotFoundException noSuch = new UserNotFoundException("User not found");
-        ResponseEntity<String> response = globalhandler.handleUserNotFound(noSuch);
+        ResponseEntity<CustomResponse<UserNotFoundException>> response = globalhandler.handleUserNotFound(noSuch);
         assertEquals(HttpStatus.UNAUTHORIZED,response.getStatusCode());
     }
+    
     @Test 
     void testDataIntegrityException() {
         DataIntegrityViolationException noSuch = new DataIntegrityViolationException("User not found");
-        ResponseEntity<String> response = globalhandler.handleConflict(noSuch);
+        ResponseEntity<CustomResponse<DataIntegrityViolationException>> response = globalhandler.handleConflict(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
+    
     @Test
     void testHandleNoSuchElement() {
        NoSuchElementException noSuch = new NoSuchElementException("No such element found");
-       ResponseEntity<String> response = globalhandler.handleNoSuchElement(noSuch);
+       ResponseEntity<CustomResponse<NoSuchElementException>> response = globalhandler.handleNoSuchElement(noSuch);
        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
     
     @Test
     void testHandleAlreadyExistsExceptionEmailAlreadyExistsException() {
         AlreadyExistsException noSuch = new AlreadyExistsException("Element already exists");
-        ResponseEntity<String> response = globalhandler.handleAlreadyExistsException(noSuch);
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
-    }
-
-    @Test
-    void testHandleAlreadyExistsExceptionAlreadyExistsException() {
-        AlreadyExistsException noSuch = new AlreadyExistsException("Element already exists");
-        ResponseEntity<String> response = globalhandler.handleAlreadyExistsException(noSuch);
+        ResponseEntity<CustomResponse<AlreadyExistsException>> response = globalhandler.handleAlreadyExistsException(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
     }
 }

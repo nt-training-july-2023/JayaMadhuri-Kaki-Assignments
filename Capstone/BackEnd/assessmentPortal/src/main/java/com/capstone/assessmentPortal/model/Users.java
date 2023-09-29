@@ -3,18 +3,14 @@ package com.capstone.assessmentPortal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,50 +32,30 @@ public class Users {
     /**
      * first name of user attribute.
      */
-    @Column
-    @NotBlank(message = ValidationMessage.FIRSTNAME_NOTBLANK)
     private String firstName;
     /**
      * last name of user attribute.
      */
-    @Column
-    @NotBlank(message = ValidationMessage.LASTNAME_NOTBLANK)
     private String lastName;
     /**
      * date of birth(dd-mm-yyyy) attribute.
      */
-    @Column
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}",
-          message = ValidationMessage.DOB_PATTERN)
-    @NotBlank(message = ValidationMessage.DOB_NOTBLANK)
     private String dateOfBirth;
     /**
      * user gender attribute.
      */
-    @Column
-    @NotBlank(message = ValidationMessage.GENDER_NOTBLANK)
     private String gender;
     /**
      * user email attribute.
      */
-    @Column(unique = true)
-    @NotBlank(message = ValidationMessage.EMAIL_NOTBLANK)
-    @Pattern(regexp = "^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$",
-    message = ValidationMessage.EMAIL_PATTERN)
     private String emailId;
     /**
      * user password attribute.
      */
-    @Column
-    @NotBlank(message = ValidationMessage.PASSWORD_NOTBLANK)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
-            + "(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-            message = ValidationMessage.PASSWORD_PATTERN)
     private String password;
     /**
      * role of user attribute.
      */
-    @Column
     private String userType = "Student";
     /**
      * list of results of user attribute.
