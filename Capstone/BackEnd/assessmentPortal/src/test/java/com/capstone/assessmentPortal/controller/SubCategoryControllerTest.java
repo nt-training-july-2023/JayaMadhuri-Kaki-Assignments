@@ -46,6 +46,7 @@ class SubCategoryControllerTest {
         subCategoryDto.setTimeLimitInMinutes("100");
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryId(1L);
+        
         when(subCategoryService.getSubCategoryById(subCategoryId)).thenReturn(subCategoryDto);
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.getSubCategoryById(subCategoryId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -59,6 +60,7 @@ class SubCategoryControllerTest {
         subCategoryDto.setTimeLimitInMinutes("100");
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryId(subCategoryId);
+        
         List<SubCategoryDetailsDto> list = new ArrayList<>();
         when(subCategoryService.getSubCategoryByCategoryId(subCategoryDto.getCategoryId()))
         .thenReturn(list);
@@ -76,6 +78,7 @@ class SubCategoryControllerTest {
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryDescription("Topic in Java");
         subCategoryDto.setSubCategoryId(subCategoryId);
+        
         when(subCategoryService.addSubCategory(subCategoryDto)).thenReturn(subCategoryDto);
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.addSubCategory(subCategoryDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -89,6 +92,7 @@ class SubCategoryControllerTest {
         subCategoryDto1.setSubCategoryName("Java");
         subCategoryDto1.setSubCategoryDescription("programming language");
         subCategoryDto1.setTimeLimitInMinutes("100");
+        
         when(subCategoryService.updateSubCategory(subCategoryDto1, subCategoryId)).thenReturn(subCategoryDto1);
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.updateSubCategory(subCategoryId,subCategoryDto1);
         assertEquals(HttpStatus.OK,response.getStatusCode());

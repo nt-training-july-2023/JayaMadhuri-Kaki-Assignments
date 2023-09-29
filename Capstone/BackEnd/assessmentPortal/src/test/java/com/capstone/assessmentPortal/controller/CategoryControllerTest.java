@@ -34,6 +34,7 @@ class CategoryControllerTest {
         CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto();
         categoryDetailsDto.setCategoryId(1L);
         categoryDetailsDto.setCategoryName("Java");
+        
         when(categoryService.addCategory(categoryDetailsDto)).thenReturn(categoryDetailsDto);
         ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.addCategory(categoryDetailsDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());

@@ -36,12 +36,14 @@ class FinalResultServiceImplementationTest {
         finalDto.setTotalMarks(10);
         finalDto.setTotalQuestions(10);
         finalDto.setDateAndTime("23-01-23");
+        
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz(finalDto.getFinalResultId(),
                 finalDto.getStudentId(), finalDto.getStudentEmailId(),
                 finalDto.getStudentName(),finalDto.getQuizName()
                 ,finalDto.getCategoryName(),
                 finalDto.getMarksObtained(),finalDto.getNumOfAttemptedQuestions(),
                 finalDto.getTotalMarks(),finalDto.getTotalQuestions(),finalDto.getDateAndTime());
+        
         List<FinalResultsOfQuiz> listoffinalresults = new ArrayList<>();
         listoffinalresults.add(finalResults);
         finalResultsRepo.save(finalResults);
@@ -55,12 +57,14 @@ class FinalResultServiceImplementationTest {
         Long studentId = 1L;
         FinalResultsDto finalDto = new FinalResultsDto(10L,studentId,"jaya@nucleusteq.com","Madhuri","Array",
                 "Java",9,9,10,10,"23-10-23");
+        
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz(finalDto.getFinalResultId(),
                 finalDto.getStudentId(), finalDto.getStudentEmailId(),
                 finalDto.getStudentName(),finalDto.getQuizName()
                 ,finalDto.getCategoryName(),
                 finalDto.getMarksObtained(),finalDto.getNumOfAttemptedQuestions(),
                 finalDto.getTotalMarks(),finalDto.getTotalQuestions(),finalDto.getDateAndTime());
+        
         List<FinalResultsOfQuiz> listoffinalresults = new ArrayList<>();
         listoffinalresults.add(finalResults);
         finalResultsRepo.save(finalResults);

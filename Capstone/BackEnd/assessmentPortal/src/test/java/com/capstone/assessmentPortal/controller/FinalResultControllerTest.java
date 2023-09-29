@@ -47,6 +47,7 @@ class FinalResultControllerTest {
         finalDto.setTotalMarks(10);
         finalDto.setTotalQuestions(10);
         finalDto.setDateAndTime("23-01-23");
+        
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResults()).thenReturn(list);
         ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController.getFinalResults();
@@ -68,6 +69,7 @@ class FinalResultControllerTest {
         finalDto.setTotalMarks(10);
         finalDto.setTotalQuestions(10);
         finalDto.setDateAndTime("23-01-23");
+        
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResultByStudentEmail(finalDto.getStudentEmailId())).thenReturn(list);
         ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController

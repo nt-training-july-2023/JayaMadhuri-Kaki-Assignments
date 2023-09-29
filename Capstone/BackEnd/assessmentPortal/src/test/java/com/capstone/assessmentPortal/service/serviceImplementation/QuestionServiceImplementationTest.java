@@ -49,6 +49,7 @@ class QuestionServiceImplementationTest {
         questionDto.setOptionD("d");
         questionDto.setCorrectAnswer("c");
         questionDto.setSubCategoryId(10L);
+        
         Question question = new Question();
         question.setQuestionId(questionId);
         question.setQuestionContent(questionDto.getQuestionContent());
@@ -57,6 +58,7 @@ class QuestionServiceImplementationTest {
         question.setOptionC(questionDto.getOptionC());
         question.setOptionD(questionDto.getOptionD());
         question.setCorrectAnswer(question.getCorrectAnswer());
+        
         when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> questionService.addQuestion(questionDto));
     }
@@ -65,13 +67,17 @@ class QuestionServiceImplementationTest {
     void testAddQuestion() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
                 questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(questionDto.getSubCategoryId());
+        
         SubCategory subCategory = new SubCategory();
         subCategory.setSubCategoryId(subCategoryDto.getSubCategoryId());
+        
         when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         question.setSubCategory(subCategory);
         questionRepo.save(question);
@@ -84,13 +90,17 @@ class QuestionServiceImplementationTest {
     void testAddQuestionIfSameOption() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","a","c","d","c",10L);
+        
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
                 questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(questionDto.getSubCategoryId());
+        
         SubCategory subCategory = new SubCategory();
         subCategory.setSubCategoryId(subCategoryDto.getSubCategoryId());
+        
         when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         question.setSubCategory(subCategory);
         questionRepo.save(question);
@@ -109,13 +119,17 @@ class QuestionServiceImplementationTest {
     void testGetQuestionsBySubCategoryId() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
                 questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryId(questionDto.getSubCategoryId());
+        
         SubCategory subCategory = new SubCategory();
         subCategory.setSubCategoryId(subCategoryDto.getSubCategoryId());
+        
         when(subCategoryRepo.findById(questionDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         question.setSubCategory(subCategory);
         List<Question> questionsList = new ArrayList<>();
@@ -131,9 +145,11 @@ class QuestionServiceImplementationTest {
     void testUpdateQuestion() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
                 questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        
         QuestionDto questionDto1 = new QuestionDto();
         questionDto1.setQuestionId(questionId);
         questionDto1.setQuestionContent("what is array");
@@ -142,9 +158,11 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionC("c");
         questionDto1.setOptionD("a");
         questionDto1.setCorrectAnswer("c");
+        
         Question question1 = new Question(questionDto1.getQuestionContent(),
                 questionDto1.getOptionA(),questionDto1.getOptionB(),
                 questionDto1.getOptionC(),questionDto1.getOptionD(),questionDto1.getCorrectAnswer());
+        
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         when(questionRepo.save(question)).thenReturn(question1);
         QuestionDto questiondto = questionService.updateQuestion(questionId, questionDto1);
@@ -155,9 +173,11 @@ class QuestionServiceImplementationTest {
     void testUpdateQuestionIfSameOption() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
                 questionDto.getOptionD(),questionDto.getCorrectAnswer());
+        
         QuestionDto questionDto1 = new QuestionDto();
         questionDto1.setQuestionId(questionId);
         questionDto1.setQuestionContent("what is array");
@@ -166,9 +186,11 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionC("c");
         questionDto1.setOptionD("a");
         questionDto1.setCorrectAnswer("c");
+        
         Question question1 = new Question(questionDto1.getQuestionContent(),
                 questionDto1.getOptionA(),questionDto1.getOptionB(),
                 questionDto1.getOptionC(),questionDto1.getOptionD(),questionDto1.getCorrectAnswer());
+        
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         when(questionRepo.save(question)).thenReturn(question1);
         assertThrows(AlreadyExistsException.class, () -> questionService.updateQuestion(questionId, questionDto1));
@@ -195,6 +217,7 @@ class QuestionServiceImplementationTest {
     void testDelete() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        
         Question question = new Question();
         question.setQuestionId(questionDto.getQuestionId());
         question.setQuestionContent(questionDto.getQuestionContent());
@@ -202,6 +225,7 @@ class QuestionServiceImplementationTest {
         question.setOptionB(questionDto.getOptionB());
         question.setOptionC(questionDto.getOptionC());
         question.setOptionD(questionDto.getOptionD());
+        
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         questionService.deleteQuestion(questionId);
         assertFalse(questionRepo.existsById(questionId));

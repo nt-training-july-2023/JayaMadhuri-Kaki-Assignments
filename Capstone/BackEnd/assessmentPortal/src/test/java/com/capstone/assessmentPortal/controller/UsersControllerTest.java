@@ -42,6 +42,7 @@ class UsersControllerTest {
         users.setEmailId("jayamadhuri@nucleusteq.com");
         users.setPassword("Madhu@123");
         users.setUserType("Student");
+        
         String name = users.getFirstName() + users.getLastName();
         when(usersService.studentRegistration(users)).thenReturn(name);
         ResponseEntity<CustomResponse<SignUpRequest>> response = usersController.studentRegistration(users);
@@ -53,6 +54,7 @@ class UsersControllerTest {
         LoginRequest login = new LoginRequest();
         login.setEmailId("jayamadhuri@nucleusteq.com");
         login.setPassword("Madhu@123");
+        
         Map<String,String> userDetails = new HashMap<>();
         when(usersService.authenticateUser(login)).thenReturn(userDetails);
         ResponseEntity<CustomResponse<Map<String, String>>> response = usersController.userLogin(login);
@@ -93,6 +95,7 @@ class UsersControllerTest {
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
         users.setGender("female");
+        
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
         ResponseEntity<CustomResponse<UserDetailsForUpdate>> response = usersController.updateStudentDetails(userId,users);
         assertEquals(HttpStatus.OK,response.getStatusCode());

@@ -55,6 +55,7 @@ class ResultServiceImplementationTest {
         resultsDto.setNumOfAttemptedQuestions(9);
         resultsDto.setTotalQuestions(10);
         resultsDto.setDateAndTime("23-10-23");
+        
         when(usersRepo.findById(10L)).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
     }
@@ -73,6 +74,7 @@ class ResultServiceImplementationTest {
     @Test
     void testAddTemporaryResult() {
         ResultsDto resultsDto = new ResultsDto(1L,10L,11L,12L,10,9,9,9,"23-10-23");
+        
         Users users = new Users();
         SubCategory subCategory = new SubCategory();
         Category category = new Category();
@@ -80,6 +82,7 @@ class ResultServiceImplementationTest {
         when(categoryRepo.findById(12L)).thenReturn(Optional.of(category));
         when(subCategoryRepo.findById(11L)).thenReturn(Optional.of(subCategory));
         subCategory.setCategory(category);
+        
         Results res = new Results();
         res.setResultId(resultsDto.getResultId());
         res.setStudents(users);
@@ -89,6 +92,7 @@ class ResultServiceImplementationTest {
         res.setNumOfAttemptedQuestions(resultsDto.getNumOfAttemptedQuestions());
         res.setTotalQuestions(resultsDto.getTotalQuestions());
         res.setDateAndTime(resultsDto.getDateAndTime());
+        
         FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
         finalResults.setFinalResultId(res.getResultId());
         finalResults.setStudentId(res.getStudents().getUserId());
@@ -102,6 +106,7 @@ class ResultServiceImplementationTest {
                  .getNumOfAttemptedQuestions());
         finalResults.setTotalQuestions(res.getTotalQuestions());
         finalResults.setDateAndTime(res.getDateAndTime());
+        
         when(finalResultRepo.save(finalResults)).thenReturn(finalResults);
         ResultsDto resultsdto = resultsService.addTemporaryResult(resultsDto);
         assertNotNull(resultsdto);

@@ -57,6 +57,7 @@ class UsersServiceImplementationTest {
         userDetails.setEmailId(users.getEmailId());
         userDetails.setPassword(users.getPassword());
         userDetails.setUserType(users.getUserType());
+        
         usersRepo.save(userDetails);
         when(usersRepo.findById(userDetails.getUserId())).thenReturn(Optional.of(userDetails));
         String signUpRequest = usersServiceImpl.studentRegistration(users);
@@ -74,6 +75,7 @@ class UsersServiceImplementationTest {
         users.setEmailId("jayamadhuri@nucleusteq.com");
         users.setPassword("Madhu@123");
         users.setUserType("Student");
+        
         Users userDetails = new Users();
         userDetails.setFirstName(users.getFirstName());
         userDetails.setLastName(users.getLastName());
@@ -82,6 +84,7 @@ class UsersServiceImplementationTest {
         userDetails.setEmailId(users.getEmailId());
         userDetails.setPassword(users.getPassword());
         userDetails.setUserType(users.getUserType());
+        
         when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
         assertThrows(AlreadyExistsException.class, () -> usersServiceImpl.studentRegistration(users));
     }
@@ -91,14 +94,18 @@ class UsersServiceImplementationTest {
         LoginRequest login = new LoginRequest();
         login.setEmailId("jayamadhuri@nucleusteq.com");
         login.setPassword("Madhu@123");
+        
         Users users = new Users();
         users.setEmailId(login.getEmailId());
         users.setPassword(login.getPassword());
+        users.setFirstName("Madhu");
+        users.setLastName("Kaki");
+        
         when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
         Map<String,String> map = usersServiceImpl.authenticateUser(login);
         assertNotNull(map);
         assertEquals("Student", map.get("UserType"));
-        assertEquals("null null", map.get("Name"));
+        assertEquals("Madhu Kaki", map.get("Name"));
         assertEquals("jayamadhuri@nucleusteq.com", map.get("EmailId"));
     }
     
@@ -107,9 +114,11 @@ class UsersServiceImplementationTest {
         LoginRequest login = new LoginRequest();
         login.setEmailId("jayamadhuri@nucleusteq.com");
         login.setPassword("Madhu@123");
+        
         Users users = new Users();
         users.setEmailId(login.getEmailId());
         users.setPassword("Madhu");
+        
         when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
         assertNotEquals(users.getPassword(),login.getPassword());
         assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
@@ -139,6 +148,7 @@ class UsersServiceImplementationTest {
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
         users.setGender("female");
+        
         when(usersRepo.existsById(userId)).thenReturn(false);
         assertThrows(NoSuchElementException.class, () -> usersServiceImpl.updateStudentDetails(userId,users));
     }
@@ -151,17 +161,20 @@ class UsersServiceImplementationTest {
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
         users.setGender("female");
+        
         Users user = new Users();
         user.setFirstName(users.getFirstName());
         user.setLastName(users.getLastName());
         user.setDateOfBirth(users.getDateOfBirth());
         user.setGender(users.getGender());
         user.getResults();
+        
         UserDetailsForUpdate updatedusers = new UserDetailsForUpdate();
         updatedusers.setFirstName("JayaMadhuri");
         updatedusers.setLastName("kaki");
         updatedusers.setDateOfBirth("23-01-2001");
         updatedusers.setGender("female");
+        
         Users updateduser = new Users();
         updateduser.setFirstName(updatedusers.getFirstName());
         updateduser.setLastName(updatedusers.getLastName());
@@ -185,6 +198,7 @@ class UsersServiceImplementationTest {
        users.setEmailId("jayamadhuri@nucleusteq.com");
        users.setPassword("Madhu@123");
        users.setUserType("Student");
+       
        Users userDetails = new Users();
        userDetails.setFirstName(users.getFirstName());
        userDetails.setLastName(users.getLastName());
@@ -195,6 +209,7 @@ class UsersServiceImplementationTest {
        userDetails.setUserType(users.getUserType());
        List<Results> listOfResults = new ArrayList<>();
        userDetails.setResults(listOfResults);
+       
        when(usersRepo.findById(userId)).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentById(userId);
        assertEquals(userDetails.getEmailId(), result.getEmailId());
@@ -229,6 +244,7 @@ class UsersServiceImplementationTest {
        users.setEmailId("jayamadhuri@nucleusteq.com");
        users.setPassword("Madhu@123");
        users.setUserType("Student");
+       
        Users userDetails = new Users();
        userDetails.setFirstName(users.getFirstName());
        userDetails.setLastName(users.getLastName());
@@ -237,6 +253,7 @@ class UsersServiceImplementationTest {
        userDetails.setEmailId(users.getEmailId());
        userDetails.setPassword(users.getPassword());
        userDetails.setUserType(users.getUserType());
+       
        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentDetailsByEmail(users.getEmailId());
        assertEquals(userDetails.getUserId(), result.getUserId());
