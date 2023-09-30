@@ -67,7 +67,7 @@ public class QuestionServiceImplementation implements QuestionService {
       question.setOptionD(questionDto.getOptionD());
       question.setCorrectAnswer(questionDto.getCorrectAnswer());
       question.setSubCategory(subCategory);
-      logger.info("Question Added");
+      logger.info(ValidationMessage.QUESTIONS_ADDED);
       questionRepo.save(question);
       return questionDto;
   }
@@ -79,7 +79,7 @@ public class QuestionServiceImplementation implements QuestionService {
                               .QUIZ_NOSUCHELEMENT));
     List<Question> listOfQuestions =
               questionRepo.getQuestionBySubCategoryId(subCategoryId);
-    logger.info("Retrieved Question by Quiz id");
+    logger.info(ValidationMessage.QUESTIONS_RETRIEVED);
     return listOfQuestions.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
@@ -91,7 +91,7 @@ public class QuestionServiceImplementation implements QuestionService {
   */
   private QuestionDto convertEntityToDto(final
           Question question) {
-    logger.info("Entity to Dto conversion in Questions");
+    logger.info(ValidationMessage.QUESTIONS_LOGGER_MSG);
     QuestionDto questionDto = new QuestionDto();
     questionDto.setQuestionId(question.getQuestionId());
     questionDto.setQuestionContent(question.getQuestionContent());
@@ -114,7 +114,6 @@ public class QuestionServiceImplementation implements QuestionService {
                 .findById(questionId).orElseThrow(
                         () -> new NoSuchElementException(ValidationMessage
                                 .QUESTION_NOSUCHELEMENT));
-      logger.info("Question with id exists");
       question.setQuestionContent(questionDto.getQuestionContent());
       Set<String> options = new HashSet<>();
       options.add(questionDto.getOptionA());
@@ -131,7 +130,7 @@ public class QuestionServiceImplementation implements QuestionService {
       question.setOptionC(questionDto.getOptionC());
       question.setOptionD(questionDto.getOptionD());
       question.setCorrectAnswer(questionDto.getCorrectAnswer());
-      logger.info("Question Updated");
+      logger.info(ValidationMessage.QUESTIONS_UPDATED);
       questionRepo.save(question);
       return questionDto;
   }
@@ -140,7 +139,7 @@ public class QuestionServiceImplementation implements QuestionService {
     questionRepo.findById(questionId).orElseThrow(
             () -> new NoSuchElementException(ValidationMessage
                     .QUESTION_NOSUCHELEMENT));
-    logger.info("Question Deleted");
+    logger.info(ValidationMessage.QUESTIONS_DELETED);
     questionRepo.deleteById(questionId);
   }
 }

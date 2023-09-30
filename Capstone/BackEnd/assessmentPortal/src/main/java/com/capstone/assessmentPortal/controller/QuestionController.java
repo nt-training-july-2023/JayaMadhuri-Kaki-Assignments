@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.QuestionService;
 
 import jakarta.validation.Valid;
@@ -49,10 +50,9 @@ public class QuestionController {
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> questions = questionService
           .getQuestionsBySubCategoryId(subCategoryId);
-    logger.info("Retrieved questions by quiz id");
-    return ResponseHandler.generateResponse(
-           "Successfully Retrieved Questions By SubCategory Id",
-           HttpStatus.OK, questions);
+    logger.info(ValidationMessage.QUESTIONS_RETRIEVED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .QUESTIONS_RETRIEVED, HttpStatus.OK, questions);
   }
   /**
    *add questions to questions table.
@@ -63,8 +63,8 @@ public class QuestionController {
   public final ResponseEntity<CustomResponse<QuestionDto>> addQuestion(
             @RequestBody @Valid final QuestionDto question) {
     QuestionDto questionDto = questionService.addQuestion(question);
-    logger.info("Question Added");
-    return ResponseHandler.generateResponse("Successfully Added",
+    logger.info(ValidationMessage.QUESTIONS_ADDED);
+    return ResponseHandler.generateResponse(ValidationMessage.QUESTIONS_ADDED,
             HttpStatus.OK, questionDto);
   }
   /**
@@ -79,9 +79,9 @@ public class QuestionController {
           @RequestBody @Valid final QuestionDto question) {
     QuestionDto questionDto = questionService.updateQuestion(questionId,
                        question);
-    logger.info("Question Updated");
-    return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, questionDto);
+    logger.info(ValidationMessage.QUESTIONS_UPDATED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .QUESTIONS_UPDATED, HttpStatus.OK, questionDto);
   }
   /**
    *delete questions by question id.
@@ -92,8 +92,8 @@ public class QuestionController {
   public final ResponseEntity<CustomResponse<QuestionDto>> deleteQuestion(
          @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);
-    logger.info("Question Deleted");
-    return ResponseHandler.generateResponse("Successfully Deleted",
-         HttpStatus.OK, null);
+    logger.info(ValidationMessage.QUESTIONS_DELETED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .QUESTIONS_DELETED, HttpStatus.OK, null);
   }
 }

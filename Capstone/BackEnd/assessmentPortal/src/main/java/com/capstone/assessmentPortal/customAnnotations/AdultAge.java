@@ -7,6 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.capstone.assessmentPortal.response.ValidationMessage;
+
 /**
  * Annotation interface to check dateofbirth is 18years above or not.
 */
@@ -19,7 +21,7 @@ public @interface AdultAge {
      * default message.
      * @return message
     */
-    String message() default "Age must be at least 18 years";
+    String message() default ValidationMessage.AGE_VALIDATION;
     /**
      * default groups.
      * @return groups

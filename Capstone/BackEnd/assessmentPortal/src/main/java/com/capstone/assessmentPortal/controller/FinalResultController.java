@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.FinalResultService;
 
 /**
@@ -40,9 +41,9 @@ public class FinalResultController {
                                                       getFinalResults() {
     List<FinalResultsDto> finalResultDto = finalResultService
                      .getFinalResults();
-    logger.info("Retrieved final results");
-    return ResponseHandler.generateResponse("Successfully Retrieved",
-        HttpStatus.OK, finalResultDto);
+    logger.info(ValidationMessage.RESULTS_RETRIEVED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .RESULTS_RETRIEVED, HttpStatus.OK, finalResultDto);
   }
   /**
    * get all final results by student id.
@@ -55,8 +56,8 @@ public class FinalResultController {
           @PathVariable final String emailId) {
     List<FinalResultsDto> finalResults = finalResultService
                 .getFinalResultByStudentEmail(emailId);
-    logger.info("Retrieved all final results by student EmailId");
-    return ResponseHandler.generateResponse("Successfully Retrieved",
-          HttpStatus.OK, finalResults);
+    logger.info(ValidationMessage.RESULTS_RETRIEVED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .RESULTS_RETRIEVED, HttpStatus.OK, finalResults);
   }
 }

@@ -50,7 +50,6 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
              throw new AlreadyExistsException(ValidationMessage
                      .QUIZ_ALREADYEXISTS);
          }
-          logger.info("Quiz Added");
           SubCategory subCategoryObj = new SubCategory();
           subCategoryObj.setSubCategoryId(subCategoryDto.getSubCategoryId());
           subCategoryObj.setSubCategoryName(subCategoryDto
@@ -64,13 +63,14 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                    new NoSuchElementException(ValidationMessage
                            .CATEGORY_NOSUCHELEMENT));
           subCategoryObj.setCategory(category);
+          logger.info(ValidationMessage.QUIZ_ADDED);
           subCategoryRepo.save(subCategoryObj);
           return subCategoryDto;
   }
   @Override
   public final List<SubCategoryDetailsDto> getSubCategories() {
     List<SubCategory> listOfSubCategories = subCategoryRepo.findAll();
-      logger.info("Retrieved all the quizes");
+      logger.info(ValidationMessage.QUIZ_RETRIEVED);
       return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
@@ -82,7 +82,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
   */
   private SubCategoryDetailsDto convertEntityToDto(final
                       SubCategory subCategory) {
-    logger.info("Entity to Dto conversion in Quiz");
+    logger.info(ValidationMessage.QUIZ_LOGGER_MSG);
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
     subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
     subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
@@ -98,7 +98,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     SubCategory subCategory = subCategoryRepo.findById(subCategoryId)
          .orElseThrow(() -> new NoSuchElementException(ValidationMessage
                  .QUIZ_NOSUCHELEMENT));
-    logger.info("Retrieved quiz details by id");
+    logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_ID);
     SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
     subCategoryDto.setSubCategoryId(subCategory.getSubCategoryId());
     subCategoryDto.setSubCategoryName(subCategory.getSubCategoryName());
@@ -116,12 +116,10 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                  .findById(subCategoryId).orElseThrow(
                          () -> new NoSuchElementException(ValidationMessage
                                  .QUIZ_NOSUCHELEMENT));
-    logger.info("Quiz with id found");
     categoryRepo.findById(
             subCategoryDto.getCategoryId()).orElseThrow(() ->
              new NoSuchElementException(ValidationMessage
                      .CATEGORY_NOSUCHELEMENT));
-    logger.info("Category with id found");
     Optional<SubCategory> subCategory = subCategoryRepo
             .getSubCategoryByName(subCategoryDto.getSubCategoryName());
     boolean isSubCategoryPresent = subCategory.isPresent();
@@ -135,7 +133,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
     quiz.setSubCategoryDescription(subCategoryDto
            .getSubCategoryDescription());
     quiz.setTimeLimitInMinutes(subCategoryDto.getTimeLimitInMinutes());
-    logger.info("Quiz Updated");
+    logger.info(ValidationMessage.QUIZ_UPDATED);
     subCategoryRepo.save(quiz);
     return subCategoryDto;
   }
@@ -145,7 +143,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
             .findById(subCategoryId).orElseThrow(
                     () -> new NoSuchElementException(ValidationMessage
                             .QUIZ_NOSUCHELEMENT));
-    logger.info("Quiz Deleted");
+    logger.info(ValidationMessage.QUIZ_DELETED);
     subCategoryRepo.deleteById(subCategoryId);
   }
   @Override
@@ -156,7 +154,7 @@ public class SubCategoryServiceImplementation implements SubCategoryService {
                     .CATEGORY_NOSUCHELEMENT));
     List<SubCategory> listOfSubCategories = subCategoryRepo
                  .getSubCategoryByCategoryId(categoryId);
-    logger.info("Retrieved quizes with category id");
+    logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID);
     return listOfSubCategories.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());

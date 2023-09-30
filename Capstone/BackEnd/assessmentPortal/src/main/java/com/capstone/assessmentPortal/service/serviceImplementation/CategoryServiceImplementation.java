@@ -44,7 +44,7 @@ public class CategoryServiceImplementation implements CategoryService {
        throw new AlreadyExistsException(ValidationMessage
                .CATEGORY_ALREADYEXISTS);
     }
-    logger.info("Category Added");
+    logger.info(ValidationMessage.CATEGORIES_ADDED);
     Category categoryObj = new Category();
     categoryObj.setCategoryId(categoryDto.getCategoryId());
     categoryObj.setCategoryName(categoryDto.getCategoryName());
@@ -55,7 +55,7 @@ public class CategoryServiceImplementation implements CategoryService {
   @Override
   public final List<CategoryDetailsDto> getCategories() {
     List<Category> listOfCategories = categoryRepo.findAll();
-    logger.info("Retrieved all the categories");
+    logger.info(ValidationMessage.CATEGORIES_RETRIEVED);
     return listOfCategories.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
@@ -66,7 +66,7 @@ public class CategoryServiceImplementation implements CategoryService {
    * @param category category
   */
   private CategoryDetailsDto convertEntityToDto(final Category category) {
-    logger.info("Entity to Dto conversion in Category");
+    logger.info(ValidationMessage.CATEGORY_LOGGER_MSG);
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
     categoryDto.setCategoryId(category.getCategoryId());
     categoryDto.setCategoryName(category.getCategoryName());
@@ -78,7 +78,7 @@ public class CategoryServiceImplementation implements CategoryService {
     Category category = categoryRepo.findById(categoryId).orElseThrow(
             () -> new NoSuchElementException(ValidationMessage
                     .CATEGORY_NOSUCHELEMENT));
-    logger.info("Retrieved Category By Id");
+    logger.info(ValidationMessage.CATEGORIES_RETRIEVED_BY_ID);
     CategoryDetailsDto categoryDto = new CategoryDetailsDto();
     categoryDto.setCategoryId(category.getCategoryId());
     categoryDto.setCategoryName(category.getCategoryName());
@@ -90,7 +90,7 @@ public class CategoryServiceImplementation implements CategoryService {
     categoryRepo.findById(categoryId).orElseThrow(
                       () -> new NoSuchElementException(ValidationMessage
                               .CATEGORY_NOSUCHELEMENT));
-    logger.info("Category Deleted");
+    logger.info(ValidationMessage.CATEGORIES_DELETED);
     categoryRepo.deleteById(categoryId);
   }
   @Override
@@ -100,11 +100,10 @@ public class CategoryServiceImplementation implements CategoryService {
                .findById(categoryId).orElseThrow(
                        () -> new NoSuchElementException(ValidationMessage
                                .CATEGORY_NOSUCHELEMENT));
-    logger.info("Category found with id");
     category.setCategoryName(categoryDto.getCategoryName());
     category.setCategoryDescription(categoryDto
             .getCategoryDescription());
-    logger.info("Category Updated");
+    logger.info(ValidationMessage.CATEGORIES_UPDATED);
     Category categoryObj = categoryRepo.save(category);
     CategoryDetailsDto categoryDtoObj = new CategoryDetailsDto();
     categoryDtoObj.setCategoryName(categoryObj.getCategoryName());

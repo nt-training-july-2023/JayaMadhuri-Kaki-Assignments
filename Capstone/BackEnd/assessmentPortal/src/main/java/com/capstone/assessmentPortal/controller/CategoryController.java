@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.CategoryService;
 
 import jakarta.validation.Valid;
@@ -45,10 +46,9 @@ public class CategoryController {
   public final ResponseEntity<CustomResponse<List<CategoryDetailsDto>>>
                                   getCategories() {
     List<CategoryDetailsDto> categories = categoryService.getCategories();
-    logger.info("Retrieved categories");
-    return ResponseHandler.generateResponse("Successfully Retrieved"
-                  + " Categories",
-                  HttpStatus.OK, categories);
+    logger.info(ValidationMessage.CATEGORIES_RETRIEVED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .CATEGORIES_RETRIEVED, HttpStatus.OK, categories);
   }
   /**
    * get category by id.
@@ -61,10 +61,9 @@ public class CategoryController {
                    final Long categoryId) {
     CategoryDetailsDto categoryDto = categoryService
                                 .getCategoryById(categoryId);
-    logger.info("Retrieved category by id");
-    return ResponseHandler.generateResponse("Successfully "
-             + "Retrieved Category By Id",
-                HttpStatus.OK, categoryDto);
+    logger.info(ValidationMessage.CATEGORIES_RETRIEVED_BY_ID);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .CATEGORIES_RETRIEVED_BY_ID, HttpStatus.OK, categoryDto);
   }
   /**
    *add category to category table.
@@ -76,9 +75,9 @@ public class CategoryController {
                                           addCategory(
             @RequestBody @Valid final CategoryDetailsDto category) {
     categoryService.addCategory(category);
-    logger.info("Category added");
-    return ResponseHandler.generateResponse("Successfully Added",
-          HttpStatus.OK, null);
+    logger.info(ValidationMessage.CATEGORIES_ADDED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .CATEGORIES_ADDED, HttpStatus.OK, null);
   }
   /**
    * update category details by id.
@@ -93,9 +92,9 @@ public class CategoryController {
            @RequestBody @Valid final CategoryDetailsDto category) {
     categoryService.updateCategory(
                    categoryId, category);
-    logger.info("Category updated");
-    return ResponseHandler.generateResponse("Successfully Updated",
-          HttpStatus.OK, null);
+    logger.info(ValidationMessage.CATEGORIES_UPDATED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .CATEGORIES_UPDATED, HttpStatus.OK, null);
   }
   /**
    * delete category by id.
@@ -107,8 +106,8 @@ public class CategoryController {
                                                   deleteCategory(
            @PathVariable final Long categoryId) {
     categoryService.deleteCategory(categoryId);
-    logger.info("Category deleted");
-    return ResponseHandler.generateResponse("Successfully Deleted",
-    HttpStatus.OK, null);
+    logger.info(ValidationMessage.CATEGORIES_DELETED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .CATEGORIES_DELETED, HttpStatus.OK, null);
   }
 }

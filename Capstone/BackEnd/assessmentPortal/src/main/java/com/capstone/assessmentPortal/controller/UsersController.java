@@ -22,6 +22,7 @@ import com.capstone.assessmentPortal.dto.UserDetails;
 import com.capstone.assessmentPortal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.UsersService;
 
 import jakarta.validation.Valid;
@@ -51,9 +52,9 @@ public class UsersController {
                                               studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     usersService.studentRegistration(signUpRequest);
-    logger.info("User successfully registered");
-    return ResponseHandler.generateResponse("Successfully Registered",
-            HttpStatus.OK, null);
+    logger.info(ValidationMessage.USER_REGISTERED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_REGISTERED, HttpStatus.OK, null);
   }
   /**
    *user login.
@@ -65,9 +66,9 @@ public class UsersController {
                   @RequestBody @Valid final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
-    logger.info("User successfully logged in");
-    return ResponseHandler.generateResponse("Login Successfull",
-                  HttpStatus.OK, userDetails);
+    logger.info(ValidationMessage.USER_LOGIN);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_LOGIN, HttpStatus.OK, userDetails);
   }
   /**
    *get student details by id.
@@ -78,9 +79,9 @@ public class UsersController {
   public final ResponseEntity<CustomResponse<UserDetails>> getStudentById(
                  @PathVariable final Long studentId) {
     UserDetails userDetails = usersService.getStudentById(studentId);
-    logger.info("Retrieved student details by Id");
-    return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, userDetails);
+    logger.info(ValidationMessage.USER_RETRIEVED_BY_ID);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_RETRIEVED_BY_ID, HttpStatus.OK, userDetails);
   }
   /**
    *get student details by email Id.
@@ -91,9 +92,9 @@ public class UsersController {
   public final ResponseEntity<CustomResponse<UserDetails>> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails userDetails = usersService.getStudentDetailsByEmail(emailId);
-    logger.info("Retrieved student details by EmailId");
-    return ResponseHandler.generateResponse("Successfully Retrieved",
-                 HttpStatus.OK, userDetails);
+    logger.info(ValidationMessage.USER_RETRIEVED_BY_EMAIL);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_RETRIEVED_BY_EMAIL, HttpStatus.OK, userDetails);
   }
   /**
    *get users by email Id.
@@ -104,9 +105,9 @@ public class UsersController {
   public final ResponseEntity<CustomResponse<UserDetails>> getUserByEmailId(
                  @PathVariable final String emailId) {
     usersService.getUsersDetailsByEmail(emailId);
-    logger.info("User with email exists");
-    return ResponseHandler.generateResponse("Successfully Validated",
-                 HttpStatus.OK, null);
+    logger.info(ValidationMessage.USER_EMAIL_VALIDATE);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_EMAIL_VALIDATE, HttpStatus.OK, null);
   }
 
   /**
@@ -122,9 +123,9 @@ public class UsersController {
            @RequestBody @Valid final UserDetailsForUpdate users) {
     usersService
             .updateStudentDetails(studentId, users);
-    logger.info("User details successfully updated");
-    return ResponseHandler.generateResponse("Successfully Updated",
-           HttpStatus.OK, null);
+    logger.info(ValidationMessage.USER_UPDATED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_UPDATED, HttpStatus.OK, null);
   }
   /**
    * delete student details by id.
@@ -135,8 +136,8 @@ public class UsersController {
   public final ResponseEntity<CustomResponse<UserDetails>> deleteStudent(
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
-    logger.info("Student deleted successfully");
-    return ResponseHandler.generateResponse("Successfully Deleted",
-           HttpStatus.OK, null);
+    logger.info(ValidationMessage.USER_DELETED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .USER_DELETED, HttpStatus.OK, null);
   }
 }

@@ -117,7 +117,7 @@ public final class ValidationMessage {
     /**
      *age below 18 years.
     */
-    public static final String AGE_VALIDATION = "Age should be above"
+    public static final String AGE_VALIDATION = "Age should be atleast"
             + " 18 years old";
     /**
      *gender is blank.
@@ -170,4 +170,141 @@ public final class ValidationMessage {
      *exception when incorrect credentials.
     */
     public static final String USER_NOTFOUND = "Incorrect Credentials";
+    /**
+     *controller message when categories retrieved successfully.
+    */
+    public static final String CATEGORIES_RETRIEVED = "Successfully"
+            + " Retrieved Categories";
+    /**
+     *controller message when category retrieved successfully.
+    */
+    public static final String CATEGORIES_RETRIEVED_BY_ID = "Successfully"
+            + " Retrieved Category by Id";
+    /**
+     *controller message when category added successfully.
+    */
+    public static final String CATEGORIES_ADDED = "Category Successfully"
+            + " Added";
+    /**
+     *controller message when category updated successfully.
+    */
+    public static final String CATEGORIES_UPDATED = "Category Successfully"
+            + " Updated";
+    /**
+     *controller message when category deleted successfully.
+    */
+    public static final String CATEGORIES_DELETED = "Category Successfully "
+            + "Deleted";
+    /**
+     *controller message when Results retrieved successfully.
+    */
+    public static final String RESULTS_RETRIEVED = "Results Successfully"
+            + " Retrieved";
+    /**
+     *controller message when Results added successfully.
+    */
+    public static final String RESULTS_ADDED = "Results Successfully"
+            + " Added";
+    /**
+     *controller message when questions retrieved successfully.
+    */
+    public static final String QUESTIONS_RETRIEVED = "Successfully Retrieved"
+            + " Questions By Quiz Id";
+    /**
+     *controller message when Question added successfully.
+    */
+    public static final String QUESTIONS_ADDED = "Question Successfully"
+            + " Added";
+    /**
+     *controller message when Question updated successfully.
+    */
+    public static final String QUESTIONS_UPDATED = "Question Successfully"
+            + " Updated";
+    /**
+     *controller message when   deleted successfully.
+    */
+    public static final String QUESTIONS_DELETED = "Question Successfully "
+            + "Deleted";
+    /**
+     *controller message when quiz retrieved successfully.
+    */
+    public static final String QUIZ_RETRIEVED = "Successfully"
+            + " Retrieved Quizes";
+    /**
+     *controller message when quiz retrieved successfully by id.
+    */
+    public static final String QUIZ_RETRIEVED_BY_ID = "Successfully"
+            + " Retrieved Quizes by Id";
+    /**
+     *controller message when quiz retrieved successfully by category id.
+    */
+    public static final String QUIZ_RETRIEVED_BY_CATEGORY_ID = "Successfully"
+            + " Retrieved Quizes by Category Id";
+    /**
+     *controller message when quiz added successfully.
+    */
+    public static final String QUIZ_ADDED = "Quiz Successfully"
+            + " Added";
+    /**
+     *controller message when quiz updated successfully.
+    */
+    public static final String QUIZ_UPDATED = "Quiz Successfully"
+            + " Updated";
+    /**
+     *controller message when quiz deleted successfully.
+    */
+    public static final String QUIZ_DELETED = "Quiz Successfully "
+            + "Deleted";
+    /**
+     *controller message when user successfully registered.
+    */
+    public static final String USER_REGISTERED = "User successfully registered";
+    /**
+     *controller message when user successfully login.
+    */
+    public static final String USER_LOGIN = "User successfully logged in";
+    /**
+     *controller message when user details retrieved by id.
+    */
+    public static final String USER_RETRIEVED_BY_ID = "Retrieved User details"
+            + " by Id";
+    /**
+     *controller message when user details retrieved by Email.
+    */
+    public static final String USER_RETRIEVED_BY_EMAIL = "Retrieved student "
+            + "details by EmailId";
+    /**
+     *controller message When user email validation.
+    */
+    public static final String USER_EMAIL_VALIDATE = "Successfully Validated";
+    /**
+     *controller message when user updated successfully.
+    */
+    public static final String USER_UPDATED = "User Successfully"
+            + " Updated";
+    /**
+     *controller message when user deleted successfully.
+    */
+    public static final String USER_DELETED = "User Successfully "
+            + "Deleted";
+    /**
+     *Logger message for category.
+    */
+    public static final String CATEGORY_LOGGER_MSG = "Entity to Dto conversion"
+            + " in Category";
+    /**
+     *Logger message for Quiz.
+    */
+    public static final String QUIZ_LOGGER_MSG = "Entity to Dto conversion"
+            + " in Quiz";
+    /**
+     *Logger message for Questions.
+    */
+    public static final String QUESTIONS_LOGGER_MSG = "Entity to Dto conversion"
+            + " in Questions";
+    /**
+     *Logger message for Results.
+    */
+    public static final String RESULTS_LOGGER_MSG = "Entity to Dto conversion"
+            + " in Results";
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
 import com.capstone.assessmentPortal.model.FinalResultsOfQuiz;
 import com.capstone.assessmentPortal.repository.FinalResultOfQuizRepo;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.FinalResultService;
 
 
@@ -34,7 +35,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
 @Override
   public final List<FinalResultsDto> getFinalResults() {
     List<FinalResultsOfQuiz> listOfFinalResults = finalResultRepo.findAll();
-    logger.info("Retrieved all the final results");
+    logger.info(ValidationMessage.RESULTS_RETRIEVED);
       return listOfFinalResults.stream()
               .map(this::convertEntityToDto)
               .collect(Collectors.toList());
@@ -46,7 +47,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
   */
   private FinalResultsDto convertEntityToDto(final
           FinalResultsOfQuiz finalResults) {
-    logger.info("Entity to Dto conversion in Final results");
+    logger.info(ValidationMessage.RESULTS_LOGGER_MSG);
     FinalResultsDto finalDto = new FinalResultsDto();
     finalDto.setFinalResultId(finalResults.getFinalResultId());
     finalDto.setStudentId(finalResults.getStudentId());
@@ -70,7 +71,7 @@ public class FinalResultServiceImplementation implements FinalResultService {
           String emailId) {
       List<FinalResultsOfQuiz> listOfFinalResults =
               finalResultRepo.getFinalResultsByStudentEmail(emailId);
-      logger.info("Retrieved final results by student EmailId");
+      logger.info(ValidationMessage.RESULTS_RETRIEVED);
                 return listOfFinalResults.stream()
                         .map(this::convertEntityToDto)
                         .collect(Collectors.toList());

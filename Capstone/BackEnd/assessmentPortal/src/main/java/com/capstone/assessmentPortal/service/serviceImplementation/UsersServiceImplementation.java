@@ -47,7 +47,7 @@ public class UsersServiceImplementation implements UsersService {
       throw new AlreadyExistsException(ValidationMessage
               .USER_EMAILALREADYEXISTS);
     }
-    logger.info("User successfully registered");
+    logger.info(ValidationMessage.USER_REGISTERED);
     Users users = new Users();
     users.setFirstName(signUpRequest.getFirstName());
     users.setLastName(signUpRequest.getLastName());
@@ -66,13 +66,13 @@ public class UsersServiceImplementation implements UsersService {
              .getEmailId());
     Map<String, String> userDetails = new HashMap<String, String>();
     if (user.isPresent()) {
-      logger.info("Login successful");
       String userPassword = user.get().getPassword();
       if (loginRequest.getPassword().equals(userPassword)) {
         userDetails.put("UserType", user.get().getUserType());
         userDetails.put("Name", user.get().getFirstName()
               + " " + user.get().getLastName());
         userDetails.put("EmailId", user.get().getEmailId());
+        logger.info(ValidationMessage.USER_LOGIN);
         return userDetails;
       }
     }
@@ -84,7 +84,7 @@ public class UsersServiceImplementation implements UsersService {
     usersRepo.findById(studentId).orElseThrow(
             () -> new NoSuchElementException(ValidationMessage
                     .USER_NOSUCHELEMENT));
-    logger.info("User deleted");
+    logger.info(ValidationMessage.USER_DELETED);
     usersRepo.deleteById(studentId);
   }
   @Override
@@ -103,7 +103,7 @@ public class UsersServiceImplementation implements UsersService {
     usersDetails.setLastName(usersObj.getLastName());
     usersDetails.setDateOfBirth(usersObj.getDateOfBirth());
     usersDetails.setGender(usersObj.getGender());
-    logger.info("User updated");
+    logger.info(ValidationMessage.USER_UPDATED);
     return usersDetails;
   }
   @Override
@@ -118,14 +118,14 @@ public class UsersServiceImplementation implements UsersService {
     userDetails.setGender(user.getGender());
     userDetails.setEmailId(user.getEmailId());
     userDetails.setUserType(user.getUserType());
-    logger.info("Retrieved student details by id");
+    logger.info(ValidationMessage.USER_RETRIEVED_BY_ID);
     return userDetails;
   }
     @Override
     public final UserDetails getStudentDetailsByEmail(final String emailId) {
         Optional<Users> user = usersRepo.findUserByEmailId(emailId);
         if (user.isPresent()) {
-            logger.info("Retrieved student details by EmailId");
+            logger.info(ValidationMessage.USER_RETRIEVED_BY_EMAIL);
             UserDetails userDetails = new UserDetails();
             userDetails.setUserId(user.get().getUserId());
             userDetails.setFirstName(user.get().getFirstName());

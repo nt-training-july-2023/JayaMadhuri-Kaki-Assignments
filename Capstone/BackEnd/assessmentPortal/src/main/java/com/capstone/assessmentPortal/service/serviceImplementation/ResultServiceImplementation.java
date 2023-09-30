@@ -68,7 +68,7 @@ public class ResultServiceImplementation implements ResultService {
              resultsDto.getSubCategoryId()).orElseThrow(
                      () -> new NoSuchElementException(ValidationMessage
                              .QUIZ_NOSUCHELEMENT));
-    logger.info("Result Added");
+    logger.info(ValidationMessage.RESULTS_ADDED);
     FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
     finalResults.setStudentId(resultsDto.getStudentId());
     Optional<Users> users = usersRepo.findById(resultsDto

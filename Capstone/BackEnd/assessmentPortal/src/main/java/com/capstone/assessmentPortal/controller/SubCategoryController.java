@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.response.ResponseHandler;
+import com.capstone.assessmentPortal.response.ValidationMessage;
 import com.capstone.assessmentPortal.service.SubCategoryService;
 
 import jakarta.validation.Valid;
@@ -47,10 +48,9 @@ public class SubCategoryController {
                                                   getSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getSubCategories();
-    logger.info("Retrieved quizes");
-    return ResponseHandler.generateResponse(
-          "Successfully Retrieved SubCategories",
-          HttpStatus.OK, subCategories);
+    logger.info(ValidationMessage.QUIZ_RETRIEVED);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .QUIZ_RETRIEVED, HttpStatus.OK, subCategories);
   }
   /**
    *get subcategory by subcategory id.
@@ -63,10 +63,9 @@ public class SubCategoryController {
                    Long subCategoryId) {
     SubCategoryDetailsDto subCategoryDto = subCategoryService
                    .getSubCategoryById(subCategoryId);
-    logger.info("Retrieved quiz by id");
-    return ResponseHandler.generateResponse(
-         "Successfully Retrieved Quiz By Id",
-         HttpStatus.OK, subCategoryDto);
+    logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_ID);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .QUIZ_RETRIEVED_BY_ID, HttpStatus.OK, subCategoryDto);
   }
   /**
    *get subcategory by category id.
@@ -79,10 +78,9 @@ public class SubCategoryController {
          @PathVariable final Long categoryId) {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
-    logger.info("Retrieved quizes by category id");
-    return ResponseHandler.generateResponse(
-         "Successfully Retrieved SubCategory By Category Id",
-          HttpStatus.OK, subCategories);
+    logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID);
+    return ResponseHandler.generateResponse(ValidationMessage
+            .QUIZ_RETRIEVED_BY_CATEGORY_ID, HttpStatus.OK, subCategories);
   }
   /**
    *add subcategory to subcategory table.
@@ -95,8 +93,8 @@ public class SubCategoryController {
             @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
     subCategoryService
             .addSubCategory(subCategory);
-    logger.info("Quiz Added");
-    return ResponseHandler.generateResponse("Successfully Added",
+    logger.info(ValidationMessage.QUIZ_ADDED);
+    return ResponseHandler.generateResponse(ValidationMessage.QUIZ_ADDED,
             HttpStatus.OK, null);
   }
   /**
@@ -112,8 +110,8 @@ public class SubCategoryController {
           @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
     subCategoryService
           .updateSubCategory(subCategory, subCategoryId);
-    logger.info("Quiz Updated");
-    return ResponseHandler.generateResponse("Successfully Updated",
+    logger.info(ValidationMessage.QUIZ_UPDATED);
+    return ResponseHandler.generateResponse(ValidationMessage.QUIZ_UPDATED,
           HttpStatus.OK, null);
   }
   /**
@@ -126,8 +124,8 @@ public class SubCategoryController {
                                           deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);
-    logger.info("Quiz Deleted");
-    return ResponseHandler.generateResponse("Successfully Deleted",
+    logger.info(ValidationMessage.QUIZ_DELETED);
+    return ResponseHandler.generateResponse(ValidationMessage.QUIZ_DELETED,
           HttpStatus.OK, null);
   }
 }
