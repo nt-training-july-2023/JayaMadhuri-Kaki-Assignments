@@ -32,5 +32,7 @@ class ResultsControllerTest {
         when(resultService.addTemporaryResult(resultsDto)).thenReturn(resultsDto);
         ResponseEntity<CustomResponse<ResultsDto>> response = resultsController.addResult(resultsDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Results Successfully Added",response.getBody().getMessage());
     }
 }

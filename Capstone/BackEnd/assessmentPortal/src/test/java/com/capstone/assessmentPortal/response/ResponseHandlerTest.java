@@ -22,6 +22,8 @@ class ResponseHandlerTest {
         ResponseEntity<CustomResponse<Object>> response = ResponseHandler.generateResponse(message, code, responseObj);
         assertNotNull(response);
         assertEquals(code, response.getStatusCode());
+        assertEquals(message, response.getBody().getMessage());
+        assertEquals(responseObj, response.getBody().getResponseData());
     }
 
 }

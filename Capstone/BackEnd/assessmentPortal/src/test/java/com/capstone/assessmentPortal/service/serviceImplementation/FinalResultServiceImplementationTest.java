@@ -50,6 +50,7 @@ class FinalResultServiceImplementationTest {
         when(finalResultsRepo.findAll()).thenReturn(listoffinalresults);
         List<FinalResultsDto> finalResultsDto = finalResultsService.getFinalResults();
         assertEquals(listoffinalresults.get(0).getCategoryName(), finalResultsDto.get(0).getCategoryName());
+        assertEquals(listoffinalresults.get(0).getQuizName(), finalResultsDto.get(0).getQuizName());
     }
 
     @Test
@@ -71,5 +72,6 @@ class FinalResultServiceImplementationTest {
         when(finalResultsRepo.getFinalResultsByStudentEmail(finalDto.getStudentEmailId())).thenReturn(listoffinalresults);
         List<FinalResultsDto> finalResultsDto = finalResultsService.getFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(listoffinalresults.get(0).getCategoryName(), finalResultsDto.get(0).getCategoryName());
+        assertEquals(listoffinalresults.get(0).getQuizName(), finalResultsDto.get(0).getQuizName());
     }
 }

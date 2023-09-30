@@ -248,6 +248,7 @@ class SubCategoryServiceImplementationTest {
         when(subCategoryRepo.save(subCategory)).thenReturn(subCategory1);
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.updateSubCategory(subCategoryDto1, subCategoryId);
         assertEquals(subCategory1.getSubCategoryDescription(), subCategoryDetailsDto.getSubCategoryDescription());
+        assertEquals(subCategory1.getSubCategoryName(), subCategoryDetailsDto.getSubCategoryName());
     }
     
     @Test

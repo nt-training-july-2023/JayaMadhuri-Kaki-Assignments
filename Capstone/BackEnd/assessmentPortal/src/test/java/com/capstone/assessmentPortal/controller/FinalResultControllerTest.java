@@ -56,6 +56,8 @@ class FinalResultControllerTest {
         res.setStatusCode(200);
         res.setResponseData(list);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(list,response.getBody().getResponseData());
+        assertEquals("Results Successfully Retrieved",response.getBody().getMessage());
     }
     @Test
     void testGetAllFinalResultByStudentId() {
@@ -75,5 +77,7 @@ class FinalResultControllerTest {
         ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController
                 .getFinalResultByStudentEmail(finalDto.getStudentEmailId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(list,response.getBody().getResponseData());
+        assertEquals("Results Successfully Retrieved",response.getBody().getMessage());
     }
 }

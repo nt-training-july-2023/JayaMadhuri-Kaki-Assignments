@@ -62,10 +62,10 @@ public class QuestionController {
   @PostMapping("/questions")
   public final ResponseEntity<CustomResponse<QuestionDto>> addQuestion(
             @RequestBody @Valid final QuestionDto question) {
-    QuestionDto questionDto = questionService.addQuestion(question);
+    questionService.addQuestion(question);
     logger.info(ValidationMessage.QUESTIONS_ADDED);
     return ResponseHandler.generateResponse(ValidationMessage.QUESTIONS_ADDED,
-            HttpStatus.OK, questionDto);
+            HttpStatus.OK, null);
   }
   /**
    *update questions by question id and given details.
@@ -77,11 +77,11 @@ public class QuestionController {
   public final ResponseEntity<CustomResponse<QuestionDto>> updateQuestion(
           @PathVariable final Long questionId,
           @RequestBody @Valid final QuestionDto question) {
-    QuestionDto questionDto = questionService.updateQuestion(questionId,
+    questionService.updateQuestion(questionId,
                        question);
     logger.info(ValidationMessage.QUESTIONS_UPDATED);
     return ResponseHandler.generateResponse(ValidationMessage
-            .QUESTIONS_UPDATED, HttpStatus.OK, questionDto);
+            .QUESTIONS_UPDATED, HttpStatus.OK, null);
   }
   /**
    *delete questions by question id.

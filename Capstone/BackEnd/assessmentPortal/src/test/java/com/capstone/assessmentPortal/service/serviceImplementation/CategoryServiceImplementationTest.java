@@ -60,6 +60,8 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDto = categoryServiceImpl.addCategory(categoryDetailsDto);
         assertEquals(categoryDto.getCategoryId(), category.getCategoryId());
+        assertEquals(categoryDto.getCategoryName(), category.getCategoryName());
+        assertEquals(categoryDto.getCategoryDescription(), category.getCategoryDescription());
     }
 
     @Test
@@ -80,6 +82,7 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.findAll()).thenReturn(listofcategories);
         List<CategoryDetailsDto> categoryList = categoryServiceImpl.getCategories();
         assertEquals("Java", categoryList.get(0).getCategoryName());
+        assertEquals(category.getCategoryId(), categoryList.get(0).getCategoryId());
     }
 
     @Test
@@ -99,6 +102,7 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDetails = categoryServiceImpl.getCategoryById(categoryId);
         assertEquals(category.getCategoryName(), categoryDetails.getCategoryName());
+        assertEquals(category.getCategoryId(), categoryDetails.getCategoryId());
     }
     
     @Test

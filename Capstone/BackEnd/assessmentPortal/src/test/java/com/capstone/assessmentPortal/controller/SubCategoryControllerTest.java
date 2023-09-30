@@ -36,6 +36,8 @@ class SubCategoryControllerTest {
         when(subCategoryService.getSubCategories()).thenReturn(subCategorylist);
         ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> response = subcategoryController.getSubCategories();
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(subCategorylist,response.getBody().getResponseData());
+        assertEquals("Successfully Retrieved Quizes",response.getBody().getMessage());
     }
 
     @Test
@@ -50,6 +52,8 @@ class SubCategoryControllerTest {
         when(subCategoryService.getSubCategoryById(subCategoryId)).thenReturn(subCategoryDto);
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.getSubCategoryById(subCategoryId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(subCategoryDto,response.getBody().getResponseData());
+        assertEquals("Successfully Retrieved Quizes by Id",response.getBody().getMessage());
     }
 
     @Test
@@ -67,6 +71,8 @@ class SubCategoryControllerTest {
         ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>> response = subcategoryController
                 .getSubCategoryByCategoryId(subCategoryDto.getCategoryId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(list,response.getBody().getResponseData());
+        assertEquals("Successfully Retrieved Quizes by Category Id",response.getBody().getMessage());
     }
 
     @Test
@@ -82,6 +88,8 @@ class SubCategoryControllerTest {
         when(subCategoryService.addSubCategory(subCategoryDto)).thenReturn(subCategoryDto);
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.addSubCategory(subCategoryDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Quiz Successfully Added",response.getBody().getMessage());
     }
 
     @Test
@@ -96,6 +104,8 @@ class SubCategoryControllerTest {
         when(subCategoryService.updateSubCategory(subCategoryDto1, subCategoryId)).thenReturn(subCategoryDto1);
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.updateSubCategory(subCategoryId,subCategoryDto1);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Quiz Successfully Updated",response.getBody().getMessage());
     }
 
     @Test
@@ -103,6 +113,8 @@ class SubCategoryControllerTest {
         Long subCategoryId = 1L;
         ResponseEntity<CustomResponse<SubCategoryDetailsDto>> response = subcategoryController.deleteSubCategory(subCategoryId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Quiz Successfully Deleted",response.getBody().getMessage());
     }
 
 }

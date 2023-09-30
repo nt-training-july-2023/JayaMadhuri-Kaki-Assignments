@@ -37,6 +37,8 @@ class QuestionControllerTest {
         when(questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionlist);
         ResponseEntity<CustomResponse<List<QuestionDto>>> response = questionController.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(questionlist,response.getBody().getResponseData());
+        assertEquals("Successfully Retrieved Questions By Quiz Id",response.getBody().getMessage());
     }
 
     @Test
@@ -46,6 +48,8 @@ class QuestionControllerTest {
         when(questionService.addQuestion(questionDto)).thenReturn(questionDto);
         ResponseEntity<CustomResponse<QuestionDto>> response = questionController.addQuestion(questionDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Question Successfully Added",response.getBody().getMessage());
     }
 
     @Test
@@ -55,6 +59,8 @@ class QuestionControllerTest {
         when(questionService.updateQuestion(questionId,questionDto)).thenReturn(questionDto);
         ResponseEntity<CustomResponse<QuestionDto>> response = questionController.updateQuestion(questionId,questionDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Question Successfully Updated",response.getBody().getMessage());
     }
 
     @Test
@@ -62,6 +68,8 @@ class QuestionControllerTest {
         Long questionId = 1L;
         ResponseEntity<CustomResponse<QuestionDto>> response = questionController.deleteQuestion(questionId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Question Successfully Deleted",response.getBody().getMessage());
     }
 
 }

@@ -41,6 +41,7 @@ class GlobalExceptionHandlerTest {
         when(methodArgumentNotValidException.getBindingResult()).thenReturn(bindingResult);
         ResponseEntity<CustomResponse<MethodArgumentNotValidException>> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
         assertEquals(400, errorMap.getBody().getStatusCode());
+        assertEquals(null,errorMap.getBody().getResponseData());
     }
     
     private BindingResult mockBindingResult() {
@@ -56,13 +57,17 @@ class GlobalExceptionHandlerTest {
         UserNotFoundException noSuch = new UserNotFoundException("User not found");
         ResponseEntity<CustomResponse<UserNotFoundException>> response = globalhandler.handleUserNotFound(noSuch);
         assertEquals(HttpStatus.UNAUTHORIZED,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("User not found",response.getBody().getMessage());
     }
     
     @Test 
     void testDataIntegrityException() {
-        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("User not found");
+        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("Quiz with same name already exists");
         ResponseEntity<CustomResponse<DataIntegrityViolationException>> response = globalhandler.handleConflict(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Quiz with same name already exists",response.getBody().getMessage());
     }
     
     @Test
@@ -70,6 +75,8 @@ class GlobalExceptionHandlerTest {
        NoSuchElementException noSuch = new NoSuchElementException("No such element found");
        ResponseEntity<CustomResponse<NoSuchElementException>> response = globalhandler.handleNoSuchElement(noSuch);
        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+       assertEquals(null,response.getBody().getResponseData());
+       assertEquals("No such element found",response.getBody().getMessage());
     }
     
     @Test
@@ -77,5 +84,7 @@ class GlobalExceptionHandlerTest {
         AlreadyExistsException noSuch = new AlreadyExistsException("Element already exists");
         ResponseEntity<CustomResponse<AlreadyExistsException>> response = globalhandler.handleAlreadyExistsException(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Element already exists",response.getBody().getMessage());
     }
 }

@@ -84,6 +84,7 @@ class QuestionServiceImplementationTest {
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         QuestionDto questionDto1 = questionService.addQuestion(questionDto);
         assertEquals(question.getCorrectAnswer(), questionDto1.getCorrectAnswer());
+        assertEquals(question.getOptionA(), questionDto1.getOptionA());
     }
     
     @Test
@@ -138,7 +139,8 @@ class QuestionServiceImplementationTest {
         when(questionRepo.getQuestionBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionsList);
         List<QuestionDto> questionListDto = questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
         assertEquals("what is array", questionListDto.get(0).getQuestionContent());
-        assertEquals(null,questionListDto.get(0).getQuestionId());
+        assertEquals(questionDto.getOptionA(), questionListDto.get(0).getOptionA());
+        assertEquals(questionDto.getCorrectAnswer(), questionListDto.get(0).getCorrectAnswer());
     }
 
     @Test
@@ -167,6 +169,7 @@ class QuestionServiceImplementationTest {
         when(questionRepo.save(question)).thenReturn(question1);
         QuestionDto questiondto = questionService.updateQuestion(questionId, questionDto1);
         assertEquals(question1.getOptionA(),questiondto.getOptionA());
+        assertEquals(question1.getCorrectAnswer(),questiondto.getCorrectAnswer());
     }
     
     @Test
@@ -194,7 +197,6 @@ class QuestionServiceImplementationTest {
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         when(questionRepo.save(question)).thenReturn(question1);
         assertThrows(AlreadyExistsException.class, () -> questionService.updateQuestion(questionId, questionDto1));
-        
     }
     
     @Test

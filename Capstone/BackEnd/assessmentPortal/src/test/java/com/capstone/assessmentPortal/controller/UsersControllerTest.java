@@ -47,6 +47,8 @@ class UsersControllerTest {
         when(usersService.studentRegistration(users)).thenReturn(name);
         ResponseEntity<CustomResponse<SignUpRequest>> response = usersController.studentRegistration(users);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("User successfully registered",response.getBody().getMessage());
     }
 
     @Test
@@ -59,6 +61,8 @@ class UsersControllerTest {
         when(usersService.authenticateUser(login)).thenReturn(userDetails);
         ResponseEntity<CustomResponse<Map<String, String>>> response = usersController.userLogin(login);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(userDetails,response.getBody().getResponseData());
+        assertEquals("User successfully logged in",response.getBody().getMessage());
     }
 
     @Test
@@ -68,6 +72,8 @@ class UsersControllerTest {
         when(usersService.getStudentById(studentId)).thenReturn(users);
         ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentById(studentId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(users,response.getBody().getResponseData());
+        assertEquals("Retrieved User details by Id",response.getBody().getMessage());
     }
     
     @Test
@@ -77,6 +83,8 @@ class UsersControllerTest {
         when(usersService.getStudentDetailsByEmail(studentEmail)).thenReturn(users);
         ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentByEmailId(studentEmail);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(users,response.getBody().getResponseData());
+        assertEquals("Retrieved student details by EmailId",response.getBody().getMessage());
     }
     
     @Test
@@ -85,6 +93,8 @@ class UsersControllerTest {
         when(usersService.getUsersDetailsByEmail(email)).thenReturn("User Not exists with Email");
         ResponseEntity<CustomResponse<UserDetails>> response = usersController.getUserByEmailId(email);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Successfully Validated",response.getBody().getMessage());
     }
 
     @Test
@@ -99,6 +109,8 @@ class UsersControllerTest {
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
         ResponseEntity<CustomResponse<UserDetailsForUpdate>> response = usersController.updateStudentDetails(userId,users);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("User Successfully Updated",response.getBody().getMessage());
     }
 
     @Test
@@ -106,6 +118,8 @@ class UsersControllerTest {
         Long userId = 1L;
         ResponseEntity<CustomResponse<UserDetails>> response = usersController.deleteStudent(userId);
         assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("User Successfully Deleted",response.getBody().getMessage());
     }
 
 }
