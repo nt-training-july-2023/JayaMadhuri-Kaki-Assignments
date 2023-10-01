@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.capstone.assessmentPortal.dto.Option;
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.QuestionServiceImplementation;
@@ -32,7 +33,7 @@ class QuestionControllerTest {
     @Test
     void testGetAllQuestionsBySubCategoryId() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         List<QuestionDto> questionlist = new ArrayList<>();
         when(questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionlist);
         ResponseEntity<CustomResponse<List<QuestionDto>>> response = questionController.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
@@ -44,7 +45,7 @@ class QuestionControllerTest {
     @Test
     void testAddQuestion() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         when(questionService.addQuestion(questionDto)).thenReturn(questionDto);
         ResponseEntity<CustomResponse<QuestionDto>> response = questionController.addQuestion(questionDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -55,7 +56,7 @@ class QuestionControllerTest {
     @Test
     void testUpdateQuestion() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         when(questionService.updateQuestion(questionId,questionDto)).thenReturn(questionDto);
         ResponseEntity<CustomResponse<QuestionDto>> response = questionController.updateQuestion(questionId,questionDto);
         assertEquals(HttpStatus.OK,response.getStatusCode());

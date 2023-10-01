@@ -1,7 +1,6 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,20 +67,18 @@ public class ResultServiceImplementation implements ResultService {
              resultsDto.getSubCategoryId()).orElseThrow(
                      () -> new NoSuchElementException(ValidationMessage
                              .QUIZ_NOSUCHELEMENT));
+    Category category = categoryRepo.findById(
+            resultsDto.getCategoryId()).orElseThrow(
+                    () -> new NoSuchElementException(ValidationMessage
+                            .CATEGORY_NOSUCHELEMENT));
     logger.info(ValidationMessage.RESULTS_ADDED);
     FinalResultsOfQuiz finalResults = new FinalResultsOfQuiz();
     finalResults.setStudentId(resultsDto.getStudentId());
-    Optional<Users> users = usersRepo.findById(resultsDto
-           .getStudentId());
-    finalResults.setStudentEmailId(users.get().getEmailId());
-    finalResults.setStudentName(users.get().getFirstName()
-           + users.get().getLastName());
-    Optional<SubCategory> subCategory = subCategoryRepo
-           .findById(resultsDto.getSubCategoryId());
-    Optional<Category> category = categoryRepo.findById(resultsDto
-           .getCategoryId());
-    finalResults.setCategoryName(category.get().getCategoryName());
-    finalResults.setQuizName(subCategory.get().getSubCategoryName());
+    finalResults.setStudentEmailId(user.getEmailId());
+    finalResults.setStudentName(user.getFirstName()
+           + user.getLastName());
+    finalResults.setCategoryName(category.getCategoryName());
+    finalResults.setQuizName(quiz.getSubCategoryName());
     finalResults.setMarksObtained(resultsDto.getMarksObtained());
     finalResults.setTotalMarks(resultsDto.getTotalMarks());
     finalResults.setNumOfAttemptedQuestions(resultsDto

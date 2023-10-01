@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -47,6 +48,22 @@ public class GlobalExceptionHandler {
       CustomResponse<DataIntegrityViolationException> customResponse =
               new CustomResponse<DataIntegrityViolationException>(status,
                       "Quiz with same name already exists");
+      return new ResponseEntity<>(customResponse, HttpStatus.CONFLICT);
+  }
+  /**
+   *Exception handles when name already exists.
+   *@return responseEntity
+   *@param exception DataIntegrityViolationException
+  */
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public final ResponseEntity<CustomResponse<HttpMessageNotReadableException>>
+  handleHttpMessageNotReadableException(final HttpMessageNotReadableException
+          exception) {
+      final int status = 409;
+      CustomResponse<HttpMessageNotReadableException> customResponse =
+              new CustomResponse<HttpMessageNotReadableException>(status,
+                      "Correct Answer should contain optionA or"
+                      + " optionB or optionC or optionD");
       return new ResponseEntity<>(customResponse, HttpStatus.CONFLICT);
   }
   /**

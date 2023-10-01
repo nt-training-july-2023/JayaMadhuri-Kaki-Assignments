@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.capstone.assessmentPortal.dto.Option;
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentPortal.exception.AlreadyExistsException;
@@ -47,7 +48,7 @@ class QuestionServiceImplementationTest {
         questionDto.setOptionB("b");
         questionDto.setOptionC("c");
         questionDto.setOptionD("d");
-        questionDto.setCorrectAnswer("c");
+        questionDto.setCorrectAnswer(Option.optionA);
         questionDto.setSubCategoryId(10L);
         
         Question question = new Question();
@@ -66,7 +67,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testAddQuestion() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
@@ -90,7 +91,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testAddQuestionIfSameOption() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","a","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","a","c","d",Option.optionA,10L);
         
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
@@ -119,7 +120,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testGetQuestionsBySubCategoryId() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
@@ -146,7 +147,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testUpdateQuestion() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
@@ -159,7 +160,7 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionB("b");
         questionDto1.setOptionC("c");
         questionDto1.setOptionD("a");
-        questionDto1.setCorrectAnswer("c");
+        questionDto1.setCorrectAnswer(Option.optionA);
         
         Question question1 = new Question(questionDto1.getQuestionContent(),
                 questionDto1.getOptionA(),questionDto1.getOptionB(),
@@ -175,7 +176,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testUpdateQuestionIfSameOption() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
         Question question = new Question(questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
@@ -188,7 +189,7 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionB("d");
         questionDto1.setOptionC("c");
         questionDto1.setOptionD("a");
-        questionDto1.setCorrectAnswer("c");
+        questionDto1.setCorrectAnswer(Option.optionA);
         
         Question question1 = new Question(questionDto1.getQuestionContent(),
                 questionDto1.getOptionA(),questionDto1.getOptionB(),
@@ -218,7 +219,7 @@ class QuestionServiceImplementationTest {
     @Test
     void testDelete() {
         Long questionId = 1L;
-        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d","c",10L);
+        QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
         Question question = new Question();
         question.setQuestionId(questionDto.getQuestionId());

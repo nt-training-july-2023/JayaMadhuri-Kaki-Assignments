@@ -70,11 +70,6 @@ public final class ValidationMessage {
     */
     public static final String OPTIOND_NOTBLANK = "OptionD is required";
     /**
-     *correct answer is blank.
-    */
-    public static final String CORRECTANSWER_NOTBLANK = "Correct "
-            + "Answer is required";
-    /**
      *student id is null.
     */
     public static final String STUDENTID_NOTNULL = "Student Id is required";
@@ -307,4 +302,9 @@ public final class ValidationMessage {
     */
     public static final String RESULTS_LOGGER_MSG = "Entity to Dto conversion"
             + " in Results";
+    /**
+     *service message for FinalResults.
+    */
+    public static final String RESULTS_EMAIL = "Cannot find student email "
+            + "in db";
 }

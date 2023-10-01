@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -68,6 +69,16 @@ class GlobalExceptionHandlerTest {
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
         assertEquals(null,response.getBody().getResponseData());
         assertEquals("Quiz with same name already exists",response.getBody().getMessage());
+    }
+    
+    @Test 
+    void testHttpMessageNotReadableException() {
+        @SuppressWarnings("deprecation")
+        HttpMessageNotReadableException noSuch = new HttpMessageNotReadableException("Correct Answer should contain optionA or optionB or optionC or optionD");
+        ResponseEntity<CustomResponse<HttpMessageNotReadableException>> response = globalhandler.handleHttpMessageNotReadableException(noSuch);
+        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+        assertEquals(null,response.getBody().getResponseData());
+        assertEquals("Correct Answer should contain optionA or optionB or optionC or optionD",response.getBody().getMessage());
     }
     
     @Test

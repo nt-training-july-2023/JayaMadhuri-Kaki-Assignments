@@ -1,6 +1,10 @@
 package com.capstone.assessmentPortal.model;
 
+import com.capstone.assessmentPortal.dto.Option;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,7 +52,8 @@ public class Question {
     /**
      * question answer attribute.
      */
-    private String correctAnswer;
+    @Enumerated(EnumType.STRING)
+    private Option correctAnswer;
     /**
      * foreign key attribute of subcategory.
      */
@@ -86,7 +91,7 @@ public class Question {
      */
     public Question(final String questioncontent, final String optiona,
             final String optionb, final String optionc, final String optiond,
-            final String correctAns) {
+            final Option correctAns) {
         this.questionContent = questioncontent;
         this.optionA = optiona;
         this.optionB = optionb;

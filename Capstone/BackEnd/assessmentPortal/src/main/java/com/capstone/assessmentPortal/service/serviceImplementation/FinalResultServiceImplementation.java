@@ -1,6 +1,7 @@
 package com.capstone.assessmentPortal.service.serviceImplementation;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -71,6 +72,9 @@ public class FinalResultServiceImplementation implements FinalResultService {
           String emailId) {
       List<FinalResultsOfQuiz> listOfFinalResults =
               finalResultRepo.getFinalResultsByStudentEmail(emailId);
+      if (listOfFinalResults.isEmpty()) {
+          throw new NoSuchElementException(ValidationMessage.RESULTS_EMAIL);
+      }
       logger.info(ValidationMessage.RESULTS_RETRIEVED);
                 return listOfFinalResults.stream()
                         .map(this::convertEntityToDto)

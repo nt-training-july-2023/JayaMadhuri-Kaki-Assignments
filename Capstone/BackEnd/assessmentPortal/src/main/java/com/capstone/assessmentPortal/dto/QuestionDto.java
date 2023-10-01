@@ -3,6 +3,8 @@ package com.capstone.assessmentPortal.dto;
 import com.capstone.assessmentPortal.response.ValidationMessage;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,8 +62,8 @@ public class QuestionDto {
      * question answer attribute.
      */
     @Column(nullable = false)
-    @NotBlank(message = ValidationMessage.CORRECTANSWER_NOTBLANK)
-    private String correctAnswer;
+    @Enumerated(EnumType.STRING)
+    private Option correctAnswer;
     /**
      * subCategory id attribute.
      */
