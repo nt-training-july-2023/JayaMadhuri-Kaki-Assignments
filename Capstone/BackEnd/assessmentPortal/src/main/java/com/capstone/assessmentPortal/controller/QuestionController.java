@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +44,7 @@ public class QuestionController {
    * @param subCategoryId subCategoryId
   */
   @GetMapping("/questions/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<List<QuestionDto>>>
+  public final CustomResponse<List<QuestionDto>>
                                       getQuestionsBySubCategoryId(
           @PathVariable final Long subCategoryId) {
     List<QuestionDto> questions = questionService
@@ -60,7 +59,7 @@ public class QuestionController {
    *@param question question
   */
   @PostMapping("/questions")
-  public final ResponseEntity<CustomResponse<QuestionDto>> addQuestion(
+  public final CustomResponse<QuestionDto> addQuestion(
             @RequestBody @Valid final QuestionDto question) {
     questionService.addQuestion(question);
     logger.info(ValidationMessage.QUESTIONS_ADDED);
@@ -74,7 +73,7 @@ public class QuestionController {
    *@param question question
   */
   @PutMapping("/questions/{questionId}")
-  public final ResponseEntity<CustomResponse<QuestionDto>> updateQuestion(
+  public final CustomResponse<QuestionDto> updateQuestion(
           @PathVariable final Long questionId,
           @RequestBody @Valid final QuestionDto question) {
     questionService.updateQuestion(questionId,
@@ -89,7 +88,7 @@ public class QuestionController {
    *@param questionId questionId
   */
   @DeleteMapping("/questions/{questionId}")
-  public final ResponseEntity<CustomResponse<QuestionDto>> deleteQuestion(
+  public final CustomResponse<QuestionDto> deleteQuestion(
          @PathVariable final Long questionId) {
     questionService.deleteQuestion(questionId);
     logger.info(ValidationMessage.QUESTIONS_DELETED);

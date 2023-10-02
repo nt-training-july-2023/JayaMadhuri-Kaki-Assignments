@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +43,7 @@ public class SubCategoryController {
    *@return subCategories
   */
   @GetMapping("/subCategory")
-  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>>
+  public final CustomResponse<List<SubCategoryDetailsDto>>
                                                   getSubCategories() {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getSubCategories();
@@ -58,7 +57,7 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
   */
   @GetMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+  public final CustomResponse<SubCategoryDetailsDto>
                                   getSubCategoryById(@PathVariable final
                    Long subCategoryId) {
     SubCategoryDetailsDto subCategoryDto = subCategoryService
@@ -73,7 +72,7 @@ public class SubCategoryController {
    *@param categoryId categoryId
   */
   @GetMapping("/subCategory/subCategoryByCategory/{categoryId}")
-  public final ResponseEntity<CustomResponse<List<SubCategoryDetailsDto>>>
+  public final CustomResponse<List<SubCategoryDetailsDto>>
                                           getSubCategoryByCategoryId(
          @PathVariable final Long categoryId) {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
@@ -88,7 +87,7 @@ public class SubCategoryController {
    *@param subCategory subCategory
   */
   @PostMapping("/subCategory")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+  public final CustomResponse<SubCategoryDetailsDto>
                                                   addSubCategory(
             @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
     subCategoryService
@@ -104,7 +103,7 @@ public class SubCategoryController {
    *@param subCategory subCategory
   */
   @PutMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+  public final CustomResponse<SubCategoryDetailsDto>
                                               updateSubCategory(
           @PathVariable final Long subCategoryId,
           @RequestBody @Valid final SubCategoryDetailsDto subCategory) {
@@ -120,7 +119,7 @@ public class SubCategoryController {
    *@param subCategoryId subCategoryId
   */
   @DeleteMapping("/subCategory/{subCategoryId}")
-  public final ResponseEntity<CustomResponse<SubCategoryDetailsDto>>
+  public final CustomResponse<SubCategoryDetailsDto>
                                           deleteSubCategory(
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);

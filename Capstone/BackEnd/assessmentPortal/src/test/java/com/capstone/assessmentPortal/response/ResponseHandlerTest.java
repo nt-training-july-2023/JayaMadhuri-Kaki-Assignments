@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.capstone.assessmentPortal.model.Users;
 
@@ -19,11 +18,11 @@ class ResponseHandlerTest {
         String message = "Success";
         HttpStatus code = HttpStatus.OK;
         Object responseObj = users;
-        ResponseEntity<CustomResponse<Object>> response = ResponseHandler.generateResponse(message, code, responseObj);
+        CustomResponse<Object> response = ResponseHandler.generateResponse(message, code, responseObj);
         assertNotNull(response);
-        assertEquals(code, response.getStatusCode());
-        assertEquals(message, response.getBody().getMessage());
-        assertEquals(responseObj, response.getBody().getResponseData());
+        assertEquals(code.value(), response.getStatusCode());
+        assertEquals(message, response.getMessage());
+        assertEquals(responseObj, response.getResponseData());
     }
 
 }

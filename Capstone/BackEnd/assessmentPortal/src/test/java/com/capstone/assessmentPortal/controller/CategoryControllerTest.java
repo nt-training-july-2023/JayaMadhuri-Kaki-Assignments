@@ -13,8 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import com.capstone.assessmentPortal.dto.CategoryDetailsDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.CategoryServiceImplementation;
@@ -36,10 +34,10 @@ class CategoryControllerTest {
         categoryDetailsDto.setCategoryName("Java");
         
         when(categoryService.addCategory(categoryDetailsDto)).thenReturn(categoryDetailsDto);
-        ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.addCategory(categoryDetailsDto);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Category Successfully Added",response.getBody().getMessage());
+        CustomResponse<CategoryDetailsDto> response = categoryController.addCategory(categoryDetailsDto);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Category Successfully Added",response.getMessage());
     }
 
     @Test
@@ -48,10 +46,10 @@ class CategoryControllerTest {
         List<CategoryDetailsDto> listofCategories = new ArrayList<>();
         listofCategories.add(categoryDetailsDto);
         when(categoryService.getCategories()).thenReturn(listofCategories);
-        ResponseEntity<CustomResponse<List<CategoryDetailsDto>>> response = categoryController.getCategories();
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(listofCategories,response.getBody().getResponseData());
-        assertEquals("Successfully Retrieved Categories",response.getBody().getMessage());
+        CustomResponse<List<CategoryDetailsDto>> response = categoryController.getCategories();
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(listofCategories,response.getResponseData());
+        assertEquals("Successfully Retrieved Categories",response.getMessage());
     }
 
     @Test
@@ -59,19 +57,19 @@ class CategoryControllerTest {
         Long categoryId = 1L;
         CategoryDetailsDto categoryDetailsDto = new CategoryDetailsDto(1L,"Java","");
         when(categoryService.getCategoryById(categoryId)).thenReturn(categoryDetailsDto);
-        ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.getCategoryById(categoryId);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(categoryDetailsDto,response.getBody().getResponseData());
-        assertEquals("Successfully Retrieved Category by Id",response.getBody().getMessage());
+        CustomResponse<CategoryDetailsDto> response = categoryController.getCategoryById(categoryId);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(categoryDetailsDto,response.getResponseData());
+        assertEquals("Successfully Retrieved Category by Id",response.getMessage());
     }
 
     @Test
     void testDeleteCategory() {
         Long categoryId = 1L;
-        ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.deleteCategory(categoryId);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Category Successfully Deleted",response.getBody().getMessage());
+        CustomResponse<CategoryDetailsDto> response = categoryController.deleteCategory(categoryId);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Category Successfully Deleted",response.getMessage());
     }
 
     @Test
@@ -81,10 +79,10 @@ class CategoryControllerTest {
                 CategoryDetailsDto(categoryId,"Java","Programming language");
         when(categoryService.updateCategory(categoryId, existingcategoryDetailsDto))
         .thenReturn(existingcategoryDetailsDto);
-        ResponseEntity<CustomResponse<CategoryDetailsDto>> response = categoryController.updateCategory(categoryId,existingcategoryDetailsDto);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Category Successfully Updated",response.getBody().getMessage());
+        CustomResponse<CategoryDetailsDto> response = categoryController.updateCategory(categoryId,existingcategoryDetailsDto);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Category Successfully Updated",response.getMessage());
     }
 
 }

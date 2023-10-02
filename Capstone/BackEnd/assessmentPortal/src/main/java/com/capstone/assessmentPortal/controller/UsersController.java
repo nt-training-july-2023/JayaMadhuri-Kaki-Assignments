@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +47,7 @@ public class UsersController {
    *@param signUpRequest signUpRequest
   */
   @PostMapping("/register")
-  public final ResponseEntity<CustomResponse<SignUpRequest>>
+  public final CustomResponse<SignUpRequest>
                                               studentRegistration(
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     usersService.studentRegistration(signUpRequest);
@@ -62,7 +61,7 @@ public class UsersController {
    *@param loginRequest loginRequest
   */
   @PostMapping("/login")
-  public final ResponseEntity<CustomResponse<Map<String, String>>> userLogin(
+  public final CustomResponse<Map<String, String>> userLogin(
                   @RequestBody @Valid final LoginRequest loginRequest) {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
@@ -76,7 +75,7 @@ public class UsersController {
    *@param studentId studentId
   */
   @GetMapping("/{studentId}")
-  public final ResponseEntity<CustomResponse<UserDetails>> getStudentById(
+  public final CustomResponse<UserDetails> getStudentById(
                  @PathVariable final Long studentId) {
     UserDetails userDetails = usersService.getStudentById(studentId);
     logger.info(ValidationMessage.USER_RETRIEVED_BY_ID);
@@ -89,7 +88,7 @@ public class UsersController {
    *@param emailId emailId
   */
   @GetMapping("/email/{emailId}")
-  public final ResponseEntity<CustomResponse<UserDetails>> getStudentByEmailId(
+  public final CustomResponse<UserDetails> getStudentByEmailId(
                  @PathVariable final String emailId) {
     UserDetails userDetails = usersService.getStudentDetailsByEmail(emailId);
     logger.info(ValidationMessage.USER_RETRIEVED_BY_EMAIL);
@@ -102,7 +101,7 @@ public class UsersController {
    *@param emailId emailId
   */
   @GetMapping("/register/{emailId}")
-  public final ResponseEntity<CustomResponse<UserDetails>> getUserByEmailId(
+  public final CustomResponse<UserDetails> getUserByEmailId(
                  @PathVariable final String emailId) {
     usersService.getUsersDetailsByEmail(emailId);
     logger.info(ValidationMessage.USER_EMAIL_VALIDATE);
@@ -117,7 +116,7 @@ public class UsersController {
    * @param users users
   */
   @PutMapping("/{studentId}")
-  public final ResponseEntity<CustomResponse<UserDetailsForUpdate>>
+  public final CustomResponse<UserDetailsForUpdate>
                                                  updateStudentDetails(
            @PathVariable final Long studentId,
            @RequestBody @Valid final UserDetailsForUpdate users) {
@@ -133,7 +132,7 @@ public class UsersController {
    * @param studentId studentId
   */
   @DeleteMapping("/{studentId}")
-  public final ResponseEntity<CustomResponse<UserDetails>> deleteStudent(
+  public final CustomResponse<UserDetails> deleteStudent(
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
     logger.info(ValidationMessage.USER_DELETED);

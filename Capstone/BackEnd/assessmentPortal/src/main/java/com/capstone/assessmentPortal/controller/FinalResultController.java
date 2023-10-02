@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +36,7 @@ public class FinalResultController {
    * @return finalResult
   */
   @GetMapping("/finalResults")
-  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>>
-                                                      getFinalResults() {
+  public final CustomResponse<List<FinalResultsDto>> getFinalResults() {
     List<FinalResultsDto> finalResultDto = finalResultService
                      .getFinalResults();
     logger.info(ValidationMessage.RESULTS_RETRIEVED);
@@ -51,8 +49,8 @@ public class FinalResultController {
    * @param emailId emailId
   */
   @GetMapping("/finalResults/{emailId}")
-  public final ResponseEntity<CustomResponse<List<FinalResultsDto>>>
-                                              getFinalResultByStudentEmail(
+  public final CustomResponse<List<FinalResultsDto>>
+          getFinalResultByStudentEmail(
           @PathVariable final String emailId) {
     List<FinalResultsDto> finalResults = finalResultService
                 .getFinalResultByStudentEmail(emailId);

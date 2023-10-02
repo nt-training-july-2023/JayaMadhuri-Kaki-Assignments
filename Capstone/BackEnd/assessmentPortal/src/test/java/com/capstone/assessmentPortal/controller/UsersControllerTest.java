@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.capstone.assessmentPortal.dto.LoginRequest;
 import com.capstone.assessmentPortal.dto.SignUpRequest;
@@ -45,10 +44,10 @@ class UsersControllerTest {
         
         String name = users.getFirstName() + users.getLastName();
         when(usersService.studentRegistration(users)).thenReturn(name);
-        ResponseEntity<CustomResponse<SignUpRequest>> response = usersController.studentRegistration(users);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("User successfully registered",response.getBody().getMessage());
+        CustomResponse<SignUpRequest> response = usersController.studentRegistration(users);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("User successfully registered",response.getMessage());
     }
 
     @Test
@@ -59,10 +58,10 @@ class UsersControllerTest {
         
         Map<String,String> userDetails = new HashMap<>();
         when(usersService.authenticateUser(login)).thenReturn(userDetails);
-        ResponseEntity<CustomResponse<Map<String, String>>> response = usersController.userLogin(login);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(userDetails,response.getBody().getResponseData());
-        assertEquals("User successfully logged in",response.getBody().getMessage());
+        CustomResponse<Map<String, String>> response = usersController.userLogin(login);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(userDetails,response.getResponseData());
+        assertEquals("User successfully logged in",response.getMessage());
     }
 
     @Test
@@ -70,10 +69,10 @@ class UsersControllerTest {
         Long studentId = 1L;
         UserDetails users = new UserDetails();
         when(usersService.getStudentById(studentId)).thenReturn(users);
-        ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentById(studentId);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(users,response.getBody().getResponseData());
-        assertEquals("Retrieved User details by Id",response.getBody().getMessage());
+        CustomResponse<UserDetails> response = usersController.getStudentById(studentId);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(users,response.getResponseData());
+        assertEquals("Retrieved User details by Id",response.getMessage());
     }
     
     @Test
@@ -81,20 +80,20 @@ class UsersControllerTest {
         String studentEmail = "jaya@nucleusteq.com";
         UserDetails users = new UserDetails();
         when(usersService.getStudentDetailsByEmail(studentEmail)).thenReturn(users);
-        ResponseEntity<CustomResponse<UserDetails>> response = usersController.getStudentByEmailId(studentEmail);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(users,response.getBody().getResponseData());
-        assertEquals("Retrieved student details by EmailId",response.getBody().getMessage());
+        CustomResponse<UserDetails> response = usersController.getStudentByEmailId(studentEmail);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(users,response.getResponseData());
+        assertEquals("Retrieved student details by EmailId",response.getMessage());
     }
     
     @Test
     void testGetUserByEmail() {
         String email = "jaya@nucleusteq.com";
         when(usersService.getUsersDetailsByEmail(email)).thenReturn("User Not exists with Email");
-        ResponseEntity<CustomResponse<UserDetails>> response = usersController.getUserByEmailId(email);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Successfully Validated",response.getBody().getMessage());
+        CustomResponse<UserDetails> response = usersController.getUserByEmailId(email);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Successfully Validated",response.getMessage());
     }
 
     @Test
@@ -107,19 +106,19 @@ class UsersControllerTest {
         users.setGender("female");
         
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
-        ResponseEntity<CustomResponse<UserDetailsForUpdate>> response = usersController.updateStudentDetails(userId,users);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("User Successfully Updated",response.getBody().getMessage());
+        CustomResponse<UserDetailsForUpdate> response = usersController.updateStudentDetails(userId,users);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("User Successfully Updated",response.getMessage());
     }
 
     @Test
     void testDeleteStudent() {
         Long userId = 1L;
-        ResponseEntity<CustomResponse<UserDetails>> response = usersController.deleteStudent(userId);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("User Successfully Deleted",response.getBody().getMessage());
+        CustomResponse<UserDetails> response = usersController.deleteStudent(userId);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("User Successfully Deleted",response.getMessage());
     }
 
 }

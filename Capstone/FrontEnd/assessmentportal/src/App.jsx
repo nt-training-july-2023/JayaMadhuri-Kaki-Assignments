@@ -1,8 +1,8 @@
 import './App.scss'
 import {useState} from 'react'
-import Login from './Components/LoginAndRegister/Login';
-import Register from './Components/LoginAndRegister/Register';
-import Navbar from './Components/NavBar/NavBar';
+import Login from './pages/loginAndRegister/Login';
+import Register from './pages/loginAndRegister/Register';
+import Navbar from './pages/navbar/NavBar';
 function App() {
   const renderComponent_AfterRefresh = localStorage.getItem("Current_Window")
   const [renderComponent,setRenderComponent] = useState(renderComponent_AfterRefresh);

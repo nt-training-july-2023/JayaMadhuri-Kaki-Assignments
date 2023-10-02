@@ -13,8 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import com.capstone.assessmentPortal.dto.Option;
 import com.capstone.assessmentPortal.dto.QuestionDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
@@ -36,10 +34,10 @@ class QuestionControllerTest {
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         List<QuestionDto> questionlist = new ArrayList<>();
         when(questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionlist);
-        ResponseEntity<CustomResponse<List<QuestionDto>>> response = questionController.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(questionlist,response.getBody().getResponseData());
-        assertEquals("Successfully Retrieved Questions By Quiz Id",response.getBody().getMessage());
+        CustomResponse<List<QuestionDto>> response = questionController.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(questionlist,response.getResponseData());
+        assertEquals("Successfully Retrieved Questions By Quiz Id",response.getMessage());
     }
 
     @Test
@@ -47,10 +45,10 @@ class QuestionControllerTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         when(questionService.addQuestion(questionDto)).thenReturn(questionDto);
-        ResponseEntity<CustomResponse<QuestionDto>> response = questionController.addQuestion(questionDto);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Question Successfully Added",response.getBody().getMessage());
+        CustomResponse<QuestionDto> response = questionController.addQuestion(questionDto);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Question Successfully Added",response.getMessage());
     }
 
     @Test
@@ -58,19 +56,19 @@ class QuestionControllerTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         when(questionService.updateQuestion(questionId,questionDto)).thenReturn(questionDto);
-        ResponseEntity<CustomResponse<QuestionDto>> response = questionController.updateQuestion(questionId,questionDto);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Question Successfully Updated",response.getBody().getMessage());
+        CustomResponse<QuestionDto> response = questionController.updateQuestion(questionId,questionDto);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Question Successfully Updated",response.getMessage());
     }
 
     @Test
     void testDeleteQuestion() {
         Long questionId = 1L;
-        ResponseEntity<CustomResponse<QuestionDto>> response = questionController.deleteQuestion(questionId);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Question Successfully Deleted",response.getBody().getMessage());
+        CustomResponse<QuestionDto> response = questionController.deleteQuestion(questionId);
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(null,response.getResponseData());
+        assertEquals("Question Successfully Deleted",response.getMessage());
     }
 
 }

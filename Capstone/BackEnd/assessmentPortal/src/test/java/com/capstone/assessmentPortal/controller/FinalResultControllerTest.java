@@ -16,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import com.capstone.assessmentPortal.dto.FinalResultsDto;
 import com.capstone.assessmentPortal.response.CustomResponse;
 import com.capstone.assessmentPortal.service.serviceImplementation.FinalResultServiceImplementation;
@@ -50,14 +48,14 @@ class FinalResultControllerTest {
         
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResults()).thenReturn(list);
-        ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController.getFinalResults();
+        CustomResponse<List<FinalResultsDto>> response = finalResultController.getFinalResults();
         CustomResponse<List<FinalResultsDto>> res = new CustomResponse<List<FinalResultsDto>>(); 
         res.setMessage("Successfully Retrieved");
         res.setStatusCode(200);
         res.setResponseData(list);
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(list,response.getBody().getResponseData());
-        assertEquals("Results Successfully Retrieved",response.getBody().getMessage());
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(list,response.getResponseData());
+        assertEquals("Results Successfully Retrieved",response.getMessage());
     }
     @Test
     void testGetAllFinalResultByStudentId() {
@@ -74,10 +72,10 @@ class FinalResultControllerTest {
         
         List<FinalResultsDto> list = new ArrayList<>();
         when(finalResults.getFinalResultByStudentEmail(finalDto.getStudentEmailId())).thenReturn(list);
-        ResponseEntity<CustomResponse<List<FinalResultsDto>>> response = finalResultController
+        CustomResponse<List<FinalResultsDto>> response = finalResultController
                 .getFinalResultByStudentEmail(finalDto.getStudentEmailId());
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(list,response.getBody().getResponseData());
-        assertEquals("Results Successfully Retrieved",response.getBody().getMessage());
+        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
+        assertEquals(list,response.getResponseData());
+        assertEquals("Results Successfully Retrieved",response.getMessage());
     }
 }
