@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/NavBar.scss';
-import { FaBars } from 'react-icons/fa'
+import { FaBars, FaSignOutAlt, FaHome, FaUserCircle, FaDeezer } from 'react-icons/fa'
 import Category from '../category/Category'
 import Profile from '../profile/Profile'
 import Results from '../results/Results'
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
-import logo from '../../assests/images/loginAndRegister/logo.svg';
-import FormButton from '../../components/button/FormButton';
-import Text from '../../components/sweetAlert/Text';
-import LogOut from '../../components/sweetAlert/LogOut';
+import logo from '../../assets/images/loginAndRegister/logo.svg';
+import Button from '../../components/button/Button';
+import Alert from '../../components/sweetAlert/Alert';
 
 const Navbar = (props) => {
     const { setRenderComponent, userDetails} = props
@@ -37,14 +36,14 @@ const Navbar = (props) => {
     }
     const handleLogOut = () => {
         setIsNavExpanded(false)
-        LogOut.render(setRenderComponent)
+        Alert.LogOut(setRenderComponent)
     }
     useEffect(() => {
         if( Object.keys(userDetails).length > 0){
             if (role === "Admin") {
-                Text.render(sweetAlertMessages.WELCOME)
+                Alert.Text(sweetAlertMessages.WELCOME)
             } else {
-                Text.render(`WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`)
+                Alert.Text(`WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`)
             }
         }
     }, [])
@@ -58,12 +57,12 @@ const Navbar = (props) => {
                 <div className={
                     isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
                 }>
-                    <FormButton onClick={toggleMenu} className='close-icon'>
+                    <Button onClick={toggleMenu} className='close-icon'>
                        X
-                    </FormButton>
+                    </Button>
                     <ul>
                         <li>
-                            <FormButton onClick={() => {
+                            <Button onClick={() => {
                                 handleButtonClick('category')
                                 localStorage.setItem("Current_SubWindow","category")
                                 setIsNavExpanded(false)
@@ -72,35 +71,35 @@ const Navbar = (props) => {
                                         ? 'active'
                                         : ''
                                     }`}>
-                                Home
-                            </FormButton>
+                                <label className='nav-button-icon'>Home<FaHome className="nav-icons"/></label>
+                            </Button>
                         </li>
                         <li>
-                            <FormButton onClick={() => { 
+                            <Button onClick={() => { 
                                 handleButtonClick('results'); 
                                 setIsNavExpanded(false)
                                 localStorage.setItem("Current_SubWindow","results")
                              }}
                                 className={`nav-button ${activeButton === "results" ? 'active' : ''
                                     }`} disabled={enable}>
-                                Results
-                            </FormButton>
+                                <label className='nav-button-icon'>Results<FaDeezer className="nav-icons"/></label>
+                            </Button>
                         </li>
                         <li>
-                            <FormButton onClick={() => { 
+                            <Button onClick={() => { 
                                 handleButtonClick('profile'); 
                                 setIsNavExpanded(false)
                                 localStorage.setItem("Current_SubWindow","profile")
                              }}
                                 className={`nav-button ${activeButton === "profile" ? 'active' : ''
                                     }`} disabled={enable}>
-                                Profile
-                            </FormButton>
+                               <label className='nav-button-icon'>Profile<FaUserCircle className="nav-icons"/></label>
+                            </Button>
                         </li>
                         <li>
-                            <FormButton onClick={handleLogOut} className="nav-button" disabled={enable}>
-                                Logout
-                            </FormButton>
+                            <Button onClick={handleLogOut} className="nav-button" disabled={enable}>
+                                <label className='nav-button-icon'>Logout<FaSignOutAlt className="nav-icons"/></label>
+                            </Button>
                         </li>
                     </ul>
                 </div>

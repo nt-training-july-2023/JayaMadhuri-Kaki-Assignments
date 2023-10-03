@@ -1,6 +1,6 @@
 .body {
   align-items: center;
-  background-image: url("../assests/images/loginAndRegister/background-img.jpeg");
+  background-image: url("../assets/images/loginAndRegister/background-img.jpeg");
   display: flex;
   justify-content: center;
   width:100%;
@@ -43,13 +43,16 @@
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
-    color: #eee;
     font-size: 18px;
     height: 40px;
+    color: white;
     outline: 0;
     padding: 4px 20px 0;
     width: 100%;
     flex-grow: 1;
+  }
+  .input-date-color{
+    color:grey;
   }
   .input::-webkit-calendar-picker-indicator {
     filter: invert(1)

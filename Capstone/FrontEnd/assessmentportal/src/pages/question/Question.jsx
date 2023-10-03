@@ -5,7 +5,7 @@ import AddUpdateQuestion from './AddUpdateQuestion'
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CommonTable from '../../components/table/CommonTable';
 import Heading from '../../components/heading/Heading';
-import Warning from '../../components/sweetAlert/Warning';
+import Alert from '../../components/sweetAlert/Alert';
 
 const Question = (props) => {
     const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName } = props
@@ -48,7 +48,7 @@ const Question = (props) => {
                 setLoading(true)
             }).catch(error => {
                 setLoading(true)
-                Warning.render(sweetAlertMessages.ERROR_GETTING_LIST)
+                Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
             })
     }
     useEffect(() => {

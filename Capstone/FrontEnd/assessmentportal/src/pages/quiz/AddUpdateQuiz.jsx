@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import '../../styles/Category.scss';
 import QuizUrl from '../../service/Url';
 import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
-import TextInput from '../../components/input/TextInput';
-import NumberInput from '../../components/input/NumberInput';
-import FormButton from '../../components/button/FormButton';
-import Success from '../../components/sweetAlert/Success';
-import Warning from '../../components/sweetAlert/Warning';
+import Input from '../../components/input/Input';
+import Button from '../../components/button/Button';
+import Alert from '../../components/sweetAlert/Alert';
 
 const AddUpdateQuiz = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -21,13 +19,13 @@ const AddUpdateQuiz = (props) => {
                 QuizUrl.addQuiz(quizDetails)
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
-                            Success.render(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
+                            Alert.Success(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
                             fetchData();
                             setPopUp(false);
                         }
                     }).catch(error => {
                         if (error?.response?.status === 409) {
-                            Warning.render(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
+                            Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         }
                     })
 
@@ -47,15 +45,15 @@ const AddUpdateQuiz = (props) => {
                 QuizUrl.updateQuiz(initialValues.subCategoryId, quizDetails)
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
-                            Success.render(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
+                            Alert.Success(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                             fetchData();
                             setPopUp(false);
                         }
                     }).catch(error => {
                         if (error?.response?.status === 409) {
-                            Warning.render(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
+                            Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         } else {
-                            Warning.render(sweetAlertMessages.SOMETHING_WENT_WRONG)
+                            Alert.Warning(sweetAlertMessages.SOMETHING_WENT_WRONG)
                         }
                     })
             } else {
@@ -93,13 +91,13 @@ const AddUpdateQuiz = (props) => {
     return (
         <div className="category-form-container quiz-top-margin">
             <h1 className="category-form-title">{title}</h1>
-            <TextInput className='form-input' name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange} />
+            <Input type="text" className='form-input' name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange} />
             <p className='category-quiz-errors'>{error}</p>
-            <NumberInput value={quizDetails?.timeLimitInMinutes} onChange={handleChange} />
+            <Input type="number"  name="timeLimitInMinutes" placeholder="Enter Time Limit(In Minutes)" className="form-input" value={quizDetails?.timeLimitInMinutes} onChange={handleChange} />
             <p className='category-quiz-errors'>{timeError}</p>
-            <TextInput className='form-input' name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
-            <FormButton className='form-button' onClick={handleClick}>{title == "Add Quiz" ? "Add" : "Update"}</FormButton>
-            <FormButton className='form-button' onClick={() => { setPopUp(false) }}>Close</FormButton>
+            <Input  type="text" className='form-input' name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
+            <Button className='form-button' onClick={handleClick}>{title == "Add Quiz" ? "Add" : "Update"}</Button>
+            <Button className='form-button' onClick={() => { setPopUp(false) }}>Close</Button>
         </div>
     )
 }

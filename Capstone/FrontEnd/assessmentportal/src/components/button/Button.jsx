@@ -1,5 +1,5 @@
 
-const CardButton = (props) =>{
+const Button = (props) =>{
     const {className, onClick, children,onMouseDown}  = props;
     return(
         <div>
@@ -13,4 +13,4 @@ const CardButton = (props) =>{
         </div>
     )
 }
-export default CardButton;
+export default Button;

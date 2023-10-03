@@ -3,12 +3,10 @@ import '../../styles/Login.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../service/Url';
 import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
-import EmailInput from '../../components/input/EmailInput';
-import PasswordInput from '../../components/input/PasswordInput';
-import FormButton from '../../components/button/FormButton';
-import logo from '../../assests/images/loginAndRegister/logo.svg';
-import Success from '../../components/sweetAlert/Success';
-import Warning from '../../components/sweetAlert/Warning';
+import Input from '../../components/input/Input';
+import Button from '../../components/button/Button';
+import logo from '../../assets/images/loginAndRegister/logo.svg';
+import Alert from '../../components/sweetAlert/Alert';
 
 const Login = (props) => {
     const { setRenderComponent, setUserDetails } = props;
@@ -60,26 +58,26 @@ const Login = (props) => {
                         localStorage.setItem("Current_SubWindow","category")
                         localStorage.setItem("LastVisited_Window","login");
                         if (response?.data?.responseData?.UserType === "Admin") {
-                            Success.render(sweetAlertMessages.LOGIN_SUCCESS)
+                            Alert.Success(sweetAlertMessages.LOGIN_SUCCESS)
                             setTimeout(function () {
                                 setRenderComponent("navbar")
                             }, 1500);
                             setUserDetails(response?.data?.responseData);
                         } else if (response?.data?.responseData?.UserType === "Student") {
-                            Success.render(sweetAlertMessages.LOGIN_SUCCESS)
+                            Alert.Success(sweetAlertMessages.LOGIN_SUCCESS)
                             setTimeout(function () {
                                 setRenderComponent("navbar")
                             }, 1500);
                             setUserDetails(response?.data?.responseData);
                         } else {
-                            Warning.render(sweetAlertMessages.SOMETHING_WENT_WRONG)
+                            Alert.Warning(sweetAlertMessages.SOMETHING_WENT_WRONG)
                         }
                     }
                 }).catch(error => {
                     if (error?.response?.status == 401) {
-                        Warning.render(sweetAlertMessages.INCORRECT_CREDENTIALS)
+                        Alert.Warning(sweetAlertMessages.INCORRECT_CREDENTIALS)
                     } else if (error?.message == "Network Error") {
-                        Warning.render(sweetAlertMessages.NETWORK_ERROR)
+                        Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
                     }
                 })
         }
@@ -110,18 +108,18 @@ const Login = (props) => {
                 <h1 className='title'>Login</h1>
                 <div className="assessment-heading">ASSESSMENT PORTAL</div>
                 <div className='para'>NucleusTeq Members Can Log In Here To Access<br />The Online Assessments</div>
-                <EmailInput onChange={handleChange}/>
+                <Input className="input" type="email" name="emailId" placeholder="Email Id" onChange={handleChange}/>
                 <b><p className='errors'>{emailError}</p></b>
                 <div className='password-container'>
-                    <PasswordInput type={passwordVisible ? 'password' : 'text'} placeholder="Password" onChange={handleChange} name='password'/>
-                    <FormButton className="toggle-password" onClick={togglePasswordVisible} >
+                    <Input type={passwordVisible ? 'password' : 'text'} placeholder="Password" onChange={handleChange} name='password' className="input"/>
+                    <Button className="toggle-password" onClick={togglePasswordVisible} >
                         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                    </FormButton>
+                    </Button>
                 </div>
                 <b><p className='errors'>{passwordError}</p></b>
                 <div>
-                    <FormButton className='login-button' onClick={handleLogin}><b>Login</b></FormButton>
-                    <p className='register-button'><b>Not having an account! </b> <FormButton onClick={handleClick} className='click-button'><b>Click here</b></FormButton></p>
+                    <Button className='login-button' onClick={handleLogin}><b>Login</b></Button>
+                    <p className='register-button'><b>Not having an account! </b> <Button onClick={handleClick} className='click-button'><b>Click here</b></Button></p>
                 </div>
             </div>
         </div>

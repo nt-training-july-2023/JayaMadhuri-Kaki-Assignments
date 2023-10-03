@@ -1,12 +1,13 @@
-import FormButton from "../button/FormButton";
+import Button from "../button/Button";
+import {FaPlus, FaBackward} from 'react-icons/fa'
 
 const Heading = (props) => {
     const {className, onClick, buttonName, headingText, userDetails, backButton, backClassName, backOnClick, backButtonName, question} = props;
     return(
         <div>
-            {userDetails?.UserType === "Admin" && <FormButton className={className} onClick={onClick}>{buttonName}</FormButton>}
-            {backButton && <FormButton className={backClassName} onClick={backOnClick}>{backButtonName}</FormButton>}
-            {question && <FormButton className={backClassName} onClick={backOnClick}>{backButtonName}</FormButton>}
+            {userDetails?.UserType === "Admin" && <Button className={className} onClick={onClick}><FaPlus className="icons"/>{buttonName}</Button>}
+            {backButton && <Button className={backClassName} onClick={backOnClick}><FaBackward className="icons"/>{backButtonName}</Button>}
+            {question && <Button className={backClassName} onClick={backOnClick}><FaBackward className="icons"/>{backButtonName}</Button>}
             <h1 className='category-title'>{headingText}</h1>
             <hr />
         </div>

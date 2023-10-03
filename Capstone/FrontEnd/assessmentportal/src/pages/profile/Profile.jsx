@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/Profile.scss';
 import UsersUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
-import maleProfileImage from '../../assests/images/profile/male-profile.jpg';
-import femaleProfileImage from '../../assests/images/profile/female-profile.jpg';
-import Warning from '../../components/sweetAlert/Warning';
-
+import maleProfileImage from '../../assets/images/profile/male-profile.jpg';
+import femaleProfileImage from '../../assets/images/profile/female-profile.jpg';
+import Alert from '../../components/sweetAlert/Alert';
 const Profile = ({ userDetails }) => {
     const [details, setDetails] = useState({});
     const handleUserDetails = async () => {
@@ -17,7 +16,7 @@ const Profile = ({ userDetails }) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
+                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }

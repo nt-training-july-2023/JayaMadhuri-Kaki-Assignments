@@ -4,9 +4,7 @@ import '../../styles/Question.scss';
 import Url from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import Heading from '../../components/heading/Heading';
-import Warning from '../../components/sweetAlert/Warning';
-import Success from '../../components/sweetAlert/Success';
-import Info from '../../components/sweetAlert/Info';
+import Alert from '../../components/sweetAlert/Alert';
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
@@ -28,7 +26,7 @@ const QuestionForStudent = (props) => {
                 setQuestion(response?.data?.responseData);
                 localStorage.setItem('question', btoa(JSON.stringify(response?.data?.responseData)));
             }).catch(error => {
-                Warning.render(sweetAlertMessages.ERROR_GETTING_LIST)
+                Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
             })
     };
     const handleAnswerClick = (questionId, optionValue) => {
@@ -44,7 +42,7 @@ const QuestionForStudent = (props) => {
         if (attemptedQuestions > 0) {
             checkAnswers();
         }else{
-            Warning.render(sweetAlertMessages.ATTEMPT_QUIZ)
+            Alert.Warning(sweetAlertMessages.ATTEMPT_QUIZ)
         }
     }
     const checkAnswers = () => {
@@ -65,7 +63,7 @@ const QuestionForStudent = (props) => {
             totalQuestions: question?.length,
             numOfAttemptedQuestions: attemptedQuestions
         }
-        Success.render(sweetAlertMessages.SUBMITTED_SUCCESS)
+        Alert.Success(sweetAlertMessages.SUBMITTED_SUCCESS)
         handleResults(payload);
         setTimeout(function () {
             setEnable(false)
@@ -82,7 +80,7 @@ const QuestionForStudent = (props) => {
     Url.addResults(results)
         .then(response => {
         }).catch(error => {
-            Warning.render(sweetAlertMessages.PLEASE_ATTEMPT_QUIZ)
+            Alert.Warning(sweetAlertMessages.PLEASE_ATTEMPT_QUIZ)
             setTimeout(function () {
                 setEnable(false)
                 setShowQuestion(false)
@@ -109,7 +107,7 @@ const QuestionForStudent = (props) => {
         if (reloadCount) {
         incrementReloadCount();
         setIsRunning(false)
-        Info.render(setShowQuestion,setEnable,checkAnswers,setIsRunning)
+        Alert.Info(setShowQuestion,setEnable,checkAnswers,setIsRunning)
         }
     }, []);
     useEffect(()=>{

@@ -3,7 +3,7 @@ import '../../styles/Question.scss';
 import FinalResultsUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CommonTable from '../../components/table/CommonTable';
-import Warning from '../../components/sweetAlert/Warning';
+import Alert from '../../components/sweetAlert/Alert';
 
 const Results = ({ userDetails }) => {
     const [results, setResults] = useState([]);
@@ -15,7 +15,7 @@ const Results = ({ userDetails }) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
+                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }
@@ -27,7 +27,7 @@ const Results = ({ userDetails }) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
+                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }

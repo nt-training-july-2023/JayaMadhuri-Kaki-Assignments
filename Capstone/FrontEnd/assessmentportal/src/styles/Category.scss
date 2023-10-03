@@ -14,15 +14,21 @@
 }
 .category-card {
   padding: 20px;
+  overflow: hidden;
   margin-left: 60px;
   border-radius: 5px;
   background-color: #31334e;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  width: 300px; 
+  width: 300px;
+  height: fit-content;
+  min-height: 200px;
   @media screen and (max-width:430px){
     margin-left:10px;
     margin-top: 10px;
   }
+}
+.category-card::-webkit-scrollbar{
+    width: 30px; 
 }
 .category-card:hover{
     cursor: pointer;
@@ -51,6 +57,35 @@
     text-align: center;
     margin-top: 150px;
 
+}
+.long-description{
+  max-height: 80px;
+  overflow-x: auto; 
+}
+.short-description{
+    height: fit-content;
+    min-height: 65px;
+}
+.description{
+   overflow-wrap: break-word;
+   color:white;
+}
+.long-description::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+}  
+.long-description::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 4px;
+}
+.long-description::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.read-more{
+    background: none;
+    border:0;
+    color:white;
+    cursor: pointer;
 }
 .addcategory-button{
     position: absolute;
@@ -106,6 +141,7 @@
 }
 .categorycard-buttons-div{
     display:flex;
+    margin-top: 25px;
     @media screen and (max-width:378px){
        display: block;
     }
@@ -121,8 +157,7 @@
 .categorycard-button-update{
     height:40px;
     margin-right: 10px;
-    padding-left:40px;
-    padding-right: 40px;
+    width:140px;
     @media screen and (max-width:378px){
         width:100%;
     }
@@ -132,8 +167,7 @@
 }
 .categorycard-button-delete{
     height:40px;
-    padding-left:45px;
-    padding-right: 45px;
+    width:140px;
     @media screen and (max-width:378px){
         width:100%;
         margin-top: 5px;
@@ -206,4 +240,9 @@
 }
 .custom-button-text{
     width:100px;
+}
+.icons{
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
 }

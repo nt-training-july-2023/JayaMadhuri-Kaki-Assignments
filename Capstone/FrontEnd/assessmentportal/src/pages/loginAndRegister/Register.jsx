@@ -3,15 +3,10 @@ import '../../styles/Register.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../service/Url';
 import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
-import EmailInput from '../../components/input/EmailInput';
-import PasswordInput from '../../components/input/PasswordInput';
-import TextInput from '../../components/input/TextInput';
-import DateInput from '../../components/input/DateInput';
-import RadioInput from '../../components/input/RadioInput';
-import FormButton from '../../components/button/FormButton';
-import logo from '../../assests/images/loginAndRegister/logo.svg';
-import Success from '../../components/sweetAlert/Success';
-import Warning from '../../components/sweetAlert/Warning';
+import Input from '../../components/input/Input';
+import Button from '../../components/button/Button';
+import logo from '../../assets/images/loginAndRegister/logo.svg';
+import Alert from '../../components/sweetAlert/Alert';
 
 const Register = (props) => {
   const { setRenderComponent } = props;
@@ -110,6 +105,8 @@ const Register = (props) => {
         setRegisterRequestBody({ ...registerRequestBody, firstName: value });
         if (!value) {
           setErrors({ ...errors, firstName: errorMessages.FIRST_NAME_REQUIRED });
+        } else if(value.trim() == ""){
+          setErrors({ ...errors, firstName: errorMessages.FIRST_NAME_REQUIRED });
         } else {
           setErrors({ ...errors, firstName: "" });
         }
@@ -118,6 +115,8 @@ const Register = (props) => {
       case "lastName":
         setRegisterRequestBody({ ...registerRequestBody, lastName: value });
         if (!value) {
+          setErrors({ ...errors, lastName: errorMessages.LAST_NAME_REQUIRED });
+        }  else if(value.trim() == ""){
           setErrors({ ...errors, lastName: errorMessages.LAST_NAME_REQUIRED });
         } else {
           setErrors({ ...errors, lastName: "" });
@@ -160,9 +159,9 @@ const Register = (props) => {
             }
           }).catch(error => {
             if (error?.response?.status == 409) {
-              Warning.render(sweetAlertMessages.EMAIL_ALREADY_EXISTS)
+              Alert.Warning(sweetAlertMessages.EMAIL_ALREADY_EXISTS)
             }else{
-              Warning.render(sweetAlertMessages.NETWORK_ERROR)
+              Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
             }
           })
       } else {
@@ -182,7 +181,7 @@ const Register = (props) => {
     UsersUrl.userRegistration(finalValues)
       .then(response => {
         if (response?.data?.statusCode == 200) {
-          Success.render(sweetAlertMessages.LOGIN_SUCCESS,sweetAlertMessages.LOGIN_REDIRECT)
+          Alert.Success(sweetAlertMessages.LOGIN_SUCCESS,sweetAlertMessages.LOGIN_REDIRECT)
           setTimeout(function () {
             setRenderComponent("login")
           }, 1500)
@@ -190,12 +189,12 @@ const Register = (props) => {
       })
       .catch(error => {
         if (error?.message == "Network Error") {
-          Warning.render(sweetAlertMessages.NETWORK_ERROR)
+          Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
         } else if(error?.response?.data?.message == "Age should be atleast 18 years old"){
-          Warning.render(sweetAlertMessages.AGE_VALIDATION)
+          Alert.Warning(sweetAlertMessages.AGE_VALIDATION)
         }
         else{
-          Warning.render(sweetAlertMessages.ALL_FIELDS_REQUIRED)
+          Alert.Warning(sweetAlertMessages.ALL_FIELDS_REQUIRED)
         }
       })
   }
@@ -210,7 +209,7 @@ const Register = (props) => {
         dateOfBirthError = errorMessages.DATE_OF_BIRTH_REQUIRED
       default:
         setErrors({ ...errors, firstName: firstNameError, lastName: lastNameError, dateOfBirth: dateOfBirthError });
-        if(errors.firstName === "" && errors.lastName === "" && errors.dateOfBirth === "" && registerRequestBody?.firstName.length > 1){
+        if(errors.firstName === "" && errors.lastName === "" && errors.dateOfBirth === ""){
           handleRegister();
         }
     }
@@ -261,36 +260,36 @@ const Register = (props) => {
       </div>
       <div className="form">
         <h1 className='title'>Sign Up</h1>
-        {flags?.emailIdFlag && <><EmailInput value={registerRequestBody?.emailId} onChange={handleChange}/>
+        {flags?.emailIdFlag && <><Input className="input" type="email" name="emailId" placeholder="Email Id" value={registerRequestBody?.emailId} onChange={handleChange}/>
           <b><p className='error'>{errors.emailId}</p></b></>}
-        {flags?.passwordFlag && <><div className="password-container"><PasswordInput type={passwordVisible ? 'password' : 'text'} name="password" placeholder="Password" value={registerRequestBody?.password} onChange={handleChange}/>
-          <FormButton className="toggle-password" onClick={togglePasswordVisible}>
+        {flags?.passwordFlag && <><div className="password-container"><Input type={passwordVisible ? 'password' : 'text'} className="input" name="password" placeholder="Password" value={registerRequestBody?.password} onChange={handleChange}/>
+          <Button className="toggle-password" onClick={togglePasswordVisible}>
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-          </FormButton>
+          </Button>
         </div>
           <b><p className='error'>{errors.password}</p></b>
-          <div className="password-container"><PasswordInput type={confirmPasswordVisible ? 'password' : 'text'} name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} value={registerRequestBody?.confirmPassword}/>
-            <FormButton className="toggle-password" onClick={toggleConfirmPasswordVisible}>
+          <div className="password-container"><Input type={confirmPasswordVisible ? 'password' : 'text'} className="input" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} value={registerRequestBody?.confirmPassword}/>
+            <Button className="toggle-password" onClick={toggleConfirmPasswordVisible}>
               {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-            </FormButton>
+            </Button>
           </div>
           <b><p className='error'>{errors.confirmPassword}</p></b> </>}
-        {flags?.detailsFlag && <><TextInput name="firstName" placeholder="First Name" onChange={handleChange} value={registerRequestBody?.firstName} className='input' />
+        {flags?.detailsFlag && <><Input type="text" name="firstName" placeholder="First Name" onChange={handleChange} value={registerRequestBody?.firstName} className='input' />
           <b><p className='error'>{errors.firstName}</p></b>
-          <TextInput name="lastName" placeholder="Last Name" onChange={handleChange} value={registerRequestBody?.lastName} className='input' />
+          <Input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} value={registerRequestBody?.lastName} className='input' />
           <b><p className='error'>{errors.lastName}</p></b>
-          <DateInput onChange={handleChange} value={registerRequestBody?.dateOfBirth}/>
+          <Input type="date" name="dateOfBirth" className={registerRequestBody?.dateOfBirth ? 'input': 'input input-date-color'} onChange={handleChange} value={registerRequestBody?.dateOfBirth}/>
           <b><p className='error'>{errors.dateOfBirth}</p></b>
           <div className='radio-div'>
-            <RadioInput onChange={handleChangeRadio} value="male" checked="true"/><b>Male</b>
-            <RadioInput onChange={handleChangeRadio} value="female" /><b>Female</b>
-            <RadioInput onChange={handleChangeRadio} value="others" /><b>Others</b>
+            <Input type="radio" name="gender" onChange={handleChangeRadio} value="male" checked="true"/><b>Male</b>
+            <Input type="radio" name="gender" onChange={handleChangeRadio} value="female" /><b>Female</b>
+            <Input type="radio" name="gender" onChange={handleChangeRadio} value="others" /><b>Others</b>
           </div></>}
         <div className='button-div'>
-          <FormButton className='login-button' onClick={handleCommonButtonClick}><b>{buttonName}</b></FormButton>
-          {(flags?.passwordFlag || flags?.detailsFlag) && <FormButton className='login-button'
-            onClick={handleBack}><b>Back</b></FormButton>}
-          <p className='register-button'> <b>Having an Account!</b> <FormButton onClick={handleClick} className='click-button'><b>Click here</b></FormButton></p>
+          <Button className='login-button' onClick={handleCommonButtonClick}><b>{buttonName}</b></Button>
+          {(flags?.passwordFlag || flags?.detailsFlag) && <Button className='login-button'
+            onClick={handleBack}><b>Back</b></Button>}
+          <p className='register-button'> <b>Having an Account!</b> <Button onClick={handleClick} className='click-button'><b>Click here</b></Button></p>
         </div>
       </div>
     </div>

@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import '../../styles/Question.scss';
 import QuestionUrl from '../../service/Url'
 import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
-import TextInput from '../../components/input/TextInput'
-import FormButton from '../../components/button/FormButton'
-import Success from '../../components/sweetAlert/Success';
-import Warning from '../../components/sweetAlert/Warning';
+import Input from '../../components/input/Input'
+import Button from '../../components/button/Button'
+import Alert from '../../components/sweetAlert/Alert';
 
 const AddUpdateQuestion = (props) => {
     const { titleQuestion, setPopUp, initialValues, fetchData } = props
@@ -25,15 +24,15 @@ const AddUpdateQuestion = (props) => {
         QuestionUrl.addQuestion(questionDetails)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
-                    Success.render(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
+                    Alert.Success(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
                     fetchData();
                     setPopUp(false)
                 }
             }).catch(error => {
                 if (error?.response?.status === 409) {
-                    Warning.render(sweetAlertMessages.OPTIONS_DIFFERENT)
+                    Alert.Warning(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else{
-                    Warning.render(sweetAlertMessages.ALL_FIELDS_REQUIRED)
+                    Alert.Warning(sweetAlertMessages.ALL_FIELDS_REQUIRED)
                 }
             })
     }
@@ -41,15 +40,15 @@ const AddUpdateQuestion = (props) => {
         QuestionUrl.updateQuestion(initialValues.questionId, questionDetails)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
-                    Success.render(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
+                    Alert.Success(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                     fetchData();
                     setPopUp(false)
                 }
             }).catch(error => {
                 if (error?.response?.status === 409) {
-                    Warning.render(sweetAlertMessages.OPTIONS_DIFFERENT)
+                    Alert.Warning(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else{
-                    Warning.render(sweetAlertMessages.ALL_FIELDS_REQUIRED)
+                    Alert.Warning(sweetAlertMessages.ALL_FIELDS_REQUIRED)
                 }
             })
     }
@@ -150,18 +149,18 @@ const AddUpdateQuestion = (props) => {
         <div className='question-container-wrapper'>
         <div className="question-form-container">
             <h1 className="question-form-title">{titleQuestion}</h1>
-            <TextInput className='question-input' name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
+            <Input type="text" className='question-input' name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
             <p className='question-errors'>{errors.questionContent}</p>
-            <TextInput className='question-input' name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
+            <Input type="text" className='question-input' name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
             <p className='question-errors'>{errors.optionA}</p>
-            <TextInput className='question-input' name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
+            <Input type="text" className='question-input' name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
             <p className='question-errors'>{errors.optionB}</p>
-            <TextInput className='question-input' name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
+            <Input type="text" className='question-input' name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
             <p className='question-errors'>{errors.optionC}</p>
-            <TextInput className='question-input' name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
+            <Input type="text" className='question-input' name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
             <p className='question-errors'>{errors.optionD}</p>
             <div className="custom-input question-input">
-                <TextInput
+                <Input type="text"
                     className='options-input'
                     placeholder='Click arrow to enter correct answer'
                     value={questionDetails?.correctAnswer || ""}
@@ -170,8 +169,8 @@ const AddUpdateQuestion = (props) => {
                 <button className="arrow-button" onClick={() => handleOptionChange("down")}>&#9660;</button>
             </div>
             <p className='question-errors'>{errors.correctAnswer}</p>
-            <FormButton className='question-form-button' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</FormButton>
-            <FormButton className='question-form-button' onClick={() => { setPopUp(false) }}>Close</FormButton>
+            <Button className='question-form-button' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</Button>
+            <Button className='question-form-button' onClick={() => { setPopUp(false) }}>Close</Button>
         </div>
         </div>
     )
