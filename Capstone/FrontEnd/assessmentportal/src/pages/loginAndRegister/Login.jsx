@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../../styles/Login.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../service/Url';
-import {sweetAlertMessages}  from "../../constants/ValidationMessages"
+import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
 import EmailInput from '../../components/input/EmailInput';
 import PasswordInput from '../../components/input/PasswordInput';
 import FormButton from '../../components/button/FormButton';
@@ -31,7 +31,7 @@ const Login = (props) => {
         const { name, value } = e.target;
         if (name === "emailId") {
             if (!value) {
-                setEmailError('Email Required');
+                setEmailError(errorMessages.EMAIL_REQUIRED);
             }
             else {
                 setEmailError('');
@@ -40,7 +40,7 @@ const Login = (props) => {
         }
         else if (name === "password") {
             if (!value) {
-                setPasswordError('Password Required');
+                setPasswordError(errorMessages.PASSWORD_REQUIRED);
             }
             else {
                 setPasswordError('');
@@ -84,16 +84,16 @@ const Login = (props) => {
                 })
         }
         else if (finalValues.emailId.length != 0) {
-            setPasswordError('Password Required');
+            setPasswordError(errorMessages.PASSWORD_REQUIRED);
             setEmailError('');
         }
         else if (finalValues.password.length != 0) {
-            setEmailError('Email Required');
+            setEmailError(errorMessages.EMAIL_REQUIRED);
             setPasswordError('');
         }
         else {
-            setPasswordError('Password Required');
-            setEmailError('Email Required');
+            setPasswordError(errorMessages.PASSWORD_REQUIRED);
+            setEmailError(errorMessages.EMAIL_REQUIRED);
         }
     }
     const handleClick = () => {
@@ -120,8 +120,8 @@ const Login = (props) => {
                 </div>
                 <b><p className='errors'>{passwordError}</p></b>
                 <div>
-                    <FormButton className='login-btn' onClick={handleLogin}><b>Login</b></FormButton>
-                    <p className='register-btn'><b>Not having an account! </b> <FormButton onClick={handleClick} className='click-btn'><b>Click here</b></FormButton></p>
+                    <FormButton className='login-button' onClick={handleLogin}><b>Login</b></FormButton>
+                    <p className='register-button'><b>Not having an account! </b> <FormButton onClick={handleClick} className='click-button'><b>Click here</b></FormButton></p>
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@ const Category = (props) => {
     return (
         <div>
             {!showQuiz && <div>
-                <Heading className="addcategory-btn" onClick={handleAdd} buttonName="Add Category" headingText="Category" userDetails={userDetails}/>
+                <Heading className="addcategory-button" onClick={handleAdd} buttonName="Add Category" headingText="Category" userDetails={userDetails}/>
             </div>}
             {showQuiz ? (
                 <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable} selectedName={selectedName}/>
@@ -56,7 +56,7 @@ const Category = (props) => {
                     {loading && <>
                     {category?.length > 0 ? (
                     <div className={popUp && 'display-none'}>
-                        <div className="category-container card-margin-category"> 
+                        <div className="category-container category-card-margin"> 
                             {category.map((item) => (
                                 <div key={item.categoryId} className="category-card" onClick={() => {
                                     setShowQuiz(true);
@@ -68,18 +68,18 @@ const Category = (props) => {
                                  }}>
                                     <p>Name: {item.categoryName}</p>
                                     <p>Description: {item.categoryDescription}</p>
-                                    {userDetails?.UserType === "Admin" && <div className='button-categorycard'>
+                                    {userDetails?.UserType === "Admin" && <div className='categorycard-buttons-div'>
                                         <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                             setPopUp(true)
                                             event.stopPropagation()
                                             let updateInitialValues = { categoryId: item?.categoryId, categoryName: item?.categoryName, categoryDescription: item?.categoryDescription }
                                             setInitialValues(updateInitialValues)
                                             setTitle("Update Category")
-                                        }} className='category-btn category-btn1'>Update</CardButton>
+                                        }} className='categorycard-button categorycard-button-update'>Update</CardButton>
                                         <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                             event.stopPropagation()
                                             Delete.render(fetchData,item.categoryId,false,false,true)
-                                        }} className='category-btn category-btn2'>Delete</CardButton>
+                                        }} className='categorycard-button categorycard-button-delete'>Delete</CardButton>
                                     </div>}
                                 </div>
                             ))}

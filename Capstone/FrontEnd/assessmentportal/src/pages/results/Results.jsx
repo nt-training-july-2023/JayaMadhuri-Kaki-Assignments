@@ -73,7 +73,7 @@ const Results = ({ userDetails }) => {
                 {results.length > 0 ? (
                     <CommonTable columns={columns} data={results.reverse()} rows={rows}/>
                 ) : (
-                    <h2 style={{ textAlign: "center", color: "#31334e" }}>No Results</h2>
+                    <h2 className='h2-no-list'>No Results</h2>
                 )}
             </div>
         </div>

@@ -83,8 +83,8 @@ const Quiz = (props) => {
             {!showQuestion &&
                 <>
                     <div>
-                        <Heading className="addcategory-btn" onClick={handleAdd} buttonName="Add Quiz" headingText="Quiz" userDetails={userDetails}
-                            backButton={true} backButtonName="Back" backClassName={userDetails?.UserType === "Admin" ? ('backquiz-btn') : ('addcategory-btn')}
+                        <Heading className="addcategory-button" onClick={handleAdd} buttonName="Add Quiz" headingText="Quiz" userDetails={userDetails}
+                            backButton={true} backButtonName="Back" backClassName={userDetails?.UserType === "Admin" ? ('backquiz-button') : ('addcategory-button')}
                             backOnClick={() => { 
                                 setShowQuiz(false)
                                 localStorage.setItem("Current_Category_SubWindow","category")
@@ -92,7 +92,7 @@ const Quiz = (props) => {
                         />
                     </div>
                     {userDetails?.UserType === "Admin" && <div>
-                        <h2 className='sub-title'>{selectedName ? selectedName : categoryName}/</h2>
+                        <h2 className='sub-heading-title'>{selectedName ? selectedName : categoryName}/</h2>
                     </div>}
                 </>}
             {!showQuestion ? (<>
@@ -109,10 +109,10 @@ const Quiz = (props) => {
                                     setSelectedQuizId(item.subCategoryId); 
                                     setSelectedQuizName(item.subCategoryName);
                                      } }}>
-                                        <p className='p'>Name: {item.subCategoryName}</p>
-                                        <p className='p'>Description: {item.subCategoryDescription}</p>
-                                        <p className='p'>Time: {item.timeLimitInMinutes} minutes</p>
-                                        {userDetails?.UserType === "Admin" && <div className='button-categorycard'>
+                                        <p>Name: {item.subCategoryName}</p>
+                                        <p>Description: {item.subCategoryDescription}</p>
+                                        <p>Time: {item.timeLimitInMinutes} minutes</p>
+                                        {userDetails?.UserType === "Admin" && <div className='categorycard-buttons-div'>
                                             <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                                 event.stopPropagation();
                                                 setPopUp(true);
@@ -125,14 +125,14 @@ const Quiz = (props) => {
                                                 };
                                                 setInitialValues(updateInitialValues);
                                                 setTitle("Update Quiz");
-                                            }} className='category-btn category-btn1'>Update</CardButton>
+                                            }} className='categorycard-button categorycard-button-update'>Update</CardButton>
                                             <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                                 event.stopPropagation();
                                                 Delete.render(fetchData,item.subCategoryId,false,true,false)
-                                            }} className='category-btn category-btn2'>Delete</CardButton>
+                                            }} className='categorycard-button categorycard-button-delete'>Delete</CardButton>
                                         </div>}
                                         {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
-                                            className='category-btn start-test-btn' onClick={(event) => {
+                                            className='categorycard-button start-test-button' onClick={(event) => {
                                                 localStorage.setItem("selectedOption","{}");
                                                 localStorage.setItem("attemptedQuestions",0);
                                                 localStorage.setItem("prevSelectedOption","");

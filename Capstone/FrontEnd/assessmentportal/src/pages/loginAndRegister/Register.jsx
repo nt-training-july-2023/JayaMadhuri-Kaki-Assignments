@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../../styles/Register.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../service/Url';
-import {sweetAlertMessages}  from "../../constants/ValidationMessages"
+import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
 import EmailInput from '../../components/input/EmailInput';
 import PasswordInput from '../../components/input/PasswordInput';
 import TextInput from '../../components/input/TextInput';
@@ -68,9 +68,9 @@ const Register = (props) => {
       case "emailId":
         setRegisterRequestBody({ ...registerRequestBody, emailId: value });
         if (value.length < 1) {
-          setErrors({ ...errors, emailId: "Email Required" });
+          setErrors({ ...errors, emailId: errorMessages.EMAIL_REQUIRED });
         } else if (!/^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$/.test(value)) {
-          setErrors({ ...errors, emailId: "Email should contain @nucleusteq" });
+          setErrors({ ...errors, emailId: errorMessages.INVALID_EMAIL});
         } else {
           setErrors({ ...errors, emailId: "" });
         }
@@ -86,19 +86,19 @@ const Register = (props) => {
         setRegisterRequestBody({ ...registerRequestBody, password: value });
         switch (true) {
           case !value:
-            setErrors({ ...errors, password: "Password Required" });
+            setErrors({ ...errors, password: errorMessages.PASSWORD_REQUIRED });
             break;
           case !re.digit.test(value):
-            setErrors({ ...errors, password: "Must contain a number" });
+            setErrors({ ...errors, password: errorMessages.PASSWORD_CONTAIN_NUMBER });
             break;
           case !re.capital.test(value):
-            setErrors({ ...errors, password: "One Capital letter required" });
+            setErrors({ ...errors, password: errorMessages.PASSWORD_CONTAIN_LETTER });
             break;
           case !re.specialChar.test(value):
-            setErrors({ ...errors, password: "No special character" });
+            setErrors({ ...errors, password: errorMessages.PASSWORD_CONTAIN_SPECIALCHAR});
             break;
           case !re.length.test(value):
-            setErrors({ ...errors, password: "Minimum 8 characters required" });
+            setErrors({ ...errors, password: errorMessages.PASSWORD_CONTAIN_EIGHTCHAR});
             break;
           default:
             setErrors({ ...errors, password: "" });
@@ -109,7 +109,7 @@ const Register = (props) => {
       case "firstName":
         setRegisterRequestBody({ ...registerRequestBody, firstName: value });
         if (!value) {
-          setErrors({ ...errors, firstName: "First Name Required" });
+          setErrors({ ...errors, firstName: errorMessages.FIRST_NAME_REQUIRED });
         } else {
           setErrors({ ...errors, firstName: "" });
         }
@@ -118,7 +118,7 @@ const Register = (props) => {
       case "lastName":
         setRegisterRequestBody({ ...registerRequestBody, lastName: value });
         if (!value) {
-          setErrors({ ...errors, lastName: "Last Name Required" });
+          setErrors({ ...errors, lastName: errorMessages.LAST_NAME_REQUIRED });
         } else {
           setErrors({ ...errors, lastName: "" });
         }
@@ -127,7 +127,7 @@ const Register = (props) => {
       case "dateOfBirth":
         setRegisterRequestBody({ ...registerRequestBody, dateOfBirth: value });
         if (!value) {
-          setErrors({ ...errors, dateOfBirth: "Date of Birth Required" });
+          setErrors({ ...errors, dateOfBirth: errorMessages.DATE_OF_BIRTH_REQUIRED});
         } else {
           setErrors({ ...errors, dateOfBirth: "" });
         }
@@ -136,9 +136,9 @@ const Register = (props) => {
       case "confirmPassword":
         setRegisterRequestBody({ ...registerRequestBody, confirmPassword: value });
         if (!value) {
-          setErrors({ ...errors, confirmPassword: "Confirm your password" });
+          setErrors({ ...errors, confirmPassword: errorMessages.CONFIRM_PASSWORD_REQUIRED });
         } else if (password !== value) {
-          setErrors({ ...errors, confirmPassword: "Passwords do not match" });
+          setErrors({ ...errors, confirmPassword: errorMessages.PASSWORD_DO_NOT_MATCH });
         } else {
           setErrors({ ...errors, confirmPassword: "" });
         }
@@ -166,7 +166,7 @@ const Register = (props) => {
             }
           })
       } else {
-        setErrors({ ...errors, emailId: "Email Required" });
+        setErrors({ ...errors, emailId: errorMessages.EMAIL_REQUIRED });
       }
     }
   }
@@ -203,11 +203,11 @@ const Register = (props) => {
     let firstNameError = "", lastNameError = "", dateOfBirthError = "";
     switch (true) {
       case registerRequestBody?.firstName.length < 1:
-        firstNameError = "First Name Required";
+        firstNameError = errorMessages.FIRST_NAME_REQUIRED;
       case registerRequestBody?.lastName.length < 1:
-        lastNameError = "Last Name Required"
+        lastNameError = errorMessages.LAST_NAME_REQUIRED
       case registerRequestBody?.dateOfBirth.length < 1:
-        dateOfBirthError = "Date of Birth Required"
+        dateOfBirthError = errorMessages.DATE_OF_BIRTH_REQUIRED
       default:
         setErrors({ ...errors, firstName: firstNameError, lastName: lastNameError, dateOfBirth: dateOfBirthError });
         if(errors.firstName === "" && errors.lastName === "" && errors.dateOfBirth === "" && registerRequestBody?.firstName.length > 1){
@@ -228,11 +228,11 @@ const Register = (props) => {
           setFlags({ ...flags, emailIdFlag: false, passwordFlag: false, detailsFlag: true });
           setButtonName("Register")
         } else if (registerRequestBody?.password.length > 0 && registerRequestBody?.confirmPassword.length === 0) {
-          setErrors({ ...errors, confirmPassword: "Confirm your password" });
+          setErrors({ ...errors, confirmPassword: errorMessages.CONFIRM_PASSWORD_REQUIRED });
         } else if (registerRequestBody?.password.length === 0 && registerRequestBody?.confirmPassword.length > 0) {
-          setErrors({ ...errors, password: "Password Required" });
+          setErrors({ ...errors, password: errorMessages.PASSWORD_REQUIRED });
         } else {
-          setErrors({ ...errors, password: "Password Required", confirmPassword: "Confirm your password" });
+          setErrors({ ...errors, password: errorMessages.PASSWORD_REQUIRED, confirmPassword: errorMessages.CONFIRM_PASSWORD_REQUIRED });
         }
       }
     }
@@ -286,11 +286,11 @@ const Register = (props) => {
             <RadioInput onChange={handleChangeRadio} value="female" /><b>Female</b>
             <RadioInput onChange={handleChangeRadio} value="others" /><b>Others</b>
           </div></>}
-        <div className='button-register'>
-          <FormButton className='login-btn' onClick={handleCommonButtonClick}><b>{buttonName}</b></FormButton>
-          {(flags?.passwordFlag || flags?.detailsFlag) && <FormButton className='login-btn'
+        <div className='button-div'>
+          <FormButton className='login-button' onClick={handleCommonButtonClick}><b>{buttonName}</b></FormButton>
+          {(flags?.passwordFlag || flags?.detailsFlag) && <FormButton className='login-button'
             onClick={handleBack}><b>Back</b></FormButton>}
-          <p className='register-btn'> <b>Having an Account!</b> <FormButton onClick={handleClick} className='click-btn'><b>Click here</b></FormButton></p>
+          <p className='register-button'> <b>Having an Account!</b> <FormButton onClick={handleClick} className='click-button'><b>Click here</b></FormButton></p>
         </div>
       </div>
     </div>

@@ -1,15 +1,20 @@
 import Swal from "sweetalert2";
+import { sweetAlertMessages } from "../../constants/ValidationMessages";
 
 class Instructions{
     render(event,setShowQuestion,setSelectedQuizId,setTime,convertMinutesToTime,item,details){
         Swal.fire({
-            title: 'Instructions:',
-            html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',
+            title: sweetAlertMessages.INSTRUCTIONS,
+            html: sweetAlertMessages.INSTRUCTIONS_MSG,
             showConfirmButton: true,
-            icon: "info",
+            icon: sweetAlertMessages.INFO,
             showCancelButton: true,
             background: "#15172b",
             color: "white",
+            customClass: {
+                confirmButton: 'custom-button-text',
+                cancelButton: 'custom-button-text',
+            },
         }).then((result) => {
             if (result.isConfirmed) {
                 event.stopPropagation();

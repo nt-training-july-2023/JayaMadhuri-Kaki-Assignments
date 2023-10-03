@@ -4,7 +4,7 @@ const NumberInput = (props) =>{
     return(
         <div>
             <input
-            className="name"
+            className="form-input"
             type="number"
             name="timeLimitInMinutes"
             placeholder="Enter Time Limit(In Minutes)"

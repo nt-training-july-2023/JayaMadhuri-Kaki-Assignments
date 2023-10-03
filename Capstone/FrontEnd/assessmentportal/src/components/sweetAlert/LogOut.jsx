@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import Text from "./Text";
+
 class LogOut {
     render(setRenderComponent){
         Swal.fire({
@@ -9,8 +10,8 @@ class LogOut {
             showCancelButton: true,
             confirmButtonColor: 'white',
             cancelButtonColor: 'white',
-            cancelButtonText: '<span style="color:#15172b"> Stay </span>',
-            confirmButtonText: '<span style="color: #15172b">Logout</span>',
+            cancelButtonText: sweetAlertMessages.CANCEL_BUTTON_TEXT,
+            confirmButtonText: sweetAlertMessages.CONFIRM_BUTTON_TEXT,
             background: "#15172b",
             color: "white",
             customClass: {

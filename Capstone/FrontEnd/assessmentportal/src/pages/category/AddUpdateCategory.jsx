@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/Category.scss';
 import CategoryUrl from '../../service/Url';
-import {sweetAlertMessages}  from "../../constants/ValidationMessages"
+import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
 import TextInput from '../../components/input/TextInput';
 import FormButton from '../../components/button/FormButton';
 import Success from '../../components/sweetAlert/Success';
@@ -27,7 +27,7 @@ const AddUpdateCategory = (props) => {
                     }
                 })
         } else {
-            setError(sweetAlertMessages.CATEGORY_NAME_REQUIRED)
+            setError(errorMessages.CATEGORY_NAME_REQUIRED)
         }
     }
     const handleUpdate = () => {
@@ -46,7 +46,7 @@ const AddUpdateCategory = (props) => {
                     }
                 })
         } else {
-            setError(sweetAlertMessages.CATEGORY_NAME_REQUIRED)
+            setError(errorMessages.CATEGORY_NAME_REQUIRED)
         }
     }
     const handleClick = () => {
@@ -60,7 +60,7 @@ const AddUpdateCategory = (props) => {
         const { name, value } = e.target;
         if (name == "categoryName") {
             if (!value) {
-                setError(sweetAlertMessages.CATEGORY_NAME_REQUIRED)
+                setError(errorMessages.CATEGORY_NAME_REQUIRED)
             } else {
                 setError('')
             }
@@ -68,13 +68,13 @@ const AddUpdateCategory = (props) => {
         setCategoryDetails({ ...categoryDetails, [name]: value })
     }
     return (
-        <div className="cat-container category-top">
-            <h1 className="category-title1">{title}</h1>
-            <TextInput className='name' name="categoryName" value={categoryDetails?.categoryName} placeholder='Enter Category Name' onChange={handleChange} />
-            <p className='err'>{error}</p>
-            <TextInput className='name' name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange} />
-            <FormButton className='btn' onClick={handleClick}>{title == "Add Category" ? "Add" : "Update"}</FormButton>
-            <FormButton className='btn' onClick={() => { setPopUp(false) }}>Close</FormButton>
+        <div className="category-form-container category-top-margin">
+            <h1 className="category-form-title">{title}</h1>
+            <TextInput className='form-input' name="categoryName" value={categoryDetails?.categoryName} placeholder='Enter Category Name' onChange={handleChange} />
+            <p className='category-quiz-errors'>{error}</p>
+            <TextInput className='form-input' name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange} />
+            <FormButton className='form-button' onClick={handleClick}>{title == "Add Category" ? "Add" : "Update"}</FormButton>
+            <FormButton className='form-button' onClick={() => { setPopUp(false) }}>Close</FormButton>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../../styles/Question.scss';
 import QuestionUrl from '../../service/Url'
-import {sweetAlertMessages}  from "../../constants/ValidationMessages"
+import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
 import TextInput from '../../components/input/TextInput'
 import FormButton from '../../components/button/FormButton'
 import Success from '../../components/sweetAlert/Success';
@@ -66,7 +66,7 @@ const AddUpdateQuestion = (props) => {
             case "questionContent":
                 setQuestionDetails({ ...questionDetails, questionContent: value })
                 if(!value){
-                    setErrors({ ...errors, questionContent: "Question is Required" });
+                    setErrors({ ...errors, questionContent: errorMessages.QUESTION_REQUIRED });
                 }else{
                     setErrors({ ...errors, questionContent: "" });
                 }
@@ -74,7 +74,7 @@ const AddUpdateQuestion = (props) => {
             case "optionA":
                 setQuestionDetails({ ...questionDetails, optionA: value })
                 if(!value){
-                  setErrors({ ...errors, optionA: "OptionA is Required" });
+                  setErrors({ ...errors, optionA: errorMessages.OPTIONA_REQUIRED });
                 }else{
                   setErrors({ ...errors, optionA: "" });
                 }
@@ -82,7 +82,7 @@ const AddUpdateQuestion = (props) => {
             case "optionB":
                 setQuestionDetails({ ...questionDetails, optionB: value })
                 if(!value){
-                    setErrors({ ...errors, optionB: "optionB is Required" });
+                    setErrors({ ...errors, optionB: errorMessages.OPTIONB_REQUIRED });
                 }else{
                     setErrors({ ...errors, optionB: "" });
                 }
@@ -90,7 +90,7 @@ const AddUpdateQuestion = (props) => {
             case "optionC":
                 setQuestionDetails({ ...questionDetails, optionC: value })
                 if(!value){
-                  setErrors({ ...errors, optionC: "optionC is Required" });
+                  setErrors({ ...errors, optionC: errorMessages.OPTIONC_REQUIRED });
                 }else{
                   setErrors({ ...errors, optionC: "" });
                 }
@@ -98,7 +98,7 @@ const AddUpdateQuestion = (props) => {
             case "optionD":
                 setQuestionDetails({ ...questionDetails, optionD: value })
                 if(!value){
-                    setErrors({ ...errors, optionD: "optionD is Required" });
+                    setErrors({ ...errors, optionD: errorMessages.OPTIOND_REQUIRED });
                 }else{
                     setErrors({ ...errors, optionD: "" });
                 }
@@ -106,7 +106,7 @@ const AddUpdateQuestion = (props) => {
             case "correctAnswer":
                 setQuestionDetails({ ...questionDetails, correctAnswer: value })
                 if(!value){
-                  setErrors({ ...errors, correctAnswer: "correctAnswer is Required" });
+                  setErrors({ ...errors, correctAnswer: errorMessages.CORRECT_ANSWER });
                 }else{
                   setErrors({ ...errors, correctAnswer: "" });
                 }
@@ -128,17 +128,17 @@ const AddUpdateQuestion = (props) => {
         let questionContentError = "", optionAError = "", optionBError = "", optionCError = "", optionDError = "", correctAnswerError = "";
         switch (true) {
           case questionDetails?.questionContent.length < 1:
-            questionContentError = "Question is required";
+            questionContentError = errorMessages.QUESTION_REQUIRED;
           case questionDetails?.optionA.length < 1:
-            optionAError = "Option A is required"
+            optionAError = errorMessages.OPTIONA_REQUIRED
           case questionDetails?.optionB.length < 1:
-            optionBError = "Option B is required"
+            optionBError = errorMessages.OPTIONB_REQUIRED
           case questionDetails?.optionC.length < 1:
-            optionCError = "Option C is required"
+            optionCError = errorMessages.OPTIONC_REQUIRED
           case questionDetails?.optionD.length < 1:
-            optionDError = "Option D is required"
+            optionDError = errorMessages.OPTIOND_REQUIRED
           case questionDetails?.correctAnswer.length < 1:
-            correctAnswerError = "Correct Answer is required"
+            correctAnswerError = errorMessages.CORRECT_ANSWER
           default:
             setErrors({ ...errors, questionContent: questionContentError, optionA: optionAError, optionB: optionBError, optionC: optionCError, optionD: optionDError, correctAnswer: correctAnswerError });
             if(errors.questionContent === "" && errors.optionA === "" && errors.optionB === "" && errors.optionC === "" && errors.optionD === "" && errors.correctAnswer === "" && questionDetails?.questionContent.length > 1){
@@ -147,19 +147,19 @@ const AddUpdateQuestion = (props) => {
         }
     }
     return (
-        <div className='que-container-wrapper'>
-        <div className="que-container">
-            <h1 className="question-title1">{titleQuestion}</h1>
+        <div className='question-container-wrapper'>
+        <div className="question-form-container">
+            <h1 className="question-form-title">{titleQuestion}</h1>
             <TextInput className='question-input' name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
-            <p className='err'>{errors.questionContent}</p>
+            <p className='question-errors'>{errors.questionContent}</p>
             <TextInput className='question-input' name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
-            <p className='err'>{errors.optionA}</p>
+            <p className='question-errors'>{errors.optionA}</p>
             <TextInput className='question-input' name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
-            <p className='err'>{errors.optionB}</p>
+            <p className='question-errors'>{errors.optionB}</p>
             <TextInput className='question-input' name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
-            <p className='err'>{errors.optionC}</p>
+            <p className='question-errors'>{errors.optionC}</p>
             <TextInput className='question-input' name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
-            <p className='err'>{errors.optionD}</p>
+            <p className='question-errors'>{errors.optionD}</p>
             <div className="custom-input question-input">
                 <TextInput
                     className='options-input'
@@ -169,9 +169,9 @@ const AddUpdateQuestion = (props) => {
                 />
                 <button className="arrow-button" onClick={() => handleOptionChange("down")}>&#9660;</button>
             </div>
-            <p className='err'>{errors.correctAnswer}</p>
-            <FormButton className='btn' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</FormButton>
-            <FormButton className='btn' onClick={() => { setPopUp(false) }}>Close</FormButton>
+            <p className='question-errors'>{errors.correctAnswer}</p>
+            <FormButton className='question-form-button' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</FormButton>
+            <FormButton className='question-form-button' onClick={() => { setPopUp(false) }}>Close</FormButton>
         </div>
         </div>
     )

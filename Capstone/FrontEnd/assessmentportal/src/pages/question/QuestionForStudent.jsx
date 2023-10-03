@@ -124,8 +124,8 @@ const QuestionForStudent = (props) => {
         <div>
             <div>
                 <Heading 
-                    backButton={true} backButtonName="Back" backClassName="addquestion-btn"
-                    backOnClick={() => { setShowQuestion(false); localStorage.setItem('reloadCount', '');}}
+                    backButton={true} backButtonName="Back" backClassName="addquestion-button"
+                    backOnClick={() => { setShowQuestion(false); localStorage.setItem('reloadCount', ''); localStorage.setItem('Current_Quiz_SubWindow','quiz')}}
                     question={question}
                     headingText="Questions"
                 />
@@ -137,36 +137,36 @@ const QuestionForStudent = (props) => {
                         <Timer expiryTimestamp={time ? time : localStorage.getItem("time")} checkAnswers={checkAnswers} setEnable={setEnable} isRunning={isRunning}/>
                     </div>
                     <div className='question-body'>
-                        <div className='card'>
+                        <div className='test-card'>
                             <div className='student-question-container'>
                             <h5>Attempted Questions:-{attemptedQuestions+"/"+question.length}</h5>
                                 {question.map((item) => (<>
                                     <div key={item.questionId}>
                                         <h3>{count++}{". "}{item.questionContent}</h3>
-                                        <div className='answer-options'>
+                                        <div className='test-options'>
                                             <button
-                                                className={`answer-button ${selectedOption[item.questionId] === 'optionA' ? 'selected' : ''
+                                                className={`options-button ${selectedOption[item.questionId] === 'optionA' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionA')}
                                             >
                                                 {item.optionA}
                                             </button>
                                             <button
-                                                className={`answer-button ${selectedOption[item.questionId] === 'optionB' ? 'selected' : ''
+                                                className={`options-button ${selectedOption[item.questionId] === 'optionB' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionB')}
                                             >
                                                 {item.optionB}
                                             </button>
                                             <button
-                                                className={`answer-button ${selectedOption[item.questionId] === 'optionC' ? 'selected' : ''
+                                                className={`options-button ${selectedOption[item.questionId] === 'optionC' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionC')}
                                             >
                                                 {item.optionC}
                                             </button>
                                             <button
-                                                className={`answer-button ${selectedOption[item.questionId] === 'optionD' ? 'selected' : ''
+                                                className={`options-button ${selectedOption[item.questionId] === 'optionD' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionD')}
                                             >
@@ -176,8 +176,8 @@ const QuestionForStudent = (props) => {
                                     </div>
                                 </>))}
                             </div>
-                            <div className="submit-btn">
-                                <button className="submit-quiz" onClick={handleSubmit}>
+                            <div className="submit-button-div">
+                                <button className="submit-quiz-button" onClick={handleSubmit}>
                                     Submit Quiz
                                 </button>
                             </div>

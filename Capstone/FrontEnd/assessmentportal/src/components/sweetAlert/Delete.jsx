@@ -12,10 +12,10 @@ class Delete {
             return QuestionUrl.deleteQuestion(Id);
         }
         else if(quiz === true){
-            QuizUrl.deleteQuiz(Id)
+            return QuizUrl.deleteQuiz(Id)
         }
         else if(category == true){
-            CategoryUrl.deleteCategory(Id)
+            return CategoryUrl.deleteCategory(Id)
         }
     }
     render(fetchData,Id,question,quiz,category){
@@ -24,7 +24,11 @@ class Delete {
             icon: sweetAlertMessages.WARNING,
             background: "#15172b",
             color: "white",
-            showCancelButton: true
+            showCancelButton: true,
+            customClass: {
+                confirmButton: 'custom-button-text',
+                cancelButton: 'custom-button-text',
+            },
         }).then(async(result) =>{
             if (result.value === true) {
                     await this.Url(question,quiz,category,Id).then(response => {

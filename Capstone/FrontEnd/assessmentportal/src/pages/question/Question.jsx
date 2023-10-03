@@ -74,8 +74,8 @@ const Question = (props) => {
     return (
         <div>
             <div>
-                <Heading className="addquestion-btn" onClick={handleAdd} buttonName="Add Question" headingText="Questions" userDetails={userDetails}
-                    backButton={true} backButtonName="Back" backClassName="backquestion-btn"
+                <Heading className="addquestion-button" onClick={handleAdd} buttonName="Add Question" headingText="Questions" userDetails={userDetails}
+                    backButton={true} backButtonName="Back" backClassName="backquestion-button "
                     backOnClick={() => { 
                         localStorage.setItem("Current_Quiz_SubWindow","")
                         setShowQuestion(false) 
@@ -83,7 +83,7 @@ const Question = (props) => {
                 />
             </div>
             <div>
-                <h2 className='sub-title'>{selectedName ? selectedName : categoryName}/{selectedQuizName ? selectedQuizName : QuizName}</h2>
+                <h2 className='sub-heading-title'>{selectedName ? selectedName : categoryName}/{selectedQuizName ? selectedQuizName : QuizName}</h2>
             </div>
             {loading &&
                 <div className={popUp && 'display-none'}>

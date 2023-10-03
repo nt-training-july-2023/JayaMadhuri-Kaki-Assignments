@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/Category.scss';
 import QuizUrl from '../../service/Url';
-import {sweetAlertMessages}  from "../../constants/ValidationMessages"
+import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMessages"
 import TextInput from '../../components/input/TextInput';
 import NumberInput from '../../components/input/NumberInput';
 import FormButton from '../../components/button/FormButton';
@@ -32,10 +32,10 @@ const AddUpdateQuiz = (props) => {
                     })
 
             } else {
-                setTimeError('Time Limit Required')
+                setTimeError(errorMessages.TIME_LIMIT_REQUIRED)
             }
         } else {
-            setError('Quiz Name Required')
+            setError(errorMessages.QUIZ_NAME_REQUIRED)
         }
     }
     const handleUpdate = () => {
@@ -59,10 +59,10 @@ const AddUpdateQuiz = (props) => {
                         }
                     })
             } else {
-                setTimeError('Time Limit Required')
+                setTimeError(errorMessages.TIME_LIMIT_REQUIRED)
             }
         } else {
-            setError('Quiz Name Required')
+            setError(errorMessages.QUIZ_NAME_REQUIRED)
         }
     }
     const handleClick = () => {
@@ -76,14 +76,14 @@ const AddUpdateQuiz = (props) => {
         const { name, value } = e.target;
         if (name == "subCategoryName") {
             if (!value) {
-                setError('SubCategory name required')
+                setError(errorMessages.QUIZ_NAME_REQUIRED)
             } else {
                 setError('')
             }
         }
         if (name == "timeLimitInMinutes") {
             if (!value) {
-                setTimeError('Time Limit Required')
+                setTimeError(errorMessages.TIME_LIMIT_REQUIRED)
             } else {
                 setTimeError('')
             }
@@ -91,15 +91,15 @@ const AddUpdateQuiz = (props) => {
         setQuizDetails({ ...quizDetails, [name]: value })
     }
     return (
-        <div className="cat-container quiz-top">
-            <h1 className="category-title1">{title}</h1>
-            <TextInput className='name' name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange} />
-            <p className='err'>{error}</p>
+        <div className="category-form-container quiz-top-margin">
+            <h1 className="category-form-title">{title}</h1>
+            <TextInput className='form-input' name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange} />
+            <p className='category-quiz-errors'>{error}</p>
             <NumberInput value={quizDetails?.timeLimitInMinutes} onChange={handleChange} />
-            <p className='err'>{timeError}</p>
-            <TextInput className='name' name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
-            <FormButton className='btn' onClick={handleClick}>{title == "Add Quiz" ? "Add" : "Update"}</FormButton>
-            <FormButton className='btn' onClick={() => { setPopUp(false) }}>Close</FormButton>
+            <p className='category-quiz-errors'>{timeError}</p>
+            <TextInput className='form-input' name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
+            <FormButton className='form-button' onClick={handleClick}>{title == "Add Quiz" ? "Add" : "Update"}</FormButton>
+            <FormButton className='form-button' onClick={() => { setPopUp(false) }}>Close</FormButton>
         </div>
     )
 }
