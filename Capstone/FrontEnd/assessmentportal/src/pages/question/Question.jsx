@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/Question.scss';
-import Swal from 'sweetalert2'
+import QuestionUrl from '../../service/Url'
 import AddUpdateQuestion from './AddUpdateQuestion'
-import QuestionUrl from '../../services/Url'
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CommonTable from '../../components/table/CommonTable';
 import Heading from '../../components/heading/Heading';
+import Warning from '../../components/sweetAlert/Warning';
 
 const Question = (props) => {
     const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName } = props
@@ -48,16 +48,7 @@ const Question = (props) => {
                 setLoading(true)
             }).catch(error => {
                 setLoading(true)
-                Swal.fire({
-                    title: sweetAlertMessages.ERROR,
-                    text: sweetAlertMessages.ERROR_GETTING_LIST,
-                    timer: 1500,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    icon: sweetAlertMessages.WARNING,
-                    background: "#15172b",
-                    color: "white",
-                })
+                Warning.render(sweetAlertMessages.ERROR_GETTING_LIST)
             })
     }
     useEffect(() => {
@@ -77,7 +68,8 @@ const Question = (props) => {
         'Option B',
         'Option C',
         'Option D',
-        'Correct Answer'
+        'Correct Answer',
+        'Actions'
     ];
     return (
         <div>
@@ -97,7 +89,8 @@ const Question = (props) => {
                 <div className={popUp && 'display-none'}>
                     {question.length > 0 ? (
                         <div className="question-container">
-                            <CommonTable columns={columns} data={question.reverse()} rows={rows}/>
+                            <CommonTable columns={columns} data={question} rows={rows} setPopUp={setPopUp} setInitialValues={setInitialValues}
+                            setTitleQuestion={setTitleQuestion} fetchData={fetchData}/>
                         </div>
                     ) : (
                         <h2 className='h2-no-list'>No Questions</h2>

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/Category.scss';
-import Swal from 'sweetalert2'
 import AddUpdateQuiz from './AddUpdateQuiz';
 import Question from '../question/Question';
 import QuestionForStudent from '../question/QuestionForStudent';
-import Url from '../../services/Url';
+import Url from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CardButton from '../../components/button/CardButton';
 import Heading from '../../components/heading/Heading';
+import Warning from '../../components/sweetAlert/Warning';
+import Delete from '../../components/sweetAlert/Delete';
+import Instructions from '../../components/sweetAlert/Instructions';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
@@ -47,16 +49,7 @@ const Quiz = (props) => {
             }).catch(error => {
                 if (error?.response?.statusCode == 400) {
                     setLoading(true)
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.ERROR_GETTING_LIST,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    });
+                    Warning.render(sweetAlertMessages.ERROR_GETTING_LIST)
                 }
             })
     };
@@ -69,16 +62,7 @@ const Quiz = (props) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.NETWORK_ERROR,
-                        timer: 2000,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    });
+                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }
@@ -144,45 +128,7 @@ const Quiz = (props) => {
                                             }} className='category-btn category-btn1'>Update</CardButton>
                                             <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                                 event.stopPropagation();
-                                                Swal.fire({
-                                                    text: 'do you really want to delete?',
-                                                    icon: "warning",
-                                                    background: "#15172b",
-                                                    color: "white",
-                                                    showCancelButton: true
-                                                }).then(function (result) {
-                                                    if (result.value === true) {
-                                                        Url.deleteQuiz(item.subCategoryId)
-                                                            .then(response => {
-                                                                if (response?.data?.statusCode == 200) {
-                                                                    Swal.fire({
-                                                                        title: 'Delete',
-                                                                        text: 'Successfully Deleted',
-                                                                        timer: 1000,
-                                                                        showConfirmButton: false,
-                                                                        showCancelButton: false,
-                                                                        icon: "success",
-                                                                        background: "#15172b",
-                                                                        color: "white",
-                                                                    });
-                                                                    fetchData()
-                                                                }
-                                                            }).catch(error => {
-                                                                if (error?.response?.status == "404") {
-                                                                    Swal.fire({
-                                                                        title: 'Delete',
-                                                                        text: 'ID Not Found',
-                                                                        timer: 1000,
-                                                                        showConfirmButton: false,
-                                                                        showCancelButton: false,
-                                                                        icon: "warning",
-                                                                        background: "#15172b",
-                                                                        color: "white",
-                                                                    });
-                                                                }
-                                                            })
-                                                    }
-                                                })
+                                                Delete.render(fetchData,item.subCategoryId,false,true,false)
                                             }} className='category-btn category-btn2'>Delete</CardButton>
                                         </div>}
                                         {userDetails?.UserType === "Student" && <button onMouseDown={event => event.stopPropagation()}
@@ -190,26 +136,7 @@ const Quiz = (props) => {
                                                 localStorage.setItem("selectedOption","{}");
                                                 localStorage.setItem("attemptedQuestions",0);
                                                 localStorage.setItem("prevSelectedOption","");
-                                                Swal.fire({
-                                                    title: 'Instructions:',
-                                                    html: '<div style="text-align:left">*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>',
-                                                    showConfirmButton: true,
-                                                    icon: "info",
-                                                    showCancelButton: true,
-                                                    background: "#15172b",
-                                                    color: "white",
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        event.stopPropagation();
-                                                        setShowQuestion(true);
-                                                        setSelectedQuizId(item.subCategoryId);
-                                                        const formattedTime = convertMinutesToTime(item.timeLimitInMinutes)
-                                                        setTime(formattedTime)
-                                                        localStorage.setItem("details",JSON.stringify(details))
-                                                    }else{
-                                                        localStorage.setItem("Current_Quiz_SubWindow","")
-                                                    }
-                                                })
+                                                Instructions.render(event,setShowQuestion,setSelectedQuizId,setTime,convertMinutesToTime,item,details)
                                             }} >Start Test</button>}
                                     </div>
                                 ))}

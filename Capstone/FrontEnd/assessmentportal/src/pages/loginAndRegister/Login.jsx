@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import '../../styles/Login.scss';
-import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import UsersUrl from '../../services/Url';
+import UsersUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import EmailInput from '../../components/input/EmailInput';
 import PasswordInput from '../../components/input/PasswordInput';
 import FormButton from '../../components/button/FormButton';
 import logo from '../../assests/images/loginAndRegister/logo.svg';
+import Success from '../../components/sweetAlert/Success';
+import Warning from '../../components/sweetAlert/Warning';
 
 const Login = (props) => {
     const { setRenderComponent, setUserDetails } = props;
@@ -59,69 +60,26 @@ const Login = (props) => {
                         localStorage.setItem("Current_SubWindow","category")
                         localStorage.setItem("LastVisited_Window","login");
                         if (response?.data?.responseData?.UserType === "Admin") {
-                            Swal.fire({
-                                title: sweetAlertMessages.LOGIN_SUCCESS,
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.SUCCESS,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Success.render(sweetAlertMessages.LOGIN_SUCCESS)
                             setTimeout(function () {
                                 setRenderComponent("navbar")
-                            }, 2000);
+                            }, 1500);
                             setUserDetails(response?.data?.responseData);
                         } else if (response?.data?.responseData?.UserType === "Student") {
-                            Swal.fire({
-                                title: sweetAlertMessages.LOGIN_SUCCESS,
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.SUCCESS,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Success.render(sweetAlertMessages.LOGIN_SUCCESS)
                             setTimeout(function () {
                                 setRenderComponent("navbar")
-                            }, 2000);
+                            }, 1500);
                             setUserDetails(response?.data?.responseData);
                         } else {
-                            Swal.fire({
-                                title: sweetAlertMessages.LOGIN_SUCCESS,
-                                text: sweetAlertMessages.SOMETHING_WENT_WRONG,
-                                timer: 2000,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.WARNING,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Warning.render(sweetAlertMessages.SOMETHING_WENT_WRONG)
                         }
                     }
                 }).catch(error => {
                     if (error?.response?.status == 401) {
-                        Swal.fire({
-                            title:  sweetAlertMessages.ERROR,
-                            text: sweetAlertMessages.INCORRECT_CREDENTIALS,
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: sweetAlertMessages.WARNING,
-                            background: "#15172b",
-                            color: "white",
-                        });
+                        Warning.render(sweetAlertMessages.INCORRECT_CREDENTIALS)
                     } else if (error?.message == "Network Error") {
-                        Swal.fire({
-                            title:  sweetAlertMessages.ERROR,
-                            text: sweetAlertMessages.NETWORK_ERROR,
-                            timer: 2000,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: sweetAlertMessages.WARNING,
-                            background: "#15172b",
-                            color: "white",
-                        });
+                        Warning.render(sweetAlertMessages.NETWORK_ERROR)
                     }
                 })
         }

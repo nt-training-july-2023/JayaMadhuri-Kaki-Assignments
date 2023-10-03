@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import '../../styles/Question.scss';
-import Swal from 'sweetalert2'
-import QuestionUrl from '../../services/Url'
+import QuestionUrl from '../../service/Url'
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import TextInput from '../../components/input/TextInput'
 import FormButton from '../../components/button/FormButton'
+import Success from '../../components/sweetAlert/Success';
+import Warning from '../../components/sweetAlert/Warning';
 
 const AddUpdateQuestion = (props) => {
     const { titleQuestion, setPopUp, initialValues, fetchData } = props
@@ -24,42 +25,15 @@ const AddUpdateQuestion = (props) => {
         QuestionUrl.addQuestion(questionDetails)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
-                    Swal.fire({
-                        title: sweetAlertMessages.ADD_TITILE,
-                        text: sweetAlertMessages.SUCCESS_ADD_MSG,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.SUCCESS,
-                        background: "#15172b",
-                        color: "white",
-                    })
+                    Success.render(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
                     fetchData();
                     setPopUp(false)
                 }
             }).catch(error => {
                 if (error?.response?.status === 409) {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.OPTIONS_DIFFERENT,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    })
+                    Warning.render(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else{
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.SOMETHING_WENT_WRONG,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    })
+                    Warning.render(sweetAlertMessages.ALL_FIELDS_REQUIRED)
                 }
             })
     }
@@ -67,42 +41,15 @@ const AddUpdateQuestion = (props) => {
         QuestionUrl.updateQuestion(initialValues.questionId, questionDetails)
             .then(response => {
                 if (response?.data?.statusCode === 200) {
-                    Swal.fire({
-                        title: sweetAlertMessages.UPDATE_TITLE,
-                        text: sweetAlertMessages.SUCCESS_UPDATE_MSG,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.SUCCESS,
-                        background: "#15172b",
-                        color: "white",
-                    })
+                    Success.render(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                     fetchData();
                     setPopUp(false)
                 }
             }).catch(error => {
-                if (error?.response?.status === 400) {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.ALL_FIELDS_REQUIRED,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    })
-                } else  if (error?.response?.status === 409) {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.OPTIONS_DIFFERENT,
-                        timer: 1500,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    })
+                if (error?.response?.status === 409) {
+                    Warning.render(sweetAlertMessages.OPTIONS_DIFFERENT)
+                }else{
+                    Warning.render(sweetAlertMessages.ALL_FIELDS_REQUIRED)
                 }
             })
     }

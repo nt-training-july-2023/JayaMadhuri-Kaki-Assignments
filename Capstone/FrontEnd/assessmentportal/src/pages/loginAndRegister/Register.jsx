@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import '../../styles/Register.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import Swal from 'sweetalert2'
-import UsersUrl from '../../services/Url';
+import UsersUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import EmailInput from '../../components/input/EmailInput';
 import PasswordInput from '../../components/input/PasswordInput';
@@ -11,6 +10,8 @@ import DateInput from '../../components/input/DateInput';
 import RadioInput from '../../components/input/RadioInput';
 import FormButton from '../../components/button/FormButton';
 import logo from '../../assests/images/loginAndRegister/logo.svg';
+import Success from '../../components/sweetAlert/Success';
+import Warning from '../../components/sweetAlert/Warning';
 
 const Register = (props) => {
   const { setRenderComponent } = props;
@@ -159,23 +160,9 @@ const Register = (props) => {
             }
           }).catch(error => {
             if (error?.response?.status == 409) {
-              Swal.fire({
-                text: sweetAlertMessages.EMAIL_ALREADY_EXISTS,
-                icon: sweetAlertMessages.WARNING,
-                timer: 1000,
-                showConfirmButton: false,
-                color: 'white',
-                background: '#15172b'
-              })
+              Warning.render(sweetAlertMessages.EMAIL_ALREADY_EXISTS)
             }else{
-              Swal.fire({
-                text: sweetAlertMessages.NETWORK_ERROR,
-                icon: sweetAlertMessages.WARNING,
-                timer: 1000,
-                showConfirmButton: false,
-                color: 'white',
-                background: '#15172b'
-              })
+              Warning.render(sweetAlertMessages.NETWORK_ERROR)
             }
           })
       } else {
@@ -195,44 +182,20 @@ const Register = (props) => {
     UsersUrl.userRegistration(finalValues)
       .then(response => {
         if (response?.data?.statusCode == 200) {
-          Swal.fire({
-            title: sweetAlertMessages.USER_SUCCESS_REGISTER,
-            text: sweetAlertMessages.LOGIN_REDIRECT,
-            timer: 2000,
-            showConfirmButton: false,
-            showCancelButton: false,
-            icon: sweetAlertMessages.SUCCESS,
-            background: "#15172b",
-            color: "white",
-          });
+          Success.render(sweetAlertMessages.LOGIN_SUCCESS,sweetAlertMessages.LOGIN_REDIRECT)
           setTimeout(function () {
             setRenderComponent("login")
-          }, 2000)
+          }, 1500)
         }
       })
       .catch(error => {
         if (error?.message == "Network Error") {
-          Swal.fire({
-            title: sweetAlertMessages.ERROR,
-            text: sweetAlertMessages.NETWORK_ERROR,
-            timer: 2000,
-            showConfirmButton: false,
-            showCancelButton: false,
-            icon: sweetAlertMessages.WARNING,
-            background: "#15172b",
-            color: "white",
-          });
-        } else {
-          Swal.fire({
-            title:  sweetAlertMessages.ERROR,
-            text: sweetAlertMessages.AGE_VALIDATION,
-            timer: 2000,
-            showConfirmButton: false,
-            showCancelButton: false,
-            icon: sweetAlertMessages.WARNING,
-            background: "#15172b",
-            color: "white",
-          });
+          Warning.render(sweetAlertMessages.NETWORK_ERROR)
+        } else if(error?.response?.data?.message == "Age should be atleast 18 years old"){
+          Warning.render(sweetAlertMessages.AGE_VALIDATION)
+        }
+        else{
+          Warning.render(sweetAlertMessages.ALL_FIELDS_REQUIRED)
         }
       })
   }

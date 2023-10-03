@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
 import '../../styles/Profile.scss';
-import UsersUrl from '../../services/Url';
+import UsersUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import maleProfileImage from '../../assests/images/profile/male-profile.jpg';
 import femaleProfileImage from '../../assests/images/profile/female-profile.jpg';
+import Warning from '../../components/sweetAlert/Warning';
 
 const Profile = ({ userDetails }) => {
     const [details, setDetails] = useState({});
@@ -17,16 +17,7 @@ const Profile = ({ userDetails }) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.NETWORK_ERROR,
-                        timer: 2000,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    });
+                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }

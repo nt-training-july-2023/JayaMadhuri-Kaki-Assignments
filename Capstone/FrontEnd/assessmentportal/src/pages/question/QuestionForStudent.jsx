@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Timer from '../timer/Timer';
 import '../../styles/Question.scss';
-import Swal from 'sweetalert2'
-import Url from '../../services/Url';
+import Url from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
-import FormButton from '../../components/button/FormButton';
 import Heading from '../../components/heading/Heading';
+import Warning from '../../components/sweetAlert/Warning';
+import Success from '../../components/sweetAlert/Success';
+import Info from '../../components/sweetAlert/Info';
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
@@ -27,16 +28,7 @@ const QuestionForStudent = (props) => {
                 setQuestion(response?.data?.responseData);
                 localStorage.setItem('question', btoa(JSON.stringify(response?.data?.responseData)));
             }).catch(error => {
-                Swal.fire({
-                    title: sweetAlertMessages.ERROR,
-                    text: sweetAlertMessages.ERROR_GETTING_LIST,
-                    timer: 1500,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    icon: sweetAlertMessages.WARNING,
-                    background: "#15172b",
-                    color: "white",
-                });
+                Warning.render(sweetAlertMessages.ERROR_GETTING_LIST)
             })
     };
     const handleAnswerClick = (questionId, optionValue) => {
@@ -52,15 +44,7 @@ const QuestionForStudent = (props) => {
         if (attemptedQuestions > 0) {
             checkAnswers();
         }else{
-            Swal.fire({
-                title: sweetAlertMessages.ATTEMPT_QUIZ,
-                timer: 2000,
-                showConfirmButton: false,
-                showCancelButton: false,
-                icon: sweetAlertMessages.WARNING,
-                background: '#15172b',
-                color: 'white',
-            })
+            Warning.render(sweetAlertMessages.ATTEMPT_QUIZ)
         }
     }
     const checkAnswers = () => {
@@ -81,15 +65,7 @@ const QuestionForStudent = (props) => {
             totalQuestions: question?.length,
             numOfAttemptedQuestions: attemptedQuestions
         }
-        Swal.fire({
-            title: sweetAlertMessages.SUBMITTED_SUCCESS,
-            timer: 2000,
-            showConfirmButton: false,
-            showCancelButton: false,
-            icon: sweetAlertMessages.INFO,
-            background: '#15172b',
-            color: 'white',
-        })
+        Success.render(sweetAlertMessages.SUBMITTED_SUCCESS)
         handleResults(payload);
         setTimeout(function () {
             setEnable(false)
@@ -106,16 +82,7 @@ const QuestionForStudent = (props) => {
     Url.addResults(results)
         .then(response => {
         }).catch(error => {
-            Swal.fire({
-                title: sweetAlertMessages.ERROR_SUBMISSION,
-                text: sweetAlertMessages.PLEASE_ATTEMPT_QUIZ,
-                timer: 2000,
-                showConfirmButton: false,
-                showCancelButton: false,
-                icon: sweetAlertMessages.WARNING,
-                background: '#15172b',
-                color: 'white',
-            })
+            Warning.render(sweetAlertMessages.PLEASE_ATTEMPT_QUIZ)
             setTimeout(function () {
                 setEnable(false)
                 setShowQuestion(false)
@@ -142,27 +109,7 @@ const QuestionForStudent = (props) => {
         if (reloadCount) {
         incrementReloadCount();
         setIsRunning(false)
-        Swal.fire({
-            text: sweetAlertMessages.RELOAD,
-            showConfirmButton: true,
-            showCancelButton: true,
-            icon: sweetAlertMessages.INFO,
-            background: '#15172b',
-            color: 'white',
-        }).then(function (result) {
-            if (result.value === true) {
-                setShowQuestion(false)
-                setEnable(false)
-                localStorage.setItem("Current_Quiz_SubWindow","")
-                localStorage.setItem('reloadCount', '');
-                localStorage.setItem("attemptedQuestions",0);
-                localStorage.setItem("time","")
-                localStorage.setItem("prevSelectedOption","");
-                checkAnswers();
-            }else{
-                setIsRunning(true)
-            }
-        })
+        Info.render(setShowQuestion,setEnable,checkAnswers,setIsRunning)
         }
     }, []);
     useEffect(()=>{

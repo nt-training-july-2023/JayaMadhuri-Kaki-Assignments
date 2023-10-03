@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../../styles/Category.scss';
 import AddUpdateCategory from './AddUpdateCategory'
-import Swal from 'sweetalert2'
 import Quiz from '../quiz/Quiz'
-import CategoryUrl from '../../services/Url'
+import CategoryUrl from '../../service/Url'
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CardButton from '../../components/button/CardButton';
-import FormButton from '../../components/button/FormButton';
 import Heading from '../../components/heading/Heading';
+import Warning from '../../components/sweetAlert/Warning';
+import Delete from '../../components/sweetAlert/Delete';
 
 const Category = (props) => {
     const {userDetails, setEnable} = props
@@ -38,16 +38,7 @@ const Category = (props) => {
                 setLoading(true);
             }).catch(error => {
                 setLoading(true);
-                Swal.fire({
-                    title: sweetAlertMessages.ERROR,
-                    text: sweetAlertMessages.ERROR_GETTING_LIST,
-                    timer: 1500,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    icon: sweetAlertMessages.WARNING,
-                    background: "#15172b",
-                    color: "white",
-                })
+                Warning.render(sweetAlertMessages.ERROR_GETTING_LIST)
             })
     }
     useEffect(() => {
@@ -87,45 +78,7 @@ const Category = (props) => {
                                         }} className='category-btn category-btn1'>Update</CardButton>
                                         <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                                             event.stopPropagation()
-                                            Swal.fire({
-                                                text: 'do you really want to delete?',
-                                                icon: "warning",
-                                                background: "#15172b",
-                                                color: "white",
-                                                showCancelButton:true
-                                            }).then(function (result) {
-                                                if (result.value === true) {
-                                                    CategoryUrl.deleteCategory(item.categoryId)
-                                                    .then(response => {
-                                                        if (response?.data?.statusCode == 200) {
-                                                            Swal.fire({
-                                                                title: 'Delete',
-                                                                text: 'Successfully Deleted',
-                                                                timer: 1000,
-                                                                showConfirmButton: false,
-                                                                showCancelButton: false,
-                                                                icon: "success",
-                                                                background: "#15172b",
-                                                                color: "white",
-                                                            })
-                                                            fetchData();
-                                                        }
-                                                    }).catch(error => {
-                                                        if (error?.response?.status == "404") {
-                                                            Swal.fire({
-                                                                title: 'Delete',
-                                                                text: 'ID Not Found',
-                                                                timer: 1000,
-                                                                showConfirmButton: false,
-                                                                showCancelButton: false,
-                                                                icon: "warning",
-                                                                background: "#15172b",
-                                                                color: "white",
-                                                            })
-                                                        }
-                                                    })
-                                                } 
-                                            })
+                                            Delete.render(fetchData,item.categoryId,false,false,true)
                                         }} className='category-btn category-btn2'>Delete</CardButton>
                                     </div>}
                                 </div>

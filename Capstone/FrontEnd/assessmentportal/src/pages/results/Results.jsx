@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/Question.scss';
-import Swal from 'sweetalert2'
-import FinalResultsUrl from '../../services/Url';
+import FinalResultsUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CommonTable from '../../components/table/CommonTable';
+import Warning from '../../components/sweetAlert/Warning';
 
 const Results = ({ userDetails }) => {
     const [results, setResults] = useState([]);
@@ -15,16 +15,7 @@ const Results = ({ userDetails }) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.NETWORK_ERROR,
-                        timer: 2000,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    });
+                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }
@@ -36,16 +27,7 @@ const Results = ({ userDetails }) => {
                 }
             }).catch(error => {
                 if (error?.response?.message === "Network Error") {
-                    Swal.fire({
-                        title: sweetAlertMessages.ERROR,
-                        text: sweetAlertMessages.NETWORK_ERROR,
-                        timer: 2000,
-                        showConfirmButton: false,
-                        showCancelButton: false,
-                        icon: sweetAlertMessages.WARNING,
-                        background: "#15172b",
-                        color: "white",
-                    });
+                    Warning.render(sweetAlertMessages.NETWORK_ERROR)
                 }
             })
     }

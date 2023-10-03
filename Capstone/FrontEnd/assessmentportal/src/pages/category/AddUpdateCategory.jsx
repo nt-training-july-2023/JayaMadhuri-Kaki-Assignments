@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../../styles/Category.scss';
-import Swal from 'sweetalert2'
-import CategoryUrl from '../../services/Url';
+import CategoryUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import TextInput from '../../components/input/TextInput';
 import FormButton from '../../components/button/FormButton';
+import Success from '../../components/sweetAlert/Success';
+import Warning from '../../components/sweetAlert/Warning';
 
 const AddUpdateCategory = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -16,31 +17,13 @@ const AddUpdateCategory = (props) => {
             CategoryUrl.addCategory(categoryDetails)
                 .then(response => {
                     if (response?.data?.statusCode === 200) {
-                        Swal.fire({
-                            title: sweetAlertMessages.ADD_TITILE,
-                            text: sweetAlertMessages.SUCCESS_ADD_MSG,
-                            timer: 1500,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: sweetAlertMessages.SUCCESS,
-                            background: "#15172b",
-                            color: "white",
-                        });
+                        Success.render(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
                         fetchData();
                         setPopUp(false);
                     }
                 }).catch(error => {
                     if (error?.response?.status === 409) {
-                        Swal.fire({
-                            title: sweetAlertMessages.ERROR,
-                            text: sweetAlertMessages.CATEGORY_ALREADY_EXISTS,
-                            timer: 1500,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: sweetAlertMessages.WARNING,
-                            background: "#15172b",
-                            color: "white",
-                        });
+                        Warning.render(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
                     }
                 })
         } else {
@@ -53,31 +36,13 @@ const AddUpdateCategory = (props) => {
             CategoryUrl.updateCategory(initialValues.categoryId, categoryDetails)
                 .then(response => {
                     if (response?.data?.statusCode === 200) {
-                        Swal.fire({
-                            title: sweetAlertMessages.UPDATE_TITLE,
-                            text: sweetAlertMessages.SUCCESS_UPDATE_MSG,
-                            timer: 1500,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: sweetAlertMessages.SUCCESS,
-                            background: "#15172b",
-                            color: "white",
-                        });
+                        Success.render(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                         fetchData();
                         setPopUp(false);
                     }
                 }).catch(error => {
                     if (error?.response?.status === 409) {
-                        Swal.fire({
-                            title: sweetAlertMessages.ERROR,
-                            text: sweetAlertMessages.CATEGORY_ALREADY_EXISTS,
-                            timer: 1500,
-                            showConfirmButton: false,
-                            showCancelButton: false,
-                            icon: sweetAlertMessages.WARNING,
-                            background: "#15172b",
-                            color: "white",
-                        });
+                        Warning.render(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
                     }
                 })
         } else {

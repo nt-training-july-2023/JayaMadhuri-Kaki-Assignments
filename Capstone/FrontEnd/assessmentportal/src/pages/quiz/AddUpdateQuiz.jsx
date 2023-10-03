@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import '../../styles/Category.scss';
-import Swal from 'sweetalert2'
-import QuizUrl from '../../services/Url';
+import QuizUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import TextInput from '../../components/input/TextInput';
 import NumberInput from '../../components/input/NumberInput';
 import FormButton from '../../components/button/FormButton';
+import Success from '../../components/sweetAlert/Success';
+import Warning from '../../components/sweetAlert/Warning';
 
 const AddUpdateQuiz = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -20,31 +21,13 @@ const AddUpdateQuiz = (props) => {
                 QuizUrl.addQuiz(quizDetails)
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
-                            Swal.fire({
-                                title: sweetAlertMessages.ADD_TITILE,
-                                text: sweetAlertMessages.SUCCESS_ADD_MSG,
-                                timer: 1500,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.SUCCESS,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Success.render(sweetAlertMessages.ADD_TITILE,sweetAlertMessages.SUCCESS_ADD_MSG)
                             fetchData();
                             setPopUp(false);
                         }
                     }).catch(error => {
                         if (error?.response?.status === 409) {
-                            Swal.fire({
-                                title: sweetAlertMessages.ERROR,
-                                text: sweetAlertMessages.QUIZ_ALREADY_EXISTS,
-                                timer: 1500,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.WARNING,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Warning.render(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         }
                     })
 
@@ -64,42 +47,15 @@ const AddUpdateQuiz = (props) => {
                 QuizUrl.updateQuiz(initialValues.subCategoryId, quizDetails)
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
-                            Swal.fire({
-                                title: sweetAlertMessages.UPDATE_TITLE,
-                                text: sweetAlertMessages.SUCCESS_UPDATE_MSG,
-                                timer: 1500,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.SUCCESS,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Success.render(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                             fetchData();
                             setPopUp(false);
                         }
                     }).catch(error => {
                         if (error?.response?.status === 409) {
-                            Swal.fire({
-                                title: sweetAlertMessages.ERROR,
-                                text: sweetAlertMessages.QUIZ_ALREADY_EXISTS,
-                                timer: 1500,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.WARNING,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Warning.render(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         } else {
-                            Swal.fire({
-                                title: sweetAlertMessages.ERROR,
-                                text:  sweetAlertMessages.SOMETHING_WENT_WRONG,
-                                timer: 1500,
-                                showConfirmButton: false,
-                                showCancelButton: false,
-                                icon: sweetAlertMessages.WARNING,
-                                background: "#15172b",
-                                color: "white",
-                            });
+                            Warning.render(sweetAlertMessages.SOMETHING_WENT_WRONG)
                         }
                     })
             } else {

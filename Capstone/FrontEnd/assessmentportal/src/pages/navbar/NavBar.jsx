@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/NavBar.scss';
 import { FaBars } from 'react-icons/fa'
-import Swal from 'sweetalert2'
 import Category from '../category/Category'
 import Profile from '../profile/Profile'
 import Results from '../results/Results'
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import logo from '../../assests/images/loginAndRegister/logo.svg';
 import FormButton from '../../components/button/FormButton';
+import Text from '../../components/sweetAlert/Text';
+import LogOut from '../../components/sweetAlert/LogOut';
 
 const Navbar = (props) => {
     const { setRenderComponent, userDetails} = props
@@ -36,66 +37,14 @@ const Navbar = (props) => {
     }
     const handleLogOut = () => {
         setIsNavExpanded(false)
-        Swal.fire({
-            text: sweetAlertMessages.LOGOUT,
-            type: sweetAlertMessages.WARNING,
-            showCancelButton: true,
-            confirmButtonColor: 'white',
-            cancelButtonColor: 'white',
-            cancelButtonText: '<span style="color:#15172b"> Stay </span>',
-            confirmButtonText: '<span style="color: #15172b">Logout</span>',
-            background: "#15172b",
-            color: "white",
-            customClass: {
-                confirmButton: 'custom-button-text',
-                cancelButton: 'custom-button-text',
-            },
-        }).then(function (result) {
-            if (result.value === true) {
-                Swal.fire({
-                    text: sweetAlertMessages.LOGOUT_REDIRECT,
-                    timer: 1900,
-                    showConfirmButton: false,
-                    color: 'white',
-                    background: '#15172b'
-                })
-                setTimeout(function () {
-                    localStorage.setItem("UserDetails","");
-                    localStorage.setItem("Current_Window","");
-                    localStorage.setItem("Current_SubWindow","")
-                    localStorage.setItem("LastVisited_Window","");
-                    localStorage.setItem("Current_Category_SubWindow","")
-                    localStorage.setItem("CategoryId","")
-                    localStorage.setItem("CategoryName","")
-                    localStorage.setItem("QuizName","")
-                    localStorage.setItem("QuizId","")
-                    localStorage.setItem("Current_Quiz_SubWindow","")
-                    localStorage.setItem("details","")
-                    setRenderComponent("login")
-                }, 2000)
-            } else {
-                setRenderComponent("navbar")
-            }
-        })
+        LogOut.render(setRenderComponent)
     }
     useEffect(() => {
         if( Object.keys(userDetails).length > 0){
             if (role === "Admin") {
-                Swal.fire({
-                    text: sweetAlertMessages.WELCOME,
-                    timer: 1900,
-                    showConfirmButton: false,
-                    color: 'white',
-                    background: '#15172b'
-                })
+                Text.render(sweetAlertMessages.WELCOME)
             } else {
-                Swal.fire({
-                    text: `WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`,
-                    timer: 1900,
-                    showConfirmButton: false,
-                    color: 'white',
-                    background: '#15172b'
-                })
+                Text.render(`WELCOME ${userInfo?.Name} TO STUDENT DASHBOARD!`)
             }
         }
     }, [])

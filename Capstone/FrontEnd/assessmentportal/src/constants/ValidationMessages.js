@@ -34,4 +34,8 @@ export const sweetAlertMessages = {
     ERROR_SUBMISSION: "Error In Submission",
     PLEASE_ATTEMPT_QUIZ: "Please do attempt quiz again",
     RELOAD: "Do you want to reload?",
+    DELETE_MSG:"do you really want to delete?",
+    DELETE:"Delete",
+    DELETE_SUCCESS:"Successfully Deleted",
+    ID_NOT_FOUND:"ID Not Found"
 }
