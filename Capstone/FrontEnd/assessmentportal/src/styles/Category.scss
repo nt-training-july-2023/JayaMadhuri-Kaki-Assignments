@@ -20,12 +20,18 @@
   background-color: #31334e;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   width: 300px;
-  height: fit-content;
-  min-height: 200px;
   @media screen and (max-width:430px){
     margin-left:10px;
     margin-top: 10px;
   }
+}
+.category-card-height{
+    height: fit-content;
+    min-height: 180px;
+}
+.quiz-card-height{
+    height: fit-content;
+    min-height: 220px;
 }
 .category-card::-webkit-scrollbar{
     width: 30px; 
@@ -59,7 +65,7 @@
 
 }
 .long-description{
-  max-height: 80px;
+  max-height: 65px;
   overflow-x: auto; 
 }
 .short-description{

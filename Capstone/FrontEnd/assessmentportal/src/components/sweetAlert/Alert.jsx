@@ -158,7 +158,7 @@ class Alert{
             }
         })
     }
-    Instructions(event,setShowQuestion,setSelectedQuizId,setTime,convertMinutesToTime,item,details){
+    Instructions(setShowQuestion,setSelectedQuizId,setTime,convertMinutesToTime,item,details){
         Swal.fire({
             title: sweetAlertMessages.INSTRUCTIONS,
             html: sweetAlertMessages.INSTRUCTIONS_MSG,
@@ -173,7 +173,6 @@ class Alert{
             },
         }).then((result) => {
             if (result.isConfirmed) {
-                event.stopPropagation();
                 setShowQuestion(true);
                 setSelectedQuizId(item.subCategoryId);
                 const formattedTime = convertMinutesToTime(item.timeLimitInMinutes)

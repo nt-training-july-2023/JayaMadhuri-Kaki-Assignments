@@ -7,9 +7,9 @@ const CommonCard = (props) => {
     const { data, onClickCard, userType, cardType, onClickUpdate, onClickDelete, onClickStartTest } = props;
     const [expand,setExpand] = useState(false);
     return (
-        <div key={data.categoryId} className="category-card" onClick={onClickCard}
+        <div key={cardType=="Category" ? data.categoryId: data.subCategoryId} className={cardType == "Category" ? 'category-card category-card-height': 'category-card quiz-card-height'} onClick={onClickCard}
         >
-            <p>Name: {data.categoryName}</p>
+            <p>Name: {cardType=="Category" ? data.categoryName : data.subCategoryName}</p>
             <div className={expand ? 'long-description' : 'short-description'}>
                 <span
                     onClick={(event) => {
@@ -19,7 +19,8 @@ const CommonCard = (props) => {
                     onMouseDown={event => event.stopPropagation()}
                     className='description'
                 >
-                    Description: {data.categoryDescription.length > 40 ? expand ? data.categoryDescription + " ... Read Less" : data.categoryDescription.slice(0, 40) + " ... Read More" : data.categoryDescription}
+                    {cardType=="Category" && <>Description: {data.categoryDescription.length > 40 ? expand ? data.categoryDescription + " ... Read Less" : data.categoryDescription.slice(0, 40) + " ... Read More" : data.categoryDescription}</>}
+                    {cardType=="Quiz" && <>Description: {data.subCategoryDescription.length > 40 ? expand ? data.subCategoryDescription + " ... Read Less" : data.subCategoryDescription.slice(0, 40) + " ... Read More" : data.subCategoryDescription}</>}
                 </span>
             </div>
             {cardType == "Quiz" && <p>Time: {data.timeLimitInMinutes} minutes</p>}
@@ -33,19 +34,14 @@ const CommonCard = (props) => {
                     onClickDelete();
                 }} className='categorycard-button categorycard-button-delete'><FaTrashAlt className='icons' />Delete</Button>
             </div>}
-            {/* {(userType === "Student" && cardType == "Quiz") &&
+            {(userType === "Student" && cardType == "Quiz") &&
                 <Button onMouseDown={event => event.stopPropagation()}
                     className='categorycard-button start-test-button' 
-                    onClick={(event) => {
-                        localStorage.setItem("selectedOption", "{}");
-                        localStorage.setItem("attemptedQuestions", 0);
-                        localStorage.setItem("prevSelectedOption", "");
-                        Alert.Instructions(event, setShowQuestion, setSelectedQuizId, setTime, convertMinutesToTime, data, details)
-                    }} 
+                    onClick={onClickStartTest} 
                 >
                     Start Test
                 </Button>
-            } */}
+            }
         </div>
     )
 }

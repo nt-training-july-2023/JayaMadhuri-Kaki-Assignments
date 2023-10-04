@@ -5,10 +5,9 @@ import Question from '../question/Question';
 import QuestionForStudent from '../question/QuestionForStudent';
 import Url from '../../service/Url';
 import { sweetAlertMessages } from "../../constants/ValidationMessages"
-import Button from '../../components/button/Button';
 import Heading from '../../components/heading/Heading';
 import Alert from '../../components/sweetAlert/Alert';
-import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
+import CommonCard from '../../components/card/CommonCard';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
@@ -73,6 +72,38 @@ const Quiz = (props) => {
         const formattedSeconds = '00';
         return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
+    const onClickQuizStartTest = (item) =>{
+        localStorage.setItem("selectedOption", "{}");
+        localStorage.setItem("attemptedQuestions", 0);
+        localStorage.setItem("prevSelectedOption", "");
+        Alert.Instructions(setShowQuestion, setSelectedQuizId, setTime, convertMinutesToTime, item, details)
+    }
+    const onClickQuizUpdate = (item) =>{
+        setPopUp(true);
+        let updateInitialValues = {
+            subCategoryId: item?.subCategoryId,
+            subCategoryName: item?.subCategoryName,
+            subCategoryDescription: item?.subCategoryDescription,
+            timeLimitInMinutes: item?.timeLimitInMinutes,
+            categoryId: item?.categoryId
+        };
+        setInitialValues(updateInitialValues);
+        setTitle("Update Quiz");
+    }
+    const onClickQuizDelete = (item) =>{
+        Alert.Delete(fetchData, item.subCategoryId, false, true, false)
+    }
+    const onClickQuizCard = (item) =>{
+        {
+            userDetails?.UserType === "Admin" &&
+            setShowQuestion(true);
+            localStorage.setItem("Current_Quiz_SubWindow", "question")
+            localStorage.setItem("QuizId", item.subCategoryId)
+            localStorage.setItem("QuizName", item.subCategoryName)
+            setSelectedQuizId(item.subCategoryId);
+            setSelectedQuizName(item.subCategoryName);
+        }
+    }
     useEffect(() => {
         fetchData();
         getUserDetails();
@@ -100,47 +131,15 @@ const Quiz = (props) => {
                         {quiz.length > 0 ? (
                             <div className={popUp ? 'display-none' : 'category-container'}>
                                 {quiz.map((item) => (
-                                    <div key={item.subCategoryId} className="category-card" onClick={() => {
-                                        {
-                                            userDetails?.UserType === "Admin" &&
-                                            setShowQuestion(true);
-                                            localStorage.setItem("Current_Quiz_SubWindow", "question")
-                                            localStorage.setItem("QuizId", item.subCategoryId)
-                                            localStorage.setItem("QuizName", item.subCategoryName)
-                                            setSelectedQuizId(item.subCategoryId);
-                                            setSelectedQuizName(item.subCategoryName);
-                                        }
-                                    }}>
-                                        <p>Name: {item.subCategoryName}</p>
-                                        <p>Description: {item.subCategoryDescription}</p>
-                                        <p>Time: {item.timeLimitInMinutes} minutes</p>
-                                        {userDetails?.UserType === "Admin" && <div className='categorycard-buttons-div'>
-                                            <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
-                                                event.stopPropagation();
-                                                setPopUp(true);
-                                                let updateInitialValues = {
-                                                    subCategoryId: item?.subCategoryId,
-                                                    subCategoryName: item?.subCategoryName,
-                                                    subCategoryDescription: item?.subCategoryDescription,
-                                                    timeLimitInMinutes: item?.timeLimitInMinutes,
-                                                    categoryId: item?.categoryId
-                                                };
-                                                setInitialValues(updateInitialValues);
-                                                setTitle("Update Quiz");
-                                            }} className='categorycard-button categorycard-button-update'><FaPencilAlt className='icons' />Update</Button>
-                                            <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
-                                                event.stopPropagation();
-                                                Alert.Delete(fetchData, item.subCategoryId, false, true, false)
-                                            }} className='categorycard-button categorycard-button-delete'><FaTrashAlt className='icons' />Delete</Button>
-                                        </div>}
-                                        {userDetails?.UserType === "Student" && <Button onMouseDown={event => event.stopPropagation()}
-                                            className='categorycard-button start-test-button' onClick={(event) => {
-                                                localStorage.setItem("selectedOption", "{}");
-                                                localStorage.setItem("attemptedQuestions", 0);
-                                                localStorage.setItem("prevSelectedOption", "");
-                                                Alert.Instructions(event, setShowQuestion, setSelectedQuizId, setTime, convertMinutesToTime, item, details)
-                                            }} >Start Test</Button>}
-                                    </div>
+                                    <CommonCard
+                                        data={item}
+                                        userType={userDetails.UserType}
+                                        cardType={"Quiz"}
+                                        onClickCard={()=>{onClickQuizCard(item)}}
+                                        onClickUpdate={()=>{onClickQuizUpdate(item)}}
+                                        onClickDelete={()=>{onClickQuizDelete(item)}}
+                                        onClickStartTest={()=>{onClickQuizStartTest(item)}}
+                                    />
                                 ))}
                             </div>
                         ) : (

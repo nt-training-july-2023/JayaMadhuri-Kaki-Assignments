@@ -4,11 +4,8 @@ import AddUpdateCategory from './AddUpdateCategory'
 import Quiz from '../quiz/Quiz'
 import CategoryUrl from '../../service/Url'
 import { sweetAlertMessages } from "../../constants/ValidationMessages"
-import CardButton from '../../components/button/Button';
 import Heading from '../../components/heading/Heading';
 import Alert from '../../components/sweetAlert/Alert';
-import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
-import Button from '../../components/button/Button';
 import CommonCard from '../../components/card/CommonCard';
 
 const Category = (props) => {
