@@ -8,6 +8,7 @@ import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import logo from '../../assets/images/loginAndRegister/logo.svg';
 import Button from '../../components/button/Button';
 import Alert from '../../components/sweetAlert/Alert';
+import Label from '../../components/label/Label';
 
 const Navbar = (props) => {
     const { setRenderComponent, userDetails} = props
@@ -57,9 +58,7 @@ const Navbar = (props) => {
                 <div className={
                     isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
                 }>
-                    <Button onClick={toggleMenu} className='close-icon'>
-                       X
-                    </Button>
+                    <Button onClick={toggleMenu} className='close-icon' children={"X"}/>
                     <ul>
                         <li>
                             <Button onClick={() => {
@@ -70,20 +69,17 @@ const Navbar = (props) => {
                                 className={`nav-button ${activeButton === "category"
                                         ? 'active'
                                         : ''
-                                    }`}>
-                                <label className='nav-button-icon'>Home<FaHome className="nav-icons"/></label>
-                            </Button>
+                                    }`}
+                                children={<Label className='nav-button-icon'>Home<FaHome className="nav-icons"/></Label>}/>
                         </li>
                         <li>
                             <Button onClick={() => { 
                                 handleButtonClick('results'); 
                                 setIsNavExpanded(false)
                                 localStorage.setItem("Current_SubWindow","results")
-                             }}
+                                }}
                                 className={`nav-button ${activeButton === "results" ? 'active' : ''
-                                    }`} disabled={enable}>
-                                <label className='nav-button-icon'>Results<FaDeezer className="nav-icons"/></label>
-                            </Button>
+                                }`} disabled={enable} children={<Label className='nav-button-icon'>Results<FaDeezer className="nav-icons"/></Label>}/>
                         </li>
                         <li>
                             <Button onClick={() => { 
@@ -92,14 +88,10 @@ const Navbar = (props) => {
                                 localStorage.setItem("Current_SubWindow","profile")
                              }}
                                 className={`nav-button ${activeButton === "profile" ? 'active' : ''
-                                    }`} disabled={enable}>
-                               <label className='nav-button-icon'>Profile<FaUserCircle className="nav-icons"/></label>
-                            </Button>
+                                }`} disabled={enable} children={<Label className='nav-button-icon'>Profile<FaUserCircle className="nav-icons"/></Label>}/>
                         </li>
                         <li>
-                            <Button onClick={handleLogOut} className="nav-button" disabled={enable}>
-                                <label className='nav-button-icon'>Logout<FaSignOutAlt className="nav-icons"/></label>
-                            </Button>
+                            <Button onClick={handleLogOut} className="nav-button" disabled={enable} children={<Label className='nav-button-icon'>Logout<FaSignOutAlt className="nav-icons"/></Label>}/>
                         </li>
                     </ul>
                 </div>

@@ -1,15 +1,16 @@
 import '../../styles/Category.scss'
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import Button from '../button/Button';
-import {FaPencilAlt,FaTrashAlt} from 'react-icons/fa'
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
+import Paragraph from '../paragraph/Paragraph';
 
 const CommonCard = (props) => {
     const { data, onClickCard, userType, cardType, onClickUpdate, onClickDelete, onClickStartTest } = props;
-    const [expand,setExpand] = useState(false);
+    const [expand, setExpand] = useState(false);
     return (
-        <div key={cardType=="Category" ? data.categoryId: data.subCategoryId} className={cardType == "Category" ? 'category-card category-card-height': 'category-card quiz-card-height'} onClick={onClickCard}
+        <div key={cardType == "Category" ? data.categoryId : data.subCategoryId} className={cardType == "Category" ? 'category-card category-card-height' : 'category-card quiz-card-height'} onClick={onClickCard}
         >
-            <p>Name: {cardType=="Category" ? data.categoryName : data.subCategoryName}</p>
+            <Paragraph children={`Name: ${cardType === "Category" ? data.categoryName : data.subCategoryName}`} />
             <div className={expand ? 'long-description' : 'short-description'}>
                 <span
                     onClick={(event) => {
@@ -19,11 +20,11 @@ const CommonCard = (props) => {
                     onMouseDown={event => event.stopPropagation()}
                     className='description'
                 >
-                    {cardType=="Category" && <>Description: {data.categoryDescription.length > 40 ? expand ? data.categoryDescription + " ... Read Less" : data.categoryDescription.slice(0, 40) + " ... Read More" : data.categoryDescription}</>}
-                    {cardType=="Quiz" && <>Description: {data.subCategoryDescription.length > 40 ? expand ? data.subCategoryDescription + " ... Read Less" : data.subCategoryDescription.slice(0, 40) + " ... Read More" : data.subCategoryDescription}</>}
+                    {cardType == "Category" && <>Description: {data.categoryDescription.length > 40 ? expand ? data.categoryDescription + " ... Read Less" : data.categoryDescription.slice(0, 40) + " ... Read More" : data.categoryDescription}</>}
+                    {cardType == "Quiz" && <>Description: {data.subCategoryDescription.length > 40 ? expand ? data.subCategoryDescription + " ... Read Less" : data.subCategoryDescription.slice(0, 40) + " ... Read More" : data.subCategoryDescription}</>}
                 </span>
             </div>
-            {cardType == "Quiz" && <p>Time: {data.timeLimitInMinutes} minutes</p>}
+            {cardType == "Quiz" && <Paragraph children={`Time: ${data.timeLimitInMinutes} minutes`}/>}
             {userType === "Admin" && <div className='categorycard-buttons-div'>
                 <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                     event.stopPropagation()
@@ -36,11 +37,10 @@ const CommonCard = (props) => {
             </div>}
             {(userType === "Student" && cardType == "Quiz") &&
                 <Button onMouseDown={event => event.stopPropagation()}
-                    className='categorycard-button start-test-button' 
-                    onClick={onClickStartTest} 
-                >
-                    Start Test
-                </Button>
+                    className='categorycard-button start-test-button'
+                    onClick={onClickStartTest}
+                    children="Start Test"
+                />
             }
         </div>
     )

@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
       final int status = 409;
       CustomResponse<DataIntegrityViolationException> customResponse =
               new CustomResponse<DataIntegrityViolationException>(status,
-                      "Quiz with same name already exists");
+                      "Name already exists");
       return new ResponseEntity<>(customResponse, HttpStatus.CONFLICT);
   }
   /**

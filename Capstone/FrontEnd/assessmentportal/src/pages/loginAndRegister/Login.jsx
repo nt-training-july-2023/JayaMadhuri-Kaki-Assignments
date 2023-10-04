@@ -7,6 +7,8 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import logo from '../../assets/images/loginAndRegister/logo.svg';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
+import Paragraph from '../../components/paragraph/Paragraph';
 
 const Login = (props) => {
     const { setRenderComponent, setUserDetails } = props;
@@ -105,21 +107,19 @@ const Login = (props) => {
                 <img src={logo} className='logo' />
             </div>
             <div>
-                <h1 className='title'>Login</h1>
+                <HeadingOne className='title' children="Login"/>
                 <div className="assessment-heading">ASSESSMENT PORTAL</div>
                 <div className='para'>NucleusTeq Members Can Log In Here To Access<br />The Online Assessments</div>
                 <Input className="input" type="email" name="emailId" placeholder="Email Id" onChange={handleChange}/>
-                <b><p className='errors'>{emailError}</p></b>
+                <b><Paragraph className='errors' children={emailError}/></b>
                 <div className='password-container'>
                     <Input type={passwordVisible ? 'password' : 'text'} placeholder="Password" onChange={handleChange} name='password' className="input"/>
-                    <Button className="toggle-password" onClick={togglePasswordVisible} >
-                        {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                    </Button>
+                    <Button className="toggle-password" onClick={togglePasswordVisible} children={passwordVisible ? <FaEyeSlash /> : <FaEye />}/>
                 </div>
-                <b><p className='errors'>{passwordError}</p></b>
+                <b><Paragraph className='errors' children={passwordError}/></b>
                 <div>
-                    <Button className='login-button' onClick={handleLogin}><b>Login</b></Button>
-                    <p className='register-button'><b>Not having an account! </b> <Button onClick={handleClick} className='click-button'><b>Click here</b></Button></p>
+                    <Button className='login-button' onClick={handleLogin} children={<b>Login</b>}></Button>
+                    <Paragraph className='register-button'><b>Not having an account! </b> <Button onClick={handleClick} className='click-button' children={<b>Click here</b>}></Button></Paragraph>
                 </div>
             </div>
         </div>

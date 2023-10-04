@@ -6,6 +6,7 @@ import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CommonTable from '../../components/table/CommonTable';
 import Heading from '../../components/heading/Heading';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Question = (props) => {
     const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName } = props
@@ -83,7 +84,7 @@ const Question = (props) => {
                 />
             </div>
             <div>
-                <h2 className='sub-heading-title'>{selectedName ? selectedName : categoryName}/{selectedQuizName ? selectedQuizName : QuizName}</h2>
+                <HeadingTwo className='sub-heading-title'>{selectedName ? selectedName : categoryName}/{selectedQuizName ? selectedQuizName : QuizName}</HeadingTwo>
             </div>
             {loading &&
                 <div className={popUp && 'display-none'}>
@@ -93,7 +94,7 @@ const Question = (props) => {
                             setTitleQuestion={setTitleQuestion} fetchData={fetchData}/>
                         </div>
                     ) : (
-                        <h2 className='h2-no-list'>No Questions</h2>
+                        <HeadingTwo className='h2-no-list' children={"No Questions"}/>
                     )}
                 </div>
             }

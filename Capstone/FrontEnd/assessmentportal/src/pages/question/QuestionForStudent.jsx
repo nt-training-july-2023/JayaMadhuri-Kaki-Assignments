@@ -5,6 +5,10 @@ import Url from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import Heading from '../../components/heading/Heading';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingFive from '../../components/heading/HeadingFive';
+import HeadingThree from '../../components/heading/HeadingThree';
+import Button from '../../components/button/Button';
+import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
@@ -137,53 +141,47 @@ const QuestionForStudent = (props) => {
                     <div className='question-body'>
                         <div className='test-card'>
                             <div className='student-question-container'>
-                            <h5>Attempted Questions:-{attemptedQuestions+"/"+question.length}</h5>
+                            <HeadingFive>Attempted Questions:-{attemptedQuestions+"/"+question.length}</HeadingFive>
                                 {question.map((item) => (<>
                                     <div key={item.questionId}>
-                                        <h3>{count++}{". "}{item.questionContent}</h3>
+                                        <HeadingThree>{count++}{". "}{item.questionContent}</HeadingThree>
                                         <div className='test-options'>
-                                            <button
+                                            <Button
                                                 className={`options-button ${selectedOption[item.questionId] === 'optionA' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionA')}
-                                            >
-                                                {item.optionA}
-                                            </button>
-                                            <button
+                                                children={item.optionA}
+                                            />
+                                            <Button
                                                 className={`options-button ${selectedOption[item.questionId] === 'optionB' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionB')}
-                                            >
-                                                {item.optionB}
-                                            </button>
-                                            <button
+                                                children={item.optionB}
+                                            />
+                                            <Button
                                                 className={`options-button ${selectedOption[item.questionId] === 'optionC' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionC')}
-                                            >
-                                                {item.optionC}
-                                            </button>
-                                            <button
+                                                children={item.optionC}
+                                            />
+                                            <Button
                                                 className={`options-button ${selectedOption[item.questionId] === 'optionD' ? 'selected' : ''
                                                     }`}
                                                 onClick={() => handleAnswerClick(item.questionId, 'optionD')}
-                                            >
-                                                {item.optionD}
-                                            </button>
+                                                children= {item.optionD}
+                                            />
                                         </div>
                                     </div>
                                 </>))}
                             </div>
                             <div className="submit-button-div">
-                                <button className="submit-quiz-button" onClick={handleSubmit}>
-                                    Submit Quiz
-                                </button>
+                                <Button className="submit-quiz-button" onClick={handleSubmit} children="Submit Quiz"/>
                             </div>
                         </div>
                     </div>
                 </>
             ) : (
-                <h2 className='h2-no-list'>No Questions</h2>
+                <HeadingTwo className='h2-no-list' children="No Questions"/>
             )}
         </div>
     )

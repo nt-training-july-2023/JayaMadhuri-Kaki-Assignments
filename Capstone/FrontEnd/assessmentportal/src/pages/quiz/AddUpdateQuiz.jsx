@@ -5,6 +5,8 @@ import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMess
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
+import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateQuiz = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -90,14 +92,14 @@ const AddUpdateQuiz = (props) => {
     }
     return (
         <div className="category-form-container quiz-top-margin">
-            <h1 className="category-form-title">{title}</h1>
+            <HeadingOne className="category-form-title" children={title}/>
             <Input type="text" className='form-input' name="subCategoryName" value={quizDetails?.subCategoryName} placeholder='Enter SubCategory Name' onChange={handleChange} />
-            <p className='category-quiz-errors'>{error}</p>
+            <Paragraph className='category-quiz-errors' children={error}/>
             <Input type="number"  name="timeLimitInMinutes" placeholder="Enter Time Limit(In Minutes)" className="form-input" value={quizDetails?.timeLimitInMinutes} onChange={handleChange} />
-            <p className='category-quiz-errors'>{timeError}</p>
+            <Paragraph className='category-quiz-errors' children={timeError}/>
             <Input  type="text" className='form-input' name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
-            <Button className='form-button' onClick={handleClick}>{title == "Add Quiz" ? "Add" : "Update"}</Button>
-            <Button className='form-button' onClick={() => { setPopUp(false) }}>Close</Button>
+            <Button className='form-button' onClick={handleClick} children={title == "Add Quiz" ? "Add" : "Update"}/>
+            <Button className='form-button' onClick={() => { setPopUp(false) }} children="Close"/>
         </div>
     )
 }

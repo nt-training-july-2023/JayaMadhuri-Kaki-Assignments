@@ -5,6 +5,7 @@ import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import maleProfileImage from '../../assets/images/profile/male-profile.jpg';
 import femaleProfileImage from '../../assets/images/profile/female-profile.jpg';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
 const Profile = ({ userDetails }) => {
     const [details, setDetails] = useState({});
     const handleUserDetails = async () => {
@@ -27,7 +28,7 @@ const Profile = ({ userDetails }) => {
     return (
         <div>
             <div>
-                <h1 className='category-title'>Profile</h1>
+                <HeadingOne className='category-title' children="Profile"/>
                 <hr />
             </div>
             <div className='profile-container'>

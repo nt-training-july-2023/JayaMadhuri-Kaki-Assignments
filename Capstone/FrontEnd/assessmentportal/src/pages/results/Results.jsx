@@ -4,6 +4,8 @@ import FinalResultsUrl from '../../service/Url';
 import {sweetAlertMessages}  from "../../constants/ValidationMessages"
 import CommonTable from '../../components/table/CommonTable';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
+import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Results = ({ userDetails }) => {
     const [results, setResults] = useState([]);
@@ -66,14 +68,14 @@ const Results = ({ userDetails }) => {
     return (
         <div>
             <div>
-                <h1 className='category-title'>Results</h1>
+                <HeadingOne className='category-title' children="Results"/>
                 <hr />
             </div>
             <div className='question-container'>
                 {results.length > 0 ? (
                     <CommonTable columns={columns} data={results.reverse()} rows={rows}/>
                 ) : (
-                    <h2 className='h2-no-list'>No Results</h2>
+                    <HeadingTwo className='h2-no-list' children="No Results"/>
                 )}
             </div>
         </div>

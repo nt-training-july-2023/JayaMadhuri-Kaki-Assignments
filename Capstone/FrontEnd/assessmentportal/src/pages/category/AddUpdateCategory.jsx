@@ -5,6 +5,8 @@ import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMess
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
+import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateCategory = (props) => {
     const { title, setPopUp, initialValues, fetchData } = props;
@@ -68,12 +70,12 @@ const AddUpdateCategory = (props) => {
     }
     return (
         <div className="category-form-container category-top-margin">
-            <h1 className="category-form-title">{title}</h1>
+            <HeadingOne className="category-form-title" children={title}/>
             <Input type="text" className='form-input' name="categoryName" value={categoryDetails?.categoryName} placeholder='Enter Category Name' onChange={handleChange} />
-            <p className='category-quiz-errors'>{error}</p>
+            <Paragraph className='category-quiz-errors' children={error}/>
             <Input type="text" className='form-input' name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange} />
-            <Button className='form-button' onClick={handleClick}>{title == "Add Category" ? "Add" : "Update"}</Button>
-            <Button className='form-button' onClick={() => { setPopUp(false) }}>Close</Button>
+            <Button className='form-button' onClick={handleClick} children={title == "Add Category" ? "Add" : "Update"}/>
+            <Button className='form-button' onClick={() => { setPopUp(false) }} children="Close"/>
         </div>
     )
 }

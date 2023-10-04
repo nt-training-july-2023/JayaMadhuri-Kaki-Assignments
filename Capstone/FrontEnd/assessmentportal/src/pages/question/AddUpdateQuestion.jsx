@@ -5,6 +5,8 @@ import {errorMessages, sweetAlertMessages}  from "../../constants/ValidationMess
 import Input from '../../components/input/Input'
 import Button from '../../components/button/Button'
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
+import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateQuestion = (props) => {
     const { titleQuestion, setPopUp, initialValues, fetchData } = props
@@ -141,17 +143,17 @@ const AddUpdateQuestion = (props) => {
     return (
         <div className='question-container-wrapper'>
         <div className="question-form-container">
-            <h1 className="question-form-title">{titleQuestion}</h1>
+            <HeadingOne className="question-form-title" children={titleQuestion}/>
             <Input type="text" className='question-input' name="questionContent" value={questionDetails?.questionContent} placeholder='Enter Question' onChange={handleChange} />
-            <p className='question-errors'>{errors.questionContent}</p>
+            <Paragraph className='question-errors' children={errors.questionContent}/>
             <Input type="text" className='question-input' name="optionA" value={questionDetails?.optionA} placeholder='Enter OptionA' onChange={handleChange} />
-            <p className='question-errors'>{errors.optionA}</p>
+            <Paragraph className='question-errors' children={errors.optionA}/>
             <Input type="text" className='question-input' name="optionB" value={questionDetails?.optionB} placeholder='Enter optionB' onChange={handleChange} />
-            <p className='question-errors'>{errors.optionB}</p>
+            <Paragraph className='question-errors' children={errors.optionB}/>
             <Input type="text" className='question-input' name="optionC" value={questionDetails?.optionC} placeholder='Enter optionC' onChange={handleChange} />
-            <p className='question-errors'>{errors.optionC}</p>
+            <Paragraph className='question-errors' children={errors.optionC}/>
             <Input type="text" className='question-input' name="optionD" value={questionDetails?.optionD} placeholder='Enter optionD' onChange={handleChange} />
-            <p className='question-errors'>{errors.optionD}</p>
+            <Paragraph className='question-errors' children={errors.optionD}/>
             <div className="custom-input question-input">
                 <Input type="text"
                     className='options-input'
@@ -159,10 +161,10 @@ const AddUpdateQuestion = (props) => {
                     value={questionDetails?.correctAnswer || ""}
                     readOnly={true}
                 />
-                <button className="arrow-button" onClick={() => handleOptionChange("down")}>&#9660;</button>
+                <Button className="arrow-button" onClick={() => handleOptionChange("down")}>&#9660;</Button>
             </div>
-            <Button className='question-form-button' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</Button>
-            <Button className='question-form-button' onClick={() => { setPopUp(false) }}>Close</Button>
+            <Button className='question-form-button' onClick={handleClick} children={titleQuestion === "Add Question" ? "Add" : "Update"}/>
+            <Button className='question-form-button' onClick={() => { setPopUp(false) }} children={"Close"}/>
         </div>
         </div>
     )

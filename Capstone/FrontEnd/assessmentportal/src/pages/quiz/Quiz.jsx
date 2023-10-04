@@ -8,6 +8,7 @@ import { sweetAlertMessages } from "../../constants/ValidationMessages"
 import Heading from '../../components/heading/Heading';
 import Alert from '../../components/sweetAlert/Alert';
 import CommonCard from '../../components/card/CommonCard';
+import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Quiz = (props) => {
     const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
@@ -122,7 +123,7 @@ const Quiz = (props) => {
                         />
                     </div>
                     {userDetails?.UserType === "Admin" && <div>
-                        <h2 className='sub-heading-title'>{selectedName ? selectedName : categoryName}/</h2>
+                        <HeadingTwo className='sub-heading-title' children={selectedName ? selectedName : categoryName}/>
                     </div>}
                 </>}
             {!showQuestion ? (<>
@@ -143,7 +144,7 @@ const Quiz = (props) => {
                                 ))}
                             </div>
                         ) : (
-                            <h2 className='h2-no-list'>No Quizes</h2>
+                            <HeadingTwo className='h2-no-list' children="No Quizes"/>
                         )}
                         {popUp && (
                             <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />

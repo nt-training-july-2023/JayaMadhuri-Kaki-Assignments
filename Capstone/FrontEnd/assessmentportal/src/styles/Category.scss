@@ -67,6 +67,7 @@
 .long-description{
   max-height: 65px;
   overflow-x: auto; 
+  min-height: 65px;
 }
 .short-description{
     height: fit-content;
@@ -109,6 +110,7 @@
     cursor: pointer;
     @media screen and (max-width:360px){
         width:100px;
+        font-size: medium;
     }
 }
 .backquiz-button{

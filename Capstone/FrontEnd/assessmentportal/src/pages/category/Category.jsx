@@ -7,6 +7,7 @@ import { sweetAlertMessages } from "../../constants/ValidationMessages"
 import Heading from '../../components/heading/Heading';
 import Alert from '../../components/sweetAlert/Alert';
 import CommonCard from '../../components/card/CommonCard';
+import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Category = (props) => {
     const { userDetails, setEnable } = props
@@ -86,7 +87,7 @@ const Category = (props) => {
                                 </div>
                             </div>) :
                             (
-                                <h2 className='h2-no-list'>No Categories</h2>
+                                <HeadingTwo className='h2-no-list' children={"No Categories"}/>
                             )}
                         {popUp && (
                             <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />

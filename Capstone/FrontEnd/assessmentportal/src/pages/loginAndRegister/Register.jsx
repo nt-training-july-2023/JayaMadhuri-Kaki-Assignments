@@ -7,6 +7,8 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import logo from '../../assets/images/loginAndRegister/logo.svg';
 import Alert from '../../components/sweetAlert/Alert';
+import HeadingOne from '../../components/heading/HeadingOne';
+import Paragraph from '../../components/paragraph/Paragraph';
 
 const Register = (props) => {
   const { setRenderComponent } = props;
@@ -259,37 +261,33 @@ const Register = (props) => {
         <img src={logo} className='logo' />
       </div>
       <div className="form">
-        <h1 className='title'>Sign Up</h1>
+        <HeadingOne className='title' children="Sign Up"/>
         {flags?.emailIdFlag && <><Input className="input" type="email" name="emailId" placeholder="Email Id" value={registerRequestBody?.emailId} onChange={handleChange}/>
-          <b><p className='error'>{errors.emailId}</p></b></>}
+          <b><Paragraph className='error' children={errors.emailId}/></b></>}
         {flags?.passwordFlag && <><div className="password-container"><Input type={passwordVisible ? 'password' : 'text'} className="input" name="password" placeholder="Password" value={registerRequestBody?.password} onChange={handleChange}/>
-          <Button className="toggle-password" onClick={togglePasswordVisible}>
-            {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-          </Button>
+          <Button className="toggle-password" onClick={togglePasswordVisible} children={passwordVisible ? <FaEyeSlash /> : <FaEye />}/>
         </div>
-          <b><p className='error'>{errors.password}</p></b>
+          <b><Paragraph className='error' children={errors.password}/></b>
           <div className="password-container"><Input type={confirmPasswordVisible ? 'password' : 'text'} className="input" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} value={registerRequestBody?.confirmPassword}/>
-            <Button className="toggle-password" onClick={toggleConfirmPasswordVisible}>
-              {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-            </Button>
+            <Button className="toggle-password" onClick={toggleConfirmPasswordVisible} children={confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}/>
           </div>
-          <b><p className='error'>{errors.confirmPassword}</p></b> </>}
+          <b><Paragraph className='error' children={errors.confirmPassword}/></b> </>}
         {flags?.detailsFlag && <><Input type="text" name="firstName" placeholder="First Name" onChange={handleChange} value={registerRequestBody?.firstName} className='input' />
-          <b><p className='error'>{errors.firstName}</p></b>
+          <b><Paragraph className='error' children={errors.firstName}/></b>
           <Input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} value={registerRequestBody?.lastName} className='input' />
-          <b><p className='error'>{errors.lastName}</p></b>
+          <b><Paragraph className='error' children={errors.lastName}/></b>
           <Input type="date" name="dateOfBirth" className={registerRequestBody?.dateOfBirth ? 'input': 'input input-date-color'} onChange={handleChange} value={registerRequestBody?.dateOfBirth}/>
-          <b><p className='error'>{errors.dateOfBirth}</p></b>
+          <b><Paragraph className='error' children={errors.dateOfBirth}/></b>
           <div className='radio-div'>
             <Input type="radio" name="gender" onChange={handleChangeRadio} value="male" checked="true"/><b>Male</b>
             <Input type="radio" name="gender" onChange={handleChangeRadio} value="female" /><b>Female</b>
             <Input type="radio" name="gender" onChange={handleChangeRadio} value="others" /><b>Others</b>
           </div></>}
         <div className='button-div'>
-          <Button className='login-button' onClick={handleCommonButtonClick}><b>{buttonName}</b></Button>
+          <Button className='login-button' onClick={handleCommonButtonClick} children={<b>{buttonName}</b>}/>
           {(flags?.passwordFlag || flags?.detailsFlag) && <Button className='login-button'
-            onClick={handleBack}><b>Back</b></Button>}
-          <p className='register-button'> <b>Having an Account!</b> <Button onClick={handleClick} className='click-button'><b>Click here</b></Button></p>
+            onClick={handleBack} children={<b>Back</b>}/>}
+          <Paragraph className='register-button'> <b>Having an Account!</b> <Button onClick={handleClick} className='click-button' children={<b>Click here</b>}/></Paragraph>
         </div>
       </div>
     </div>

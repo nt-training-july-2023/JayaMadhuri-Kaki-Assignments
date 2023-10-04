@@ -1,4 +1,5 @@
-import CardButton from "../button/Button";
+import 
+Button from "../button/Button";
 import Alert from "../sweetAlert/Alert";
 import {FaTrashAlt, FaPencilAlt} from 'react-icons/fa'
 
@@ -20,7 +21,7 @@ const CommonTable = (props) => {
               <td key={column}>{item[column]}</td>
             ))}
             {setPopUp && <td>
-              <CardButton onMouseDown={event => event.stopPropagation()} onClick={(event) => {
+              <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                   setPopUp(true)
                   let updateInitialValues = {
                       questionId: item?.questionId,
@@ -35,12 +36,12 @@ const CommonTable = (props) => {
                   setInitialValues(updateInitialValues)
                   setTitleQuestion("Update Question")
                   event.stopPropagation()
-              }} className='question-button'><FaPencilAlt className='icons'/>Update</CardButton>
-              <CardButton onMouseDown={event => event.stopPropagation()}
+              }} className='question-button'><FaPencilAlt className='icons'/>Update</Button>
+              <Button onMouseDown={event => event.stopPropagation()}
                   onClick={(event) => {
                       event.stopPropagation()
                       Alert.Delete(fetchData,item.questionId,true,false,false);
-                  }} className='question-button delete-button'><FaTrashAlt className='icons'/>Delete</CardButton>
+                  }} className='question-button delete-button'><FaTrashAlt className='icons'/>Delete</Button>
             </td>}
           </tr>
         ))}
