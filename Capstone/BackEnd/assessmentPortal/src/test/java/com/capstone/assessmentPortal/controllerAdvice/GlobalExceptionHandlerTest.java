@@ -64,11 +64,11 @@ class GlobalExceptionHandlerTest {
     
     @Test 
     void testDataIntegrityException() {
-        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("Quiz with same name already exists");
+        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("Name already exists");
         ResponseEntity<CustomResponse<DataIntegrityViolationException>> response = globalhandler.handleConflict(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
         assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Quiz with same name already exists",response.getBody().getMessage());
+        assertEquals("Name already exists",response.getBody().getMessage());
     }
     
     @Test 
