@@ -19,6 +19,7 @@ const Category = (props) => {
     const [selectedId, setSelectedId] = useState(null)
     const [selectedName, setSelectedName] = useState(null)
     const [loading, setLoading] = useState(false);
+    const [isDisable,setIsDisable] = useState(false)
     const [initialValues, setInitialValues] = useState({
         categoryName: "",
         categoryDescription: ""
@@ -54,6 +55,7 @@ const Category = (props) => {
         let updateInitialValues = { categoryId: item?.categoryId, categoryName: item?.categoryName, categoryDescription: item?.categoryDescription }
         setInitialValues(updateInitialValues)
         setTitle("Update Category")
+        setIsDisable(true)
     }
     const onClickCategoryDelete = (item) => {
         Alert.Delete(fetchData, item.categoryId, false, false, true)
@@ -64,12 +66,12 @@ const Category = (props) => {
     return (
         <div>
             {!showQuiz && <div>
-                <Heading className="addcategory-button" onClick={handleAdd} buttonName="Add Category" headingText="Category" userDetails={userDetails} />
+                <Heading className="addcategory-button" onClick={handleAdd} buttonName="Add Category" headingText="Category" userDetails={userDetails} isDisable={isDisable} hrClassName="hr-sticky"/>
             </div>}
             {showQuiz ? (
                 <Quiz userDetails={userDetails} setShowQuiz={setShowQuiz} selectedId={selectedId} setEnable={setEnable} selectedName={selectedName} />
             ) : (
-                <div>
+                <div className='category-container-wrapper'>
                     {loading && <>
                         {category?.length > 0 ? (
                             <div className={popUp && 'display-none'}>
@@ -90,7 +92,7 @@ const Category = (props) => {
                                 <HeadingTwo className='h2-no-list' children={"No Categories"}/>
                             )}
                         {popUp && (
-                            <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />
+                            <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable}/>
                         )}
                     </>}
                 </div>

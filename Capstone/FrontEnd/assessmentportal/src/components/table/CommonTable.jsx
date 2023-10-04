@@ -4,7 +4,7 @@ import Alert from "../sweetAlert/Alert";
 import {FaTrashAlt, FaPencilAlt} from 'react-icons/fa'
 
 const CommonTable = (props) => {
-  const { columns, data, rows, setPopUp, setInitialValues, setTitleQuestion, fetchData } = props;
+  const { columns, data, rows, setPopUp, setInitialValues, setTitleQuestion, fetchData, setIsDisable} = props;
   return (
     <table className="table table-responsive">
       <thead>
@@ -35,6 +35,7 @@ const CommonTable = (props) => {
                   }
                   setInitialValues(updateInitialValues)
                   setTitleQuestion("Update Question")
+                  setIsDisable(true)
                   event.stopPropagation()
               }} className='question-button'><FaPencilAlt className='icons'/>Update</Button>
               <Button onMouseDown={event => event.stopPropagation()}

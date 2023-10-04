@@ -7,8 +7,14 @@ import Paragraph from '../paragraph/Paragraph';
 const CommonCard = (props) => {
     const { data, onClickCard, userType, cardType, onClickUpdate, onClickDelete, onClickStartTest } = props;
     const [expand, setExpand] = useState(false);
+    let cardClassName;
+    if (userType === "Admin") {
+        cardClassName = cardType === "Category" ? 'category-card category-card-height' : 'category-card quiz-card-height';
+    } else if (userType === "Student") {
+        cardClassName = cardType === "Category" ? 'category-card' : 'category-card category-card-margin';
+    }
     return (
-        <div key={cardType == "Category" ? data.categoryId : data.subCategoryId} className={cardType == "Category" ? 'category-card category-card-height' : 'category-card quiz-card-height'} onClick={onClickCard}
+        <div key={cardType == "Category" ? data.categoryId : data.subCategoryId} className={cardClassName} onClick={onClickCard}
         >
             <Paragraph children={`Name: ${cardType === "Category" ? data.categoryName : data.subCategoryName}`} />
             <div className={expand ? 'long-description' : 'short-description'}>

@@ -22,6 +22,7 @@ const Quiz = (props) => {
     const [selectedQuizName, setSelectedQuizName] = useState("")
     const [popUp, setPopUp] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [isDisable,setIsDisable] = useState(false)
     const [time, setTime] = useState(null)
     const [showQuestion, setShowQuestion] = useState(showQuestion_AfterRefresh === 'question');
     const [initialValues, setInitialValues] = useState({
@@ -90,6 +91,7 @@ const Quiz = (props) => {
         };
         setInitialValues(updateInitialValues);
         setTitle("Update Quiz");
+        setIsDisable(true)
     }
     const onClickQuizDelete = (item) =>{
         Alert.Delete(fetchData, item.subCategoryId, false, true, false)
@@ -120,6 +122,7 @@ const Quiz = (props) => {
                                 setShowQuiz(false)
                                 localStorage.setItem("Current_Category_SubWindow", "category")
                             }}
+                            isDisable={isDisable}
                         />
                     </div>
                     {userDetails?.UserType === "Admin" && <div>
@@ -128,7 +131,7 @@ const Quiz = (props) => {
                 </>}
             {!showQuestion ? (<>
                 {loading &&
-                    <div>
+                    <div className='category-container-wrapper scroll-height'>
                         {quiz.length > 0 ? (
                             <div className={popUp ? 'display-none' : 'category-container'}>
                                 {quiz.map((item) => (
@@ -147,7 +150,7 @@ const Quiz = (props) => {
                             <HeadingTwo className='h2-no-list' children="No Quizes"/>
                         )}
                         {popUp && (
-                            <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />
+                            <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable}/>
                         )}
                     </div>}
             </>

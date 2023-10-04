@@ -9,7 +9,7 @@ import HeadingOne from '../../components/heading/HeadingOne';
 import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateQuiz = (props) => {
-    const { title, setPopUp, initialValues, fetchData } = props;
+    const { title, setPopUp, initialValues, fetchData, setIsDisable } = props;
     const [quizDetails, setQuizDetails] = useState(initialValues);
     const [error, setError] = useState("");
     const [timeError, setTimeError] = useState("");
@@ -28,6 +28,8 @@ const AddUpdateQuiz = (props) => {
                     }).catch(error => {
                         if (error?.response?.status === 409) {
                             Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
+                        }else if(error?.response?.status === 400){
+                            Alert.Warning(errorMessages.QUIZ_NAME_REQUIRED)
                         }
                     })
 
@@ -50,12 +52,13 @@ const AddUpdateQuiz = (props) => {
                             Alert.Success(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                             fetchData();
                             setPopUp(false);
+                            setIsDisable(false)
                         }
                     }).catch(error => {
                         if (error?.response?.status === 409) {
                             Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
-                        } else {
-                            Alert.Warning(sweetAlertMessages.SOMETHING_WENT_WRONG)
+                        }else if(error?.response?.status === 400){
+                            Alert.Warning(errorMessages.QUIZ_NAME_REQUIRED)
                         }
                     })
             } else {
@@ -99,7 +102,7 @@ const AddUpdateQuiz = (props) => {
             <Paragraph className='category-quiz-errors' children={timeError}/>
             <Input  type="text" className='form-input' name='subCategoryDescription' value={quizDetails?.subCategoryDescription} placeholder='Enter Description about Quiz' onChange={handleChange} />
             <Button className='form-button' onClick={handleClick} children={title == "Add Quiz" ? "Add" : "Update"}/>
-            <Button className='form-button' onClick={() => { setPopUp(false) }} children="Close"/>
+            <Button className='form-button' onClick={() => { setPopUp(false); setIsDisable(false) }} children="Close"/>
         </div>
     )
 }

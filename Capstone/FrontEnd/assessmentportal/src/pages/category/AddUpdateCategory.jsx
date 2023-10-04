@@ -9,7 +9,7 @@ import HeadingOne from '../../components/heading/HeadingOne';
 import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateCategory = (props) => {
-    const { title, setPopUp, initialValues, fetchData } = props;
+    const { title, setPopUp, initialValues, fetchData, setIsDisable } = props;
     const [categoryDetails, setCategoryDetails] = useState(initialValues);
     const [error, setError] = useState("");
     const handleAdd = () => {
@@ -25,6 +25,8 @@ const AddUpdateCategory = (props) => {
                 }).catch(error => {
                     if (error?.response?.status === 409) {
                         Alert.Warning(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
+                    }else if(error?.response?.status === 400){
+                        Alert.Warning(errorMessages.CATEGORY_NAME_REQUIRED)
                     }
                 })
         } else {
@@ -40,10 +42,13 @@ const AddUpdateCategory = (props) => {
                         Alert.Success(sweetAlertMessages.UPDATE_TITLE,sweetAlertMessages.SUCCESS_UPDATE_MSG)
                         fetchData();
                         setPopUp(false);
+                        setIsDisable(false)
                     }
                 }).catch(error => {
                     if (error?.response?.status === 409) {
                         Alert.Warning(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
+                    }else if(error?.response?.status === 400){
+                        Alert.Warning(errorMessages.CATEGORY_NAME_REQUIRED)
                     }
                 })
         } else {
@@ -75,7 +80,7 @@ const AddUpdateCategory = (props) => {
             <Paragraph className='category-quiz-errors' children={error}/>
             <Input type="text" className='form-input' name='categoryDescription' value={categoryDetails?.categoryDescription} placeholder='Enter Description about Category' onChange={handleChange} />
             <Button className='form-button' onClick={handleClick} children={title == "Add Category" ? "Add" : "Update"}/>
-            <Button className='form-button' onClick={() => { setPopUp(false) }} children="Close"/>
+            <Button className='form-button' onClick={() => { setPopUp(false); setIsDisable(false)}} children="Close"/>
         </div>
     )
 }

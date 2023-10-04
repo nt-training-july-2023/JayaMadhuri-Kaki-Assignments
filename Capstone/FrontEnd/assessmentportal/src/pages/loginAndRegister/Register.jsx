@@ -107,8 +107,6 @@ const Register = (props) => {
         setRegisterRequestBody({ ...registerRequestBody, firstName: value });
         if (!value) {
           setErrors({ ...errors, firstName: errorMessages.FIRST_NAME_REQUIRED });
-        } else if(value.trim() == ""){
-          setErrors({ ...errors, firstName: errorMessages.FIRST_NAME_REQUIRED });
         } else {
           setErrors({ ...errors, firstName: "" });
         }
@@ -117,8 +115,6 @@ const Register = (props) => {
       case "lastName":
         setRegisterRequestBody({ ...registerRequestBody, lastName: value });
         if (!value) {
-          setErrors({ ...errors, lastName: errorMessages.LAST_NAME_REQUIRED });
-        }  else if(value.trim() == ""){
           setErrors({ ...errors, lastName: errorMessages.LAST_NAME_REQUIRED });
         } else {
           setErrors({ ...errors, lastName: "" });
@@ -194,9 +190,8 @@ const Register = (props) => {
           Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
         } else if(error?.response?.data?.message == "Age should be atleast 18 years old"){
           Alert.Warning(sweetAlertMessages.AGE_VALIDATION)
-        }
-        else{
-          Alert.Warning(sweetAlertMessages.ALL_FIELDS_REQUIRED)
+        }else if(error?.response?.status == 400){
+          Alert.Warning(error?.response?.data?.message)
         }
       })
   }

@@ -71,7 +71,7 @@ const Results = ({ userDetails }) => {
                 <HeadingOne className='category-title' children="Results"/>
                 <hr />
             </div>
-            <div className='question-container'>
+            <div className='question-container scroll'>
                 {results.length > 0 ? (
                     <CommonTable columns={columns} data={results.reverse()} rows={rows}/>
                 ) : (

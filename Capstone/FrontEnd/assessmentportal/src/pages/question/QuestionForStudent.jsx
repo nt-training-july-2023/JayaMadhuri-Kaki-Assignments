@@ -74,7 +74,7 @@ const QuestionForStudent = (props) => {
             setShowQuestion(false)
             localStorage.setItem('reloadCount', '');
             localStorage.setItem("time","")
-            localStorage.setItem("attemptedQuestions",0);
+            localStorage.setItem("attemptedQuestions","");
             localStorage.setItem("Current_Quiz_SubWindow","")
             localStorage.setItem("selectedOption","{}");
             localStorage.setItem("prevSelectedOption","");
@@ -90,7 +90,7 @@ const QuestionForStudent = (props) => {
                 setShowQuestion(false)
                 localStorage.setItem('reloadCount', '');
                 localStorage.setItem("time","")
-                localStorage.setItem("attemptedQuestions",0);
+                localStorage.setItem("attemptedQuestions","");
                 localStorage.setItem("Current_Quiz_SubWindow","")
                 localStorage.setItem("selectedOption","{}");
                 localStorage.setItem("prevSelectedOption","");
@@ -111,13 +111,13 @@ const QuestionForStudent = (props) => {
         if (reloadCount) {
         incrementReloadCount();
         setIsRunning(false)
-        Alert.Info(setShowQuestion,setEnable,checkAnswers,setIsRunning)
+        {question.length > 0 && Alert.Info(setShowQuestion,setEnable,checkAnswers,setIsRunning)}
         }
     }, []);
     useEffect(()=>{
         if(Object.keys(selectedOption).length > 0){
             localStorage.setItem("selectedOption",JSON.stringify(selectedOption));
-            localStorage.setItem("attemptedQuestions",attemptedQuestions);
+            localStorage.setItem("attemptedQuestions",Object.keys(selectedOption).length);
             localStorage.setItem("prevSelectedOption",prevSelectedOption);
             setAttemptedQuestions(Object.keys(selectedOption).length);
         }
@@ -125,12 +125,12 @@ const QuestionForStudent = (props) => {
     return (
         <div>
             <div>
-                <Heading 
+            {question.length === 0 &&<Heading 
                     backButton={true} backButtonName="Back" backClassName="addquestion-button"
                     backOnClick={() => { setShowQuestion(false); localStorage.setItem('reloadCount', ''); localStorage.setItem('Current_Quiz_SubWindow','quiz')}}
                     question={question}
                     headingText="Questions"
-                />
+                />}
             </div>
             {question.length > 0 ? (
                 <>
@@ -175,13 +175,15 @@ const QuestionForStudent = (props) => {
                                 </>))}
                             </div>
                             <div className="submit-button-div">
-                                <Button className="submit-quiz-button" onClick={handleSubmit} children="Submit Quiz"/>
+                                <Button className="submit-quiz-button" onClick={handleSubmit} children="Submit"/>
                             </div>
                         </div>
                     </div>
                 </>
-            ) : (
-                <HeadingTwo className='h2-no-list' children="No Questions"/>
+            ) : (<>
+                    {setEnable(false)}
+                    <HeadingTwo className='h2-no-list' children="No Questions"/>
+                </>
             )}
         </div>
     )

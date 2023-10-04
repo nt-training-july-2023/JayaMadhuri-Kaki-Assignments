@@ -14,6 +14,7 @@ const Question = (props) => {
     const QuizName = localStorage.getItem("QuizName")
     const QuizId = localStorage.getItem("QuizId")
     const [question, setQuestion] = useState([])
+    const [isDisable,setIsDisable] = useState(false)
     const [titleQuestion, setTitleQuestion] = useState("Add Question")
     const [popUp, setPopUp] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -81,26 +82,29 @@ const Question = (props) => {
                         localStorage.setItem("Current_Quiz_SubWindow","")
                         setShowQuestion(false) 
                     }}
+                    isDisable={isDisable}
                 />
             </div>
             <div>
                 <HeadingTwo className='sub-heading-title'>{selectedName ? selectedName : categoryName}/{selectedQuizName ? selectedQuizName : QuizName}</HeadingTwo>
             </div>
             {loading &&
+            <div className='category-container-wrapper scroll-height'>
                 <div className={popUp && 'display-none'}>
                     {question.length > 0 ? (
                         <div className="question-container">
                             <CommonTable columns={columns} data={question} rows={rows} setPopUp={setPopUp} setInitialValues={setInitialValues}
-                            setTitleQuestion={setTitleQuestion} fetchData={fetchData}/>
+                            setTitleQuestion={setTitleQuestion} fetchData={fetchData} setIsDisable={setIsDisable}/>
                         </div>
                     ) : (
                         <HeadingTwo className='h2-no-list' children={"No Questions"}/>
                     )}
                 </div>
+            </div>
             }
             <>
                 {popUp && (
-                    <AddUpdateQuestion titleQuestion={titleQuestion} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} />
+                    <AddUpdateQuestion titleQuestion={titleQuestion} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable}/>
                 )}
             </>
         </div>

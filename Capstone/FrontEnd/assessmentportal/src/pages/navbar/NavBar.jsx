@@ -30,8 +30,7 @@ const Navbar = (props) => {
             return <Profile userDetails={userInfo} />
         } else if (activeButton === "results") {
             return <Results userDetails={userInfo} />
-        }
-        else {
+        }else {
             return <Category userDetails={userInfo} setEnable={setEnable}/>
         }
     }
