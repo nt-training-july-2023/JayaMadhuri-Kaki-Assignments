@@ -60,6 +60,5 @@ export const errorMessages = {
     OPTIONA_REQUIRED:"OptionA is Required",
     OPTIONB_REQUIRED:"OptionB is Required",
     OPTIONC_REQUIRED:"OptionC is Required",
-    OPTIOND_REQUIRED:"OptionD is Required",
-    CORRECT_ANSWER:"Correct Answer is Required",
+    OPTIOND_REQUIRED:"OptionD is Required"
 }

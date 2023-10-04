@@ -29,7 +29,7 @@ const AddUpdateQuestion = (props) => {
                     setPopUp(false)
                 }
             }).catch(error => {
-                if (error?.response?.status === 409) {
+                if (error?.response?.data?.message === "Options must be different from each other") {
                     Alert.Warning(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else{
                     Alert.Warning(sweetAlertMessages.ALL_FIELDS_REQUIRED)
@@ -104,11 +104,6 @@ const AddUpdateQuestion = (props) => {
                 break;
             case "correctAnswer":
                 setQuestionDetails({ ...questionDetails, correctAnswer: value })
-                if(!value){
-                  setErrors({ ...errors, correctAnswer: errorMessages.CORRECT_ANSWER });
-                }else{
-                  setErrors({ ...errors, correctAnswer: "" });
-                }
                 break;
             default:
                 setQuestionDetails({ ...questionDetails, [name]: value })
@@ -124,7 +119,7 @@ const AddUpdateQuestion = (props) => {
         setQuestionDetails({ ...questionDetails, correctAnswer: options[newIndex] });
     }
     const handleValidateInputs = () => {
-        let questionContentError = "", optionAError = "", optionBError = "", optionCError = "", optionDError = "", correctAnswerError = "";
+        let questionContentError = "", optionAError = "", optionBError = "", optionCError = "", optionDError = "";
         switch (true) {
           case questionDetails?.questionContent.length < 1:
             questionContentError = errorMessages.QUESTION_REQUIRED;
@@ -136,11 +131,9 @@ const AddUpdateQuestion = (props) => {
             optionCError = errorMessages.OPTIONC_REQUIRED
           case questionDetails?.optionD.length < 1:
             optionDError = errorMessages.OPTIOND_REQUIRED
-          case questionDetails?.correctAnswer.length < 1:
-            correctAnswerError = errorMessages.CORRECT_ANSWER
           default:
-            setErrors({ ...errors, questionContent: questionContentError, optionA: optionAError, optionB: optionBError, optionC: optionCError, optionD: optionDError, correctAnswer: correctAnswerError });
-            if(errors.questionContent === "" && errors.optionA === "" && errors.optionB === "" && errors.optionC === "" && errors.optionD === "" && errors.correctAnswer === "" && questionDetails?.questionContent.length > 1){
+            setErrors({ ...errors, questionContent: questionContentError, optionA: optionAError, optionB: optionBError, optionC: optionCError, optionD: optionDError});
+            if(errors.questionContent === "" && errors.optionA === "" && errors.optionB === "" && errors.optionC === "" && errors.optionD === "" && questionDetails?.questionContent.length > 1){
                 handleAdd();
             }
         }
@@ -168,7 +161,6 @@ const AddUpdateQuestion = (props) => {
                 />
                 <button className="arrow-button" onClick={() => handleOptionChange("down")}>&#9660;</button>
             </div>
-            <p className='question-errors'>{errors.correctAnswer}</p>
             <Button className='question-form-button' onClick={handleClick}>{titleQuestion === "Add Question" ? "Add" : "Update"}</Button>
             <Button className='question-form-button' onClick={() => { setPopUp(false) }}>Close</Button>
         </div>
