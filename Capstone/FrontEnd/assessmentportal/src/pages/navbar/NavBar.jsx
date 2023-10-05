@@ -4,14 +4,14 @@ import { FaBars, FaSignOutAlt, FaHome, FaUserCircle, FaDeezer } from 'react-icon
 import Category from '../category/Category'
 import Profile from '../profile/Profile'
 import Results from '../results/Results'
-import {sweetAlertMessages}  from "../../constants/ValidationMessages"
+import { sweetAlertMessages } from "../../constants/ValidationMessages"
 import logo from '../../assets/images/loginAndRegister/logo.svg';
 import Button from '../../components/button/Button';
 import Alert from '../../components/sweetAlert/Alert';
 import Label from '../../components/label/Label';
 
 const Navbar = (props) => {
-    const { setRenderComponent, userDetails} = props
+    const { setRenderComponent, userDetails } = props
     let userDetails_AfterReload = JSON.parse(localStorage.getItem("UserDetails"));
     const userInfo = Object.keys(userDetails).length > 0 ? userDetails : userDetails_AfterReload
     const role = userInfo?.UserType;
@@ -30,8 +30,8 @@ const Navbar = (props) => {
             return <Profile userDetails={userInfo} />
         } else if (activeButton === "results") {
             return <Results userDetails={userInfo} />
-        }else {
-            return <Category userDetails={userInfo} setEnable={setEnable}/>
+        } else {
+            return <Category userDetails={userInfo} setEnable={setEnable} />
         }
     }
     const handleLogOut = () => {
@@ -39,7 +39,7 @@ const Navbar = (props) => {
         Alert.LogOut(setRenderComponent)
     }
     useEffect(() => {
-        if( Object.keys(userDetails).length > 0){
+        if (Object.keys(userDetails).length > 0) {
             if (role === "Admin") {
                 Alert.Text(sweetAlertMessages.WELCOME)
             } else {
@@ -57,40 +57,40 @@ const Navbar = (props) => {
                 <div className={
                     isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
                 }>
-                    <Button onClick={toggleMenu} className='close-icon' children={"X"}/>
+                    <Button onClick={toggleMenu} className='close-icon' children={"X"} />
                     <ul>
                         <li>
                             <Button onClick={() => {
                                 handleButtonClick('category')
-                                localStorage.setItem("Current_SubWindow","category")
+                                localStorage.setItem("Current_SubWindow", "category")
                                 setIsNavExpanded(false)
                             }}
                                 className={`nav-button ${activeButton === "category"
-                                        ? 'active'
-                                        : ''
+                                    ? 'active'
+                                    : ''
                                     }`}
-                                children={<Label className='nav-button-icon'>Home<FaHome className="nav-icons"/></Label>}/>
+                                children={<Label className='nav-button-icon'>Home<FaHome className="nav-icons" /></Label>} />
                         </li>
                         <li>
-                            <Button onClick={() => { 
-                                handleButtonClick('results'); 
+                            <Button onClick={() => {
+                                handleButtonClick('results');
                                 setIsNavExpanded(false)
-                                localStorage.setItem("Current_SubWindow","results")
-                                }}
+                                localStorage.setItem("Current_SubWindow", "results")
+                            }}
                                 className={`nav-button ${activeButton === "results" ? 'active' : ''
-                                }`} disabled={enable} children={<Label className='nav-button-icon'>Results<FaDeezer className="nav-icons"/></Label>}/>
+                                    }`} disabled={enable} children={<Label className='nav-button-icon'>Results<FaDeezer className="nav-icons" /></Label>} />
                         </li>
                         <li>
-                            <Button onClick={() => { 
-                                handleButtonClick('profile'); 
+                            <Button onClick={() => {
+                                handleButtonClick('profile');
                                 setIsNavExpanded(false)
-                                localStorage.setItem("Current_SubWindow","profile")
-                             }}
+                                localStorage.setItem("Current_SubWindow", "profile")
+                            }}
                                 className={`nav-button ${activeButton === "profile" ? 'active' : ''
-                                }`} disabled={enable} children={<Label className='nav-button-icon'>Profile<FaUserCircle className="nav-icons"/></Label>}/>
+                                    }`} disabled={enable} children={<Label className='nav-button-icon'>Profile<FaUserCircle className="nav-icons" /></Label>} />
                         </li>
                         <li>
-                            <Button onClick={handleLogOut} className="nav-button" disabled={enable} children={<Label className='nav-button-icon'>Logout<FaSignOutAlt className="nav-icons"/></Label>}/>
+                            <Button onClick={handleLogOut} className="nav-button" disabled={enable} children={<Label className='nav-button-icon'>Logout<FaSignOutAlt className="nav-icons" /></Label>} />
                         </li>
                     </ul>
                 </div>

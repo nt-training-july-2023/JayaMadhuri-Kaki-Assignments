@@ -16,11 +16,11 @@ const CommonCard = (props) => {
         <div key={cardType == "Category" ? data.categoryId : data.subCategoryId} className={cardClassName} onClick={onClickCard}
         >
             <div className='long-description'>
-            <Paragraph children={`Name: ${cardType === "Category" ? data.categoryName : data.subCategoryName}`}/>
-                    {cardType == "Category" && <Paragraph>Description: {data.categoryDescription}</Paragraph>}
-                    {cardType == "Quiz" && <Paragraph>Description: {data.subCategoryDescription}</Paragraph>}
+                <Paragraph children={`Name: ${cardType === "Category" ? data.categoryName : data.subCategoryName}`} />
+                {cardType == "Category" && <Paragraph>Description: {data.categoryDescription}</Paragraph>}
+                {cardType == "Quiz" && <Paragraph>Description: {data.subCategoryDescription}</Paragraph>}
             </div>
-            {cardType == "Quiz" && <Paragraph children={`Time: ${data.timeLimitInMinutes} minutes`}/>}
+            {cardType == "Quiz" && <Paragraph children={`Time: ${data.timeLimitInMinutes} minutes`} />}
             {userType === "Admin" && <div className='categorycard-buttons-div'>
                 <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
                     event.stopPropagation()
