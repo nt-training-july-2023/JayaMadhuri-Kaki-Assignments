@@ -48,14 +48,14 @@ public class Category {
      * get subcategory.
      * @return subCategory
      */
-    public final List<SubCategory> getSubCategory() {
+    public List<SubCategory> getSubCategory() {
         return new ArrayList<>(subCategory);
     }
     /**
      * set subcategory.
      * @param subcategory subcategory
      */
-    public final void setSubCategory(final List<SubCategory> subcategory) {
+    public void setSubCategory(final List<SubCategory> subcategory) {
         this.subCategory = new ArrayList<>(subcategory);
     }
     /**

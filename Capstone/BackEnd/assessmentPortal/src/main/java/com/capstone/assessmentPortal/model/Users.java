@@ -67,14 +67,14 @@ public class Users {
      * get results.
      * @return results
      */
-    public final List<Results> getResults() {
+    public List<Results> getResults() {
         return new ArrayList<>(results);
     }
     /**
      * set results.
      * @param res res
      */
-    public final void setResults(final List<Results> res) {
+    public void setResults(final List<Results> res) {
         this.results = new ArrayList<>(res);
     }
     /**

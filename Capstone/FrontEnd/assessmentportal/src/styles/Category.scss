@@ -44,12 +44,11 @@
   }
 }
 .category-card-height{
-    height: fit-content;
-    min-height: 180px;
+    min-height: 150px;
 }
 .quiz-card-height{
     height: fit-content;
-    min-height: 220px;
+    min-height: 200px;
 }
 .category-card::-webkit-scrollbar{
     width: 30px; 
@@ -80,24 +79,15 @@
     color: #31334e;
     text-align: center;
     margin-top: 150px;
-
 }
 .long-description{
-  max-height: 65px;
+  max-height: 80px;
   overflow-x: auto; 
-  min-height: 65px;
-}
-.short-description{
-    height: fit-content;
-    min-height: 65px;
-}
-.description{
-   overflow-wrap: break-word;
-   color:white;
+  min-height: 100px;
+  overflow-wrap: break-word;
 }
 .long-description::-webkit-scrollbar {
     width: 4px;
-    height: 8px;
 }  
 .long-description::-webkit-scrollbar-thumb {
     background: white;
@@ -105,12 +95,6 @@
 }
 .long-description::-webkit-scrollbar-thumb:hover {
     background: #555; 
-}
-.read-more{
-    background: none;
-    border:0;
-    color:white;
-    cursor: pointer;
 }
 .addcategory-button{
     position: absolute;
@@ -160,6 +144,7 @@
 .sub-heading-title{
     margin-left: 60px;
     color:#31334e;
+    overflow-wrap: break-word;
     @media screen and (max-width:768px){
         font-size: 5vw;
         margin-left:10px;

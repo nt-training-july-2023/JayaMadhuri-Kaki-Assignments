@@ -6,7 +6,6 @@ import Paragraph from '../paragraph/Paragraph';
 
 const CommonCard = (props) => {
     const { data, onClickCard, userType, cardType, onClickUpdate, onClickDelete, onClickStartTest } = props;
-    const [expand, setExpand] = useState(false);
     let cardClassName;
     if (userType === "Admin") {
         cardClassName = cardType === "Category" ? 'category-card category-card-height' : 'category-card quiz-card-height';
@@ -16,19 +15,10 @@ const CommonCard = (props) => {
     return (
         <div key={cardType == "Category" ? data.categoryId : data.subCategoryId} className={cardClassName} onClick={onClickCard}
         >
-            <Paragraph children={`Name: ${cardType === "Category" ? data.categoryName : data.subCategoryName}`} />
-            <div className={expand ? 'long-description' : 'short-description'}>
-                <span
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        setExpand(!expand)
-                    }}
-                    onMouseDown={event => event.stopPropagation()}
-                    className='description'
-                >
-                    {cardType == "Category" && <>Description: {data.categoryDescription.length > 40 ? expand ? data.categoryDescription + " ... Read Less" : data.categoryDescription.slice(0, 40) + " ... Read More" : data.categoryDescription}</>}
-                    {cardType == "Quiz" && <>Description: {data.subCategoryDescription.length > 40 ? expand ? data.subCategoryDescription + " ... Read Less" : data.subCategoryDescription.slice(0, 40) + " ... Read More" : data.subCategoryDescription}</>}
-                </span>
+            <div className='long-description'>
+            <Paragraph children={`Name: ${cardType === "Category" ? data.categoryName : data.subCategoryName}`}/>
+                    {cardType == "Category" && <Paragraph>Description: {data.categoryDescription}</Paragraph>}
+                    {cardType == "Quiz" && <Paragraph>Description: {data.subCategoryDescription}</Paragraph>}
             </div>
             {cardType == "Quiz" && <Paragraph children={`Time: ${data.timeLimitInMinutes} minutes`}/>}
             {userType === "Admin" && <div className='categorycard-buttons-div'>

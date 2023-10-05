@@ -32,8 +32,9 @@ const Login = (props) => {
         if (name === "emailId") {
             if (!value) {
                 setEmailError(errorMessages.EMAIL_REQUIRED);
-            }
-            else {
+            }else if (!/^[A-Z0-9a-z.+_-]+@nucleusteq[.]com$/.test(value)) {
+                setEmailError(errorMessages.INVALID_EMAIL);
+            }else {
                 setEmailError('');
                 setLoginRequestBody({ ...loginRequestBody, emailId: value })
             }

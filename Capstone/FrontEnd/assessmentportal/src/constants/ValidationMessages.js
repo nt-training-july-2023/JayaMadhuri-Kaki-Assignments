@@ -35,7 +35,7 @@ export const sweetAlertMessages = {
     DELETE_SUCCESS:"Successfully Deleted",
     ID_NOT_FOUND:"ID Not Found",
     INSTRUCTIONS:"Instructions",
-    INSTRUCTIONS_MSG:"<div class='sweetalert-text'>*Once, test started user should not leave the quiz without submit. If not submitted results will not be stored<br>*Each question carries one mark.<br>*Do not Refresh the page<div>",
+    INSTRUCTIONS_MSG:"<div class='sweetalert-text'><li>Once, test started user should not leave the quiz without submit. If not results will not be stored<br></li><li>Each question carries one mark.</li><li>After submitting quiz kindly go to results page to view your results.</li><div>",
     CANCEL_BUTTON_TEXT:"<span class='sweetalert-button'> Stay </span>",
     CONFIRM_BUTTON_TEXT:"<span class='sweetalert-button'>Logout</span>"
 }

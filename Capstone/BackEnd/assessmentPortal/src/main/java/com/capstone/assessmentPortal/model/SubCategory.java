@@ -66,7 +66,7 @@ public class SubCategory {
      * get category.
      * @return category
      */
-    public final Category getCategory() {
+    public Category getCategory() {
         return new Category(category.getCategoryId(),
                 category.getCategoryName(),
                 category.getCategoryDescription());
@@ -75,7 +75,7 @@ public class SubCategory {
      * set Category.
      * @param cate cate
      */
-    public final void setCategory(final Category cate) {
+    public void setCategory(final Category cate) {
         this.category = new Category(cate.getCategoryId(),
                 cate.getCategoryName(),
                 cate.getCategoryDescription());
@@ -84,28 +84,28 @@ public class SubCategory {
      * get question.
      * @return question
      */
-    public final List<Question> getQuestion() {
+    public List<Question> getQuestion() {
         return new ArrayList<>(question);
     }
     /**
      * set question.
      * @param que que
      */
-    public final void setQuestion(final List<Question> que) {
+    public void setQuestion(final List<Question> que) {
         this.question = new ArrayList<>(que);
     }
     /**
      * get results in the form of list.
      * @return results
      */
-    public final List<Results> getResults() {
+    public List<Results> getResults() {
         return new ArrayList<>(results);
     }
     /**
      * set results.
      * @param res res
      */
-    public final void setResults(final List<Results> res) {
+    public void setResults(final List<Results> res) {
         this.results = new ArrayList<>(res);
     }
     /**

@@ -64,7 +64,7 @@ public class Question {
      * get subcategory.
      * @return subCategory
      */
-    public final SubCategory getSubCategory() {
+    public SubCategory getSubCategory() {
         return new SubCategory(subCategory.getSubCategoryId(),
                 subCategory.getSubCategoryName(),
                 subCategory.getSubCategoryDescription(),
@@ -74,7 +74,7 @@ public class Question {
      * set subCategory.
      * @param subcategory subcategory
      */
-    public final void setSubCategory(final SubCategory subcategory) {
+    public void setSubCategory(final SubCategory subcategory) {
         this.subCategory = new SubCategory(subcategory.getSubCategoryId(),
                 subcategory.getSubCategoryName(),
                 subcategory.getSubCategoryDescription(),

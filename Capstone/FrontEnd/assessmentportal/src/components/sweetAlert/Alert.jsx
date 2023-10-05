@@ -36,6 +36,10 @@ class Alert{
             icon: sweetAlertMessages.INFO,
             background: '#15172b',
             color: 'white',
+            customClass: {
+                confirmButton: 'custom-button-text',
+                cancelButton: 'custom-button-text',
+            },
         }).then((result) => {
             if (result.value === true) {
                 setShowQuestion(false)

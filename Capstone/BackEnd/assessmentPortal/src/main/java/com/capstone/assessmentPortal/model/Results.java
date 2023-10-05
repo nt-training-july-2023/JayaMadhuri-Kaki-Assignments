@@ -61,21 +61,21 @@ public class Results {
      * get students.
      * @return students
      */
-    public final Users getStudents() {
+    public Users getStudents() {
         return new Users(students.getFirstName(), students.getUserId());
     }
     /**
      * set students.
      * @param stu stu
      */
-    public final void setStudents(final Users stu) {
+    public void setStudents(final Users stu) {
         this.students = new Users(stu.getFirstName(), stu.getUserId());
     }
     /**
      * get subcategory.
      * @return subCategory
      */
-    public final SubCategory getSubCategory() {
+    public SubCategory getSubCategory() {
         return new SubCategory(subCategory.getSubCategoryId(),
                 subCategory.getSubCategoryName(),
                 subCategory.getSubCategoryDescription(),
@@ -85,7 +85,7 @@ public class Results {
      * set subCategory.
      * @param subcategory subcategory
      */
-    public final void setSubCategory(final SubCategory subcategory) {
+    public void setSubCategory(final SubCategory subcategory) {
         this.subCategory = new SubCategory(subcategory.getSubCategoryId(),
                 subcategory.getSubCategoryName(),
                 subcategory.getSubCategoryDescription(),
