@@ -140,7 +140,8 @@ const AddUpdateQuestion = (props) => {
             optionDError = errorMessages.OPTIOND_REQUIRED
           default:
             setErrors({ ...errors, questionContent: questionContentError, optionA: optionAError, optionB: optionBError, optionC: optionCError, optionD: optionDError});
-            if(errors.questionContent === "" && errors.optionA === "" && errors.optionB === "" && errors.optionC === "" && errors.optionD === ""){
+            if(errors.questionContent === "" && errors.optionA === "" && errors.optionB === "" && errors.optionC === "" && errors.optionD === "" && questionDetails?.questionContent.length > 1 && questionDetails?.optionA.length > 1
+            && questionDetails?.optionB.length > 1 && questionDetails?.optionC.length > 1 && questionDetails?.optionD.length > 1){
                 handleAdd();
             }
         }

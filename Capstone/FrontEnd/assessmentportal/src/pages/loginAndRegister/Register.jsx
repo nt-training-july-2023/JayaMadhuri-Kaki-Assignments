@@ -208,7 +208,7 @@ const Register = (props) => {
         dateOfBirthError = errorMessages.DATE_OF_BIRTH_REQUIRED
       default:
         setErrors({ ...errors, firstName: firstNameError, lastName: lastNameError, dateOfBirth: dateOfBirthError });
-        if(errors.firstName === "" && errors.lastName === "" && errors.dateOfBirth === ""){
+        if(errors.firstName === "" && errors.lastName === "" && errors.dateOfBirth === "" && registerRequestBody?.firstName.length > 1 && registerRequestBody?.lastName.length > 1 && registerRequestBody?.dateOfBirth.length > 1){
           handleRegister();
         }
     }
