@@ -81,6 +81,8 @@ const Login = (props) => {
                         Alert.Warning(sweetAlertMessages.INCORRECT_CREDENTIALS)
                     } else if (error?.message == "Network Error") {
                         Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+                    } else{
+                        console.error(error)
                     }
                 })
         }

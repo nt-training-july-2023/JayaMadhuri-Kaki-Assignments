@@ -30,6 +30,8 @@ const AddUpdateQuiz = (props) => {
                             Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         }else if(error?.response?.status === 400){
                             Alert.Warning(errorMessages.QUIZ_NAME_REQUIRED)
+                        }else{
+                            console.error(error)
                         }
                     })
 
@@ -59,6 +61,8 @@ const AddUpdateQuiz = (props) => {
                             Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         }else if(error?.response?.status === 400){
                             Alert.Warning(errorMessages.QUIZ_NAME_REQUIRED)
+                        }else{
+                            console.error(error)
                         }
                     })
             } else {

@@ -192,6 +192,8 @@ const Register = (props) => {
           Alert.Warning(sweetAlertMessages.AGE_VALIDATION)
         }else if(error?.response?.status == 400){
           Alert.Warning(error?.response?.data?.message)
+        }else{
+          console.error(error)
         }
       })
   }

@@ -27,6 +27,8 @@ const AddUpdateCategory = (props) => {
                         Alert.Warning(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
                     }else if(error?.response?.status === 400){
                         Alert.Warning(errorMessages.CATEGORY_NAME_REQUIRED)
+                    }else{
+                        console.error(error)
                     }
                 })
         } else {
@@ -49,6 +51,8 @@ const AddUpdateCategory = (props) => {
                         Alert.Warning(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
                     }else if(error?.response?.status === 400){
                         Alert.Warning(errorMessages.CATEGORY_NAME_REQUIRED)
+                    }else{
+                        console.error(error)
                     }
                 })
         } else {

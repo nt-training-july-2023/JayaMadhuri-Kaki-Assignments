@@ -54,6 +54,8 @@ const AddUpdateQuestion = (props) => {
                     Alert.Warning(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else if (error?.response?.data?.statusCode === 400){
                     Alert.Warning(error?.response?.data?.message)
+                }else{
+                    console.error(error)
                 }
             })
     }
