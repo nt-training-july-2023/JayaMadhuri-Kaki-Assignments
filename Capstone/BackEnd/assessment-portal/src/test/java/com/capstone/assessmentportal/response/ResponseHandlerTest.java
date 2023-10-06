@@ -1,6 +1,5 @@
 package com.capstone.assessmentportal.response;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class ResponseHandlerTest {
         HttpStatus code = HttpStatus.OK;
         Object responseObj = users;
         CustomResponse<Object> response = ResponseHandler.generateResponse(message, code, responseObj);
-        assertNotNull(response);
+        //assertNotNull(response);
         assertEquals(code.value(), response.getStatusCode());
         assertEquals(message, response.getMessage());
         assertEquals(responseObj, response.getResponseData());

@@ -41,7 +41,8 @@ public class UsersServiceImplementation implements UsersService {
   public final String studentRegistration(final SignUpRequest signUpRequest) {
     Optional<Users> user = usersRepo
           .findUserByEmailId(signUpRequest.getEmailId());
-    String name = signUpRequest.getFirstName() + signUpRequest.getLastName();
+    String name = signUpRequest.getFirstName() + " "
+          + signUpRequest.getLastName();
     if (user.isPresent()) {
       logger.error(ValidationMessage.USER_EMAILALREADYEXISTS);
       throw new AlreadyExistsException(ValidationMessage

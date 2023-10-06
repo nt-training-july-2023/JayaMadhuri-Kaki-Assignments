@@ -61,7 +61,7 @@ class UsersServiceImplementationTest {
         usersRepo.save(userDetails);
         when(usersRepo.findById(userDetails.getUserId())).thenReturn(Optional.of(userDetails));
         String signUpRequest = usersServiceImpl.studentRegistration(users);
-        assertEquals(userDetails.getFirstName()+userDetails.getLastName(),
+        assertEquals(userDetails.getFirstName()+ " " + userDetails.getLastName(),
                 signUpRequest);
     }
     
@@ -121,6 +121,20 @@ class UsersServiceImplementationTest {
         
         when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
         assertNotEquals(users.getPassword(),login.getPassword());
+        assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
+    }
+    
+    @Test
+    void testAuthenticateUserIfUserNotPresent() {
+        LoginRequest login = new LoginRequest();
+        login.setEmailId("jayamadhuri@nucleusteq.com");
+        login.setPassword("Madhu@123");
+        
+        Users users = new Users();
+        users.setEmailId(login.getEmailId());
+        users.setPassword("Madhu");
+        
+        when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.empty());
         assertThrows(UserNotFoundException.class, () -> usersServiceImpl.authenticateUser(login));
     }
     

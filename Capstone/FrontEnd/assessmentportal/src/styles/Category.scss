@@ -1,22 +1,18 @@
-.category-container-wrapper{
+.category-container-wrapper{  
     overflow-y: auto;
     max-height: calc(80vh - 100px);
 }
-.category-container-wrapper::-webkit-scrollbar{
+.category-container-wrapper::-webkit-scrollbar{  
     width: 5px;
-    height:80px;
 }
-.category-container-wrapper::-webkit-scrollbar-thumb {
+.category-container-wrapper::-webkit-scrollbar-thumb {  
     background: rgb(79, 76, 107);
     border-radius: 4px;
 }
-.category-container-wrapper::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
-.scroll-height{
+.scroll-height{  
     max-height: calc(70vh - 100px);
 }
-.category-container {
+.category-container {  
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -27,7 +23,7 @@
         padding:20px;
     }
 }
-.category-card-margin{
+.category-card-margin{  
     margin-top: 70px;
 }
 .category-card {
@@ -61,7 +57,7 @@
   font-size: 16px;
   color:white;
 }
-.category-title{
+.category-title{  
     margin-left: 60px;
     color:#31334e;
     @media screen and (max-width:768px){
@@ -71,32 +67,29 @@
         font-size: 20px;
     }
 }
-.category-quiz-errors{
+.category-quiz-errors{  
     margin-left: 10px;
     color:red;
 }
-.h2-no-list{
+.h2-no-list{   
     color: #31334e;
     text-align: center;
     margin-top: 150px;
 }
-.long-description{
+.long-description{  
   max-height: 80px;
   overflow-x: auto; 
   min-height: 100px;
   overflow-wrap: break-word;
 }
-.long-description::-webkit-scrollbar {
+.long-description::-webkit-scrollbar {  
     width: 4px;
 }  
-.long-description::-webkit-scrollbar-thumb {
+.long-description::-webkit-scrollbar-thumb {  
     background: white;
     border-radius: 4px;
 }
-.long-description::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
-.addcategory-button{
+.addcategory-button{  
     position: absolute;
     right:10px;
     top:auto;
@@ -115,7 +108,7 @@
         font-size: medium;
     }
 }
-.backquiz-button{
+.backquiz-button{   
     position: absolute;
     right:170px;
     top:auto;
@@ -141,7 +134,7 @@
         width:70px;
     }
 }
-.sub-heading-title{
+.sub-heading-title{  
     margin-left: 60px;
     color:#31334e;
     overflow-wrap: break-word;
@@ -150,14 +143,14 @@
         margin-left:10px;
     }
 }
-.categorycard-buttons-div{
+.categorycard-buttons-div{  
     display:flex;
     margin-top: 25px;
     @media screen and (max-width:378px){
        display: block;
     }
 }
-.categorycard-button {
+.categorycard-button {  
     background-color: white;
     color: #31334e;
     border-radius: 12px;
@@ -165,7 +158,7 @@
     margin-right: 10px;
     cursor: pointer;
 }
-.categorycard-button-update{
+.categorycard-button-update{  
     height:40px;
     margin-right: 10px;
     width:140px;
@@ -176,7 +169,7 @@
         margin-left: auto;
     }
 }
-.categorycard-button-delete{
+.categorycard-button-delete{  
     height:40px;
     width:140px;
     @media screen and (max-width:378px){
@@ -187,18 +180,18 @@
         margin-left: auto;
     }
 }
-.start-test-button{
+.start-test-button{  
     height:45px;
     margin-right: 10px;
     width:100%;
 }
-.category-top-margin{
+.category-top-margin{  
     top:60%;
 }
-.quiz-top-margin{
+.quiz-top-margin{  
     top:65%;
 }
-.category-form-container{
+.category-form-container{  
     position: fixed;
     left: 50%; 
     background-color: white;
@@ -213,11 +206,11 @@
     @media screen and (max-width:768px){
         width:50%;
     }
-    .category-form-title{
+    .category-form-title{  
         text-align: center;
         color:#15172b;
     }
-    .form-input{
+    .form-input{  
         background-color: #15172b;
         border-radius: 12px;
         border: 0;
@@ -229,7 +222,7 @@
         padding: 4px 20px 0;
         width: 100%;
     }
-    .form-button{
+    .form-button{  
         background-color: #15172b;
         border-radius: 12px;
         border: 0;
@@ -243,16 +236,16 @@
         margin-top:10px;
     }
 }
-.sweetalert-text{
+.sweetalert-text{  
     text-align: left;
 }
-.sweetalert-button{
+.sweetalert-button{  
     color:#15172b;
 }
-.custom-button-text{
+.custom-button-text{  
     width:100px;
 }
-.icons{
+.icons{  
     position: relative;
     top: 3px;
     margin-right: 5px;
