@@ -1,16 +1,9 @@
 package com.capstone.assessmentportal.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,35 +50,6 @@ public class Users {
      * role of user attribute.
      */
     private String userType = "Student";
-    /**
-     * list of results of user attribute.
-     */
-    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Results> results = new ArrayList<>();
-    /**
-     * get results.
-     * @return results
-     */
-    public List<Results> getResults() {
-        return new ArrayList<>(results);
-    }
-    /**
-     * set results.
-     * @param res res
-     */
-    public void setResults(final List<Results> res) {
-        this.results = new ArrayList<>(res);
-    }
-    /**
-     * parameter constructor for users.
-     * @param name name
-     * @param userid userid
-     */
-    public Users(final String name, final Long userid) {
-        this.userId = userid;
-        this.firstName = name;
-    }
     /**
      * parameter constructor for users.
      * @param userid userid

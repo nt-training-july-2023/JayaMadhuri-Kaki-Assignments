@@ -57,12 +57,6 @@ public class SubCategory {
     @JsonIgnore
     private List<Question> question = new ArrayList<>();
     /**
-     * list of results of a quiz.
-     */
-    @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Results> results = new ArrayList<>();
-    /**
      * get category.
      * @return category
      */
@@ -93,20 +87,6 @@ public class SubCategory {
      */
     public void setQuestion(final List<Question> que) {
         this.question = new ArrayList<>(que);
-    }
-    /**
-     * get results in the form of list.
-     * @return results
-     */
-    public List<Results> getResults() {
-        return new ArrayList<>(results);
-    }
-    /**
-     * set results.
-     * @param res res
-     */
-    public void setResults(final List<Results> res) {
-        this.results = new ArrayList<>(res);
     }
     /**
      * parameter constructor for subcategory.

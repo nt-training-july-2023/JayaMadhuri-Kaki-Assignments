@@ -31,7 +31,7 @@ public class CategoryDetailsDto {
    *category name attribute.
   */
   @Column(unique = true, nullable = false)
-  @NotBlank(message = ValidationMessage.CATEGORY_NOTBLANK)
+  @NotBlank(message = ValidationMessage.CATEGORYNAME_NOTBLANK)
   private String categoryName;
   /**
    *category description attribute.

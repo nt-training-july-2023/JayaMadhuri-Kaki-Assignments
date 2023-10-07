@@ -5,7 +5,6 @@ const CATEGORY_URL = 'http://localhost:6060/category';
 const QUIZ_URL = 'http://localhost:6060/subCategory';
 const QUESTION_URL = 'http://localhost:6060/questions';
 const RESULT_URL = 'http://localhost:6060/results';
-const FINALRESULT_URL = 'http://localhost:6060/finalResults';
 
 class Url {
 
@@ -98,11 +97,11 @@ class Url {
     }
     
     getResults() {
-        return axios.get(FINALRESULT_URL);
+        return axios.get(RESULT_URL);
     }
     
     getResultsByStudentEmail(Email) {
-        return axios.get(FINALRESULT_URL + "/" + Email);
+        return axios.get(RESULT_URL + "/" + Email);
     }
 }
 export default new Url()

@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,50 +31,62 @@ public class ResultsDto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long resultId;
     /**
-     * student id from users table.
-     */
+     *student id attribute.
+    */
     @Column(nullable = false)
     @NotNull(message = ValidationMessage.STUDENTID_NOTNULL)
     private Long studentId;
     /**
-     * subcategory Id from subCategory table.
-     */
+     *student email attribute.
+    */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.QUIZID_NOTNULL)
-    private Long subCategoryId;
+    @NotBlank(message = ValidationMessage.EMAIL_NOTBLANK)
+    private String studentEmailId;
     /**
-     * category Id from category table.
-     */
+     *student name attribute.
+    */
     @Column(nullable = false)
-    @NotNull(message = ValidationMessage.CATEGORY_NOTNULL)
-    private Long categoryId;
+    @NotBlank(message = ValidationMessage.USERNAME_NOTBLANK)
+    private String studentName;
     /**
-     * marks obtained in quiz attribute.
-     */
+     *category name attribute.
+    */
+    @Column(nullable = false)
+    @NotBlank(message = ValidationMessage.CATEGORYNAME_NOTBLANK)
+    private String categoryName;
+    /**
+     *quiz name attribute.
+    */
+    @Column(nullable = false)
+    @NotBlank(message = ValidationMessage.QUIZNAME_NOTBLANK)
+    private String quizName;
+    /**
+     *marks obtained in quiz attribute.
+    */
     @Column(nullable = false)
     @NotNull(message = ValidationMessage.MARKSOBTAINED_NOTNULL)
     private int marksObtained;
     /**
-     * total marks of quiz attribute.
-     */
+     *total marks of quiz attribute.
+    */
     @Column(nullable = false)
     @NotNull(message = ValidationMessage.TOTALMARKS_NOTNULL)
     private int totalMarks;
     /**
-     * number of questions attempted attribute.
-     */
+     *number of attempted questions attribute.
+    */
     @Column(nullable = false)
     @NotNull(message = ValidationMessage.ATTEMPTEDQUESTIONS_NOTNULL)
     private int numOfAttemptedQuestions;
     /**
-     * total questions in quiz attribute.
-     */
+     *total questions in quiz attribute.
+    */
     @Column(nullable = false)
     @NotNull(message = ValidationMessage.TOTALMARKS_NOTNULL)
     private int totalQuestions;
     /**
-     * date and time of quiz attempted attribute.
-     */
+     *date and time attribute.
+    */
     @Column(nullable = false)
     private String dateAndTime;
     /**

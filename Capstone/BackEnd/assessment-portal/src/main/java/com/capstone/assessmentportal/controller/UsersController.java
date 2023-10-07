@@ -20,7 +20,6 @@ import com.capstone.assessmentportal.dto.SignUpRequest;
 import com.capstone.assessmentportal.dto.UserDetails;
 import com.capstone.assessmentportal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentportal.response.CustomResponse;
-import com.capstone.assessmentportal.response.ResponseHandler;
 import com.capstone.assessmentportal.response.ValidationMessage;
 import com.capstone.assessmentportal.service.UsersService;
 
@@ -52,8 +51,10 @@ public class UsersController {
             @RequestBody @Valid final SignUpRequest signUpRequest) {
     usersService.studentRegistration(signUpRequest);
     logger.info(ValidationMessage.USER_REGISTERED);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_REGISTERED, HttpStatus.OK, null);
+    CustomResponse<SignUpRequest> result = new
+            CustomResponse<SignUpRequest>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_REGISTERED, null);
+    return result;
   }
   /**
    *user login.
@@ -66,8 +67,10 @@ public class UsersController {
     Map<String, String> userDetails = usersService
             .authenticateUser(loginRequest);
     logger.info(ValidationMessage.USER_LOGIN);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_LOGIN, HttpStatus.OK, userDetails);
+    CustomResponse<Map<String, String>> result = new
+            CustomResponse<Map<String, String>>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_LOGIN, userDetails);
+    return result;
   }
   /**
    *get student details by id.
@@ -79,8 +82,10 @@ public class UsersController {
                  @PathVariable final Long studentId) {
     UserDetails userDetails = usersService.getStudentById(studentId);
     logger.info(ValidationMessage.USER_RETRIEVED_BY_ID);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_RETRIEVED_BY_ID, HttpStatus.OK, userDetails);
+    CustomResponse<UserDetails> result = new
+            CustomResponse<UserDetails>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_RETRIEVED_BY_ID, userDetails);
+    return result;
   }
   /**
    *get student details by email Id.
@@ -92,8 +97,10 @@ public class UsersController {
                  @PathVariable final String emailId) {
     UserDetails userDetails = usersService.getStudentDetailsByEmail(emailId);
     logger.info(ValidationMessage.USER_RETRIEVED_BY_EMAIL);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_RETRIEVED_BY_EMAIL, HttpStatus.OK, userDetails);
+    CustomResponse<UserDetails> result = new
+            CustomResponse<UserDetails>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_RETRIEVED_BY_EMAIL, userDetails);
+    return result;
   }
   /**
    *get users by email Id.
@@ -105,8 +112,10 @@ public class UsersController {
                  @PathVariable final String emailId) {
     usersService.getUsersDetailsByEmail(emailId);
     logger.info(ValidationMessage.USER_EMAIL_VALIDATE);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_EMAIL_VALIDATE, HttpStatus.OK, null);
+    CustomResponse<UserDetails> result = new
+            CustomResponse<UserDetails>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_EMAIL_VALIDATE, null);
+    return result;
   }
 
   /**
@@ -123,8 +132,10 @@ public class UsersController {
     usersService
             .updateStudentDetails(studentId, users);
     logger.info(ValidationMessage.USER_UPDATED);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_UPDATED, HttpStatus.OK, null);
+    CustomResponse<UserDetailsForUpdate> result = new
+            CustomResponse<UserDetailsForUpdate>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_UPDATED, null);
+    return result;
   }
   /**
    * delete student details by id.
@@ -136,7 +147,9 @@ public class UsersController {
            @PathVariable final Long studentId) {
     usersService.deleteStudent(studentId);
     logger.info(ValidationMessage.USER_DELETED);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .USER_DELETED, HttpStatus.OK, null);
+    CustomResponse<UserDetails> result = new
+            CustomResponse<UserDetails>(HttpStatus.OK.value(),
+                    ValidationMessage.USER_DELETED, null);
+    return result;
   }
 }

@@ -14,6 +14,8 @@ const QuestionForStudent = (props) => {
     const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
     const quizId = localStorage.getItem("QuizId")
     const details_AfterRefresh = JSON.parse(localStorage.getItem("details"))
+    const categoryName = localStorage.getItem("CategoryName");
+    const quizName = localStorage.getItem("QuizName");
     const attemptedQuestions_AfterRefresh = localStorage.getItem("attemptedQuestions")
     const prevSelectedOption_AfterRefresh = localStorage.getItem("prevSelectedOption")
     const selectedOption_AfterRefresh = JSON.parse(localStorage.getItem("selectedOption"))
@@ -60,8 +62,10 @@ const QuestionForStudent = (props) => {
         }, 0);
         const payload = {
             studentId: details?.userId ? details?.userId : details_AfterRefresh?.userId,
-            subCategoryId: selectedQuizId ? selectedQuizId : quizId,
-            categoryId: selectedId,
+            studentEmailId: details?.emailId ? details?.emailId : details_AfterRefresh?.emailId,
+            studentName: details?.firstName+ " " +details?.lastName ? details?.firstName+ " " +details?.lastName : details_AfterRefresh?.firstName+ " " +details?.lastName,
+            quizName: quizName,
+            categoryName: categoryName,
             marksObtained: score,
             totalMarks: question?.length,
             totalQuestions: question?.length,

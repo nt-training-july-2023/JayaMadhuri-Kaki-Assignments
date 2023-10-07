@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.assessmentportal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentportal.response.CustomResponse;
-import com.capstone.assessmentportal.response.ResponseHandler;
 import com.capstone.assessmentportal.response.ValidationMessage;
 import com.capstone.assessmentportal.service.SubCategoryService;
 
@@ -48,8 +47,10 @@ public class SubCategoryController {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
               .getSubCategories();
     logger.info(ValidationMessage.QUIZ_RETRIEVED);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .QUIZ_RETRIEVED, HttpStatus.OK, subCategories);
+    CustomResponse<List<SubCategoryDetailsDto>> result = new
+            CustomResponse<List<SubCategoryDetailsDto>>(HttpStatus.OK.value(),
+                    ValidationMessage.QUIZ_RETRIEVED, subCategories);
+    return result;
   }
   /**
    *get subcategory by subcategory id.
@@ -63,8 +64,10 @@ public class SubCategoryController {
     SubCategoryDetailsDto subCategoryDto = subCategoryService
                    .getSubCategoryById(subCategoryId);
     logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_ID);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .QUIZ_RETRIEVED_BY_ID, HttpStatus.OK, subCategoryDto);
+    CustomResponse<SubCategoryDetailsDto> result = new
+            CustomResponse<SubCategoryDetailsDto>(HttpStatus.OK.value(),
+                    ValidationMessage.QUIZ_RETRIEVED_BY_ID, subCategoryDto);
+    return result;
   }
   /**
    *get subcategory by category id.
@@ -78,8 +81,10 @@ public class SubCategoryController {
     List<SubCategoryDetailsDto> subCategories = subCategoryService
          .getSubCategoryByCategoryId(categoryId);
     logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID);
-    return ResponseHandler.generateResponse(ValidationMessage
-            .QUIZ_RETRIEVED_BY_CATEGORY_ID, HttpStatus.OK, subCategories);
+    CustomResponse<List<SubCategoryDetailsDto>> result = new
+            CustomResponse<List<SubCategoryDetailsDto>>(HttpStatus.OK.value(),
+                    ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID, subCategories);
+    return result;
   }
   /**
    *add subcategory to subcategory table.
@@ -93,8 +98,10 @@ public class SubCategoryController {
     subCategoryService
             .addSubCategory(subCategory);
     logger.info(ValidationMessage.QUIZ_ADDED);
-    return ResponseHandler.generateResponse(ValidationMessage.QUIZ_ADDED,
-            HttpStatus.OK, null);
+    CustomResponse<SubCategoryDetailsDto> result = new
+            CustomResponse<SubCategoryDetailsDto>(HttpStatus.OK.value(),
+                    ValidationMessage.QUIZ_ADDED, null);
+    return result;
   }
   /**
    *update subcategory by id and given new details.
@@ -110,8 +117,10 @@ public class SubCategoryController {
     subCategoryService
           .updateSubCategory(subCategory, subCategoryId);
     logger.info(ValidationMessage.QUIZ_UPDATED);
-    return ResponseHandler.generateResponse(ValidationMessage.QUIZ_UPDATED,
-          HttpStatus.OK, null);
+    CustomResponse<SubCategoryDetailsDto> result = new
+            CustomResponse<SubCategoryDetailsDto>(HttpStatus.OK.value(),
+                    ValidationMessage.QUIZ_UPDATED, null);
+    return result;
   }
   /**
    *delete subcategory by id.
@@ -124,7 +133,9 @@ public class SubCategoryController {
           @PathVariable final Long subCategoryId) {
     subCategoryService.deleteSubCategory(subCategoryId);
     logger.info(ValidationMessage.QUIZ_DELETED);
-    return ResponseHandler.generateResponse(ValidationMessage.QUIZ_DELETED,
-          HttpStatus.OK, null);
+    CustomResponse<SubCategoryDetailsDto> result = new
+            CustomResponse<SubCategoryDetailsDto>(HttpStatus.OK.value(),
+                    ValidationMessage.QUIZ_DELETED, null);
+    return result;
   }
 }

@@ -3,8 +3,6 @@ package com.capstone.assessmentportal.service.serviceimplementation;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -22,7 +20,6 @@ import com.capstone.assessmentportal.dto.UserDetails;
 import com.capstone.assessmentportal.dto.UserDetailsForUpdate;
 import com.capstone.assessmentportal.exception.AlreadyExistsException;
 import com.capstone.assessmentportal.exception.UserNotFoundException;
-import com.capstone.assessmentportal.model.Results;
 import com.capstone.assessmentportal.model.Users;
 import com.capstone.assessmentportal.repository.UsersRepo;
 
@@ -181,7 +178,6 @@ class UsersServiceImplementationTest {
         user.setLastName(users.getLastName());
         user.setDateOfBirth(users.getDateOfBirth());
         user.setGender(users.getGender());
-        user.getResults();
         
         UserDetailsForUpdate updatedusers = new UserDetailsForUpdate();
         updatedusers.setFirstName("JayaMadhuri");
@@ -221,8 +217,6 @@ class UsersServiceImplementationTest {
        userDetails.setEmailId(users.getEmailId());
        userDetails.setPassword(users.getPassword());
        userDetails.setUserType(users.getUserType());
-       List<Results> listOfResults = new ArrayList<>();
-       userDetails.setResults(listOfResults);
        
        when(usersRepo.findById(userId)).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentById(userId);

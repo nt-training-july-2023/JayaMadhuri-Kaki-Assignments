@@ -36,7 +36,7 @@ public final class ValidationMessage {
     /**
      *category name is blank.
     */
-    public static final String CATEGORY_NOTBLANK = "Category name is required";
+    public static final String CATEGORYNAME_NOTBLANK = "Category name is required";
     /**
      *quiz id is null.
     */
@@ -307,4 +307,16 @@ public final class ValidationMessage {
     */
     public static final String RESULTS_EMAIL = "Cannot find student email "
             + "in db";
+    /**
+     *Student name is blank.
+    */
+    public static final String USERNAME_NOTBLANK = "Student Name is Required";
+    /**
+     *when quiz name not exists.
+    */
+    public static final String QUIZNAME_NOTFOUND = "Cannot find quiz with name";
+    /**
+     *when category name not exists.
+    */
+    public static final String CATEGORYNAME_NOTFOUND = "Cannot find category with name";
 }

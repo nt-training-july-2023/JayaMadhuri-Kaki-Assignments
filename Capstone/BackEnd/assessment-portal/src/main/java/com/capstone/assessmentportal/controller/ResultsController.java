@@ -1,17 +1,20 @@
 package com.capstone.assessmentportal.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.assessmentportal.dto.ResultsDto;
 import com.capstone.assessmentportal.response.CustomResponse;
-import com.capstone.assessmentportal.response.ResponseHandler;
 import com.capstone.assessmentportal.response.ValidationMessage;
 import com.capstone.assessmentportal.service.ResultService;
 
@@ -43,7 +46,40 @@ public class ResultsController {
                               ResultsDto results) {
     resultService.addTemporaryResult(results);
     logger.info(ValidationMessage.RESULTS_ADDED);
-    return ResponseHandler.generateResponse(ValidationMessage.RESULTS_ADDED,
-               HttpStatus.OK, null);
+    CustomResponse<ResultsDto> result = new
+            CustomResponse<ResultsDto>(HttpStatus.OK.value(),
+                    ValidationMessage.RESULTS_ADDED, null);
+    return result;
+  }
+  /**
+   * get all results.
+   * @return Result
+  */
+  @GetMapping("/results")
+  public final CustomResponse<List<ResultsDto>> getResults() {
+    List<ResultsDto> ResultDto = resultService
+                     .getResults();
+    logger.info(ValidationMessage.RESULTS_RETRIEVED);
+    CustomResponse<List<ResultsDto>> result = new
+            CustomResponse<List<ResultsDto>>(HttpStatus.OK.value(),
+                    ValidationMessage.RESULTS_RETRIEVED, ResultDto);
+    return result;
+  }
+  /**
+   * get all final results by student id.
+   * @return Result
+   * @param emailId emailId
+  */
+  @GetMapping("/results/{emailId}")
+  public final CustomResponse<List<ResultsDto>>
+          getResultByStudentEmail(
+          @PathVariable final String emailId) {
+    List<ResultsDto> Results = resultService
+                .getResultByStudentEmail(emailId);
+    logger.info(ValidationMessage.RESULTS_RETRIEVED);
+    CustomResponse<List<ResultsDto>> result = new
+            CustomResponse<List<ResultsDto>>(HttpStatus.OK.value(),
+                    ValidationMessage.RESULTS_RETRIEVED, Results);
+    return result;
   }
 }
