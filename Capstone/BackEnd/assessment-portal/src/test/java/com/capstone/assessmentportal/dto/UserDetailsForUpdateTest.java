@@ -8,11 +8,11 @@ class UserDetailsForUpdateTest {
 
     @Test
     void testAllArgsConstructor() {
-        UserDetailsForUpdate userDetailsForUpdate = new UserDetailsForUpdate("Madhuri","Kaki","2001-01-23","female");
+        UserDetailsForUpdate userDetailsForUpdate = new UserDetailsForUpdate("Madhuri","Kaki","2001-01-23",Gender.female);
         assertEquals(userDetailsForUpdate.getFirstName(),"Madhuri");
         assertEquals(userDetailsForUpdate.getLastName(),"Kaki");
         assertEquals(userDetailsForUpdate.getDateOfBirth(),"2001-01-23");
-        assertEquals(userDetailsForUpdate.getGender(),"female");
+        assertEquals(userDetailsForUpdate.getGender(),Gender.female);
     }
 
 }

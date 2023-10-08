@@ -83,7 +83,7 @@ public class SubCategoryController {
     logger.info(ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID);
     CustomResponse<List<SubCategoryDetailsDto>> result = new
             CustomResponse<List<SubCategoryDetailsDto>>(HttpStatus.OK.value(),
-                    ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID, subCategories);
+            ValidationMessage.QUIZ_RETRIEVED_BY_CATEGORY_ID, subCategories);
     return result;
   }
   /**

@@ -78,7 +78,7 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<CustomResponse<HttpMessageNotReadableException>> response = globalhandler.handleHttpMessageNotReadableException(noSuch);
         assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
         assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Correct Answer should contain optionA or optionB or optionC or optionD",response.getBody().getMessage());
+        assertEquals(noSuch.getLocalizedMessage(),response.getBody().getMessage());
     }
     
     @Test

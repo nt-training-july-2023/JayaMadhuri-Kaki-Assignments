@@ -57,12 +57,12 @@ public class ResultsController {
   */
   @GetMapping("/results")
   public final CustomResponse<List<ResultsDto>> getResults() {
-    List<ResultsDto> ResultDto = resultService
+    List<ResultsDto> resultDto = resultService
                      .getResults();
     logger.info(ValidationMessage.RESULTS_RETRIEVED);
     CustomResponse<List<ResultsDto>> result = new
             CustomResponse<List<ResultsDto>>(HttpStatus.OK.value(),
-                    ValidationMessage.RESULTS_RETRIEVED, ResultDto);
+                    ValidationMessage.RESULTS_RETRIEVED, resultDto);
     return result;
   }
   /**
@@ -74,12 +74,12 @@ public class ResultsController {
   public final CustomResponse<List<ResultsDto>>
           getResultByStudentEmail(
           @PathVariable final String emailId) {
-    List<ResultsDto> Results = resultService
+    List<ResultsDto> results = resultService
                 .getResultByStudentEmail(emailId);
     logger.info(ValidationMessage.RESULTS_RETRIEVED);
     CustomResponse<List<ResultsDto>> result = new
             CustomResponse<List<ResultsDto>>(HttpStatus.OK.value(),
-                    ValidationMessage.RESULTS_RETRIEVED, Results);
+                    ValidationMessage.RESULTS_RETRIEVED, results);
     return result;
   }
 }

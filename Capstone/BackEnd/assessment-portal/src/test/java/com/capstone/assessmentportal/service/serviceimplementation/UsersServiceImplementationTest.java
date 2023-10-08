@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.capstone.assessmentportal.dto.Gender;
 import com.capstone.assessmentportal.dto.LoginRequest;
 import com.capstone.assessmentportal.dto.SignUpRequest;
 import com.capstone.assessmentportal.dto.UserDetails;
@@ -41,7 +42,7 @@ class UsersServiceImplementationTest {
         users.setFirstName("Jaya");
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
+        users.setGender(Gender.female);
         users.setEmailId("jayamadhuri@nucleusteq.com");
         users.setPassword("Madhu@123");
         users.setUserType("Student");
@@ -68,7 +69,7 @@ class UsersServiceImplementationTest {
         users.setFirstName("Jaya");
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
+        users.setGender(Gender.female);
         users.setEmailId("jayamadhuri@nucleusteq.com");
         users.setPassword("Madhu@123");
         users.setUserType("Student");
@@ -138,7 +139,7 @@ class UsersServiceImplementationTest {
     @Test
     void testDeleteStudent() {
         Long userId = 1L;
-        Users users = new Users(1L,"Jaya","kaki","23-01-2001","female","jayamadhuri@nucleusteq.com");
+        Users users = new Users(1L,"Jaya","kaki","23-01-2001",Gender.female,"jayamadhuri@nucleusteq.com");
         when(usersRepo.findById(userId)).thenReturn(Optional.of(users));
         usersServiceImpl.deleteStudent(userId);
         assertFalse(usersRepo.existsById(userId));
@@ -158,7 +159,7 @@ class UsersServiceImplementationTest {
         users.setFirstName("Jaya");
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
+        users.setGender(Gender.female);
         
         when(usersRepo.existsById(userId)).thenReturn(false);
         assertThrows(NoSuchElementException.class, () -> usersServiceImpl.updateStudentDetails(userId,users));
@@ -171,7 +172,7 @@ class UsersServiceImplementationTest {
         users.setFirstName("Jaya");
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
+        users.setGender(Gender.female);
         
         Users user = new Users();
         user.setFirstName(users.getFirstName());
@@ -183,7 +184,7 @@ class UsersServiceImplementationTest {
         updatedusers.setFirstName("JayaMadhuri");
         updatedusers.setLastName("kaki");
         updatedusers.setDateOfBirth("23-01-2001");
-        updatedusers.setGender("female");
+        updatedusers.setGender(Gender.female);
         
         Users updateduser = new Users();
         updateduser.setFirstName(updatedusers.getFirstName());
@@ -204,7 +205,7 @@ class UsersServiceImplementationTest {
        users.setFirstName("Jaya");
        users.setLastName("kaki");
        users.setDateOfBirth("23-01-2001");
-       users.setGender("female");
+       users.setGender(Gender.female);
        users.setEmailId("jayamadhuri@nucleusteq.com");
        users.setPassword("Madhu@123");
        users.setUserType("Student");
@@ -248,7 +249,7 @@ class UsersServiceImplementationTest {
        users.setFirstName("Jaya");
        users.setLastName("kaki");
        users.setDateOfBirth("23-01-2001");
-       users.setGender("female");
+       users.setGender(Gender.female);
        users.setEmailId("jayamadhuri@nucleusteq.com");
        users.setPassword("Madhu@123");
        users.setUserType("Student");

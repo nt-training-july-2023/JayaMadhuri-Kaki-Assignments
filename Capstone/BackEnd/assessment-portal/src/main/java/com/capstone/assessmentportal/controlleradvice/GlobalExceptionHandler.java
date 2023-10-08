@@ -62,8 +62,7 @@ public class GlobalExceptionHandler {
       final int status = 409;
       CustomResponse<HttpMessageNotReadableException> customResponse =
               new CustomResponse<HttpMessageNotReadableException>(status,
-                      "Correct Answer should contain optionA or"
-                      + " optionB or optionC or optionD");
+                      exception.getLocalizedMessage());
       return new ResponseEntity<>(customResponse, HttpStatus.CONFLICT);
   }
   /**

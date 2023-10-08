@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
+import com.capstone.assessmentportal.dto.Gender;
 import com.capstone.assessmentportal.dto.LoginRequest;
 import com.capstone.assessmentportal.dto.SignUpRequest;
 import com.capstone.assessmentportal.dto.UserDetails;
@@ -37,7 +38,7 @@ class UsersControllerTest {
         users.setFirstName("Jaya");
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
+        users.setGender(Gender.female);
         users.setEmailId("jayamadhuri@nucleusteq.com");
         users.setPassword("Madhu@123");
         users.setUserType("Student");
@@ -103,7 +104,7 @@ class UsersControllerTest {
         users.setFirstName("Jaya");
         users.setLastName("kaki");
         users.setDateOfBirth("23-01-2001");
-        users.setGender("female");
+        users.setGender(Gender.female);
         
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
         CustomResponse<UserDetailsForUpdate> response = usersController.updateStudentDetails(userId,users);

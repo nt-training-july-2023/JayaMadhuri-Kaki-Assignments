@@ -18,5 +18,5 @@ public enum Option {
     /**
      * option d.
      */
-    optionD;
+    optionD
 }

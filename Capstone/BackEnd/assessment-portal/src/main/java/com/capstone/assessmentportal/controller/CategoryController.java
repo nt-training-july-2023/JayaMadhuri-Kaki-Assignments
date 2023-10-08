@@ -65,7 +65,7 @@ public class CategoryController {
     CustomResponse<CategoryDetailsDto> result = new
             CustomResponse<CategoryDetailsDto>(HttpStatus.OK.value(),
                     ValidationMessage.CATEGORIES_RETRIEVED_BY_ID, categoryDto);
-    return result;  
+    return result;
   }
   /**
    *add category to category table.

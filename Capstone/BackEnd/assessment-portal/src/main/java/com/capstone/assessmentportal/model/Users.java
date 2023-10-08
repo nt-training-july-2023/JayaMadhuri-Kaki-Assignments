@@ -1,6 +1,10 @@
 package com.capstone.assessmentportal.model;
 
+import com.capstone.assessmentportal.dto.Gender;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,7 +41,8 @@ public class Users {
     /**
      * user gender attribute.
      */
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     /**
      * user email attribute.
      */
@@ -61,7 +66,7 @@ public class Users {
      */
     public Users(final Long userid, final String firstname,
             final String lastname, final String dateofBirth,
-            final String genDer, final String emailid) {
+            final Gender genDer, final String emailid) {
         this.userId = userid;
         this.firstName = firstname;
         this.lastName = lastname;

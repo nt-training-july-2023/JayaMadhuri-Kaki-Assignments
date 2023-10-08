@@ -95,30 +95,29 @@ public class ResultServiceImplementation implements ResultService {
   /**
    * converting entity to dto for get all method.
    * @return resultsDto
-   * @param Results Results
+   * @param results results
   */
   private ResultsDto convertEntityToDto(final
-        Results Results) {
+        Results results) {
     logger.info(ValidationMessage.RESULTS_LOGGER_MSG);
-    ResultsDto ResultDto = new ResultsDto();
-    ResultDto.setResultId(Results.getResultId());
-    ResultDto.setStudentId(Results.getStudentId());
-    ResultDto.setStudentEmailId(Results.getStudentEmailId());
-    ResultDto.setStudentName(Results.getStudentName());
-    ResultDto.setQuizName(Results
+    ResultsDto resultDto = new ResultsDto();
+    resultDto.setResultId(results.getResultId());
+    resultDto.setStudentId(results.getStudentId());
+    resultDto.setStudentEmailId(results.getStudentEmailId());
+    resultDto.setStudentName(results.getStudentName());
+    resultDto.setQuizName(results
             .getQuizName());
-    ResultDto.setCategoryName(Results
+    resultDto.setCategoryName(results
           .getCategoryName());
-    ResultDto.setMarksObtained(Results
+    resultDto.setMarksObtained(results
           .getMarksObtained());
-    ResultDto.setNumOfAttemptedQuestions(Results
+    resultDto.setNumOfAttemptedQuestions(results
           .getNumOfAttemptedQuestions());
-    ResultDto.setTotalMarks(Results.getTotalMarks());
-    ResultDto.setTotalQuestions(Results.getTotalQuestions());
-    ResultDto.setDateAndTime(Results.getDateAndTime());
-    return ResultDto;
+    resultDto.setTotalMarks(results.getTotalMarks());
+    resultDto.setTotalQuestions(results.getTotalQuestions());
+    resultDto.setDateAndTime(results.getDateAndTime());
+    return resultDto;
   }
-  
   @Override
   public final List<ResultsDto> getResultByStudentEmail(final
         String emailId) {

@@ -4,6 +4,8 @@ import com.capstone.assessmentportal.customannotations.AdultAge;
 import com.capstone.assessmentportal.response.ValidationMessage;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -45,8 +47,8 @@ public class SignUpRequest {
    *user gender attribute.
  */
   @Column(nullable = false)
-  @NotBlank(message = ValidationMessage.GENDER_NOTBLANK)
-  private String gender;
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
   /**
    *user email attribute.
  */

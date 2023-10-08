@@ -36,7 +36,8 @@ public final class ValidationMessage {
     /**
      *category name is blank.
     */
-    public static final String CATEGORYNAME_NOTBLANK = "Category name is required";
+    public static final String CATEGORYNAME_NOTBLANK =
+            "Category name is required";
     /**
      *quiz id is null.
     */
@@ -318,5 +319,6 @@ public final class ValidationMessage {
     /**
      *when category name not exists.
     */
-    public static final String CATEGORYNAME_NOTFOUND = "Cannot find category with name";
+    public static final String CATEGORYNAME_NOTFOUND =
+            "Cannot find category with name";
 }
