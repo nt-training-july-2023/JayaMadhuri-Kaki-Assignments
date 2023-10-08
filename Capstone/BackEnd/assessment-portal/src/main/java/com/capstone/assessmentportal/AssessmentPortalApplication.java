@@ -16,7 +16,7 @@ public class AssessmentPortalApplication {
     SpringApplication.run(AssessmentPortalApplication.class, args);
   }
   /**
-   * main class.
+   * main method.
    * @param args arguments
    */
   public static void main(final String[] args) {
