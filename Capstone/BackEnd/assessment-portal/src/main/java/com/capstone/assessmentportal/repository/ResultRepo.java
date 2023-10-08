@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import com.capstone.assessmentportal.model.Results;
 /**
- *Temporary Result repository.
+ *Result repository.
 */
 
 @Repository
 public interface ResultRepo extends JpaRepository<Results, Long> {
   /**
-   *Temporary Result repository.
+   *Result repository.
    *@return results
    *@param studentId studentId
    *@param quizName quizName
@@ -23,7 +23,7 @@ public interface ResultRepo extends JpaRepository<Results, Long> {
             + "and r.quizName = :quizName")
   Results findResultsByStudentsAndSubCategory(Long studentId, Long quizName);
   /**
-   *query to get records in final results table when given student email exists.
+   *query to get records in results table when given student email exists.
    *@return Results
    *@param studentEmailId studentEmailId
   */

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentportal.dto.Option;
 import com.capstone.assessmentportal.dto.QuestionDto;
@@ -25,7 +24,6 @@ import com.capstone.assessmentportal.repository.SubCategoryRepo;
 
 import java.util.List;
 
-@SpringBootTest
 class QuestionServiceImplementationTest {
     @Mock
     QuestionRepo questionRepo;

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentportal.dto.CategoryDetailsDto;
 import com.capstone.assessmentportal.dto.SubCategoryDetailsDto;
@@ -25,7 +24,6 @@ import com.capstone.assessmentportal.repository.SubCategoryRepo;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@SpringBootTest
 class SubCategoryServiceImplementationTest {
     @Mock
     SubCategoryRepo subCategoryRepo;

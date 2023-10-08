@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import com.capstone.assessmentportal.dto.Gender;
 import com.capstone.assessmentportal.dto.LoginRequest;
 import com.capstone.assessmentportal.dto.SignUpRequest;
@@ -24,8 +22,6 @@ import com.capstone.assessmentportal.exception.UserNotFoundException;
 import com.capstone.assessmentportal.model.Users;
 import com.capstone.assessmentportal.repository.UsersRepo;
 
-
-@SpringBootTest
 class UsersServiceImplementationTest {
     @Mock
     UsersRepo usersRepo;

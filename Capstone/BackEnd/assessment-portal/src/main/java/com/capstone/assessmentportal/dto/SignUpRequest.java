@@ -69,6 +69,5 @@ public class SignUpRequest {
   /**
    *role of user attribute.
  */
-  @Column
   private String userType = "Student";
 }

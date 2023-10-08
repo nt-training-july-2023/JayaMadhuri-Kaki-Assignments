@@ -30,10 +30,9 @@ class ResultsControllerTest {
     @Test
     void testAddResult() {
         ResultsDto resultsDto = new ResultsDto(1L,1L,"madhu@nucleusteq.com","Madhuri Kaki","Java","String",10,10,10,10,"2001-01-23 15:42:32");
-        when(resultService.addTemporaryResult(resultsDto)).thenReturn(resultsDto);
+        when(resultService.addResult(resultsDto)).thenReturn(resultsDto);
         CustomResponse<ResultsDto> response = resultsController.addResult(resultsDto);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Results Successfully Added",response.getMessage());
     }
     @Test

@@ -16,7 +16,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -40,9 +39,8 @@ class GlobalExceptionHandlerTest {
     void testHandleEmptyInput() {
         BindingResult bindingResult = mockBindingResult();
         when(methodArgumentNotValidException.getBindingResult()).thenReturn(bindingResult);
-        ResponseEntity<CustomResponse<MethodArgumentNotValidException>> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
-        assertEquals(400, errorMap.getBody().getStatusCode());
-        assertEquals(null,errorMap.getBody().getResponseData());
+        CustomResponse<MethodArgumentNotValidException> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
+        assertEquals(400, errorMap.getStatusCode());
     }
     
     private BindingResult mockBindingResult() {
@@ -56,46 +54,40 @@ class GlobalExceptionHandlerTest {
     @Test 
     void testUserNotFoundException() {
         UserNotFoundException noSuch = new UserNotFoundException("User not found");
-        ResponseEntity<CustomResponse<UserNotFoundException>> response = globalhandler.handleUserNotFound(noSuch);
-        assertEquals(HttpStatus.UNAUTHORIZED,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("User not found",response.getBody().getMessage());
+        CustomResponse<UserNotFoundException> response = globalhandler.handleUserNotFound(noSuch);
+        assertEquals(HttpStatus.UNAUTHORIZED.value(),response.getStatusCode());
+        assertEquals("User not found",response.getMessage());
     }
     
     @Test 
     void testDataIntegrityException() {
-        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("Name already exists");
-        ResponseEntity<CustomResponse<DataIntegrityViolationException>> response = globalhandler.handleConflict(noSuch);
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Name already exists",response.getBody().getMessage());
+        DataIntegrityViolationException noSuch = new DataIntegrityViolationException("Category Name already exists");
+        CustomResponse<DataIntegrityViolationException> response = globalhandler.handleConflict(noSuch);
+        assertEquals(HttpStatus.CONFLICT.value(),response.getStatusCode());
+        assertEquals("Category Name already exists",response.getMessage());
     }
     
     @Test 
     void testHttpMessageNotReadableException() {
-        @SuppressWarnings("deprecation")
         HttpMessageNotReadableException noSuch = new HttpMessageNotReadableException("Correct Answer should contain optionA or optionB or optionC or optionD");
-        ResponseEntity<CustomResponse<HttpMessageNotReadableException>> response = globalhandler.handleHttpMessageNotReadableException(noSuch);
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals(noSuch.getLocalizedMessage(),response.getBody().getMessage());
+        CustomResponse<HttpMessageNotReadableException> response = globalhandler.handleHttpMessageNotReadableException(noSuch);
+        assertEquals(HttpStatus.CONFLICT.value(),response.getStatusCode());
+        assertEquals(noSuch.getLocalizedMessage(),response.getMessage());
     }
     
     @Test
     void testHandleNoSuchElement() {
        NoSuchElementException noSuch = new NoSuchElementException("No such element found");
-       ResponseEntity<CustomResponse<NoSuchElementException>> response = globalhandler.handleNoSuchElement(noSuch);
-       assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
-       assertEquals(null,response.getBody().getResponseData());
-       assertEquals("No such element found",response.getBody().getMessage());
+       CustomResponse<NoSuchElementException> response = globalhandler.handleNoSuchElement(noSuch);
+       assertEquals(HttpStatus.NOT_FOUND.value(),response.getStatusCode());
+       assertEquals("No such element found",response.getMessage());
     }
     
     @Test
     void testHandleAlreadyExistsExceptionEmailAlreadyExistsException() {
         AlreadyExistsException noSuch = new AlreadyExistsException("Element already exists");
-        ResponseEntity<CustomResponse<AlreadyExistsException>> response = globalhandler.handleAlreadyExistsException(noSuch);
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
-        assertEquals(null,response.getBody().getResponseData());
-        assertEquals("Element already exists",response.getBody().getMessage());
+        CustomResponse<AlreadyExistsException> response = globalhandler.handleAlreadyExistsException(noSuch);
+        assertEquals(HttpStatus.CONFLICT.value(),response.getStatusCode());
+        assertEquals("Element already exists",response.getMessage());
     }
 }

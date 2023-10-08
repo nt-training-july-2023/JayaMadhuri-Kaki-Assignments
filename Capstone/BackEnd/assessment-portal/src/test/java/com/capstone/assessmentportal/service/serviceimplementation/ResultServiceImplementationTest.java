@@ -58,29 +58,27 @@ class resultsServiceImplementationTest {
         resultsDto.setDateAndTime("23-10-23");
         
         when(usersRepo.findById(10L)).thenReturn(Optional.empty());
-        assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
+        assertThrows(NoSuchElementException.class, () -> resultsService.addResult(resultsDto));
     }
     
     @Test
-    void testAddTemporaryResultIfSubCategoryIdNotExists() {
+    void testAddTemporaryResultIfSubCategoryNameNotExists() {
         ResultsDto resultsDto = new ResultsDto(1L,1L,"madhu@nucleusteq.com","Madhuri Kaki","Java","String",10,10,10,10,"2001-01-23 15:42:32");
         Users users = new Users();
-        Category category = new Category();
         when(usersRepo.findById(10L)).thenReturn(Optional.of(users));
-        when(categoryRepo.findById(12L)).thenReturn(Optional.of(category));
-        when(subCategoryRepo.findById(11L)).thenReturn(Optional.empty());
-        assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
+        when(subCategoryRepo.getSubCategoryByName(resultsDto.getQuizName())).thenReturn(Optional.empty());
+        assertThrows(NoSuchElementException.class, () -> resultsService.addResult(resultsDto));
     }
     
     @Test
-    void testAddTemporaryResultIfCategoryIdNotExists() {
+    void testAddTemporaryResultIfCategoryNameNotExists() {
         ResultsDto resultsDto = new ResultsDto(1L,1L,"madhu@nucleusteq.com","Madhuri Kaki","Java","String",10,10,10,10,"2001-01-23 15:42:32");
         Users users = new Users();
         SubCategory subCategory = new SubCategory();
         when(usersRepo.findById(10L)).thenReturn(Optional.of(users));
-        when(subCategoryRepo.findById(11L)).thenReturn(Optional.of(subCategory));
-        when(categoryRepo.findById(12L)).thenReturn(Optional.empty());
-        assertThrows(NoSuchElementException.class, () -> resultsService.addTemporaryResult(resultsDto));
+        when(subCategoryRepo.getSubCategoryByName(resultsDto.getQuizName())).thenReturn(Optional.of(subCategory));
+        when(categoryRepo.getCategoryByName(resultsDto.getCategoryName())).thenReturn(Optional.empty());
+        assertThrows(NoSuchElementException.class, () -> resultsService.addResult(resultsDto));
     }
     
     @Test
@@ -104,7 +102,7 @@ class resultsServiceImplementationTest {
         when(usersRepo.findById(res.getStudentId())).thenReturn(Optional.of(users));
         when(categoryRepo.getCategoryByName(res.getCategoryName())).thenReturn(Optional.of(category));
         when(subCategoryRepo.getSubCategoryByName(res.getQuizName())).thenReturn(Optional.of(subCategory));
-        ResultsDto resultsdto = resultsService.addTemporaryResult(resultsDto);
+        ResultsDto resultsdto = resultsService.addResult(resultsDto);
         assertNotNull(resultsdto);
         assertEquals(resultsDto, resultsdto);
     }

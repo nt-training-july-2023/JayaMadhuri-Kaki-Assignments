@@ -36,6 +36,5 @@ public class CategoryDetailsDto {
   /**
    *category description attribute.
   */
-  @Column
   private String categoryDescription;
 }

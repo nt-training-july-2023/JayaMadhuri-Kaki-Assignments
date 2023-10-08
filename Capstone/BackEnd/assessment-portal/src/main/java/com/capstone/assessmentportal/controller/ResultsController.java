@@ -44,7 +44,7 @@ public class ResultsController {
   public final CustomResponse<ResultsDto>
                               addResult(@RequestBody @Valid final
                               ResultsDto results) {
-    resultService.addTemporaryResult(results);
+    resultService.addResult(results);
     logger.info(ValidationMessage.RESULTS_ADDED);
     CustomResponse<ResultsDto> result = new
             CustomResponse<ResultsDto>(HttpStatus.OK.value(),

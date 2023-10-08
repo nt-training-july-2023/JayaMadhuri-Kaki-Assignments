@@ -2,7 +2,6 @@ package com.capstone.assessmentportal.customannotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,11 +11,7 @@ class DateOfBirthValidatorTest {
     
     @Autowired
     AgeValidator ageValidator;
-
-    @BeforeEach
-    public void setUp() {
-        ageValidator = new AgeValidator();
-    }
+    
     @Test
     public void testValidDOB() {
         String dateOfBirth = "2005-01-01";
@@ -34,12 +29,5 @@ class DateOfBirthValidatorTest {
         String dateFormat = "2022-01-32";
         boolean isValid = ageValidator.isValid(dateFormat, null);
         assertFalse(isValid);
-    }
-    
-    @Test
-    public void testInitialize() {
-        AgeValidator ageValidator = new AgeValidator();
-        ageValidator.initialize(null);
-        assertTrue(true); 
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.capstone.assessmentportal.model.Question;
 
 /**
- *question repository of quiz entity.
+ *question entity repository.
 */
 
 @Repository

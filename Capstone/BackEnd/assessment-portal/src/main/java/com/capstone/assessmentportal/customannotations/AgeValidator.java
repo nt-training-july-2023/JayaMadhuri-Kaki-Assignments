@@ -13,13 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgeValidator implements ConstraintValidator<AdultAge, String> {
     @Override
-    public void initialize(final AdultAge adultAge) {
-    }
-
-    @Override
     public final boolean isValid(final String dateOfBirth,
             final ConstraintValidatorContext context) {
-        final float minAge = 18;
+        final int minAge = 18;
         try {
             LocalDate birthDate = LocalDate.parse(dateOfBirth);
             LocalDate currentDate = LocalDate.now();

@@ -53,7 +53,7 @@ public class ResultServiceImplementation implements ResultService {
   private Logger logger = LoggerFactory.getLogger(
           ResultServiceImplementation.class);
   @Override
-  public final ResultsDto addTemporaryResult(final ResultsDto resultsDto) {
+  public final ResultsDto addResult(final ResultsDto resultsDto) {
     Users user = usersRepo.findById(resultsDto
             .getStudentId()).orElseThrow(
                     () -> new NoSuchElementException(ValidationMessage

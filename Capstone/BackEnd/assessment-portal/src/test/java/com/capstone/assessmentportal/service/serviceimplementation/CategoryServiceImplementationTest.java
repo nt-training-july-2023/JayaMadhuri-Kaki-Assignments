@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capstone.assessmentportal.dto.CategoryDetailsDto;
 import com.capstone.assessmentportal.exception.AlreadyExistsException;
@@ -23,7 +22,7 @@ import com.capstone.assessmentportal.repository.CategoryRepo;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-@SpringBootTest
+
 class CategoryServiceImplementationTest {
     @Mock
     CategoryRepo categoryRepo;

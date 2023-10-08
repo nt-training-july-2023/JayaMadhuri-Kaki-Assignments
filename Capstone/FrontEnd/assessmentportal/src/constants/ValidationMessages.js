@@ -46,7 +46,7 @@ export const errorMessages = {
     QUIZ_NAME_REQUIRED: "Quiz Name Required",
     EMAIL_REQUIRED:"Email Required",
     PASSWORD_REQUIRED:"Password Required",
-    INVALID_EMAIL:"Email should contain @nucleusteq",
+    INVALID_EMAIL:"Should contain @nucleusteq",
     PASSWORD_CONTAIN_NUMBER:"Must contain a number",
     PASSWORD_CONTAIN_LETTER:"One Capital letter required",
     PASSWORD_CONTAIN_SPECIALCHAR:"No special character",

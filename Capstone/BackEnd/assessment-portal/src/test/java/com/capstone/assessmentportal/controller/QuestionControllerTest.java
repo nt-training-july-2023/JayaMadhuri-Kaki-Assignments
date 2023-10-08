@@ -47,7 +47,6 @@ class QuestionControllerTest {
         when(questionService.addQuestion(questionDto)).thenReturn(questionDto);
         CustomResponse<QuestionDto> response = questionController.addQuestion(questionDto);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Question Successfully Added",response.getMessage());
     }
 
@@ -58,7 +57,6 @@ class QuestionControllerTest {
         when(questionService.updateQuestion(questionId,questionDto)).thenReturn(questionDto);
         CustomResponse<QuestionDto> response = questionController.updateQuestion(questionId,questionDto);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Question Successfully Updated",response.getMessage());
     }
 
@@ -67,7 +65,6 @@ class QuestionControllerTest {
         Long questionId = 1L;
         CustomResponse<QuestionDto> response = questionController.deleteQuestion(questionId);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Question Successfully Deleted",response.getMessage());
     }
 

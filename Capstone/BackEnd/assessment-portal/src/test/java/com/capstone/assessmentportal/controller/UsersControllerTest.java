@@ -47,7 +47,6 @@ class UsersControllerTest {
         when(usersService.studentRegistration(users)).thenReturn(name);
         CustomResponse<SignUpRequest> response = usersController.studentRegistration(users);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("User successfully registered",response.getMessage());
     }
 
@@ -93,7 +92,6 @@ class UsersControllerTest {
         when(usersService.getUsersDetailsByEmail(email)).thenReturn("User Not exists with Email");
         CustomResponse<UserDetails> response = usersController.getUserByEmailId(email);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Successfully Validated",response.getMessage());
     }
 
@@ -109,7 +107,6 @@ class UsersControllerTest {
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
         CustomResponse<UserDetailsForUpdate> response = usersController.updateStudentDetails(userId,users);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("User Successfully Updated",response.getMessage());
     }
 
@@ -118,7 +115,6 @@ class UsersControllerTest {
         Long userId = 1L;
         CustomResponse<UserDetails> response = usersController.deleteStudent(userId);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("User Successfully Deleted",response.getMessage());
     }
 

@@ -14,7 +14,7 @@ public interface ResultService {
    * @return temporaryResult
    * @param results results
   */
-  ResultsDto addTemporaryResult(ResultsDto results);
+  ResultsDto addResult(ResultsDto results);
   /**
    * get all results from final result table.
    * @return list of finalresults

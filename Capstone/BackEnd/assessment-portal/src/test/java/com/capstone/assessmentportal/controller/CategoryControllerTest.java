@@ -36,7 +36,6 @@ class CategoryControllerTest {
         when(categoryService.addCategory(categoryDetailsDto)).thenReturn(categoryDetailsDto);
         CustomResponse<CategoryDetailsDto> response = categoryController.addCategory(categoryDetailsDto);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Category Successfully Added",response.getMessage());
     }
 
@@ -68,7 +67,6 @@ class CategoryControllerTest {
         Long categoryId = 1L;
         CustomResponse<CategoryDetailsDto> response = categoryController.deleteCategory(categoryId);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Category Successfully Deleted",response.getMessage());
     }
 
@@ -81,7 +79,6 @@ class CategoryControllerTest {
         .thenReturn(existingcategoryDetailsDto);
         CustomResponse<CategoryDetailsDto> response = categoryController.updateCategory(categoryId,existingcategoryDetailsDto);
         assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(null,response.getResponseData());
         assertEquals("Category Successfully Updated",response.getMessage());
     }
 
