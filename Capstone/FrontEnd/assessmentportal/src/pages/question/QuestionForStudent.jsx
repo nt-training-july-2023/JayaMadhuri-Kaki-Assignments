@@ -11,18 +11,16 @@ import Button from '../../components/button/Button';
 import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const QuestionForStudent = (props) => {
-    const { selectedQuizId, setShowQuestion, time, details, selectedId, setEnable} = props;
+    const { selectedQuizId, setShowQuestion, time, details, setEnable} = props;
     const quizId = localStorage.getItem("QuizId")
     const details_AfterRefresh = JSON.parse(localStorage.getItem("details"))
     const categoryName = localStorage.getItem("CategoryName");
     const quizName = localStorage.getItem("QuizName");
     const attemptedQuestions_AfterRefresh = localStorage.getItem("attemptedQuestions")
-    const prevSelectedOption_AfterRefresh = localStorage.getItem("prevSelectedOption")
     const selectedOption_AfterRefresh = JSON.parse(localStorage.getItem("selectedOption"))
     const question_AfterRefresh = localStorage.getItem("question") ? JSON.parse(atob(localStorage.getItem("question"))) : []
     const [selectedOption, setSelectedOption] = useState(selectedOption_AfterRefresh);
     const [question, setQuestion] = useState(question_AfterRefresh);
-    const [prevSelectedOption, setPrevSelectedOption] = useState(prevSelectedOption_AfterRefresh);
     const [attemptedQuestions, setAttemptedQuestions] = useState(Number(attemptedQuestions_AfterRefresh))
     const [isRunning, setIsRunning] = useState(true);
     let count = 1;
@@ -42,7 +40,6 @@ const QuestionForStudent = (props) => {
                 [questionId]: optionValue,
             });
         }
-        setPrevSelectedOption(optionValue);
     };
     const handleSubmit = () =>{
         if (attemptedQuestions > 0) {
@@ -81,7 +78,6 @@ const QuestionForStudent = (props) => {
             localStorage.setItem("attemptedQuestions","");
             localStorage.setItem("Current_Quiz_SubWindow","")
             localStorage.setItem("selectedOption","{}");
-            localStorage.setItem("prevSelectedOption","");
         }, 2000);
     };
     const handleResults = (results) => {
@@ -97,7 +93,6 @@ const QuestionForStudent = (props) => {
                 localStorage.setItem("attemptedQuestions","");
                 localStorage.setItem("Current_Quiz_SubWindow","")
                 localStorage.setItem("selectedOption","{}");
-                localStorage.setItem("prevSelectedOption","");
             }, 1500);
         })
     }
@@ -122,7 +117,6 @@ const QuestionForStudent = (props) => {
         if(Object.keys(selectedOption).length > 0){
             localStorage.setItem("selectedOption",JSON.stringify(selectedOption));
             localStorage.setItem("attemptedQuestions",Object.keys(selectedOption).length);
-            localStorage.setItem("prevSelectedOption",prevSelectedOption);
             setAttemptedQuestions(Object.keys(selectedOption).length);
         }
     },[selectedOption])

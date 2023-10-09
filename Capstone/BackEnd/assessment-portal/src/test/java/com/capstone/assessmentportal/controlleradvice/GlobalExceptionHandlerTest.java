@@ -41,6 +41,7 @@ class GlobalExceptionHandlerTest {
         when(methodArgumentNotValidException.getBindingResult()).thenReturn(bindingResult);
         CustomResponse<MethodArgumentNotValidException> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
         assertEquals(400, errorMap.getStatusCode());
+        assertEquals("Field1Error", errorMap.getMessage());
     }
     
     private BindingResult mockBindingResult() {

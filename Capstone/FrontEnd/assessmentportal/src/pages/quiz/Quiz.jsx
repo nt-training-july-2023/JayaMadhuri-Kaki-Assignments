@@ -77,7 +77,6 @@ const Quiz = (props) => {
     const onClickQuizStartTest = (item) =>{
         localStorage.setItem("selectedOption", "{}");
         localStorage.setItem("attemptedQuestions", 0);
-        localStorage.setItem("prevSelectedOption", "");
         Alert.Instructions(setShowQuestion, setSelectedQuizId, setTime, convertMinutesToTime, item, details)
     }
     const onClickQuizUpdate = (item) =>{

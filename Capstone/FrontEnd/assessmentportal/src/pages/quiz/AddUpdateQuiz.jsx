@@ -47,7 +47,6 @@ const AddUpdateQuiz = (props) => {
             if (quizDetails?.timeLimitInMinutes.length != 0) {
                 setError('')
                 setTimeError('')
-                setError('')
                 QuizUrl.updateQuiz(initialValues.subCategoryId, quizDetails)
                     .then(response => {
                         if (response?.data?.statusCode === 200) {

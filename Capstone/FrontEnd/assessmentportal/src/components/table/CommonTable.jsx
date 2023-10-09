@@ -21,7 +21,7 @@ const CommonTable = (props) => {
               <td key={column}>{item[column]}</td>
             ))}
             {setPopUp && <td>
-              <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
+              <Button onClick={(event) => {
                   setPopUp(true)
                   let updateInitialValues = {
                       questionId: item?.questionId,
@@ -38,7 +38,7 @@ const CommonTable = (props) => {
                   setIsDisable(true)
                   event.stopPropagation()
               }} className='question-button'><FaPencilAlt className='icons'/>Update</Button>
-              <Button onMouseDown={event => event.stopPropagation()}
+              <Button 
                   onClick={(event) => {
                       event.stopPropagation()
                       Alert.Delete(fetchData,item.questionId,true,false,false);

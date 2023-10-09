@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../../styles/Login.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import UsersUrl from '../../service/Url';
@@ -102,8 +102,6 @@ const Login = (props) => {
     const handleClick = () => {
         setRenderComponent("register");
     }
-    useEffect(() => {
-    }, []);
     return (
         <div className='login-body'>
             <div>

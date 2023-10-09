@@ -58,9 +58,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDto = categoryServiceImpl.addCategory(categoryDetailsDto);
-        assertEquals(categoryDto.getCategoryId(), category.getCategoryId());
-        assertEquals(categoryDto.getCategoryName(), category.getCategoryName());
-        assertEquals(categoryDto.getCategoryDescription(), category.getCategoryDescription());
+        assertEquals(categoryDto, categoryDetailsDto);
     }
 
     @Test
