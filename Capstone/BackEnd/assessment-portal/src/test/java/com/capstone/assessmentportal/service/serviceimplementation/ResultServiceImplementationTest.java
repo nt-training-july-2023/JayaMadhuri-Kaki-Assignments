@@ -1,12 +1,13 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -104,7 +105,7 @@ class resultsServiceImplementationTest {
         when(subCategoryRepo.getSubCategoryByName(res.getQuizName())).thenReturn(Optional.of(subCategory));
         ResultsDto resultsdto = resultsService.addResult(resultsDto);
         assertNotNull(resultsdto);
-        assertEquals(resultsDto, resultsdto);
+        assertThat(resultsDto).usingRecursiveComparison().isEqualTo(resultsdto);
     }
     
     @Test
@@ -122,18 +123,18 @@ class resultsServiceImplementationTest {
         
         Results finalResults = new Results(resultsDto.getResultId(),
                 resultsDto.getStudentId(), resultsDto.getStudentEmailId(),
-                resultsDto.getStudentName(),resultsDto.getQuizName()
-                ,resultsDto.getCategoryName(),
-                resultsDto.getMarksObtained(),resultsDto.getNumOfAttemptedQuestions(),
-                resultsDto.getTotalMarks(),resultsDto.getTotalQuestions(),resultsDto.getDateAndTime());
+                resultsDto.getStudentName(),
+                resultsDto.getCategoryName(),resultsDto.getQuizName(),
+                resultsDto.getMarksObtained(),
+                resultsDto.getTotalMarks(),resultsDto.getNumOfAttemptedQuestions()
+                ,resultsDto.getTotalQuestions(),resultsDto.getDateAndTime());
         
         List<Results> listoffinalresults = new ArrayList<>();
         listoffinalresults.add(finalResults);
         resultRepo.save(finalResults);
         when(resultRepo.findAll()).thenReturn(listoffinalresults);
         List<ResultsDto> ResultsDto = resultsService.getResults();
-        assertEquals(listoffinalresults.get(0).getCategoryName(), ResultsDto.get(0).getCategoryName());
-        assertEquals(listoffinalresults.get(0).getQuizName(), ResultsDto.get(0).getQuizName());
+        assertThat(ResultsDto).usingRecursiveComparison().isEqualTo(Collections.singletonList(resultsDto));
     }
 
     @Test
@@ -144,18 +145,18 @@ class resultsServiceImplementationTest {
         
         Results finalResults = new Results(finalDto.getResultId(),
                 finalDto.getStudentId(), finalDto.getStudentEmailId(),
-                finalDto.getStudentName(),finalDto.getQuizName()
-                ,finalDto.getCategoryName(),
-                finalDto.getMarksObtained(),finalDto.getNumOfAttemptedQuestions(),
-                finalDto.getTotalMarks(),finalDto.getTotalQuestions(),finalDto.getDateAndTime());
+                finalDto.getStudentName(),
+                finalDto.getCategoryName(),finalDto.getQuizName(),
+                finalDto.getMarksObtained(),
+                finalDto.getTotalMarks(),finalDto.getNumOfAttemptedQuestions(),
+                finalDto.getTotalQuestions(),finalDto.getDateAndTime());
         
         List<Results> listoffinalresults = new ArrayList<>();
         listoffinalresults.add(finalResults);
         resultRepo.save(finalResults);
         when(resultRepo.getResultsByStudentEmail(finalDto.getStudentEmailId())).thenReturn(listoffinalresults);
         List<ResultsDto> ResultsDto = resultsService.getResultByStudentEmail(finalDto.getStudentEmailId());
-        assertEquals(listoffinalresults.get(0).getCategoryName(), ResultsDto.get(0).getCategoryName());
-        assertEquals(listoffinalresults.get(0).getQuizName(), ResultsDto.get(0).getQuizName());
+        assertThat(ResultsDto).usingRecursiveComparison().isEqualTo(Collections.singletonList(finalDto));
     }
     
     @Test

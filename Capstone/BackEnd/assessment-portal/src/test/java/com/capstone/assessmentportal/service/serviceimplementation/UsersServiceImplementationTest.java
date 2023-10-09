@@ -1,8 +1,10 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -94,13 +96,15 @@ class UsersServiceImplementationTest {
         users.setPassword(login.getPassword());
         users.setFirstName("Madhu");
         users.setLastName("Kaki");
+        Map<String,String> expectedMap = new HashMap<>();
+        expectedMap.put("EmailId", "jayamadhuri@nucleusteq.com");
+        expectedMap.put("UserType", "Student");
+        expectedMap.put("Name", "Madhu Kaki");
         
         when(usersRepo.findUserByEmailId(login.getEmailId())).thenReturn(Optional.of(users));
         Map<String,String> map = usersServiceImpl.authenticateUser(login);
         assertNotNull(map);
-        assertEquals("Student", map.get("UserType"));
-        assertEquals("Madhu Kaki", map.get("Name"));
-        assertEquals("jayamadhuri@nucleusteq.com", map.get("EmailId"));
+        assertEquals(expectedMap,map);
     }
     
     @Test
@@ -191,14 +195,14 @@ class UsersServiceImplementationTest {
         when(usersRepo.save(user)).thenReturn(updateduser);
         UserDetailsForUpdate updatedDetails = usersServiceImpl.updateStudentDetails(userId, updatedusers);
         assertNotNull(updatedDetails);
-        assertEquals(updateduser.getFirstName(),updatedDetails.getFirstName());
+        assertThat(updatedusers).usingRecursiveComparison().isEqualTo(updatedDetails);
     }
     
     @Test
     void testGetStudentById() {
        Long userId = 13L;
        SignUpRequest users = new SignUpRequest();;
-       users.setFirstName("Jaya");
+       users.setFirstName("JayaMadhuri");
        users.setLastName("kaki");
        users.setDateOfBirth("23-01-2001");
        users.setGender(Gender.female);
@@ -215,14 +219,17 @@ class UsersServiceImplementationTest {
        userDetails.setPassword(users.getPassword());
        userDetails.setUserType(users.getUserType());
        
+       UserDetails expectedResult = new UserDetails();
+       expectedResult.setFirstName(users.getFirstName());
+       expectedResult.setLastName(users.getLastName());
+       expectedResult.setDateOfBirth(users.getDateOfBirth());
+       expectedResult.setGender(users.getGender());
+       expectedResult.setEmailId(users.getEmailId());
+       expectedResult.setUserType(users.getUserType());
+       
        when(usersRepo.findById(userId)).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentById(userId);
-       assertEquals(userDetails.getEmailId(), result.getEmailId());
-       assertEquals(userDetails.getFirstName(), result.getFirstName());
-       assertEquals(userDetails.getLastName(), result.getLastName());
-       assertEquals(userDetails.getDateOfBirth(),result.getDateOfBirth());
-       assertEquals(userDetails.getGender(),result.getGender());
-       assertEquals(userDetails.getUserType(),result.getUserType());
+       assertThat(expectedResult).usingRecursiveComparison().isEqualTo(result);
     }
     
     @Test
@@ -259,15 +266,17 @@ class UsersServiceImplementationTest {
        userDetails.setPassword(users.getPassword());
        userDetails.setUserType(users.getUserType());
        
+       UserDetails expectedResult = new UserDetails();
+       expectedResult.setFirstName(users.getFirstName());
+       expectedResult.setLastName(users.getLastName());
+       expectedResult.setDateOfBirth(users.getDateOfBirth());
+       expectedResult.setGender(users.getGender());
+       expectedResult.setEmailId(users.getEmailId());
+       expectedResult.setUserType(users.getUserType());
+       
        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentDetailsByEmail(users.getEmailId());
-       assertEquals(userDetails.getUserId(), result.getUserId());
-       assertEquals(userDetails.getEmailId(), result.getEmailId());
-       assertEquals(userDetails.getFirstName(), result.getFirstName());
-       assertEquals(userDetails.getLastName(), result.getLastName());
-       assertEquals(userDetails.getDateOfBirth(),result.getDateOfBirth());
-       assertEquals(userDetails.getGender(),result.getGender());
-       assertEquals(userDetails.getUserType(),result.getUserType());
+       assertThat(expectedResult).usingRecursiveComparison().isEqualTo(result);
     }
     
     @Test

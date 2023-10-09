@@ -1,5 +1,6 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -82,8 +83,7 @@ class QuestionServiceImplementationTest {
         questionRepo.save(question);
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         QuestionDto questionDto1 = questionService.addQuestion(questionDto);
-        assertEquals(question.getCorrectAnswer(), questionDto1.getCorrectAnswer());
-        assertEquals(question.getOptionA(), questionDto1.getOptionA());
+        assertThat(questionDto).usingRecursiveComparison().isEqualTo(questionDto1);
     }
     
     @Test
@@ -167,8 +167,7 @@ class QuestionServiceImplementationTest {
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         when(questionRepo.save(question)).thenReturn(question1);
         QuestionDto questiondto = questionService.updateQuestion(questionId, questionDto1);
-        assertEquals(question1.getOptionA(),questiondto.getOptionA());
-        assertEquals(question1.getCorrectAnswer(),questiondto.getCorrectAnswer());
+        assertThat(questionDto1).usingRecursiveComparison().isEqualTo(questiondto);
     }
     
     @Test

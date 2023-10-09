@@ -1,9 +1,11 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -65,7 +67,7 @@ class SubCategoryServiceImplementationTest {
         subCategoryRepo.save(subCategory);
         when(subCategoryRepo.findById(subCategoryId)).thenReturn(Optional.of(subCategory));
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.addSubCategory(subCategoryDto);
-        assertEquals(subCategory.getSubCategoryName(),subCategoryDetailsDto.getSubCategoryName());
+        assertThat(subCategoryDto).usingRecursiveComparison().isEqualTo(subCategoryDetailsDto);
     }
     
     @Test
@@ -118,6 +120,7 @@ class SubCategoryServiceImplementationTest {
         SubCategoryDetailsDto subCategoryDto = new SubCategoryDetailsDto();
         subCategoryDto.setSubCategoryName("Array");
         subCategoryDto.setTimeLimitInMinutes("100");
+        subCategoryDto.setSubCategoryDescription("Basics");
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryId(subCategoryId);
         
@@ -132,7 +135,7 @@ class SubCategoryServiceImplementationTest {
         category.setCategoryDescription(category.getCategoryDescription());
         
         SubCategory subCategory = new SubCategory(subCategoryDto.getSubCategoryId(),subCategoryDto.getSubCategoryName(),
-                subCategoryDto.getTimeLimitInMinutes(),subCategoryDto.getSubCategoryDescription());
+                subCategoryDto.getSubCategoryDescription(), subCategoryDto.getTimeLimitInMinutes());
  
         List<Question> listOfQuestions = new ArrayList<>();
         subCategory.setQuestion(listOfQuestions);
@@ -144,7 +147,7 @@ class SubCategoryServiceImplementationTest {
         listOfSubCategories.add(subCategory);
         when(subCategoryRepo.findAll()).thenReturn(listOfSubCategories);
         List<SubCategoryDetailsDto> subCategoryList = subCategoryServiceImpl.getSubCategories();
-        assertEquals("Array", subCategoryList.get(0).getSubCategoryName());
+        assertThat(subCategoryList).usingRecursiveComparison().isEqualTo(Collections.singletonList(subCategoryDto));
     }
 
     @Test
@@ -167,7 +170,7 @@ class SubCategoryServiceImplementationTest {
         category.setCategoryDescription(category.getCategoryDescription());
         
         SubCategory subCategory = new SubCategory(subCategoryDto.getSubCategoryId(),subCategoryDto.getSubCategoryName(),
-                subCategoryDto.getTimeLimitInMinutes(),subCategoryDto.getSubCategoryDescription());
+                subCategoryDto.getSubCategoryDescription(), subCategoryDto.getTimeLimitInMinutes());
         
         when(subCategoryRepo.getSubCategoryByName(subCategory.getSubCategoryName())).thenReturn(Optional.empty());
         when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.of(category));
@@ -175,8 +178,7 @@ class SubCategoryServiceImplementationTest {
         subCategoryRepo.save(subCategory);
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.getSubCategoryById(subCategoryId);
-        assertEquals(subCategory.getSubCategoryName(), subCategoryDetailsDto.getSubCategoryName());
-        assertEquals(subCategory.getSubCategoryDescription(), subCategoryDetailsDto.getSubCategoryDescription());
+        assertThat(subCategoryDto).usingRecursiveComparison().isEqualTo(subCategoryDetailsDto);
     }
     
     @Test
@@ -241,8 +243,7 @@ class SubCategoryServiceImplementationTest {
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         when(subCategoryRepo.save(subCategory)).thenReturn(subCategory1);
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.updateSubCategory(subCategoryDto1, subCategoryId);
-        assertEquals(subCategory1.getSubCategoryDescription(), subCategoryDetailsDto.getSubCategoryDescription());
-        assertEquals(subCategory1.getSubCategoryName(), subCategoryDetailsDto.getSubCategoryName());
+        assertThat(subCategoryDto).usingRecursiveComparison().isEqualTo(subCategoryDetailsDto);
     }
     
     @Test
@@ -340,7 +341,7 @@ class SubCategoryServiceImplementationTest {
         category.setCategoryDescription(category.getCategoryDescription());
         
         SubCategory subCategory = new SubCategory(subCategoryDto.getSubCategoryId(),subCategoryDto.getSubCategoryName(),
-                subCategoryDto.getTimeLimitInMinutes(),subCategoryDto.getSubCategoryDescription());
+                subCategoryDto.getSubCategoryDescription(), subCategoryDto.getTimeLimitInMinutes());
         
         when(subCategoryRepo.getSubCategoryByName(subCategory.getSubCategoryName())).thenReturn(Optional.empty());
         when(categoryRepo.findById(subCategoryDto.getCategoryId())).thenReturn(Optional.of(category));
@@ -350,6 +351,6 @@ class SubCategoryServiceImplementationTest {
         subCategoryRepo.save(subCategory);
         when(subCategoryRepo.getSubCategoryByCategoryId(subCategoryDto.getCategoryId())).thenReturn(listOfSubcategories);
         List<SubCategoryDetailsDto> listOfsubCategoriesDto = subCategoryServiceImpl.getSubCategoryByCategoryId(10L);
-        assertEquals("Array", listOfsubCategoriesDto.get(0).getSubCategoryName());
+        assertThat(listOfsubCategoriesDto).usingRecursiveComparison().isEqualTo(Collections.singletonList(subCategoryDto));
     }
 }

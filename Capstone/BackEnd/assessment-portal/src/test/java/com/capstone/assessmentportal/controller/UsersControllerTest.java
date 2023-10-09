@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 
 import com.capstone.assessmentportal.dto.Gender;
 import com.capstone.assessmentportal.dto.LoginRequest;
@@ -43,11 +42,14 @@ class UsersControllerTest {
         users.setPassword("Madhu@123");
         users.setUserType("Student");
         
+        CustomResponse<SignUpRequest> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("User successfully registered");
+        
         String name = users.getFirstName() + users.getLastName();
         when(usersService.studentRegistration(users)).thenReturn(name);
         CustomResponse<SignUpRequest> response = usersController.studentRegistration(users);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("User successfully registered",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
@@ -57,42 +59,54 @@ class UsersControllerTest {
         login.setPassword("Madhu@123");
         
         Map<String,String> userDetails = new HashMap<>();
+        
+        CustomResponse<Map<String, String>> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("User successfully logged in");
+        expectedResponse.setResponseData(userDetails);
+        
         when(usersService.authenticateUser(login)).thenReturn(userDetails);
         CustomResponse<Map<String, String>> response = usersController.userLogin(login);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(userDetails,response.getResponseData());
-        assertEquals("User successfully logged in",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
     void testGetStudentById() {
         Long studentId = 1L;
         UserDetails users = new UserDetails();
+        CustomResponse<UserDetails> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Retrieved User details by Id");
+        expectedResponse.setResponseData(users);
+        
         when(usersService.getStudentById(studentId)).thenReturn(users);
         CustomResponse<UserDetails> response = usersController.getStudentById(studentId);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(users,response.getResponseData());
-        assertEquals("Retrieved User details by Id",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
     
     @Test
     void testGetStudentByEmail() {
         String studentEmail = "jaya@nucleusteq.com";
         UserDetails users = new UserDetails();
+        CustomResponse<UserDetails> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Retrieved student details by EmailId");
+        expectedResponse.setResponseData(users);
+        
         when(usersService.getStudentDetailsByEmail(studentEmail)).thenReturn(users);
         CustomResponse<UserDetails> response = usersController.getStudentByEmailId(studentEmail);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(users,response.getResponseData());
-        assertEquals("Retrieved student details by EmailId",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
     
     @Test
     void testGetUserByEmail() {
         String email = "jaya@nucleusteq.com";
+        CustomResponse<String> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Successfully Validated");
         when(usersService.getUsersDetailsByEmail(email)).thenReturn("User Not exists with Email");
         CustomResponse<UserDetails> response = usersController.getUserByEmailId(email);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Successfully Validated",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
@@ -104,18 +118,24 @@ class UsersControllerTest {
         users.setDateOfBirth("23-01-2001");
         users.setGender(Gender.female);
         
+        CustomResponse<UserDetailsForUpdate> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("User Successfully Updated");
+        
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
         CustomResponse<UserDetailsForUpdate> response = usersController.updateStudentDetails(userId,users);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("User Successfully Updated",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
     void testDeleteStudent() {
         Long userId = 1L;
+        CustomResponse<UserDetails> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("User Successfully Deleted");
+        
         CustomResponse<UserDetails> response = usersController.deleteStudent(userId);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("User Successfully Deleted",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
 }

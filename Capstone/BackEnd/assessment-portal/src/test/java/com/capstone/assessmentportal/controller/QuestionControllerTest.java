@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import com.capstone.assessmentportal.dto.Option;
 import com.capstone.assessmentportal.dto.QuestionDto;
 import com.capstone.assessmentportal.response.CustomResponse;
@@ -33,39 +32,48 @@ class QuestionControllerTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         List<QuestionDto> questionlist = new ArrayList<>();
+        CustomResponse<List<QuestionDto>> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Successfully Retrieved Questions By Quiz Id");
+        expectedResponse.setResponseData(questionlist);
         when(questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionlist);
-        CustomResponse<List<QuestionDto>> response = questionController.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(questionlist,response.getResponseData());
-        assertEquals("Successfully Retrieved Questions By Quiz Id",response.getMessage());
+        CustomResponse<List<QuestionDto>> response = questionController
+                .getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
     void testAddQuestion() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
+        CustomResponse<QuestionDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Question Successfully Added");
         when(questionService.addQuestion(questionDto)).thenReturn(questionDto);
         CustomResponse<QuestionDto> response = questionController.addQuestion(questionDto);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Question Successfully Added",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
     void testUpdateQuestion() {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
+        CustomResponse<QuestionDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Question Successfully Updated");
         when(questionService.updateQuestion(questionId,questionDto)).thenReturn(questionDto);
         CustomResponse<QuestionDto> response = questionController.updateQuestion(questionId,questionDto);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Question Successfully Updated",response.getMessage());
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
     @Test
     void testDeleteQuestion() {
         Long questionId = 1L;
         CustomResponse<QuestionDto> response = questionController.deleteQuestion(questionId);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Question Successfully Deleted",response.getMessage());
+        CustomResponse<QuestionDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Question Successfully Deleted");
+        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
     }
 
 }

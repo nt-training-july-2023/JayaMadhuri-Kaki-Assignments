@@ -1,12 +1,13 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +59,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDto = categoryServiceImpl.addCategory(categoryDetailsDto);
-        assertEquals(categoryDto, categoryDetailsDto);
+        assertThat(categoryDetailsDto).usingRecursiveComparison().isEqualTo(categoryDto);
     }
 
     @Test
@@ -78,8 +79,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findAll()).thenReturn(listofcategories);
         List<CategoryDetailsDto> categoryList = categoryServiceImpl.getCategories();
-        assertEquals("Java", categoryList.get(0).getCategoryName());
-        assertEquals(category.getCategoryId(), categoryList.get(0).getCategoryId());
+        assertThat(categoryList).usingRecursiveComparison().isEqualTo(Collections.singletonList(categoryDetailsDto));
     }
 
     @Test
@@ -98,8 +98,7 @@ class CategoryServiceImplementationTest {
                 categoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDetails = categoryServiceImpl.getCategoryById(categoryId);
-        assertEquals(category.getCategoryName(), categoryDetails.getCategoryName());
-        assertEquals(category.getCategoryId(), categoryDetails.getCategoryId());
+        assertThat(categoryDetailsDto).usingRecursiveComparison().isEqualTo(categoryDetails);
     }
     
     @Test
@@ -146,8 +145,9 @@ class CategoryServiceImplementationTest {
         Category category = new Category(existingcategoryDetailsDto.getCategoryId(),existingcategoryDetailsDto.getCategoryName(),
                 existingcategoryDetailsDto.getCategoryDescription());
         
-        CategoryDetailsDto updatedcategoryDetailsDto = new CategoryDetailsDto(categoryId,"Spring","Programming language");
-        
+        CategoryDetailsDto updatedcategoryDetailsDto = new CategoryDetailsDto();
+        updatedcategoryDetailsDto.setCategoryName("Spring");
+        updatedcategoryDetailsDto.setCategoryDescription("Programming language");
         Category updatedCategory = new Category(updatedcategoryDetailsDto.getCategoryId(),updatedcategoryDetailsDto.getCategoryName(),
                 updatedcategoryDetailsDto.getCategoryDescription());
         
@@ -155,7 +155,6 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.save(category)).thenReturn(updatedCategory);
         CategoryDetailsDto categoryDto = categoryServiceImpl.updateCategory(categoryId, updatedcategoryDetailsDto);
         assertNotNull(categoryDto);
-        assertEquals(updatedCategory.getCategoryName(),categoryDto.getCategoryName());
-        assertEquals(updatedCategory.getCategoryDescription(),categoryDto.getCategoryDescription());
+        assertThat(updatedcategoryDetailsDto).usingRecursiveComparison().isEqualTo(categoryDto);
     }
 }
