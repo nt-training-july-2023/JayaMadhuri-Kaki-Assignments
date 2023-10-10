@@ -479,3 +479,555 @@
 2023-10-10T00:40:47.099+05:30  INFO 32208 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-10-10T00:40:47.108+05:30  INFO 32208 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-10-10T00:40:47.157+05:30  INFO 32208 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T00:42:51.435+05:30  INFO 2780 --- [main] c.c.a.AssessmentPortalApplicationTests   : Starting AssessmentPortalApplicationTests using Java 17.0.8 with PID 2780 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T00:42:51.448+05:30  INFO 2780 --- [main] c.c.a.AssessmentPortalApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T00:42:52.441+05:30  INFO 2780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T00:42:52.535+05:30  INFO 2780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 5 JPA repository interfaces.
+2023-10-10T00:42:53.083+05:30  INFO 2780 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T00:42:53.177+05:30  INFO 2780 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T00:42:53.177+05:30  INFO 2780 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T00:42:53.459+05:30  INFO 2780 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T00:42:53.662+05:30  INFO 2780 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T00:42:53.678+05:30  INFO 2780 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T00:42:53.991+05:30  INFO 2780 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@435d74ba
+2023-10-10T00:42:53.991+05:30  INFO 2780 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T00:42:54.611+05:30  INFO 2780 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T00:42:55.647+05:30  INFO 2780 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T00:42:55.737+05:30  INFO 2780 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T00:42:56.081+05:30  INFO 2780 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T00:42:56.801+05:30  WARN 2780 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T00:42:57.208+05:30  INFO 2780 --- [main] c.c.a.AssessmentPortalApplicationTests   : Started AssessmentPortalApplicationTests in 6.209 seconds (process running for 7.95)
+2023-10-10T00:42:57.723+05:30  INFO 2780 --- [main] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 2780 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T00:42:57.723+05:30  INFO 2780 --- [main] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T00:42:57.864+05:30  INFO 2780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T00:42:57.880+05:30  INFO 2780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 5 JPA repository interfaces.
+2023-10-10T00:42:58.146+05:30  INFO 2780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T00:42:58.162+05:30  INFO 2780 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T00:42:58.162+05:30  INFO 2780 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T00:42:58.240+05:30  INFO 2780 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T00:42:58.240+05:30  INFO 2780 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 517 ms
+2023-10-10T00:42:58.318+05:30  INFO 2780 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T00:42:58.334+05:30  INFO 2780 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T00:42:58.334+05:30  INFO 2780 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T00:42:58.334+05:30  INFO 2780 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-10T00:42:58.365+05:30  INFO 2780 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@45465840
+2023-10-10T00:42:58.365+05:30  INFO 2780 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-10T00:42:58.397+05:30  INFO 2780 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T00:42:58.491+05:30  INFO 2780 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T00:42:58.538+05:30  INFO 2780 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T00:42:58.666+05:30  WARN 2780 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T00:42:58.790+05:30  INFO 2780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6060 (http) with context path ''
+2023-10-10T00:42:58.790+05:30  INFO 2780 --- [main] c.c.a.AssessmentPortalApplication        : Started AssessmentPortalApplication in 1.084 seconds (process running for 9.529)
+2023-10-10T00:42:58.832+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.CategoryControllerTest]: CategoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:42:58.869+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.CategoryControllerTest
+2023-10-10T00:42:59.184+05:30  INFO 2780 --- [main] c.c.a.controller.CategoryController      : Category Successfully Added
+2023-10-10T00:42:59.439+05:30  INFO 2780 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Categories
+2023-10-10T00:42:59.457+05:30  INFO 2780 --- [main] c.c.a.controller.CategoryController      : Category Successfully Updated
+2023-10-10T00:42:59.471+05:30  INFO 2780 --- [main] c.c.a.controller.CategoryController      : Category Successfully Deleted
+2023-10-10T00:42:59.486+05:30  INFO 2780 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Category by Id
+2023-10-10T00:42:59.502+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.QuestionControllerTest]: QuestionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:42:59.502+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.QuestionControllerTest
+2023-10-10T00:42:59.580+05:30  INFO 2780 --- [main] c.c.a.controller.QuestionController      : Question Successfully Updated
+2023-10-10T00:42:59.596+05:30  INFO 2780 --- [main] c.c.a.controller.QuestionController      : Question Successfully Deleted
+2023-10-10T00:42:59.596+05:30  INFO 2780 --- [main] c.c.a.controller.QuestionController      : Successfully Retrieved Questions By Quiz Id
+2023-10-10T00:42:59.612+05:30  INFO 2780 --- [main] c.c.a.controller.QuestionController      : Question Successfully Added
+2023-10-10T00:42:59.632+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.ResultsControllerTest]: ResultsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:42:59.632+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.ResultsControllerTest
+2023-10-10T00:42:59.690+05:30  INFO 2780 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T00:42:59.706+05:30  INFO 2780 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T00:42:59.721+05:30  INFO 2780 --- [main] c.c.a.controller.ResultsController       : Results Successfully Added
+2023-10-10T00:42:59.721+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.SubCategoryControllerTest]: SubCategoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:42:59.737+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.SubCategoryControllerTest
+2023-10-10T00:42:59.956+05:30  INFO 2780 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Updated
+2023-10-10T00:42:59.971+05:30  INFO 2780 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Id
+2023-10-10T00:42:59.971+05:30  INFO 2780 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes
+2023-10-10T00:42:59.987+05:30  INFO 2780 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Category Id
+2023-10-10T00:43:00.003+05:30  INFO 2780 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Deleted
+2023-10-10T00:43:00.019+05:30  INFO 2780 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Added
+2023-10-10T00:43:00.035+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.UsersControllerTest]: UsersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:43:00.050+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.UsersControllerTest
+2023-10-10T00:43:00.113+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : Successfully Validated
+2023-10-10T00:43:00.113+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : User Successfully Deleted
+2023-10-10T00:43:00.130+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : Retrieved User details by Id
+2023-10-10T00:43:00.130+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : User successfully logged in
+2023-10-10T00:43:00.149+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : Retrieved student details by EmailId
+2023-10-10T00:43:00.149+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : User successfully registered
+2023-10-10T00:43:00.160+05:30  INFO 2780 --- [main] c.c.a.controller.UsersController         : User Successfully Updated
+2023-10-10T00:43:00.176+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest]: GlobalExceptionHandlerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:43:00.192+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest
+2023-10-10T00:43:00.466+05:30  INFO 2780 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest]: DateOfBirthValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T00:43:00.479+05:30  INFO 2780 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest
+2023-10-10T00:43:00.552+05:30  INFO 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Category Successfully Added
+2023-10-10T00:43:00.552+05:30  INFO 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Successfully Retrieved Categories
+2023-10-10T00:43:00.552+05:30  INFO 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Entity to Dto conversion in Category
+2023-10-10T00:43:00.584+05:30  INFO 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Successfully Retrieved Category by Id
+2023-10-10T00:43:00.600+05:30  INFO 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Category Successfully Updated
+2023-10-10T00:43:00.600+05:30 ERROR 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Category with same name already exists
+2023-10-10T00:43:00.600+05:30  INFO 2780 --- [main] c.c.a.s.s.CategoryServiceImplementation  : Category Successfully Deleted
+2023-10-10T00:43:00.757+05:30  INFO 2780 --- [main] c.c.a.s.s.QuestionServiceImplementation  : Question Successfully Updated
+2023-10-10T00:43:00.788+05:30  INFO 2780 --- [main] c.c.a.s.s.QuestionServiceImplementation  : Question Successfully Deleted
+2023-10-10T00:43:00.788+05:30  INFO 2780 --- [main] c.c.a.s.s.QuestionServiceImplementation  : Question Successfully Added
+2023-10-10T00:43:00.788+05:30  INFO 2780 --- [main] c.c.a.s.s.QuestionServiceImplementation  : Successfully Retrieved Questions By Quiz Id
+2023-10-10T00:43:00.788+05:30  INFO 2780 --- [main] c.c.a.s.s.QuestionServiceImplementation  : Entity to Dto conversion in Questions
+2023-10-10T00:43:00.961+05:30  INFO 2780 --- [main] c.c.a.s.s.ResultServiceImplementation    : Results Successfully Added
+2023-10-10T00:43:00.961+05:30  INFO 2780 --- [main] c.c.a.s.s.ResultServiceImplementation    : Results Successfully Retrieved
+2023-10-10T00:43:00.961+05:30  INFO 2780 --- [main] c.c.a.s.s.ResultServiceImplementation    : Entity to Dto conversion in Results
+2023-10-10T00:43:00.977+05:30  INFO 2780 --- [main] c.c.a.s.s.ResultServiceImplementation    : Results Successfully Retrieved
+2023-10-10T00:43:00.977+05:30  INFO 2780 --- [main] c.c.a.s.s.ResultServiceImplementation    : Entity to Dto conversion in Results
+2023-10-10T00:43:00.992+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Quiz Successfully Updated
+2023-10-10T00:43:01.013+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Successfully Retrieved Quizes
+2023-10-10T00:43:01.013+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Entity to Dto conversion in Quiz
+2023-10-10T00:43:01.024+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Successfully Retrieved Quizes by Id
+2023-10-10T00:43:01.032+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Successfully Retrieved Quizes by Category Id
+2023-10-10T00:43:01.032+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Entity to Dto conversion in Quiz
+2023-10-10T00:43:01.040+05:30 ERROR 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Quiz with same name already exists
+2023-10-10T00:43:01.040+05:30 ERROR 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Quiz with same name already exists
+2023-10-10T00:43:01.040+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Quiz Successfully Added
+2023-10-10T00:43:01.055+05:30  INFO 2780 --- [main] c.a.s.s.SubCategoryServiceImplementation : Quiz Successfully Deleted
+2023-10-10T00:43:01.071+05:30 ERROR 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : Incorrect Credentials
+2023-10-10T00:43:01.071+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : Retrieved student details by EmailId
+2023-10-10T00:43:01.071+05:30 ERROR 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : Cannot find user with email id
+2023-10-10T00:43:01.086+05:30 ERROR 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : An Account with same email already exists
+2023-10-10T00:43:01.088+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : User Successfully Deleted
+2023-10-10T00:43:01.088+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : User Successfully Updated
+2023-10-10T00:43:01.106+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : User successfully logged in
+2023-10-10T00:43:01.106+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : Retrieved User details by Id
+2023-10-10T00:43:01.106+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : Cannot find user with email id
+2023-10-10T00:43:01.118+05:30 ERROR 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : Incorrect Credentials
+2023-10-10T00:43:01.118+05:30  INFO 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : User successfully registered
+2023-10-10T00:43:01.118+05:30 ERROR 2780 --- [main] c.c.a.s.s.UsersServiceImplementation     : An Account with same email already exists
+2023-10-10T00:43:01.151+05:30  INFO 2780 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T00:43:01.285+05:30  INFO 2780 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T00:43:01.285+05:30  INFO 2780 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T00:43:01.316+05:30  INFO 2780 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T00:43:01.316+05:30  INFO 2780 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-10T00:43:01.324+05:30  INFO 2780 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-10T12:48:27.717+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryControllerTest  : Starting CategoryControllerTest using Java 17.0.8 with PID 28148 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:48:27.726+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:48:30.303+05:30  INFO 28148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:48:30.535+05:30  INFO 28148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 194 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:48:32.060+05:30  INFO 28148 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:48:32.353+05:30  INFO 28148 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T12:48:32.363+05:30  INFO 28148 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T12:48:32.998+05:30  INFO 28148 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:48:33.045+05:30  INFO 28148 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:48:33.125+05:30  INFO 28148 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T12:48:33.925+05:30  INFO 28148 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15be8dc4
+2023-10-10T12:48:33.935+05:30  INFO 28148 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T12:48:35.460+05:30  INFO 28148 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:48:37.555+05:30  INFO 28148 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:48:37.860+05:30  INFO 28148 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:48:38.615+05:30  INFO 28148 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T12:48:40.447+05:30  WARN 28148 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:48:41.371+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryControllerTest  : Started CategoryControllerTest in 14.862 seconds (process running for 24.058)
+2023-10-10T12:48:41.650+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryController      : Category Successfully Added
+2023-10-10T12:48:42.267+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Categories
+2023-10-10T12:48:42.296+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryController      : Category Successfully Updated
+2023-10-10T12:48:42.326+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryController      : Category Successfully Deleted
+2023-10-10T12:48:42.349+05:30  INFO 28148 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Category by Id
+2023-10-10T12:48:42.373+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.QuestionControllerTest]: QuestionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:42.386+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.QuestionControllerTest
+2023-10-10T12:48:42.486+05:30  INFO 28148 --- [main] c.c.a.controller.QuestionController      : Question Successfully Updated
+2023-10-10T12:48:42.509+05:30  INFO 28148 --- [main] c.c.a.controller.QuestionController      : Question Successfully Deleted
+2023-10-10T12:48:42.529+05:30  INFO 28148 --- [main] c.c.a.controller.QuestionController      : Successfully Retrieved Questions By Quiz Id
+2023-10-10T12:48:42.546+05:30  INFO 28148 --- [main] c.c.a.controller.QuestionController      : Question Successfully Added
+2023-10-10T12:48:42.559+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.ResultsControllerTest]: ResultsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:42.566+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.ResultsControllerTest
+2023-10-10T12:48:42.639+05:30  INFO 28148 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T12:48:42.652+05:30  INFO 28148 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T12:48:42.673+05:30  INFO 28148 --- [main] c.c.a.controller.ResultsController       : Results Successfully Added
+2023-10-10T12:48:42.688+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.SubCategoryControllerTest]: SubCategoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:42.692+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.SubCategoryControllerTest
+2023-10-10T12:48:42.805+05:30  INFO 28148 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Updated
+2023-10-10T12:48:42.826+05:30  INFO 28148 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Id
+2023-10-10T12:48:42.842+05:30  INFO 28148 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes
+2023-10-10T12:48:42.855+05:30  INFO 28148 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Category Id
+2023-10-10T12:48:42.866+05:30  INFO 28148 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Deleted
+2023-10-10T12:48:42.881+05:30  INFO 28148 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Added
+2023-10-10T12:48:42.894+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.UsersControllerTest]: UsersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:42.898+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.UsersControllerTest
+2023-10-10T12:48:42.986+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : Successfully Validated
+2023-10-10T12:48:43.002+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : User Successfully Deleted
+2023-10-10T12:48:43.020+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : Retrieved User details by Id
+2023-10-10T12:48:43.040+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : User successfully logged in
+2023-10-10T12:48:43.057+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : Retrieved student details by EmailId
+2023-10-10T12:48:43.073+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : User successfully registered
+2023-10-10T12:48:43.092+05:30  INFO 28148 --- [main] c.c.a.controller.UsersController         : User Successfully Updated
+2023-10-10T12:48:43.108+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest]: GlobalExceptionHandlerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:43.142+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest
+2023-10-10T12:48:43.693+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.AssessmentPortalApplicationTests]: AssessmentPortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:43.708+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.AssessmentPortalApplicationTests
+2023-10-10T12:48:43.842+05:30  INFO 28148 --- [main] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 28148 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:48:43.843+05:30  INFO 28148 --- [main] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:48:44.383+05:30  INFO 28148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:48:44.434+05:30  INFO 28148 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:48:45.140+05:30  INFO 28148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T12:48:45.215+05:30  INFO 28148 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T12:48:45.215+05:30  INFO 28148 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T12:48:45.480+05:30  INFO 28148 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T12:48:45.481+05:30  INFO 28148 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1627 ms
+2023-10-10T12:48:45.768+05:30  INFO 28148 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:48:45.801+05:30  INFO 28148 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:48:45.803+05:30  INFO 28148 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:48:45.808+05:30  INFO 28148 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-10T12:48:45.901+05:30  INFO 28148 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@20f234ec
+2023-10-10T12:48:45.903+05:30  INFO 28148 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-10T12:48:46.005+05:30  INFO 28148 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:48:46.255+05:30  INFO 28148 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:48:46.415+05:30  INFO 28148 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:48:46.956+05:30  WARN 28148 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:48:47.329+05:30  INFO 28148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6060 (http) with context path ''
+2023-10-10T12:48:47.342+05:30  INFO 28148 --- [main] c.c.a.AssessmentPortalApplication        : Started AssessmentPortalApplication in 3.613 seconds (process running for 30.03)
+2023-10-10T12:48:47.360+05:30  INFO 28148 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest]: DateOfBirthValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:48:47.385+05:30  INFO 28148 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest
+2023-10-10T12:48:48.856+05:30  INFO 28148 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:48:48.894+05:30  INFO 28148 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T12:48:48.926+05:30  INFO 28148 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T12:48:49.050+05:30  INFO 28148 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:48:49.052+05:30  INFO 28148 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-10T12:48:49.057+05:30  INFO 28148 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-10T12:55:13.966+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 9564 (D:\Tasks\Capstone\BackEnd\assessment-portal\target\classes started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:55:13.974+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:55:14.126+05:30  INFO 9564 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-10-10T12:55:14.127+05:30  INFO 9564 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-10-10T12:55:15.613+05:30  INFO 9564 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:55:15.805+05:30  INFO 9564 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 153 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:55:17.263+05:30  INFO 9564 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T12:55:17.293+05:30  INFO 9564 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T12:55:17.294+05:30  INFO 9564 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T12:55:17.460+05:30  INFO 9564 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T12:55:17.461+05:30  INFO 9564 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3331 ms
+2023-10-10T12:55:17.846+05:30  INFO 9564 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:55:17.944+05:30  INFO 9564 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T12:55:17.949+05:30  INFO 9564 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T12:55:18.261+05:30  INFO 9564 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:55:18.582+05:30  INFO 9564 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:55:18.621+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T12:55:18.992+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ee77f6f
+2023-10-10T12:55:18.995+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T12:55:19.699+05:30  INFO 9564 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:55:20.908+05:30  INFO 9564 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:55:21.051+05:30  INFO 9564 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:55:21.628+05:30  INFO 9564 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T12:55:22.699+05:30  WARN 9564 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:55:23.416+05:30  INFO 9564 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-10T12:55:23.487+05:30  INFO 9564 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6060 (http) with context path ''
+2023-10-10T12:55:23.513+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : Started AssessmentPortalApplication in 10.299 seconds (process running for 11.113)
+2023-10-10T12:56:40.742+05:30  INFO 9564 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-10T12:56:40.768+05:30  INFO 9564 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-10T12:56:40.779+05:30  INFO 9564 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:56:40.786+05:30  INFO 9564 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T12:56:40.799+05:30  INFO 9564 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T12:56:40.946+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 9564 (D:\Tasks\Capstone\BackEnd\assessment-portal\target\classes started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:56:40.947+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:56:41.389+05:30  INFO 9564 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:56:41.443+05:30  INFO 9564 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:56:41.613+05:30  INFO 9564 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T12:56:41.614+05:30  INFO 9564 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T12:56:41.615+05:30  INFO 9564 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T12:56:41.663+05:30  INFO 9564 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T12:56:41.664+05:30  INFO 9564 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 712 ms
+2023-10-10T12:56:41.735+05:30  INFO 9564 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:56:41.755+05:30  INFO 9564 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:56:41.756+05:30  INFO 9564 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:56:41.757+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-10T12:56:41.854+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@221a2f08
+2023-10-10T12:56:41.855+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-10T12:56:41.974+05:30  INFO 9564 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:56:42.205+05:30  INFO 9564 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:56:42.394+05:30  INFO 9564 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:56:42.747+05:30  WARN 9564 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:56:42.919+05:30  INFO 9564 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-10T12:56:42.938+05:30  INFO 9564 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6060 (http) with context path ''
+2023-10-10T12:56:42.948+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : Started AssessmentPortalApplication in 2.055 seconds (process running for 90.547)
+2023-10-10T12:56:42.952+05:30  INFO 9564 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-10T12:56:56.675+05:30  INFO 9564 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-10-10T12:56:56.692+05:30  INFO 9564 --- [Thread-7] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-10T12:56:56.704+05:30  INFO 9564 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:56:56.705+05:30  INFO 9564 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-10T12:56:56.713+05:30  INFO 9564 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-10T12:56:56.836+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 9564 (D:\Tasks\Capstone\BackEnd\assessment-portal\target\classes started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:56:56.836+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:56:57.208+05:30  INFO 9564 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:56:57.254+05:30  INFO 9564 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:56:57.387+05:30  INFO 9564 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T12:56:57.389+05:30  INFO 9564 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T12:56:57.389+05:30  INFO 9564 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T12:56:57.436+05:30  INFO 9564 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T12:56:57.436+05:30  INFO 9564 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 595 ms
+2023-10-10T12:56:57.490+05:30  INFO 9564 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:56:57.499+05:30  INFO 9564 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:56:57.500+05:30  INFO 9564 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:56:57.501+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-10-10T12:56:57.584+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@794d7c5c
+2023-10-10T12:56:57.585+05:30  INFO 9564 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-10-10T12:56:57.689+05:30  INFO 9564 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:56:57.883+05:30  INFO 9564 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:56:58.030+05:30  INFO 9564 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:56:58.444+05:30  WARN 9564 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:56:58.594+05:30  INFO 9564 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-10-10T12:56:58.614+05:30  INFO 9564 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6060 (http) with context path ''
+2023-10-10T12:56:58.623+05:30  INFO 9564 --- [restartedMain] c.c.a.AssessmentPortalApplication        : Started AssessmentPortalApplication in 1.831 seconds (process running for 106.223)
+2023-10-10T12:56:58.628+05:30  INFO 9564 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-10-10T12:58:17.005+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryControllerTest  : Starting CategoryControllerTest using Java 17.0.8 with PID 5380 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:58:17.013+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:58:18.961+05:30  INFO 5380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:58:19.157+05:30  INFO 5380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 165 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:58:20.378+05:30  INFO 5380 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:58:20.596+05:30  INFO 5380 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T12:58:20.607+05:30  INFO 5380 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T12:58:21.126+05:30  INFO 5380 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:58:21.163+05:30  INFO 5380 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:58:21.239+05:30  INFO 5380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T12:58:21.930+05:30  INFO 5380 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@23a9780b
+2023-10-10T12:58:21.937+05:30  INFO 5380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T12:58:23.361+05:30  INFO 5380 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:58:25.488+05:30  INFO 5380 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:58:25.730+05:30  INFO 5380 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:58:26.579+05:30  INFO 5380 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T12:58:28.425+05:30  WARN 5380 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:58:29.339+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryControllerTest  : Started CategoryControllerTest in 13.44 seconds (process running for 22.156)
+2023-10-10T12:58:29.573+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryController      : Category Successfully Added
+2023-10-10T12:58:30.130+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Categories
+2023-10-10T12:58:30.158+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryController      : Category Successfully Updated
+2023-10-10T12:58:30.180+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryController      : Category Successfully Deleted
+2023-10-10T12:58:30.205+05:30  INFO 5380 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Category by Id
+2023-10-10T12:58:30.226+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.QuestionControllerTest]: QuestionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:30.235+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.QuestionControllerTest
+2023-10-10T12:58:30.341+05:30  INFO 5380 --- [main] c.c.a.controller.QuestionController      : Question Successfully Updated
+2023-10-10T12:58:30.359+05:30  INFO 5380 --- [main] c.c.a.controller.QuestionController      : Question Successfully Deleted
+2023-10-10T12:58:30.382+05:30  INFO 5380 --- [main] c.c.a.controller.QuestionController      : Successfully Retrieved Questions By Quiz Id
+2023-10-10T12:58:30.404+05:30  INFO 5380 --- [main] c.c.a.controller.QuestionController      : Question Successfully Added
+2023-10-10T12:58:30.420+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.ResultsControllerTest]: ResultsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:30.425+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.ResultsControllerTest
+2023-10-10T12:58:30.511+05:30  INFO 5380 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T12:58:30.528+05:30  INFO 5380 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T12:58:30.542+05:30  INFO 5380 --- [main] c.c.a.controller.ResultsController       : Results Successfully Added
+2023-10-10T12:58:30.553+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.SubCategoryControllerTest]: SubCategoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:30.558+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.SubCategoryControllerTest
+2023-10-10T12:58:30.669+05:30  INFO 5380 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Updated
+2023-10-10T12:58:30.690+05:30  INFO 5380 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Id
+2023-10-10T12:58:30.711+05:30  INFO 5380 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes
+2023-10-10T12:58:30.733+05:30  INFO 5380 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Category Id
+2023-10-10T12:58:30.751+05:30  INFO 5380 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Deleted
+2023-10-10T12:58:30.770+05:30  INFO 5380 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Added
+2023-10-10T12:58:30.784+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.UsersControllerTest]: UsersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:30.789+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.UsersControllerTest
+2023-10-10T12:58:30.873+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : Successfully Validated
+2023-10-10T12:58:30.884+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : User Successfully Deleted
+2023-10-10T12:58:30.893+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : Retrieved User details by Id
+2023-10-10T12:58:30.906+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : User successfully logged in
+2023-10-10T12:58:30.923+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : Retrieved student details by EmailId
+2023-10-10T12:58:30.938+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : User successfully registered
+2023-10-10T12:58:30.952+05:30  INFO 5380 --- [main] c.c.a.controller.UsersController         : User Successfully Updated
+2023-10-10T12:58:30.966+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest]: GlobalExceptionHandlerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:31.001+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest
+2023-10-10T12:58:31.584+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.AssessmentPortalApplicationTests]: AssessmentPortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:31.601+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.AssessmentPortalApplicationTests
+2023-10-10T12:58:31.702+05:30  INFO 5380 --- [main] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 5380 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T12:58:31.702+05:30  INFO 5380 --- [main] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T12:58:32.283+05:30  INFO 5380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T12:58:32.340+05:30  INFO 5380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 5 JPA repository interfaces.
+2023-10-10T12:58:33.132+05:30  INFO 5380 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T12:58:33.192+05:30  INFO 5380 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T12:58:33.193+05:30  INFO 5380 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T12:58:33.535+05:30  INFO 5380 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T12:58:33.537+05:30  INFO 5380 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1829 ms
+2023-10-10T12:58:33.840+05:30  INFO 5380 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T12:58:33.875+05:30  INFO 5380 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:58:33.876+05:30  INFO 5380 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T12:58:33.883+05:30  INFO 5380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-10T12:58:34.073+05:30  INFO 5380 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@66413a14
+2023-10-10T12:58:34.075+05:30  INFO 5380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-10T12:58:34.203+05:30  INFO 5380 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T12:58:34.463+05:30  INFO 5380 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T12:58:34.615+05:30  INFO 5380 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:58:35.156+05:30  WARN 5380 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T12:58:35.493+05:30  WARN 5380 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2023-10-10T12:58:35.496+05:30  INFO 5380 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:58:35.503+05:30  INFO 5380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-10T12:58:35.524+05:30  INFO 5380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-10T12:58:35.528+05:30  INFO 5380 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-10-10T12:58:35.558+05:30  INFO 5380 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-10-10T12:58:35.643+05:30 ERROR 5380 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 6060 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 6060 or configure this application to listen on another port.
+
+2023-10-10T12:58:35.672+05:30  INFO 5380 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest]: DateOfBirthValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T12:58:35.689+05:30  INFO 5380 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest
+2023-10-10T12:58:37.174+05:30  INFO 5380 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T12:58:37.177+05:30  INFO 5380 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T12:58:37.194+05:30  INFO 5380 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T13:00:51.946+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryControllerTest  : Starting CategoryControllerTest using Java 17.0.8 with PID 31272 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T13:00:51.955+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T13:00:54.019+05:30  INFO 31272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T13:00:54.230+05:30  INFO 31272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 176 ms. Found 5 JPA repository interfaces.
+2023-10-10T13:00:55.504+05:30  INFO 31272 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T13:00:55.712+05:30  INFO 31272 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T13:00:55.723+05:30  INFO 31272 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T13:00:56.265+05:30  INFO 31272 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:00:56.301+05:30  INFO 31272 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T13:00:56.379+05:30  INFO 31272 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T13:00:57.145+05:30  INFO 31272 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3aa8ebf9
+2023-10-10T13:00:57.155+05:30  INFO 31272 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T13:00:58.465+05:30  INFO 31272 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:01:00.536+05:30  INFO 31272 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T13:01:00.792+05:30  INFO 31272 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:01:01.559+05:30  INFO 31272 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T13:01:03.313+05:30  WARN 31272 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T13:01:04.206+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryControllerTest  : Started CategoryControllerTest in 13.453 seconds (process running for 22.121)
+2023-10-10T13:01:04.451+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryController      : Category Successfully Added
+2023-10-10T13:01:05.030+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Categories
+2023-10-10T13:01:05.057+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryController      : Category Successfully Updated
+2023-10-10T13:01:05.076+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryController      : Category Successfully Deleted
+2023-10-10T13:01:05.095+05:30  INFO 31272 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Category by Id
+2023-10-10T13:01:05.116+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.QuestionControllerTest]: QuestionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:05.124+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.QuestionControllerTest
+2023-10-10T13:01:05.240+05:30  INFO 31272 --- [main] c.c.a.controller.QuestionController      : Question Successfully Updated
+2023-10-10T13:01:05.261+05:30  INFO 31272 --- [main] c.c.a.controller.QuestionController      : Question Successfully Deleted
+2023-10-10T13:01:05.286+05:30  INFO 31272 --- [main] c.c.a.controller.QuestionController      : Successfully Retrieved Questions By Quiz Id
+2023-10-10T13:01:05.308+05:30  INFO 31272 --- [main] c.c.a.controller.QuestionController      : Question Successfully Added
+2023-10-10T13:01:05.322+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.ResultsControllerTest]: ResultsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:05.328+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.ResultsControllerTest
+2023-10-10T13:01:05.417+05:30  INFO 31272 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T13:01:05.439+05:30  INFO 31272 --- [main] c.c.a.controller.ResultsController       : Results Successfully Retrieved
+2023-10-10T13:01:05.460+05:30  INFO 31272 --- [main] c.c.a.controller.ResultsController       : Results Successfully Added
+2023-10-10T13:01:05.477+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.SubCategoryControllerTest]: SubCategoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:05.485+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.SubCategoryControllerTest
+2023-10-10T13:01:05.606+05:30  INFO 31272 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Updated
+2023-10-10T13:01:05.622+05:30  INFO 31272 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Id
+2023-10-10T13:01:05.642+05:30  INFO 31272 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes
+2023-10-10T13:01:05.660+05:30  INFO 31272 --- [main] c.c.a.controller.SubCategoryController   : Successfully Retrieved Quizes by Category Id
+2023-10-10T13:01:05.677+05:30  INFO 31272 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Deleted
+2023-10-10T13:01:05.692+05:30  INFO 31272 --- [main] c.c.a.controller.SubCategoryController   : Quiz Successfully Added
+2023-10-10T13:01:05.708+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controller.UsersControllerTest]: UsersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:05.714+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controller.UsersControllerTest
+2023-10-10T13:01:05.839+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : Successfully Validated
+2023-10-10T13:01:05.854+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : User Successfully Deleted
+2023-10-10T13:01:05.869+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : Retrieved User details by Id
+2023-10-10T13:01:05.885+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : User successfully logged in
+2023-10-10T13:01:05.899+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : Retrieved student details by EmailId
+2023-10-10T13:01:05.911+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : User successfully registered
+2023-10-10T13:01:05.927+05:30  INFO 31272 --- [main] c.c.a.controller.UsersController         : User Successfully Updated
+2023-10-10T13:01:05.940+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest]: GlobalExceptionHandlerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:05.974+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.controlleradvice.GlobalExceptionHandlerTest
+2023-10-10T13:01:06.512+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.AssessmentPortalApplicationTests]: AssessmentPortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:06.529+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.AssessmentPortalApplicationTests
+2023-10-10T13:01:06.623+05:30  INFO 31272 --- [main] c.c.a.AssessmentPortalApplication        : Starting AssessmentPortalApplication using Java 17.0.8 with PID 31272 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T13:01:06.624+05:30  INFO 31272 --- [main] c.c.a.AssessmentPortalApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T13:01:07.250+05:30  INFO 31272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T13:01:07.312+05:30  INFO 31272 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 5 JPA repository interfaces.
+2023-10-10T13:01:08.133+05:30  INFO 31272 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6060 (http)
+2023-10-10T13:01:08.204+05:30  INFO 31272 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-10T13:01:08.205+05:30  INFO 31272 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-10-10T13:01:08.515+05:30  INFO 31272 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-10T13:01:08.516+05:30  INFO 31272 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1884 ms
+2023-10-10T13:01:08.833+05:30  INFO 31272 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T13:01:08.858+05:30  INFO 31272 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:01:08.859+05:30  INFO 31272 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T13:01:08.865+05:30  INFO 31272 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-10-10T13:01:08.956+05:30  INFO 31272 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@74f4447d
+2023-10-10T13:01:08.958+05:30  INFO 31272 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-10-10T13:01:09.073+05:30  INFO 31272 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:01:09.332+05:30  INFO 31272 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T13:01:09.490+05:30  INFO 31272 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:01:10.026+05:30  WARN 31272 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T13:01:10.442+05:30  INFO 31272 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6060 (http) with context path ''
+2023-10-10T13:01:10.453+05:30  INFO 31272 --- [main] c.c.a.AssessmentPortalApplication        : Started AssessmentPortalApplication in 3.907 seconds (process running for 28.367)
+2023-10-10T13:01:10.468+05:30  INFO 31272 --- [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest]: DateOfBirthValidatorTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-10-10T13:01:10.490+05:30  INFO 31272 --- [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.capstone.assessmentportal.AssessmentPortalApplication for test class com.capstone.assessmentportal.customannotations.DateOfBirthValidatorTest
+2023-10-10T13:01:12.487+05:30  INFO 31272 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:01:12.493+05:30  INFO 31272 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T13:01:12.501+05:30  INFO 31272 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T13:01:12.758+05:30  INFO 31272 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:01:12.760+05:30  INFO 31272 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-10-10T13:01:12.803+05:30  INFO 31272 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-10-10T13:03:57.465+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionControllerTest  : Starting QuestionControllerTest using Java 17.0.8 with PID 18276 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T13:03:57.469+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T13:03:58.825+05:30  INFO 18276 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T13:03:59.018+05:30  INFO 18276 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 164 ms. Found 5 JPA repository interfaces.
+2023-10-10T13:03:59.932+05:30  INFO 18276 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T13:04:00.052+05:30  INFO 18276 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T13:04:00.056+05:30  INFO 18276 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T13:04:00.415+05:30  INFO 18276 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:04:00.709+05:30  INFO 18276 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T13:04:00.758+05:30  INFO 18276 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T13:04:01.182+05:30  INFO 18276 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@16f15ae9
+2023-10-10T13:04:01.187+05:30  INFO 18276 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T13:04:01.864+05:30  INFO 18276 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:04:03.037+05:30  INFO 18276 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T13:04:03.175+05:30  INFO 18276 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:04:03.694+05:30  INFO 18276 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T13:04:05.045+05:30  WARN 18276 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T13:04:05.753+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionControllerTest  : Started QuestionControllerTest in 8.951 seconds (process running for 10.66)
+2023-10-10T13:04:06.916+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionController      : Question Successfully Updated
+2023-10-10T13:04:07.181+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionController      : Question Successfully Deleted
+2023-10-10T13:04:07.213+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionController      : Successfully Retrieved Questions By Quiz Id
+2023-10-10T13:04:07.244+05:30  INFO 18276 --- [main] c.c.a.controller.QuestionController      : Question Successfully Added
+2023-10-10T13:04:07.285+05:30  INFO 18276 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:04:07.293+05:30  INFO 18276 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T13:04:07.322+05:30  INFO 18276 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T13:08:49.690+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryControllerTest  : Starting CategoryControllerTest using Java 17.0.8 with PID 33580 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T13:08:49.697+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T13:08:51.205+05:30  INFO 33580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T13:08:51.401+05:30  INFO 33580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 175 ms. Found 5 JPA repository interfaces.
+2023-10-10T13:08:52.500+05:30  INFO 33580 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T13:08:52.620+05:30  INFO 33580 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T13:08:52.625+05:30  INFO 33580 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T13:08:53.040+05:30  INFO 33580 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:08:53.320+05:30  INFO 33580 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T13:08:53.364+05:30  INFO 33580 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T13:08:53.789+05:30  INFO 33580 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@c14e5a5
+2023-10-10T13:08:53.792+05:30  INFO 33580 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T13:08:54.498+05:30  INFO 33580 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:08:55.689+05:30  INFO 33580 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T13:08:55.840+05:30  INFO 33580 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:08:56.424+05:30  INFO 33580 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T13:08:57.873+05:30  WARN 33580 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T13:08:58.594+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryControllerTest  : Started CategoryControllerTest in 9.689 seconds (process running for 11.66)
+2023-10-10T13:08:59.995+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryController      : Category Successfully Added
+2023-10-10T13:09:00.141+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Categories
+2023-10-10T13:09:00.175+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryController      : Category Successfully Updated
+2023-10-10T13:09:00.207+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryController      : Category Successfully Deleted
+2023-10-10T13:09:00.240+05:30  INFO 33580 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Category by Id
+2023-10-10T13:09:00.281+05:30  INFO 33580 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:09:00.291+05:30  INFO 33580 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T13:09:00.323+05:30  INFO 33580 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-10-10T13:10:09.442+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryControllerTest  : Starting CategoryControllerTest using Java 17.0.8 with PID 16524 (started by Jaya Madhuri in D:\Tasks\Capstone\BackEnd\assessment-portal)
+2023-10-10T13:10:09.450+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2023-10-10T13:10:10.833+05:30  INFO 16524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-10T13:10:11.009+05:30  INFO 16524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 155 ms. Found 5 JPA repository interfaces.
+2023-10-10T13:10:11.936+05:30  INFO 16524 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-10T13:10:12.054+05:30  INFO 16524 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-10-10T13:10:12.060+05:30  INFO 16524 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-10T13:10:12.394+05:30  INFO 16524 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:10:12.652+05:30  INFO 16524 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-10T13:10:12.683+05:30  INFO 16524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-10T13:10:13.132+05:30  INFO 16524 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7708b66a
+2023-10-10T13:10:13.139+05:30  INFO 16524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-10T13:10:13.867+05:30  INFO 16524 --- [main] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-10-10T13:10:15.251+05:30  INFO 16524 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-10T13:10:15.384+05:30  INFO 16524 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:10:15.963+05:30  INFO 16524 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-10-10T13:10:17.291+05:30  WARN 16524 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-10T13:10:17.991+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryControllerTest  : Started CategoryControllerTest in 9.274 seconds (process running for 11.053)
+2023-10-10T13:10:19.357+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryController      : Category Successfully Added
+2023-10-10T13:10:19.461+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Categories
+2023-10-10T13:10:19.487+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryController      : Category Successfully Updated
+2023-10-10T13:10:19.513+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryController      : Category Successfully Deleted
+2023-10-10T13:10:19.536+05:30  INFO 16524 --- [main] c.c.a.controller.CategoryController      : Successfully Retrieved Category by Id
+2023-10-10T13:10:19.575+05:30  INFO 16524 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-10T13:10:19.581+05:30  INFO 16524 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-10T13:10:19.596+05:30  INFO 16524 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

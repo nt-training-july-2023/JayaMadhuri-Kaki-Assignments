@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ class ResultsControllerTest {
         expectedResponse.setMessage("Results Successfully Added");
         when(resultService.addResult(resultsDto)).thenReturn(resultsDto);
         CustomResponse<ResultsDto> response = resultsController.addResult(resultsDto);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     @Test
     void testGetAllResults() {
@@ -57,7 +57,7 @@ class ResultsControllerTest {
         
         when(resultService.getResults()).thenReturn(list);
         CustomResponse<List<ResultsDto>> response = resultsController.getResults();
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     @Test
     void testGetAllResultByStudentId() {
@@ -81,6 +81,6 @@ class ResultsControllerTest {
         when(resultService.getResultByStudentEmail(finalDto.getStudentEmailId())).thenReturn(list);
         CustomResponse<List<ResultsDto>> response = resultsController
                 .getResultByStudentEmail(finalDto.getStudentEmailId());
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 }

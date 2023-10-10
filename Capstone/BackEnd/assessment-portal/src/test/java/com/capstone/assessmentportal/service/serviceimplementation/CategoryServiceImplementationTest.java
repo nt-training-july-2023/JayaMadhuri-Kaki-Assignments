@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -59,7 +59,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDto = categoryServiceImpl.addCategory(categoryDetailsDto);
-        assertThat(categoryDetailsDto).usingRecursiveComparison().isEqualTo(categoryDto);
+        assertEquals(categoryDetailsDto,categoryDto);
     }
 
     @Test
@@ -79,7 +79,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findAll()).thenReturn(listofcategories);
         List<CategoryDetailsDto> categoryList = categoryServiceImpl.getCategories();
-        assertThat(categoryList).usingRecursiveComparison().isEqualTo(Collections.singletonList(categoryDetailsDto));
+        assertEquals(Collections.singletonList(categoryDetailsDto),categoryList);
     }
 
     @Test
@@ -98,7 +98,7 @@ class CategoryServiceImplementationTest {
                 categoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDetails = categoryServiceImpl.getCategoryById(categoryId);
-        assertThat(categoryDetailsDto).usingRecursiveComparison().isEqualTo(categoryDetails);
+        assertEquals(categoryDetailsDto,categoryDetails);
     }
     
     @Test
@@ -155,6 +155,6 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.save(category)).thenReturn(updatedCategory);
         CategoryDetailsDto categoryDto = categoryServiceImpl.updateCategory(categoryId, updatedcategoryDetailsDto);
         assertNotNull(categoryDto);
-        assertThat(updatedcategoryDetailsDto).usingRecursiveComparison().isEqualTo(categoryDto);
+        assertEquals(updatedcategoryDetailsDto,categoryDto);
     }
 }

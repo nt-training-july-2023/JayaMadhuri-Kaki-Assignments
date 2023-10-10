@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -105,7 +105,7 @@ class resultsServiceImplementationTest {
         when(subCategoryRepo.getSubCategoryByName(res.getQuizName())).thenReturn(Optional.of(subCategory));
         ResultsDto resultsdto = resultsService.addResult(resultsDto);
         assertNotNull(resultsdto);
-        assertThat(resultsDto).usingRecursiveComparison().isEqualTo(resultsdto);
+        assertEquals(resultsDto,resultsdto);
     }
     
     @Test
@@ -133,8 +133,8 @@ class resultsServiceImplementationTest {
         listoffinalresults.add(finalResults);
         resultRepo.save(finalResults);
         when(resultRepo.findAll()).thenReturn(listoffinalresults);
-        List<ResultsDto> ResultsDto = resultsService.getResults();
-        assertThat(ResultsDto).usingRecursiveComparison().isEqualTo(Collections.singletonList(resultsDto));
+        List<ResultsDto> resultDto = resultsService.getResults();
+        assertEquals(Collections.singletonList(resultsDto),resultDto);
     }
 
     @Test
@@ -156,7 +156,7 @@ class resultsServiceImplementationTest {
         resultRepo.save(finalResults);
         when(resultRepo.getResultsByStudentEmail(finalDto.getStudentEmailId())).thenReturn(listoffinalresults);
         List<ResultsDto> ResultsDto = resultsService.getResultByStudentEmail(finalDto.getStudentEmailId());
-        assertThat(ResultsDto).usingRecursiveComparison().isEqualTo(Collections.singletonList(finalDto));
+        assertEquals(Collections.singletonList(finalDto),ResultsDto);
     }
     
     @Test

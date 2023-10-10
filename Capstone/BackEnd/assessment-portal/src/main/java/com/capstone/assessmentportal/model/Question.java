@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Question {
     /**
@@ -82,6 +84,7 @@ public class Question {
     }
     /**
      * parameter constructor for question.
+     * @param questionid questionid
      * @param questioncontent questioncontent
      * @param optiona optiona
      * @param optionb optionb
@@ -89,10 +92,11 @@ public class Question {
      * @param optiond optiond
      * @param correctAns correctAns
      */
-    public Question(final String questioncontent,
+    public Question(final Long questionid, final String questioncontent,
             final String optiona, final String optionb,
             final String optionc, final String optiond,
             final Option correctAns) {
+        this.questionId = questionid;
         this.questionContent = questioncontent;
         this.optionA = optiona;
         this.optionB = optionb;

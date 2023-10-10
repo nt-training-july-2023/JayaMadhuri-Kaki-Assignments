@@ -1,6 +1,5 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -195,7 +194,7 @@ class UsersServiceImplementationTest {
         when(usersRepo.save(user)).thenReturn(updateduser);
         UserDetailsForUpdate updatedDetails = usersServiceImpl.updateStudentDetails(userId, updatedusers);
         assertNotNull(updatedDetails);
-        assertThat(updatedusers).usingRecursiveComparison().isEqualTo(updatedDetails);
+        assertEquals(updatedusers,updatedDetails);
     }
     
     @Test
@@ -229,7 +228,7 @@ class UsersServiceImplementationTest {
        
        when(usersRepo.findById(userId)).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentById(userId);
-       assertThat(expectedResult).usingRecursiveComparison().isEqualTo(result);
+       assertEquals(expectedResult,result);
     }
     
     @Test
@@ -276,7 +275,7 @@ class UsersServiceImplementationTest {
        
        when(usersRepo.findUserByEmailId(userDetails.getEmailId())).thenReturn(Optional.of(userDetails));
        UserDetails result = usersServiceImpl.getStudentDetailsByEmail(users.getEmailId());
-       assertThat(expectedResult).usingRecursiveComparison().isEqualTo(result);
+       assertEquals(expectedResult,result);
     }
     
     @Test

@@ -1,10 +1,10 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -68,7 +68,7 @@ class QuestionServiceImplementationTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
-        Question question = new Question(questionDto.getQuestionContent(),
+        Question question = new Question(questionId,questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
                 questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
         
@@ -83,7 +83,7 @@ class QuestionServiceImplementationTest {
         questionRepo.save(question);
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         QuestionDto questionDto1 = questionService.addQuestion(questionDto);
-        assertThat(questionDto).usingRecursiveComparison().isEqualTo(questionDto1);
+        assertEquals(questionDto,questionDto1);
     }
     
     @Test
@@ -91,7 +91,7 @@ class QuestionServiceImplementationTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","a","c","d",Option.optionA,10L);
         
-        Question question = new Question(questionDto.getQuestionContent(),
+        Question question = new Question(questionId,questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
                 questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
         
@@ -120,7 +120,7 @@ class QuestionServiceImplementationTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
-        Question question = new Question(questionDto.getQuestionContent(),
+        Question question = new Question(questionId,questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),
                 questionDto.getOptionC(),questionDto.getOptionD(),questionDto.getCorrectAnswer());
         
@@ -137,9 +137,7 @@ class QuestionServiceImplementationTest {
         questionRepo.save(question);
         when(questionRepo.getQuestionBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionsList);
         List<QuestionDto> questionListDto = questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
-        assertEquals("what is array", questionListDto.get(0).getQuestionContent());
-        assertEquals(questionDto.getOptionA(), questionListDto.get(0).getOptionA());
-        assertEquals(questionDto.getCorrectAnswer(), questionListDto.get(0).getCorrectAnswer());
+        assertEquals(Collections.singletonList(questionDto),questionListDto);
     }
 
     @Test
@@ -147,7 +145,7 @@ class QuestionServiceImplementationTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
-        Question question = new Question(questionDto.getQuestionContent(),
+        Question question = new Question(questionId,questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
                 questionDto.getOptionD(),questionDto.getCorrectAnswer());
         
@@ -160,14 +158,14 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionD("a");
         questionDto1.setCorrectAnswer(Option.optionA);
         
-        Question question1 = new Question(questionDto1.getQuestionContent(),
+        Question question1 = new Question(questionId,questionDto1.getQuestionContent(),
                 questionDto1.getOptionA(),questionDto1.getOptionB(),
                 questionDto1.getOptionC(),questionDto1.getOptionD(),questionDto1.getCorrectAnswer());
         
         when(questionRepo.findById(questionId)).thenReturn(Optional.of(question));
         when(questionRepo.save(question)).thenReturn(question1);
         QuestionDto questiondto = questionService.updateQuestion(questionId, questionDto1);
-        assertThat(questionDto1).usingRecursiveComparison().isEqualTo(questiondto);
+        assertEquals(questionDto1,questiondto);
     }
     
     @Test
@@ -175,7 +173,7 @@ class QuestionServiceImplementationTest {
         Long questionId = 1L;
         QuestionDto questionDto = new QuestionDto(questionId,"what is array","a","b","c","d",Option.optionA,10L);
         
-        Question question = new Question(questionDto.getQuestionContent(),
+        Question question = new Question(questionId,questionDto.getQuestionContent(),
                 questionDto.getOptionA(),questionDto.getOptionB(),questionDto.getOptionC(),
                 questionDto.getOptionD(),questionDto.getCorrectAnswer());
         
@@ -188,7 +186,7 @@ class QuestionServiceImplementationTest {
         questionDto1.setOptionD("a");
         questionDto1.setCorrectAnswer(Option.optionA);
         
-        Question question1 = new Question(questionDto1.getQuestionContent(),
+        Question question1 = new Question(questionId,questionDto1.getQuestionContent(),
                 questionDto1.getOptionA(),questionDto1.getOptionB(),
                 questionDto1.getOptionC(),questionDto1.getOptionD(),questionDto1.getCorrectAnswer());
         

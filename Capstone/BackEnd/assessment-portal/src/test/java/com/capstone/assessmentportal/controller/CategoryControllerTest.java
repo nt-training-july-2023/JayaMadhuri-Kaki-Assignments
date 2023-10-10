@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ class CategoryControllerTest {
         expectedResponse.setMessage("Category Successfully Added");
         when(categoryService.addCategory(categoryDetailsDto)).thenReturn(categoryDetailsDto);
         CustomResponse<CategoryDetailsDto> response = categoryController.addCategory(categoryDetailsDto);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -50,7 +50,7 @@ class CategoryControllerTest {
         expectedResponse.setResponseData(listofCategories);
         when(categoryService.getCategories()).thenReturn(listofCategories);
         CustomResponse<List<CategoryDetailsDto>> response = categoryController.getCategories();
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -63,7 +63,7 @@ class CategoryControllerTest {
         expectedResponse.setResponseData(categoryDetailsDto);
         when(categoryService.getCategoryById(categoryId)).thenReturn(categoryDetailsDto);
         CustomResponse<CategoryDetailsDto> response = categoryController.getCategoryById(categoryId);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -73,7 +73,7 @@ class CategoryControllerTest {
         CustomResponse<CategoryDetailsDto> expectedResponse = new CustomResponse<>();
         expectedResponse.setStatusCode(200);
         expectedResponse.setMessage("Category Successfully Deleted");
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -88,7 +88,7 @@ class CategoryControllerTest {
         .thenReturn(existingcategoryDetailsDto);
         CustomResponse<CategoryDetailsDto> response = categoryController
                 .updateCategory(categoryId,existingcategoryDetailsDto);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
 }

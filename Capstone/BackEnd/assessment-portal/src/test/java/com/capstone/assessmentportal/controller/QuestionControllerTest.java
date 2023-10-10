@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ class QuestionControllerTest {
         when(questionService.getQuestionsBySubCategoryId(questionDto.getSubCategoryId())).thenReturn(questionlist);
         CustomResponse<List<QuestionDto>> response = questionController
                 .getQuestionsBySubCategoryId(questionDto.getSubCategoryId());
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -51,7 +51,7 @@ class QuestionControllerTest {
         expectedResponse.setMessage("Question Successfully Added");
         when(questionService.addQuestion(questionDto)).thenReturn(questionDto);
         CustomResponse<QuestionDto> response = questionController.addQuestion(questionDto);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -63,7 +63,7 @@ class QuestionControllerTest {
         expectedResponse.setMessage("Question Successfully Updated");
         when(questionService.updateQuestion(questionId,questionDto)).thenReturn(questionDto);
         CustomResponse<QuestionDto> response = questionController.updateQuestion(questionId,questionDto);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -73,7 +73,7 @@ class QuestionControllerTest {
         CustomResponse<QuestionDto> expectedResponse = new CustomResponse<>();
         expectedResponse.setStatusCode(200);
         expectedResponse.setMessage("Question Successfully Deleted");
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
 }

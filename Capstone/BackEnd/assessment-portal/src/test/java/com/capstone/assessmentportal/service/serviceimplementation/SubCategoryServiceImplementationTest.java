@@ -1,6 +1,5 @@
 package com.capstone.assessmentportal.service.serviceimplementation;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -67,7 +66,7 @@ class SubCategoryServiceImplementationTest {
         subCategoryRepo.save(subCategory);
         when(subCategoryRepo.findById(subCategoryId)).thenReturn(Optional.of(subCategory));
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.addSubCategory(subCategoryDto);
-        assertThat(subCategoryDto).usingRecursiveComparison().isEqualTo(subCategoryDetailsDto);
+        assertEquals(subCategoryDto,subCategoryDetailsDto);
     }
     
     @Test
@@ -147,7 +146,7 @@ class SubCategoryServiceImplementationTest {
         listOfSubCategories.add(subCategory);
         when(subCategoryRepo.findAll()).thenReturn(listOfSubCategories);
         List<SubCategoryDetailsDto> subCategoryList = subCategoryServiceImpl.getSubCategories();
-        assertThat(subCategoryList).usingRecursiveComparison().isEqualTo(Collections.singletonList(subCategoryDto));
+        assertEquals(Collections.singletonList(subCategoryDto),subCategoryList);
     }
 
     @Test
@@ -178,7 +177,7 @@ class SubCategoryServiceImplementationTest {
         subCategoryRepo.save(subCategory);
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.getSubCategoryById(subCategoryId);
-        assertThat(subCategoryDto).usingRecursiveComparison().isEqualTo(subCategoryDetailsDto);
+        assertEquals(subCategoryDto,subCategoryDetailsDto);
     }
     
     @Test
@@ -243,7 +242,7 @@ class SubCategoryServiceImplementationTest {
         when(subCategoryRepo.findById(subCategoryDto.getSubCategoryId())).thenReturn(Optional.of(subCategory));
         when(subCategoryRepo.save(subCategory)).thenReturn(subCategory1);
         SubCategoryDetailsDto subCategoryDetailsDto = subCategoryServiceImpl.updateSubCategory(subCategoryDto1, subCategoryId);
-        assertThat(subCategoryDto).usingRecursiveComparison().isEqualTo(subCategoryDetailsDto);
+        assertEquals(subCategoryDetailsDto,subCategoryDto);
     }
     
     @Test
@@ -351,6 +350,6 @@ class SubCategoryServiceImplementationTest {
         subCategoryRepo.save(subCategory);
         when(subCategoryRepo.getSubCategoryByCategoryId(subCategoryDto.getCategoryId())).thenReturn(listOfSubcategories);
         List<SubCategoryDetailsDto> listOfsubCategoriesDto = subCategoryServiceImpl.getSubCategoryByCategoryId(10L);
-        assertThat(listOfsubCategoriesDto).usingRecursiveComparison().isEqualTo(Collections.singletonList(subCategoryDto));
+        assertEquals(Collections.singletonList(subCategoryDto),listOfsubCategoriesDto);
     }
 }

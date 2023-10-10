@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ class SubCategoryControllerTest {
         expectedResponse.setResponseData(subCategorylist);
         when(subCategoryService.getSubCategories()).thenReturn(subCategorylist);
         CustomResponse<List<SubCategoryDetailsDto>> response = subcategoryController.getSubCategories();
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -56,7 +56,7 @@ class SubCategoryControllerTest {
         
         when(subCategoryService.getSubCategoryById(subCategoryId)).thenReturn(subCategoryDto);
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.getSubCategoryById(subCategoryId);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -78,7 +78,7 @@ class SubCategoryControllerTest {
         .thenReturn(list);
         CustomResponse<List<SubCategoryDetailsDto>> response = subcategoryController
                 .getSubCategoryByCategoryId(subCategoryDto.getCategoryId());
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -97,7 +97,7 @@ class SubCategoryControllerTest {
         
         when(subCategoryService.addSubCategory(subCategoryDto)).thenReturn(subCategoryDto);
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.addSubCategory(subCategoryDto);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -115,7 +115,7 @@ class SubCategoryControllerTest {
         
         when(subCategoryService.updateSubCategory(subCategoryDto1, subCategoryId)).thenReturn(subCategoryDto1);
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.updateSubCategory(subCategoryId,subCategoryDto1);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -126,7 +126,7 @@ class SubCategoryControllerTest {
         expectedResponse.setMessage("Quiz Successfully Deleted");
         
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.deleteSubCategory(subCategoryId);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
 }

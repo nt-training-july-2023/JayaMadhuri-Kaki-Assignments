@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
@@ -49,7 +49,7 @@ class UsersControllerTest {
         String name = users.getFirstName() + users.getLastName();
         when(usersService.studentRegistration(users)).thenReturn(name);
         CustomResponse<SignUpRequest> response = usersController.studentRegistration(users);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -67,7 +67,7 @@ class UsersControllerTest {
         
         when(usersService.authenticateUser(login)).thenReturn(userDetails);
         CustomResponse<Map<String, String>> response = usersController.userLogin(login);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -81,7 +81,7 @@ class UsersControllerTest {
         
         when(usersService.getStudentById(studentId)).thenReturn(users);
         CustomResponse<UserDetails> response = usersController.getStudentById(studentId);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     
     @Test
@@ -95,7 +95,7 @@ class UsersControllerTest {
         
         when(usersService.getStudentDetailsByEmail(studentEmail)).thenReturn(users);
         CustomResponse<UserDetails> response = usersController.getStudentByEmailId(studentEmail);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     
     @Test
@@ -106,7 +106,7 @@ class UsersControllerTest {
         expectedResponse.setMessage("Successfully Validated");
         when(usersService.getUsersDetailsByEmail(email)).thenReturn("User Not exists with Email");
         CustomResponse<UserDetails> response = usersController.getUserByEmailId(email);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -124,7 +124,7 @@ class UsersControllerTest {
         
         when(usersService.updateStudentDetails(userId, users)).thenReturn(users);
         CustomResponse<UserDetailsForUpdate> response = usersController.updateStudentDetails(userId,users);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -135,7 +135,7 @@ class UsersControllerTest {
         expectedResponse.setMessage("User Successfully Deleted");
         
         CustomResponse<UserDetails> response = usersController.deleteStudent(userId);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 
 }

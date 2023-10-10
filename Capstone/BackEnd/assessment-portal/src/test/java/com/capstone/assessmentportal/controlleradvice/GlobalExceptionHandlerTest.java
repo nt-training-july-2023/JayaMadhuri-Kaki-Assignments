@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controlleradvice;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ class GlobalExceptionHandlerTest {
         
         when(methodArgumentNotValidException.getBindingResult()).thenReturn(bindingResult);
         CustomResponse<MethodArgumentNotValidException> errorMap = globalhandler.handleEmptyInput(methodArgumentNotValidException);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(errorMap);
+        assertEquals(expectedResponse,errorMap);
     }
     
     private BindingResult mockBindingResult() {
@@ -62,7 +62,7 @@ class GlobalExceptionHandlerTest {
         expectedResponse.setMessage("User not found");
         UserNotFoundException noSuch = new UserNotFoundException("User not found");
         CustomResponse<UserNotFoundException> response = globalhandler.handleUserNotFound(noSuch);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     
     @Test 
@@ -72,7 +72,7 @@ class GlobalExceptionHandlerTest {
         expectedResponse.setMessage("Category Name already exists");
         DataIntegrityViolationException noSuch = new DataIntegrityViolationException("Category Name already exists");
         CustomResponse<DataIntegrityViolationException> response = globalhandler.handleConflict(noSuch);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     
     @Test 
@@ -82,7 +82,7 @@ class GlobalExceptionHandlerTest {
         expectedResponse.setStatusCode(409);
         expectedResponse.setMessage(noSuch.getLocalizedMessage());
         CustomResponse<HttpMessageNotReadableException> response = globalhandler.handleHttpMessageNotReadableException(noSuch);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
     
     @Test
@@ -92,7 +92,7 @@ class GlobalExceptionHandlerTest {
        expectedResponse.setStatusCode(404);
        expectedResponse.setMessage("No such element found");
        CustomResponse<NoSuchElementException> response = globalhandler.handleNoSuchElement(noSuch);
-       assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+       assertEquals(expectedResponse,response);
     }
     
     @Test
@@ -102,6 +102,6 @@ class GlobalExceptionHandlerTest {
         expectedResponse.setStatusCode(409);
         expectedResponse.setMessage("Element already exists");
         CustomResponse<AlreadyExistsException> response = globalhandler.handleAlreadyExistsException(noSuch);
-        assertThat(expectedResponse).usingRecursiveComparison().isEqualTo(response);
+        assertEquals(expectedResponse,response);
     }
 }
