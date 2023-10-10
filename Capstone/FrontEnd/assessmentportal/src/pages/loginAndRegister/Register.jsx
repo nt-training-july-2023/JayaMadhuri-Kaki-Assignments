@@ -151,7 +151,7 @@ const Register = (props) => {
       if (registerRequestBody?.emailId.length > 0) {
         UsersUrl.CheckUserByEmail(registerRequestBody.emailId)
           .then(response => {
-            if (response?.data?.statusCode == 200) {
+            if (response?.status == 200) {
               setEmail(registerRequestBody.emailId)
               setButtonName("Next")
             }
