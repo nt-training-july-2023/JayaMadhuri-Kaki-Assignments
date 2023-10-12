@@ -66,7 +66,7 @@ class Alert{
             return CategoryUrl.deleteCategory(Id)
         }
     }
-    Delete(fetchData,Id,question,quiz,category){
+    Delete(fetchData,Id,question,quiz,category,setRenderComponent){
         Swal.fire({
             text: sweetAlertMessages.DELETE_MSG,
             icon: sweetAlertMessages.WARNING,
@@ -87,7 +87,9 @@ class Alert{
                     }).catch(error => {
                         if (error?.response?.status == "404") {
                             this.Warning(sweetAlertMessages.DELETE,sweetAlertMessages.ID_NOT_FOUND)
-                        }
+                        }else  if (error?.message == "Network Error") {
+                            this.NetworkError(setRenderComponent)
+                        } 
                     })
                 }
         })
@@ -97,12 +99,46 @@ class Alert{
             title: sweetAlertMessages.ERROR,
             text: text,
             timer: 1500,
+            icon: "warning",
             showConfirmButton: false,
             showCancelButton: false,
-            icon: sweetAlertMessages.WARNING,
             background: "#15172b",
             color: "white",
         });
+    }
+    NetworkError(setRenderComponent){
+        Swal.fire({
+            text: sweetAlertMessages.SERVER_DOWN,
+            showCancelButton: true,
+            confirmButtonColor: 'white',
+            cancelButtonColor: 'white',
+            icon: "warning",
+            cancelButtonText: sweetAlertMessages.CANCEL_BUTTON_TEXT,
+            confirmButtonText: sweetAlertMessages.CONFIRM_BUTTON_TEXT,
+            background: "#15172b",
+            color: "white",
+            customClass: {
+                confirmButton: 'custom-button-text',
+                cancelButton: 'custom-button-text',
+            },
+        }).then(async(result) =>{
+            if (result.value === true) {
+                setTimeout(function () {
+                    localStorage.setItem("UserDetails","");
+                    localStorage.setItem("Current_Window","");
+                    localStorage.setItem("Current_SubWindow","")
+                    localStorage.setItem("LastVisited_Window","");
+                    localStorage.setItem("Current_Category_SubWindow","")
+                    localStorage.setItem("CategoryId","")
+                    localStorage.setItem("CategoryName","")
+                    localStorage.setItem("QuizName","")
+                    localStorage.setItem("QuizId","")
+                    localStorage.setItem("Current_Quiz_SubWindow","")
+                    localStorage.setItem("details","")
+                    setRenderComponent("login")
+                }, 1000)   
+            }
+        })
     }
     Error(title,text){
         Swal.fire({

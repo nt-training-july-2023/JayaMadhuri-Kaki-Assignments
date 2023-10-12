@@ -27,11 +27,11 @@ const Navbar = (props) => {
     }
     const render = () => {
         if (activeButton === "profile") {
-            return <Profile userDetails={userInfo} />
+            return <Profile userDetails={userInfo} setRenderComponent={setRenderComponent}/>
         } else if (activeButton === "results") {
-            return <Results userDetails={userInfo} />
+            return <Results userDetails={userInfo} setRenderComponent={setRenderComponent}/>
         } else {
-            return <Category userDetails={userInfo} setEnable={setEnable} />
+            return <Category userDetails={userInfo} setEnable={setEnable} setRenderComponent={setRenderComponent}/>
         }
     }
     const handleLogOut = () => {

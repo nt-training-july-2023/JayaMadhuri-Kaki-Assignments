@@ -79,8 +79,8 @@ const Login = (props) => {
                 }).catch(error => {
                     if (error?.response?.status == 401) {
                         Alert.Warning(sweetAlertMessages.INCORRECT_CREDENTIALS)
-                    } else if (error?.message == "Network Error") {
-                        Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+                    } else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                        Alert.Warning(sweetAlertMessages.SERVER_DOWN)
                     } else{
                         console.error(error)
                     }

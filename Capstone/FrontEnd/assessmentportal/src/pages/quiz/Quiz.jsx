@@ -11,7 +11,7 @@ import CommonCard from '../../components/card/CommonCard';
 import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Quiz = (props) => {
-    const { userDetails, setShowQuiz, selectedId, setEnable, selectedName } = props;
+    const { userDetails, setShowQuiz, selectedId, setEnable, selectedName, setRenderComponent } = props;
     const showQuestion_AfterRefresh = localStorage.getItem("Current_Quiz_SubWindow")
     const categoryId = localStorage.getItem("CategoryId")
     const categoryName = localStorage.getItem("CategoryName")
@@ -50,7 +50,9 @@ const Quiz = (props) => {
                 if (error?.response?.statusCode == 400) {
                     setLoading(true)
                     Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
-                }
+                }else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
+                } 
             })
     };
     const getUserDetails = async () => {
@@ -61,8 +63,8 @@ const Quiz = (props) => {
                     setDetails(user);
                 }
             }).catch(error => {
-                if (error?.response?.message === "Network Error") {
-                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+                if (error?.response?.message === sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
                 }
             })
     }
@@ -149,12 +151,12 @@ const Quiz = (props) => {
                             <HeadingTwo className='h2-no-list' children="No Quizes"/>
                         )}
                         {popUp && (
-                            <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable}/>
+                            <AddUpdateQuiz title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable} setRenderComponent={setRenderComponent}/>
                         )}
                     </div>}
             </>
             ) : (
-                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} />) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={categoryId} setEnable={setEnable} />)}</>
+                <>{userDetails?.UserType === "Admin" ? (<Question selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} selectedQuizName={selectedQuizName} selectedName={selectedName} setRenderComponent={setRenderComponent}/>) : (<QuestionForStudent selectedQuizId={selectedQuizId} setShowQuestion={setShowQuestion} time={time} details={details} selectedId={categoryId} setEnable={setEnable} setRenderComponent={setRenderComponent}/>)}</>
             )}
         </div>
     )

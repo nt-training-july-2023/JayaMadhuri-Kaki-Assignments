@@ -6,7 +6,7 @@ import maleProfileImage from '../../assets/images/profile/male-profile.jpg';
 import femaleProfileImage from '../../assets/images/profile/female-profile.jpg';
 import Alert from '../../components/sweetAlert/Alert';
 import HeadingOne from '../../components/heading/HeadingOne';
-const Profile = ({ userDetails }) => {
+const Profile = ({ userDetails,setRenderComponent }) => {
     const [details, setDetails] = useState({});
     const handleUserDetails = async () => {
         UsersUrl.getUserByEmail(userDetails.EmailId)
@@ -16,8 +16,8 @@ const Profile = ({ userDetails }) => {
                     setDetails(user);
                 }
             }).catch(error => {
-                if (error?.response?.message === "Network Error") {
-                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+                if (error?.message === sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
                 }
             })
     }

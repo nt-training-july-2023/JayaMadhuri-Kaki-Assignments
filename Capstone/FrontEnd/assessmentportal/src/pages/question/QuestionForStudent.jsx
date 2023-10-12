@@ -11,7 +11,7 @@ import Button from '../../components/button/Button';
 import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const QuestionForStudent = (props) => {
-    const { selectedQuizId, setShowQuestion, time, details, setEnable} = props;
+    const { selectedQuizId, setShowQuestion, time, details, setEnable, setRenderComponent} = props;
     const quizId = localStorage.getItem("QuizId")
     const details_AfterRefresh = JSON.parse(localStorage.getItem("details"))
     const categoryName = localStorage.getItem("CategoryName");
@@ -30,7 +30,11 @@ const QuestionForStudent = (props) => {
                 setQuestion(response?.data?.responseData);
                 localStorage.setItem('question', btoa(JSON.stringify(response?.data?.responseData)));
             }).catch(error => {
-                Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
+                if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
+                }else{
+                    Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
+                }
             })
     };
     const handleAnswerClick = (questionId, optionValue) => {
@@ -84,16 +88,20 @@ const QuestionForStudent = (props) => {
     Url.addResults(results)
         .then(response => {
         }).catch(error => {
-            Alert.Warning(sweetAlertMessages.PLEASE_ATTEMPT_QUIZ)
-            setTimeout(function () {
-                setEnable(false)
-                setShowQuestion(false)
-                localStorage.setItem('reloadCount', '');
-                localStorage.setItem("time","")
-                localStorage.setItem("attemptedQuestions","");
-                localStorage.setItem("Current_Quiz_SubWindow","")
-                localStorage.setItem("selectedOption","{}");
-            }, 1500);
+            if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                Alert.NetworkError(setRenderComponent)
+            }else{
+                Alert.Warning(sweetAlertMessages.PLEASE_ATTEMPT_QUIZ)
+                setTimeout(function () {
+                    setEnable(false)
+                    setShowQuestion(false)
+                    localStorage.setItem('reloadCount', '');
+                    localStorage.setItem("time","")
+                    localStorage.setItem("attemptedQuestions","");
+                    localStorage.setItem("Current_Quiz_SubWindow","")
+                    localStorage.setItem("selectedOption","{}");
+                }, 1500);
+            }
         })
     }
     const incrementReloadCount = () => {

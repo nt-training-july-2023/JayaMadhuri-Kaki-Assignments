@@ -10,7 +10,7 @@ import CommonCard from '../../components/card/CommonCard';
 import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Category = (props) => {
-    const { userDetails, setEnable } = props
+    const { userDetails, setEnable, setRenderComponent } = props
     const showQuiz_AfterRefresh = localStorage.getItem("Current_Category_SubWindow")
     const [category, setCategory] = useState([])
     const [title, setTitle] = useState("Add Category")
@@ -38,8 +38,12 @@ const Category = (props) => {
                 setCategory(response?.data?.responseData)
                 setLoading(true);
             }).catch(error => {
-                setLoading(true);
-                Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
+                if(error?.message === sweetAlertMessages.NETWORK_ERROR){
+                    Alert.NetworkError(setRenderComponent)
+                }else{
+                    setLoading(true);
+                    Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
+                }
             })
     }
     const onClickCategory = (item) => {
@@ -58,7 +62,7 @@ const Category = (props) => {
         setIsDisable(true)
     }
     const onClickCategoryDelete = (item) => {
-        Alert.Delete(fetchData, item.categoryId, false, false, true)
+        Alert.Delete(fetchData, item.categoryId, false, false, true,setRenderComponent)
     }
     useEffect(() => {
         fetchData()
@@ -92,7 +96,7 @@ const Category = (props) => {
                                 <HeadingTwo className='h2-no-list' children={"No Categories"}/>
                             )}
                         {popUp && (
-                            <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable}/>
+                            <AddUpdateCategory title={title} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable} setRenderComponent={setRenderComponent}/>
                         )}
                     </>}
                 </div>
