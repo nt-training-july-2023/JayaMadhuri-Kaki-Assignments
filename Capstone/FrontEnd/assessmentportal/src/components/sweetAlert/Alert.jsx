@@ -113,7 +113,7 @@ class Alert{
             confirmButtonColor: 'white',
             cancelButtonColor: 'white',
             icon: "warning",
-            cancelButtonText: sweetAlertMessages.CANCEL_BUTTON_TEXT,
+            cancelButtonText: sweetAlertMessages.CANCEL_BUTTON_TEXT_RELOAD,
             confirmButtonText: sweetAlertMessages.CONFIRM_BUTTON_TEXT,
             background: "#15172b",
             color: "white",
@@ -137,6 +137,8 @@ class Alert{
                     localStorage.setItem("details","")
                     setRenderComponent("login")
                 }, 1000)   
+            }else{
+                window.location.reload(false);
             }
         })
     }
