@@ -9,7 +9,7 @@ import HeadingOne from '../../components/heading/HeadingOne';
 import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateQuestion = (props) => {
-    const { titleQuestion, setPopUp, initialValues, fetchData, setIsDisable } = props
+    const { titleQuestion, setPopUp, initialValues, fetchData, setIsDisable, setRenderComponent } = props
     const [questionDetails, setQuestionDetails] = useState(initialValues)
     const [selectedOptionIndex, setSelectedOptionIndex] = useState(-1);
     const initialErrors = {
@@ -35,6 +35,8 @@ const AddUpdateQuestion = (props) => {
                     Alert.Warning(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else if (error?.response?.data?.statusCode === 400){
                     Alert.Warning(error?.response?.data?.message)
+                }else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
                 }else{
                     Alert.Warning(sweetAlertMessages.ALL_FIELDS_REQUIRED)
                 }
@@ -54,9 +56,9 @@ const AddUpdateQuestion = (props) => {
                     Alert.Warning(sweetAlertMessages.OPTIONS_DIFFERENT)
                 }else if (error?.response?.data?.statusCode === 400){
                     Alert.Warning(error?.response?.data?.message)
-                }else{
-                    console.error(error)
-                }
+                }else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
+                } 
             })
     }
     const handleClick = () => {

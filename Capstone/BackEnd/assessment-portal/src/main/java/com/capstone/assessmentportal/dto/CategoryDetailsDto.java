@@ -1,5 +1,7 @@
 package com.capstone.assessmentportal.dto;
 
+import java.util.Objects;
+
 import com.capstone.assessmentportal.response.ValidationMessage;
 
 import jakarta.persistence.Column;
@@ -37,4 +39,30 @@ public class CategoryDetailsDto {
    *category description attribute.
   */
   private String categoryDescription;
+  /**
+   *hashcode method.
+  */
+  @Override
+  public final int hashCode() {
+    return Objects.hash(categoryDescription, categoryId, categoryName);
+  }
+  /**
+   *equals method.
+  */
+  @Override
+  public final boolean equals(final Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null) {
+        return false;
+    }
+    if (getClass() != obj.getClass()) {
+        return false;
+    }
+    CategoryDetailsDto other = (CategoryDetailsDto) obj;
+    return Objects.equals(categoryDescription, other.categoryDescription)
+            && Objects.equals(categoryId, other.categoryId)
+            && Objects.equals(categoryName, other.categoryName);
+  }
 }

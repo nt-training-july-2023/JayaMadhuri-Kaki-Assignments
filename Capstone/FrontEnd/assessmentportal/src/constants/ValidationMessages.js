@@ -37,7 +37,9 @@ export const sweetAlertMessages = {
     INSTRUCTIONS:"Instructions",
     INSTRUCTIONS_MSG:"<div class='sweetalert-text'><li>Once, test started user should not leave the quiz without submit. If not results will not be stored<br></li><li>Each question carries one mark.</li><li>After submitting quiz kindly go to results page to view your results.</li><div>",
     CANCEL_BUTTON_TEXT:"<span class='sweetalert-button'> Stay </span>",
-    CONFIRM_BUTTON_TEXT:"<span class='sweetalert-button'>Logout</span>"
+    CONFIRM_BUTTON_TEXT:"<span class='sweetalert-button'>Logout</span>",
+    SERVER_DOWN:"Server down please try after some time!",
+    CANCEL_BUTTON_TEXT_RELOAD:"<span class='sweetalert-button'> Reload </span>",
 }
 
 export const errorMessages = {

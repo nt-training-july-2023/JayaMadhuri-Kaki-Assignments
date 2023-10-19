@@ -9,7 +9,7 @@ import HeadingOne from '../../components/heading/HeadingOne';
 import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateQuiz = (props) => {
-    const { title, setPopUp, initialValues, fetchData, setIsDisable } = props;
+    const { title, setPopUp, initialValues, fetchData, setIsDisable, setRenderComponent } = props;
     const [quizDetails, setQuizDetails] = useState(initialValues);
     const [error, setError] = useState("");
     const [timeError, setTimeError] = useState("");
@@ -30,9 +30,9 @@ const AddUpdateQuiz = (props) => {
                             Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         }else if(error?.response?.status === 400){
                             Alert.Warning(errorMessages.QUIZ_NAME_REQUIRED)
-                        }else{
-                            console.error(error)
-                        }
+                        }else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                            Alert.NetworkError(setRenderComponent)
+                        } 
                     })
 
             } else {
@@ -47,7 +47,6 @@ const AddUpdateQuiz = (props) => {
             if (quizDetails?.timeLimitInMinutes.length != 0) {
                 setError('')
                 setTimeError('')
-                setError('')
                 QuizUrl.updateQuiz(initialValues.subCategoryId, quizDetails)
                     .then(response => {
                         if (response?.data?.statusCode === 200) {
@@ -61,9 +60,9 @@ const AddUpdateQuiz = (props) => {
                             Alert.Warning(sweetAlertMessages.QUIZ_ALREADY_EXISTS)
                         }else if(error?.response?.status === 400){
                             Alert.Warning(errorMessages.QUIZ_NAME_REQUIRED)
-                        }else{
-                            console.error(error)
-                        }
+                        }else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                            Alert.NetworkError(setRenderComponent)
+                        } 
                     })
             } else {
                 setTimeError(errorMessages.TIME_LIMIT_REQUIRED)

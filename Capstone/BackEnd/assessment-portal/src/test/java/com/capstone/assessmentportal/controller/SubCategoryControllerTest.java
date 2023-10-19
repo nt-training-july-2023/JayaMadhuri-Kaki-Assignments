@@ -1,6 +1,6 @@
 package com.capstone.assessmentportal.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import com.capstone.assessmentportal.dto.SubCategoryDetailsDto;
 import com.capstone.assessmentportal.repository.CategoryRepo;
 import com.capstone.assessmentportal.response.CustomResponse;
@@ -32,11 +31,13 @@ class SubCategoryControllerTest {
     @Test
     void testGetAllSubCategories() {
         List<SubCategoryDetailsDto> subCategorylist = new ArrayList<>();
+        CustomResponse<List<SubCategoryDetailsDto>> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Successfully Retrieved Quizes");
+        expectedResponse.setResponseData(subCategorylist);
         when(subCategoryService.getSubCategories()).thenReturn(subCategorylist);
         CustomResponse<List<SubCategoryDetailsDto>> response = subcategoryController.getSubCategories();
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(subCategorylist,response.getResponseData());
-        assertEquals("Successfully Retrieved Quizes",response.getMessage());
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -48,11 +49,14 @@ class SubCategoryControllerTest {
         subCategoryDto.setCategoryId(10L);
         subCategoryDto.setSubCategoryId(1L);
         
+        CustomResponse<SubCategoryDetailsDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Successfully Retrieved Quizes by Id");
+        expectedResponse.setResponseData(subCategoryDto);
+        
         when(subCategoryService.getSubCategoryById(subCategoryId)).thenReturn(subCategoryDto);
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.getSubCategoryById(subCategoryId);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(subCategoryDto,response.getResponseData());
-        assertEquals("Successfully Retrieved Quizes by Id",response.getMessage());
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -65,13 +69,16 @@ class SubCategoryControllerTest {
         subCategoryDto.setSubCategoryId(subCategoryId);
         
         List<SubCategoryDetailsDto> list = new ArrayList<>();
+        CustomResponse<List<SubCategoryDetailsDto>> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Successfully Retrieved Quizes by Category Id");
+        expectedResponse.setResponseData(list);
+        
         when(subCategoryService.getSubCategoryByCategoryId(subCategoryDto.getCategoryId()))
         .thenReturn(list);
         CustomResponse<List<SubCategoryDetailsDto>> response = subcategoryController
                 .getSubCategoryByCategoryId(subCategoryDto.getCategoryId());
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals(list,response.getResponseData());
-        assertEquals("Successfully Retrieved Quizes by Category Id",response.getMessage());
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -84,10 +91,13 @@ class SubCategoryControllerTest {
         subCategoryDto.setSubCategoryDescription("Topic in Java");
         subCategoryDto.setSubCategoryId(subCategoryId);
         
+        CustomResponse<SubCategoryDetailsDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Quiz Successfully Added");
+        
         when(subCategoryService.addSubCategory(subCategoryDto)).thenReturn(subCategoryDto);
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.addSubCategory(subCategoryDto);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Quiz Successfully Added",response.getMessage());
+        assertEquals(expectedResponse,response);
     }
 
     @Test
@@ -99,18 +109,24 @@ class SubCategoryControllerTest {
         subCategoryDto1.setSubCategoryDescription("programming language");
         subCategoryDto1.setTimeLimitInMinutes("100");
         
+        CustomResponse<SubCategoryDetailsDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Quiz Successfully Updated");
+        
         when(subCategoryService.updateSubCategory(subCategoryDto1, subCategoryId)).thenReturn(subCategoryDto1);
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.updateSubCategory(subCategoryId,subCategoryDto1);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Quiz Successfully Updated",response.getMessage());
+        assertEquals(expectedResponse,response);
     }
 
     @Test
     void testDeleteSubCategory() {
         Long subCategoryId = 1L;
+        CustomResponse<SubCategoryDetailsDto> expectedResponse = new CustomResponse<>();
+        expectedResponse.setStatusCode(200);
+        expectedResponse.setMessage("Quiz Successfully Deleted");
+        
         CustomResponse<SubCategoryDetailsDto> response = subcategoryController.deleteSubCategory(subCategoryId);
-        assertEquals(HttpStatus.OK.value(),response.getStatusCode());
-        assertEquals("Quiz Successfully Deleted",response.getMessage());
+        assertEquals(expectedResponse,response);
     }
 
 }

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -58,9 +59,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDto = categoryServiceImpl.addCategory(categoryDetailsDto);
-        assertEquals(categoryDto.getCategoryId(), category.getCategoryId());
-        assertEquals(categoryDto.getCategoryName(), category.getCategoryName());
-        assertEquals(categoryDto.getCategoryDescription(), category.getCategoryDescription());
+        assertEquals(categoryDetailsDto,categoryDto);
     }
 
     @Test
@@ -80,8 +79,7 @@ class CategoryServiceImplementationTest {
         categoryRepo.save(category);
         when(categoryRepo.findAll()).thenReturn(listofcategories);
         List<CategoryDetailsDto> categoryList = categoryServiceImpl.getCategories();
-        assertEquals("Java", categoryList.get(0).getCategoryName());
-        assertEquals(category.getCategoryId(), categoryList.get(0).getCategoryId());
+        assertEquals(Collections.singletonList(categoryDetailsDto),categoryList);
     }
 
     @Test
@@ -100,8 +98,7 @@ class CategoryServiceImplementationTest {
                 categoryDetailsDto.getCategoryDescription());
         when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
         CategoryDetailsDto categoryDetails = categoryServiceImpl.getCategoryById(categoryId);
-        assertEquals(category.getCategoryName(), categoryDetails.getCategoryName());
-        assertEquals(category.getCategoryId(), categoryDetails.getCategoryId());
+        assertEquals(categoryDetailsDto,categoryDetails);
     }
     
     @Test
@@ -148,8 +145,9 @@ class CategoryServiceImplementationTest {
         Category category = new Category(existingcategoryDetailsDto.getCategoryId(),existingcategoryDetailsDto.getCategoryName(),
                 existingcategoryDetailsDto.getCategoryDescription());
         
-        CategoryDetailsDto updatedcategoryDetailsDto = new CategoryDetailsDto(categoryId,"Spring","Programming language");
-        
+        CategoryDetailsDto updatedcategoryDetailsDto = new CategoryDetailsDto();
+        updatedcategoryDetailsDto.setCategoryName("Spring");
+        updatedcategoryDetailsDto.setCategoryDescription("Programming language");
         Category updatedCategory = new Category(updatedcategoryDetailsDto.getCategoryId(),updatedcategoryDetailsDto.getCategoryName(),
                 updatedcategoryDetailsDto.getCategoryDescription());
         
@@ -157,7 +155,6 @@ class CategoryServiceImplementationTest {
         when(categoryRepo.save(category)).thenReturn(updatedCategory);
         CategoryDetailsDto categoryDto = categoryServiceImpl.updateCategory(categoryId, updatedcategoryDetailsDto);
         assertNotNull(categoryDto);
-        assertEquals(updatedCategory.getCategoryName(),categoryDto.getCategoryName());
-        assertEquals(updatedCategory.getCategoryDescription(),categoryDto.getCategoryDescription());
+        assertEquals(updatedcategoryDetailsDto,categoryDto);
     }
 }

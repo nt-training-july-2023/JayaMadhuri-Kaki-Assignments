@@ -151,16 +151,16 @@ const Register = (props) => {
       if (registerRequestBody?.emailId.length > 0) {
         UsersUrl.CheckUserByEmail(registerRequestBody.emailId)
           .then(response => {
-            if (response?.data?.statusCode == 200) {
+            if (response?.status == 200) {
               setEmail(registerRequestBody.emailId)
               setButtonName("Next")
             }
           }).catch(error => {
             if (error?.response?.status == 409) {
               Alert.Warning(sweetAlertMessages.EMAIL_ALREADY_EXISTS)
-            }else{
-              Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
-            }
+            }else if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+              Alert.Warning(sweetAlertMessages.SERVER_DOWN)
+            } 
           })
       } else {
         setErrors({ ...errors, emailId: errorMessages.EMAIL_REQUIRED });
@@ -186,8 +186,8 @@ const Register = (props) => {
         }
       })
       .catch(error => {
-        if (error?.message == "Network Error") {
-          Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+        if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+          Alert.Warning(sweetAlertMessages.SERVER_DOWN)
         } else if(error?.response?.data?.message == "Age should be atleast 18 years old"){
           Alert.Warning(sweetAlertMessages.AGE_VALIDATION)
         }else if(error?.response?.status == 400){

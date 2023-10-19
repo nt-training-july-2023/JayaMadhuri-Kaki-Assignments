@@ -9,7 +9,7 @@ import Alert from '../../components/sweetAlert/Alert';
 import HeadingTwo from '../../components/heading/HeadingTwo';
 
 const Question = (props) => {
-    const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName } = props
+    const { selectedQuizId, setShowQuestion, selectedQuizName, selectedName, setRenderComponent } = props
     const categoryName = localStorage.getItem("CategoryName")
     const QuizName = localStorage.getItem("QuizName")
     const QuizId = localStorage.getItem("QuizId")
@@ -49,8 +49,12 @@ const Question = (props) => {
                 setQuestion(response?.data?.responseData)
                 setLoading(true)
             }).catch(error => {
-                setLoading(true)
-                Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
+                if (error?.message == sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
+                }else{
+                    setLoading(true)
+                    Alert.Warning(sweetAlertMessages.ERROR_GETTING_LIST)
+                }
             })
     }
     useEffect(() => {
@@ -94,7 +98,7 @@ const Question = (props) => {
                     {question.length > 0 ? (
                         <div className="question-container">
                             <CommonTable columns={columns} data={question} rows={rows} setPopUp={setPopUp} setInitialValues={setInitialValues}
-                            setTitleQuestion={setTitleQuestion} fetchData={fetchData} setIsDisable={setIsDisable}/>
+                            setTitleQuestion={setTitleQuestion} fetchData={fetchData} setIsDisable={setIsDisable} setRenderComponent={setRenderComponent}/>
                         </div>
                     ) : (
                         <HeadingTwo className='h2-no-list' children={"No Questions"}/>
@@ -104,7 +108,7 @@ const Question = (props) => {
             }
             <>
                 {popUp && (
-                    <AddUpdateQuestion titleQuestion={titleQuestion} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable}/>
+                    <AddUpdateQuestion titleQuestion={titleQuestion} initialValues={initialValues} setPopUp={setPopUp} fetchData={fetchData} setIsDisable={setIsDisable} setRenderComponent={setRenderComponent}/>
                 )}
             </>
         </div>

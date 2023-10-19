@@ -1,5 +1,5 @@
 import '../../styles/Category.scss'
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../button/Button';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
 import Paragraph from '../paragraph/Paragraph';
@@ -22,17 +22,17 @@ const CommonCard = (props) => {
             </div>
             {cardType == "Quiz" && <Paragraph children={`Time: ${data.timeLimitInMinutes} minutes`} />}
             {userType === "Admin" && <div className='categorycard-buttons-div'>
-                <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
+                <Button onClick={(event) => {
                     event.stopPropagation()
                     onClickUpdate();
                 }} className='categorycard-button categorycard-button-update'><FaPencilAlt className='icons' />Update</Button>
-                <Button onMouseDown={event => event.stopPropagation()} onClick={(event) => {
+                <Button onClick={(event) => {
                     event.stopPropagation()
                     onClickDelete();
                 }} className='categorycard-button categorycard-button-delete'><FaTrashAlt className='icons' />Delete</Button>
             </div>}
             {(userType === "Student" && cardType == "Quiz") &&
-                <Button onMouseDown={event => event.stopPropagation()}
+                <Button
                     className='categorycard-button start-test-button'
                     onClick={onClickStartTest}
                     children="Start Test"

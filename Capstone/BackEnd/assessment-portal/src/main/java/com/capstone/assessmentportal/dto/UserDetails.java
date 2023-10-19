@@ -1,5 +1,7 @@
 package com.capstone.assessmentportal.dto;
 
+import java.util.Objects;
+
 import com.capstone.assessmentportal.response.ValidationMessage;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -70,4 +72,35 @@ public class UserDetails {
    *role of user attribute.
  */
   private String userType = "Student";
+  /**
+   *hashcode method.
+  */
+  @Override
+  public final int hashCode() {
+    return Objects.hash(dateOfBirth, emailId, firstName,
+            gender, lastName, userId, userType);
+  }
+  /**
+   *equals method.
+  */
+  @Override
+  public final boolean equals(final Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null) {
+        return false;
+    }
+    if (getClass() != obj.getClass()) {
+        return false;
+    }
+    UserDetails other = (UserDetails) obj;
+    return Objects.equals(dateOfBirth, other.dateOfBirth)
+            && Objects.equals(emailId, other.emailId)
+            && Objects.equals(firstName, other.firstName)
+            && gender == other.gender
+            && Objects.equals(lastName, other.lastName)
+            && Objects.equals(userId, other.userId)
+            && Objects.equals(userType, other.userType);
+  }
 }

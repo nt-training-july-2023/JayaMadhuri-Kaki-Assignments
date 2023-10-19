@@ -1,5 +1,7 @@
 package com.capstone.assessmentportal.dto;
 
+import java.util.Objects;
+
 import com.capstone.assessmentportal.response.ValidationMessage;
 
 import jakarta.persistence.EnumType;
@@ -42,4 +44,31 @@ public class UserDetailsForUpdate {
  */
   @Enumerated(EnumType.STRING)
   private Gender gender;
+  /**
+   *hashcode method.
+  */
+  @Override
+  public final int hashCode() {
+    return Objects.hash(dateOfBirth, firstName, gender, lastName);
+  }
+  /**
+   *equals method.
+  */
+  @Override
+  public final boolean equals(final Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null) {
+        return false;
+    }
+    if (getClass() != obj.getClass()) {
+        return false;
+    }
+    UserDetailsForUpdate other = (UserDetailsForUpdate) obj;
+    return Objects.equals(dateOfBirth, other.dateOfBirth)
+            && Objects.equals(firstName, other.firstName)
+            && gender == other.gender
+            && Objects.equals(lastName, other.lastName);
+  }
 }

@@ -2,6 +2,7 @@ package com.capstone.assessmentportal.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import com.capstone.assessmentportal.response.ValidationMessage;
 
@@ -98,5 +99,42 @@ public class ResultsDto {
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("yyyy-MM-dd HH:mm:ss");
         return currentDateTime.format(formatter);
+    }
+    /**
+     *hashcode method.
+    */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(categoryName, dateAndTime, marksObtained,
+                numOfAttemptedQuestions, quizName, resultId,
+                studentEmailId, studentId, studentName, totalMarks,
+                totalQuestions);
+    }
+    /**
+     *equals method.
+    */
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ResultsDto other = (ResultsDto) obj;
+        return Objects.equals(categoryName, other.categoryName)
+                && Objects.equals(dateAndTime, other.dateAndTime)
+                && marksObtained == other.marksObtained
+                && numOfAttemptedQuestions == other.numOfAttemptedQuestions
+                && Objects.equals(quizName, other.quizName)
+                && Objects.equals(resultId, other.resultId)
+                && Objects.equals(studentEmailId, other.studentEmailId)
+                && Objects.equals(studentId, other.studentId)
+                && Objects.equals(studentName, other.studentName)
+                && totalMarks == other.totalMarks
+                && totalQuestions == other.totalQuestions;
     }
 }

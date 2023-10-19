@@ -9,7 +9,7 @@ import HeadingOne from '../../components/heading/HeadingOne';
 import Paragraph from '../../components/paragraph/Paragraph';
 
 const AddUpdateCategory = (props) => {
-    const { title, setPopUp, initialValues, fetchData, setIsDisable } = props;
+    const { title, setPopUp, initialValues, fetchData, setIsDisable, setRenderComponent } = props;
     const [categoryDetails, setCategoryDetails] = useState(initialValues);
     const [error, setError] = useState("");
     const handleAdd = () => {
@@ -27,8 +27,8 @@ const AddUpdateCategory = (props) => {
                         Alert.Warning(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
                     }else if(error?.response?.status === 400){
                         Alert.Warning(errorMessages.CATEGORY_NAME_REQUIRED)
-                    }else{
-                        console.error(error)
+                    }else if(error?.message === sweetAlertMessages.NETWORK_ERROR){
+                        Alert.NetworkError(setRenderComponent)
                     }
                 })
         } else {
@@ -51,8 +51,8 @@ const AddUpdateCategory = (props) => {
                         Alert.Warning(sweetAlertMessages.CATEGORY_ALREADY_EXISTS)
                     }else if(error?.response?.status === 400){
                         Alert.Warning(errorMessages.CATEGORY_NAME_REQUIRED)
-                    }else{
-                        console.error(error)
+                    }else if(error?.message === sweetAlertMessages.NETWORK_ERROR){
+                        Alert.NetworkError(setRenderComponent)
                     }
                 })
         } else {

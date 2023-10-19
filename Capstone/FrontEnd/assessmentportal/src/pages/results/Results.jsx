@@ -7,7 +7,7 @@ import Alert from '../../components/sweetAlert/Alert';
 import HeadingOne from '../../components/heading/HeadingOne';
 import HeadingTwo from '../../components/heading/HeadingTwo';
 
-const Results = ({ userDetails }) => {
+const Results = ({ userDetails, setRenderComponent }) => {
     const [results, setResults] = useState([]);
     const handleResutlts = async () => {
         FinalResultsUrl.getResults()
@@ -16,8 +16,8 @@ const Results = ({ userDetails }) => {
                     setResults(response?.data?.responseData)
                 }
             }).catch(error => {
-                if (error?.response?.message === "Network Error") {
-                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+                if (error?.message === sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
                 }
             })
     }
@@ -28,8 +28,8 @@ const Results = ({ userDetails }) => {
                     setResults(response?.data?.responseData)
                 }
             }).catch(error => {
-                if (error?.response?.message === "Network Error") {
-                    Alert.Warning(sweetAlertMessages.NETWORK_ERROR)
+                if (error?.message === sweetAlertMessages.NETWORK_ERROR) {
+                    Alert.NetworkError(setRenderComponent)
                 }
             })
     }

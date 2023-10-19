@@ -1,5 +1,7 @@
 package com.capstone.assessmentportal.dto;
 
+import java.util.Objects;
+
 import com.capstone.assessmentportal.response.ValidationMessage;
 
 import jakarta.persistence.Column;
@@ -70,4 +72,37 @@ public class QuestionDto {
     @Column(nullable = false)
     @NotNull(message = ValidationMessage.QUIZID_NOTNULL)
     private Long subCategoryId;
+    /**
+     *hashcode method.
+    */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(correctAnswer, optionA, optionB,
+                optionC, optionD, questionContent, questionId,
+                subCategoryId);
+    }
+    /**
+     *equals method.
+    */
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        QuestionDto other = (QuestionDto) obj;
+        return correctAnswer == other.correctAnswer
+                && Objects.equals(optionA, other.optionA)
+                && Objects.equals(optionB, other.optionB)
+                && Objects.equals(optionC, other.optionC)
+                && Objects.equals(optionD, other.optionD)
+                && Objects.equals(questionContent, other.questionContent)
+                && Objects.equals(questionId, other.questionId)
+                && Objects.equals(subCategoryId, other.subCategoryId);
+    }
 }

@@ -1,5 +1,7 @@
 package com.capstone.assessmentportal.dto;
 
+import java.util.Objects;
+
 import com.capstone.assessmentportal.response.ValidationMessage;
 
 import jakarta.persistence.Column;
@@ -7,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class SubCategoryDetailsDto {
    *subcategory time limit in minutes for quiz attribute.
   */
   @Column(nullable = false)
-  @NotEmpty(message = ValidationMessage.TIMELIMIT_NOTBLANK)
+  @NotBlank(message = ValidationMessage.TIMELIMIT_NOTBLANK)
   private String timeLimitInMinutes;
   /**
    *category Id attribute.
@@ -51,4 +52,34 @@ public class SubCategoryDetailsDto {
   @Column(nullable = false)
   @NotNull(message = ValidationMessage.CATEGORY_NOTNULL)
   private Long categoryId;
+  /**
+   *hashcode method.
+  */
+  @Override
+  public final int hashCode() {
+    return Objects.hash(categoryId, subCategoryDescription,
+            subCategoryId, subCategoryName, timeLimitInMinutes);
+  }
+  /**
+   *equals method.
+  */
+  @Override
+  public final boolean equals(final Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null) {
+        return false;
+    }
+    if (getClass() != obj.getClass()) {
+        return false;
+    }
+    SubCategoryDetailsDto other = (SubCategoryDetailsDto) obj;
+    return Objects.equals(categoryId, other.categoryId)
+            && Objects.equals(subCategoryDescription,
+                    other.subCategoryDescription)
+            && Objects.equals(subCategoryId, other.subCategoryId)
+            && Objects.equals(subCategoryName, other.subCategoryName)
+            && Objects.equals(timeLimitInMinutes, other.timeLimitInMinutes);
+  }
 }
