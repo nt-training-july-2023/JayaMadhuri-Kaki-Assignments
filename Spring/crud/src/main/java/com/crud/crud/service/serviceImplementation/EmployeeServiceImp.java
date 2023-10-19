@@ -26,8 +26,8 @@ public class EmployeeServiceImp implements EmployeeService {
 	}
 
 	@Override
-	public void addEmployees(List<Employee> employee) {
-		r.saveAll(employee);
+	public void addEmployees(Employee employee) {
+		r.save(employee);
 		
 	}
 
