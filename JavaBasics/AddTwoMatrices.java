@@ -1,5 +1,6 @@
 public class AddTwoMatrices {
-	public static void main(String args[]) {
+	public static void main(String args[])
+	{
 		int arr[][] = new int[2][2];
 		int arr1[][] = {{1,2},{2,3}};
 		int arr2[][] = {{3,4},{2,5}};
