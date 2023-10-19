@@ -8,7 +8,7 @@ import com.crud.crud.entity.Employee;
 public interface EmployeeService {
 	Optional<Employee> getEmployeeById(int id);
 	List<Employee> getAllEmployees();
-	void addEmployees(List<Employee> employee);
+	void addEmployees(Employee employee);
 	Employee updateEmployee(Employee employee, int id);
 	void deleteEmployee(int id);
 }
