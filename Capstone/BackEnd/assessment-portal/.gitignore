@@ -35,3 +35,7 @@ build/
 /.mvn
 /mvnw
 /mvnw.cmd
+.dockerignore
+Dockerfile
+compose.yaml
+postgres/
